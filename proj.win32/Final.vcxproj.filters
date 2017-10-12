@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="win32">
+      <UniqueIdentifier>{84a8ebd7-7cf0-47f6-b75e-d441df67da40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resource">
+      <UniqueIdentifier>{715254bc-d70b-4ec5-bf29-467dd3ace079}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\common">
+      <UniqueIdentifier>{562f9101-ac58-44a6-a77d-61eb7c146fe8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\scene001">
+      <UniqueIdentifier>{8d2da532-ffb4-4b17-a0e1-e6afedb88cef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\MainScene">
+      <UniqueIdentifier>{b08d35aa-831c-4a35-807b-4295aac587c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Action Scene">
+      <UniqueIdentifier>{194eaf91-fdfc-4f32-acc8-f4dae9ac6a96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Action Scene\RunScene">
+      <UniqueIdentifier>{9b2fc409-9f39-4fcc-877a-5abd38a1a0c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\GameScene">
+      <UniqueIdentifier>{85c2b211-61c7-49c2-93d4-c00e8f7011e4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AppDelegate.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MainScene\SelectionScene.cpp">
+      <Filter>src\MainScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\common\CButton.cpp">
+      <Filter>src\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MainScene\MainScene.cpp">
+      <Filter>src\MainScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scene001\kitchenScene.cpp">
+      <Filter>src\scene001</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\common\CBox.cpp">
+      <Filter>src\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\common\CPlayer.cpp">
+      <Filter>src\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ActionScene\RunScene\CRunner.cpp">
+      <Filter>src\Action Scene\RunScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ActionScene\RunScene\CObject.cpp">
+      <Filter>src\Action Scene\RunScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ActionScene\RunScene\RunScene1.cpp">
+      <Filter>src\Action Scene\RunScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ActionScene\RunScene\CFall.cpp">
+      <Filter>src\Action Scene\RunScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ActionScene\RunScene\CObstacle.cpp">
+      <Filter>src\Action Scene\RunScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\common\CLock.cpp">
+      <Filter>src\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\common\CItem.cpp">
+      <Filter>src\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\common\CTrigger.cpp">
+      <Filter>src\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\common\CLightbox.cpp">
+      <Filter>src\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameScene\labScene.cpp">
+      <Filter>src\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\common\CBag.cpp">
+      <Filter>src\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\common\xmlTrigger.cpp">
+      <Filter>src\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\common\xmlItems.cpp">
+      <Filter>src\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\common\xmlBag .cpp">
+      <Filter>src\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\common\CMix.cpp">
+      <Filter>src\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\common\xmlScene.cpp">
+      <Filter>src\common</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="main.h">
+      <Filter>win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AppDelegate.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MainScene\SelectionScene.h">
+      <Filter>src\MainScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\CButton.h">
+      <Filter>src\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MainScene\MainScene.h">
+      <Filter>src\MainScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scene001\kitchenScene.h">
+      <Filter>src\scene001</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\CBox.h">
+      <Filter>src\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\CPlayer.h">
+      <Filter>src\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ActionScene\RunScene\CRunner.h">
+      <Filter>src\Action Scene\RunScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ActionScene\RunScene\CObject.h">
+      <Filter>src\Action Scene\RunScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ActionScene\RunScene\RunScene1.h">
+      <Filter>src\Action Scene\RunScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ActionScene\RunScene\CObstacle.h">
+      <Filter>src\Action Scene\RunScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ActionScene\RunScene\CFall.h">
+      <Filter>src\Action Scene\RunScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\CLock.h">
+      <Filter>src\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\CItem.h">
+      <Filter>src\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\CTrigger.h">
+      <Filter>src\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\CLightbox.h">
+      <Filter>src\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameScene\labScene.h">
+      <Filter>src\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\CBag.h">
+      <Filter>src\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\xmlTrigger.h">
+      <Filter>src\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\xmlItems.h">
+      <Filter>src\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\xmlBag .h">
+      <Filter>src\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\CMix.h">
+      <Filter>src\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\xmlScene.h">
+      <Filter>src\common</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="game.rc">
+      <Filter>resource</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataRoot version="1.0">
+    <!--this is xml comment-->
+    <scene>
+        <item no.="0" arrangement="" name="B_water.png">true</item>
+        <item no.="1" arrangement="" name="B_glassrod.png">true</item>
+        <item no.="2" arrangement="" name="B_red.png">true</item>
+        <item no.="3" arrangement="" name="B_green.png">false</item>
+        <item no.="4" arrangement="" name="B_water.png">false</item>
+        <item no.="5" arrangement="" name="B_glassrod.png">false</item>
+        <item no.="6" arrangement="" name="B_herbY.png">false</item>
+    </scene>
+</DataRoot>

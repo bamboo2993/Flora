@@ -1,0 +1,231 @@
+<Solution>
+  <PropertyGroup Name="Final" Version="3.10.0.0" Type="CocosStudio" />
+  <SolutionFolder>
+    <Group ctype="ResourceGroup">
+      <RootFolder Name=".">
+        <Folder Name="ActionScene">
+          <Folder Name="RunScene">
+            <PlistImageFolder Image="boyrunning.png" PListFile="boyrunning.plist" Name=".boyrunning_PList.Dir">
+              <PlistImageFile Name="boy_run_01.png" Key="boy_run_01.png" />
+              <PlistImageFile Name="boy_run_02.png" Key="boy_run_02.png" />
+              <PlistImageFile Name="boy_run_03.png" Key="boy_run_03.png" />
+              <PlistImageFile Name="boy_run_04.png" Key="boy_run_04.png" />
+              <PlistImageFile Name="boy_run_05.png" Key="boy_run_05.png" />
+              <PlistImageFile Name="boy_run_06.png" Key="boy_run_06.png" />
+              <PlistImageFile Name="boy_run_07.png" Key="boy_run_07.png" />
+              <PlistImageFile Name="boy_run_08.png" Key="boy_run_08.png" />
+              <PlistImageFile Name="boy_run_09.png" Key="boy_run_09.png" />
+              <PlistImageFile Name="boy_run_10.png" Key="boy_run_10.png" />
+              <PlistImageFile Name="boy_run_11.png" Key="boy_run_11.png" />
+            </PlistImageFolder>
+            <PlistImageFolder Image="runscene.png" PListFile="runscene.plist" Name=".runscene_PList.Dir">
+              <PlistImageFile Name="house01.png" Key="house01.png" />
+              <PlistImageFile Name="house02.png" Key="house02.png" />
+              <PlistImageFile Name="house03.png" Key="house03.png" />
+              <PlistImageFile Name="lattice.png" Key="lattice.png" />
+              <PlistImageFile Name="tree01.png" Key="tree01.png" />
+              <PlistImageFile Name="tree02.png" Key="tree02.png" />
+              <PlistImageFile Name="tree03.png" Key="tree03.png" />
+            </PlistImageFolder>
+            <PlistImageFolder Image="runscene02.png" PListFile="runscene02.plist" Name=".runscene02_PList.Dir">
+              <PlistImageFile Name="cloud.png" Key="cloud.png" />
+              <PlistImageFile Name="grass.png" Key="grass.png" />
+              <PlistImageFile Name="road02.png" Key="road02.png" />
+              <PlistImageFile Name="roadfg.png" Key="roadfg.png" />
+            </PlistImageFolder>
+            <Image Name="black.png" />
+            <Image Name="blur01.png" />
+            <Image Name="blur02.png" />
+            <Image Name="house01.png" />
+            <Image Name="house02.png" />
+            <Image Name="lattice.png" />
+            <Image Name="sky.png" />
+            <Image Name="tree01.png" />
+            <Image Name="tree02.png" />
+          </Folder>
+        </Folder>
+        <Folder Name="Animation">
+          <PlistImageFolder Image="ater.png" PListFile="ater.plist" Name=".ater_PList.Dir">
+            <PlistImageFile Name="ater_001.png" Key="ater_001.png" />
+            <PlistImageFile Name="ater_002.png" Key="ater_002.png" />
+            <PlistImageFile Name="ater_003.png" Key="ater_003.png" />
+            <PlistImageFile Name="ater_004.png" Key="ater_004.png" />
+            <PlistImageFile Name="ater_005.png" Key="ater_005.png" />
+            <PlistImageFile Name="ater_006.png" Key="ater_006.png" />
+            <PlistImageFile Name="ater_007.png" Key="ater_007.png" />
+            <PlistImageFile Name="ater_008.png" Key="ater_008.png" />
+            <PlistImageFile Name="ater45_001.png" Key="ater45_001.png" />
+            <PlistImageFile Name="ater45_002.png" Key="ater45_002.png" />
+            <PlistImageFile Name="ater45_003.png" Key="ater45_003.png" />
+            <PlistImageFile Name="ater45_004.png" Key="ater45_004.png" />
+            <PlistImageFile Name="ater45_005.png" Key="ater45_005.png" />
+            <PlistImageFile Name="ater45_006.png" Key="ater45_006.png" />
+            <PlistImageFile Name="ater45_007.png" Key="ater45_007.png" />
+            <PlistImageFile Name="ater45_008.png" Key="ater45_008.png" />
+            <PlistImageFile Name="aterBack_001.png" Key="aterBack_001.png" />
+            <PlistImageFile Name="aterBack_002.png" Key="aterBack_002.png" />
+            <PlistImageFile Name="aterBack_003.png" Key="aterBack_003.png" />
+            <PlistImageFile Name="aterBack_004.png" Key="aterBack_004.png" />
+            <PlistImageFile Name="aterBack_005.png" Key="aterBack_005.png" />
+            <PlistImageFile Name="aterBack_006.png" Key="aterBack_006.png" />
+            <PlistImageFile Name="aterBack_007.png" Key="aterBack_007.png" />
+            <PlistImageFile Name="aterBack_008.png" Key="aterBack_008.png" />
+          </PlistImageFolder>
+        </Folder>
+        <Folder Name="fonts">
+          <TTF Name="arial.ttf" />
+          <Fnt Name="couriernew32.fnt" />
+          <Fnt Name="hansans48.fnt" />
+          <TTF Name="HKYuanMini.ttf" />
+          <TTF Name="Marker Felt.ttf" />
+        </Folder>
+        <Folder Name="GameScene">
+          <Folder Name="labScene">
+            <PlistImageFolder Image="labScene.png" PListFile="labScene.plist" Name=".labScene_PList.Dir">
+              <PlistImageFile Name="alcohol_lamp01.png" Key="alcohol_lamp01.png" />
+              <PlistImageFile Name="alcohol_lamp02.png" Key="alcohol_lamp02.png" />
+              <PlistImageFile Name="B_blue.png" Key="B_blue.png" />
+              <PlistImageFile Name="B_glassrod.png" Key="B_glassrod.png" />
+              <PlistImageFile Name="B_green.png" Key="B_green.png" />
+              <PlistImageFile Name="B_herbDG.png" Key="B_herbDG.png" />
+              <PlistImageFile Name="B_herbG.png" Key="B_herbG.png" />
+              <PlistImageFile Name="B_herbR.png" Key="B_herbR.png" />
+              <PlistImageFile Name="B_herbY.png" Key="B_herbY.png" />
+              <PlistImageFile Name="B_red.png" Key="B_red.png" />
+              <PlistImageFile Name="B_water.png" Key="B_water.png" />
+              <PlistImageFile Name="B_yellow.png" Key="B_yellow.png" />
+              <PlistImageFile Name="bag.png" Key="bag.png" />
+              <PlistImageFile Name="beaker.png" Key="beaker.png" />
+              <PlistImageFile Name="beaker_blue.png" Key="beaker_blue.png" />
+              <PlistImageFile Name="beaker_brown.png" Key="beaker_brown.png" />
+              <PlistImageFile Name="beaker_brownSh.png" Key="beaker_brownSh.png" />
+              <PlistImageFile Name="beaker_false01.png" Key="beaker_false01.png" />
+              <PlistImageFile Name="beaker_false02.png" Key="beaker_false02.png" />
+              <PlistImageFile Name="beaker_green.png" Key="beaker_green.png" />
+              <PlistImageFile Name="beaker_orange.png" Key="beaker_orange.png" />
+              <PlistImageFile Name="beaker_purple.png" Key="beaker_purple.png" />
+              <PlistImageFile Name="beaker_red.png" Key="beaker_red.png" />
+              <PlistImageFile Name="beaker_yellow.png" Key="beaker_yellow.png" />
+              <PlistImageFile Name="blue.png" Key="blue.png" />
+              <PlistImageFile Name="bowl.png" Key="bowl.png" />
+              <PlistImageFile Name="bowl_darkgreen.png" Key="bowl_darkgreen.png" />
+              <PlistImageFile Name="bowl_green.png" Key="bowl_green.png" />
+              <PlistImageFile Name="bowl_red.png" Key="bowl_red.png" />
+              <PlistImageFile Name="bowl_yellow.png" Key="bowl_yellow.png" />
+              <PlistImageFile Name="E_blue.png" Key="E_blue.png" />
+              <PlistImageFile Name="E_green.png" Key="E_green.png" />
+              <PlistImageFile Name="E_node1.png" Key="E_node1.png" />
+              <PlistImageFile Name="E_node2.png" Key="E_node2.png" />
+              <PlistImageFile Name="E_red.png" Key="E_red.png" />
+              <PlistImageFile Name="E_yellow.png" Key="E_yellow.png" />
+              <PlistImageFile Name="glassrod.png" Key="glassrod.png" />
+              <PlistImageFile Name="green.png" Key="green.png" />
+              <PlistImageFile Name="red.png" Key="red.png" />
+              <PlistImageFile Name="trashcan.png" Key="trashcan.png" />
+              <PlistImageFile Name="water.png" Key="water.png" />
+              <PlistImageFile Name="yellow.png" Key="yellow.png" />
+            </PlistImageFolder>
+            <Image Name="lab_full.png" />
+            <Image Name="labScene_blur.png" />
+            <Image Name="labScene01.png" />
+            <Image Name="labScene02.png" />
+            <Image Name="procedure.png" />
+          </Folder>
+        </Folder>
+        <Folder Name="MainScene">
+          <Image Name="Mainscene.png" />
+          <Image Name="Selectionscene.png" />
+        </Folder>
+        <PlistImageFolder Image="Mainscene.png" PListFile="mainscene.plist" Name=".mainscene_PList.Dir">
+          <PlistImageFile Name="bean.png" Key="bean.png" />
+          <PlistImageFile Name="Mainscene01.png" Key="Mainscene01.png" />
+        </PlistImageFolder>
+        <Folder Name="music">
+          <Audio Name="arrivalsfinalsound.mp3" />
+          <Audio Name="bump.mp3" />
+          <Audio Name="debranch.mp3" />
+          <Audio Name="gain point.mp3" />
+          <Audio Name="grid.mp3" />
+          <Audio Name="lab_bgm.mp3" />
+          <Audio Name="mix.mp3" />
+          <Audio Name="powder.mp3" />
+          <Audio Name="running.mp3" />
+          <Audio Name="SR_bg.mp3" />
+          <Audio Name="thinking cloud.mp3" />
+          <Audio Name="water.mp3" />
+        </Folder>
+        <PlistImageFolder Image="SceneKitchenbg.png" PListFile="SceneKitchenbg.plist" Name=".SceneKitchenbg_PList.Dir">
+          <PlistImageFile Name="bag_click.png" Key="bag_click.png" />
+          <PlistImageFile Name="bag_normal.png" Key="bag_normal.png" />
+          <PlistImageFile Name="blurKitchenbg.png" Key="blurKitchenbg.png" />
+          <PlistImageFile Name="cabinet01.png" Key="cabinet01.png" />
+          <PlistImageFile Name="cabinet02.png" Key="cabinet02.png" />
+          <PlistImageFile Name="cabinet03.png" Key="cabinet03.png" />
+          <PlistImageFile Name="fridge01.png" Key="fridge01.png" />
+          <PlistImageFile Name="fridge02.png" Key="fridge02.png" />
+          <PlistImageFile Name="grid.png" Key="grid.png" />
+          <PlistImageFile Name="kitchenbg.png" Key="kitchenbg.png" />
+          <PlistImageFile Name="mainScene.png" Key="mainScene.png" />
+        </PlistImageFolder>
+        <PlistImageFolder Image="SceneKitchenitem.png" PListFile="SceneKitchenitem.plist" Name=".SceneKitchenitem_PList.Dir">
+          <PlistImageFile Name="apple.png" Key="apple.png" />
+          <PlistImageFile Name="cheese.png" Key="cheese.png" />
+          <PlistImageFile Name="cheeseCard.png" Key="cheeseCard.png" />
+          <PlistImageFile Name="container.png" Key="container.png" />
+          <PlistImageFile Name="cookie.png" Key="cookie.png" />
+          <PlistImageFile Name="oil.png" Key="oil.png" />
+          <PlistImageFile Name="plate.png" Key="plate.png" />
+          <PlistImageFile Name="pot01.png" Key="pot01.png" />
+          <PlistImageFile Name="pot02.png" Key="pot02.png" />
+          <PlistImageFile Name="pot03.png" Key="pot03.png" />
+          <PlistImageFile Name="salt.png" Key="salt.png" />
+          <PlistImageFile Name="soyasause.png" Key="soyasause.png" />
+          <PlistImageFile Name="vinegar.png" Key="vinegar.png" />
+        </PlistImageFolder>
+        <PlistImageFolder Image="SceneKitchenppl.png" PListFile="SceneKitchenppl.plist" Name=".SceneKitchenppl_PList.Dir">
+          <PlistImageFile Name="boy.png" Key="boy.png" />
+          <PlistImageFile Name="boyEmotion001.png" Key="boyEmotion001.png" />
+          <PlistImageFile Name="boyEmotion002.png" Key="boyEmotion002.png" />
+          <PlistImageFile Name="boywalk001.png" Key="boywalk001.png" />
+          <PlistImageFile Name="boywalk002.png" Key="boywalk002.png" />
+          <PlistImageFile Name="boywalk003.png" Key="boywalk003.png" />
+          <PlistImageFile Name="boywalk004.png" Key="boywalk004.png" />
+          <PlistImageFile Name="boywalk005.png" Key="boywalk005.png" />
+          <PlistImageFile Name="boywalk006.png" Key="boywalk006.png" />
+          <PlistImageFile Name="boywalk007.png" Key="boywalk007.png" />
+          <PlistImageFile Name="boywalk008.png" Key="boywalk008.png" />
+          <PlistImageFile Name="chefEmotion001.png" Key="chefEmotion001.png" />
+          <PlistImageFile Name="chefEmotion002.png" Key="chefEmotion002.png" />
+          <PlistImageFile Name="chefEmotion003.png" Key="chefEmotion003.png" />
+          <PlistImageFile Name="chefwalk001.png" Key="chefwalk001.png" />
+          <PlistImageFile Name="chefwalk002.png" Key="chefwalk002.png" />
+          <PlistImageFile Name="chefwalk003.png" Key="chefwalk003.png" />
+          <PlistImageFile Name="chefwalk004.png" Key="chefwalk004.png" />
+          <PlistImageFile Name="chefwalk005.png" Key="chefwalk005.png" />
+          <PlistImageFile Name="chefwalk006.png" Key="chefwalk006.png" />
+          <PlistImageFile Name="chefwalk007.png" Key="chefwalk007.png" />
+          <PlistImageFile Name="chefwalk008.png" Key="chefwalk008.png" />
+        </PlistImageFolder>
+        <Project Name="AnimationAction.csd" Type="Scene" />
+        <Image Name="bananaa.png" />
+        <Image Name="branch.png" />
+        <Image Name="cheeseCard.png" />
+        <Image Name="cola.png" />
+        <Image Name="congratulation.png" />
+        <Image Name="DRoom.png" />
+        <Project Name="E_labScene_Node1.csd" Type="Node" />
+        <Project Name="E_labScene_Node2.csd" Type="Node" />
+        <Project Name="fgnode.csd" Type="Node" />
+        <Project Name="housenode.csd" Type="Node" />
+        <Image Name="kitchen.png" />
+        <Project Name="kitchenScene.csd" Type="Scene" />
+        <Project Name="labScene.csd" Type="Scene" />
+        <Project Name="MainScene.csd" Type="Scene" />
+        <Project Name="obstaclenode.csd" Type="Node" />
+        <Project Name="RunScene.csd" Type="Scene" />
+        <Project Name="SceneDiningRoom.csd" Type="Scene" />
+        <Image Name="shell.png" />
+      </RootFolder>
+    </Group>
+  </SolutionFolder>
+</Solution>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>animations</key>
+	<dict>
+		<key>running</key>
+		<dict>
+			<key>delay</key>
+			<real>0.1</real>
+			<key>frames</key>
+			<array>
+				<string>ater_001.png</string>
+				<string>ater_002.png</string>
+				<string>ater_003.png</string>
+				<string>ater_004.png</string>
+				<string>ater_005.png</string>
+				<string>ater_006.png</string>
+				<string>ater_007.png</string>
+				<string>ater_008.png</string>
+			</array>
+		</dict>
+  
+    <key>jumping</key>
+		<dict>
+			<key>delay</key>
+			<real>0.08333</real>
+			<key>frames</key>
+			<array>
+				<string>boy_jump_01.png</string>
+				<string>boy_jump_02.png</string>
+				<string>boy_jump_03.png</string>
+				<string>boy_jump_04.png</string>
+				<string>boy_jump_05.png</string>
+				<string>boy_jump_06.png</string>
+				<string>boy_jump_07.png</string>
+				<string>boy_jump_08.png</string>
+			</array>
+		</dict>
+  
+    
+   <key>squatting</key>
+		<dict>
+			<key>delay</key>
+			<real>0.08333</real>
+			<key>frames</key>
+			<array>
+				<string>boy_squat_01.png</string>
+				<string>boy_squat_02.png</string>
+				<string>boy_squat_03.png</string>
+				<string>boy_squat_04.png</string>
+				<string>boy_squat_05.png</string>
+				<string>boy_squat_06.png</string>
+				<string>boy_squat_07.png</string>
+				<string>boy_squat_08.png</string>
+			</array>
+		</dict> 
+
+   <key>45degree</key>
+		<dict>
+			<key>delay</key>
+			<real>0.1</real>
+			<key>frames</key>
+			<array>
+				<string>ater45_001.png</string>
+				<string>ater45_002.png</string>
+				<string>ater45_003.png</string>
+				<string>ater45_004.png</string>
+				<string>ater45_005.png</string>
+				<string>ater45_006.png</string>
+				<string>ater45_007.png</string>
+				<string>ater45_008.png</string>
+			</array>
+		</dict>
+    
+    <key>45degree_back</key>
+		<dict>
+			<key>delay</key>
+			<real>0.1</real>
+			<key>frames</key>
+			<array>
+				<string>aterBack_001.png</string>
+				<string>aterBack_002.png</string>
+				<string>aterBack_003.png</string>
+				<string>aterBack_004.png</string>
+				<string>aterBack_005.png</string>
+				<string>aterBack_006.png</string>
+				<string>aterBack_007.png</string>
+				<string>aterBack_008.png</string>
+			</array>
+		</dict>
+  
+
+	</dict>
+</dict>
+</plist>
