@@ -1,33 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <DataRoot version="1.0">
     <!--this is xml comment-->
-    <Trigger_List>
-        <scene scene="labScene.cpp">
-            <trigger code="0" bPicked="true" bAddToBag="false"/>
-            <trigger code="1" bPicked="false" bAddToBag="false"/>
-            <trigger code="2" bPicked="true" bAddToBag="false"/>
-            <trigger code="3" bPicked="false" bAddToBag="false"/>
-            <trigger code="4" bPicked="true" bAddToBag="false"/>
-            <trigger code="5" bPicked="true" bAddToBag="false"/>
-            <trigger code="6" bPicked="false" bAddToBag="false"/>
-            <trigger code="7" bPicked="false" bAddToBag="false"/>
-            <trigger code="8" bPicked="false" bAddToBag="false"/>
-            <trigger code="9" bPicked="false" bAddToBag="false"/>
-            <TriggerChange>true</TriggerChange>
-        </scene>
-        <scene scene="">
-            <trigger code="0" bPicked="" bAddToBag=""/>
-            <trigger code="1" bPicked="" bAddToBag=""/>
-            <trigger code="2" bPicked="" bAddToBag=""/>
-            <trigger code="3" bPicked="" bAddToBag=""/>
-            <trigger code="4" bPicked="" bAddToBag=""/>
-            <trigger code="5" bPicked="" bAddToBag=""/>
-            <trigger code="6" bPicked="" bAddToBag=""/>
-            <trigger code="7" bPicked="" bAddToBag=""/>
-            <trigger code="8" bPicked="" bAddToBag=""/>
-            <trigger code="9" bPicked="" bAddToBag=""/>
-            <trigger code="10" bPicked="" bAddToBag=""/>
-            <TriggerChange>false</TriggerChange>
-        </scene>
-    </Trigger_List>
+    <scene scene="labScene.cpp">
+        <trigger code="0">true</trigger>
+        <trigger code="1">true</trigger>
+        <trigger code="2">true</trigger>
+        <trigger code="3">true</trigger>
+        <trigger code="4">true</trigger>
+        <trigger code="5">true</trigger>
+        <trigger code="6">false</trigger>
+        <trigger code="7">false</trigger>
+        <trigger code="8">false</trigger>
+        <trigger code="9">true</trigger>
+    </scene>
+    <scene scene="">
+        <trigger code="0">true</trigger>
+        <trigger code="1">true</trigger>
+        <trigger code="2">true</trigger>
+        <trigger code="3">true</trigger>
+        <trigger code="4">true</trigger>
+        <trigger code="5">true</trigger>
+        <trigger code="6">true</trigger>
+        <trigger code="7">true</trigger>
+        <trigger code="8">true</trigger>
+        <trigger code="9">true</trigger>
+        <trigger code="10">true</trigger>
+    </scene>
 </DataRoot>

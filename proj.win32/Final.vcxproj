@@ -164,11 +164,9 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClCompile Include="..\Classes\common\xmlBag .cpp" />
     <ClCompile Include="..\Classes\common\xmlItems.cpp" />
     <ClCompile Include="..\Classes\common\xmlScene.cpp" />
-    <ClCompile Include="..\Classes\common\xmlTrigger.cpp" />
     <ClCompile Include="..\Classes\GameScene\labScene.cpp" />
     <ClCompile Include="..\Classes\MainScene\MainScene.cpp" />
     <ClCompile Include="..\Classes\MainScene\SelectionScene.cpp" />
-    <ClCompile Include="..\Classes\scene001\kitchenScene.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -190,11 +188,9 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClInclude Include="..\Classes\common\xmlBag .h" />
     <ClInclude Include="..\Classes\common\xmlItems.h" />
     <ClInclude Include="..\Classes\common\xmlScene.h" />
-    <ClInclude Include="..\Classes\common\xmlTrigger.h" />
     <ClInclude Include="..\Classes\GameScene\labScene.h" />
     <ClInclude Include="..\Classes\MainScene\MainScene.h" />
     <ClInclude Include="..\Classes\MainScene\SelectionScene.h" />
-    <ClInclude Include="..\Classes\scene001\kitchenScene.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>

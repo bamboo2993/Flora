@@ -15,9 +15,11 @@ private:
 	std::string _filePath;
 	std::string _fileName;
 
+	std::string _triggerfilePath;
+
 
 public:
-	void parseXML(cocos2d::Node *currentNode); // load every time switching into  new scene
+	void parseXML(cocos2d::Node *currentNode, const char *scene, CTrigger *ptrigger); // load every time switching into  new scene
 	void parseNodeXML(cocos2d::Node *currentNode); // load every time switching into  new scene
 
 
@@ -40,4 +42,6 @@ public:
 	~xmlScene();
 
 
+
+	void updateTriggerXML(const char *scene, CTrigger *ptrigger);
 };

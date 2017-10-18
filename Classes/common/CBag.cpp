@@ -1,4 +1,5 @@
 #include "CBag.h"
+#include "common\xmlItems.h"
 
 USING_NS_CC;
 
@@ -30,8 +31,6 @@ CBag::CBag() {
 	_bagSprite = nullptr;
 	_ItemNum = 0;
 
-	_bfull = false;
-
 }
 
 CBag::~CBag() {
@@ -39,7 +38,7 @@ CBag::~CBag() {
 	//if (_xmlbag != nullptr) delete _xmlbag;
 }
 
-void CBag::Init(const std::string& pic,Point pos) {
+void CBag::Init(const std::string& pic,Point pos, CTrigger* trigger) {
 	_bagSprite = Sprite::createWithSpriteFrameName(pic);
 	_bagSprite->setPosition(1024-pos.x, pos.y);
 	this->addChild(_bagSprite);
@@ -57,7 +56,7 @@ void CBag::Init(const std::string& pic,Point pos) {
 
 
 	//_xmlbag = new xmlBag("./res/xml/xmlfile_bag.xml");
-	xmlBag::getInstance()->parseXML();
+	xmlBag::getInstance()->parseXML(trigger);
 
 	this->schedule(CC_SCHEDULE_SELECTOR(CBag::doStep));
 
@@ -182,45 +181,38 @@ void  CBag::AddObj(const char* pic, int numTarget, cocos2d::Rect *target, bool i
 	
 	int itemNo = xmlBag::getInstance()->getBagState(); // get bag num
 
-	if (itemNo >= 0) {
-		log("itemNo = %d", itemNo);
+	log("itemNo = %d", itemNo);
 
 
-		_obj[itemNo]->Clear();
-		_obj[itemNo]->Init(pic); //set bag item
+	_obj[itemNo]->Clear();
+	_obj[itemNo]->Init(pic); //set bag item
 
-		for (int i = 0; i < numTarget; i++) {
-			_obj[itemNo]->SetTarget(target[i]); //set target rect
-		}
-
-		this->addChild(_obj[itemNo]);
-
-		GetItem(_obj[itemNo]); // put in list
-		ArrangeItem();
-		_obj[itemNo]->SetVisible(true); // shows in bag
-		_obj[itemNo]->SetCanUse(true);
-
-		_obj[itemNo]->SetUsed(false);
-
-		_obj[itemNo]->SetStagnant(isStagnant); // set it to be always in bag
-
-		if (canRetake) _obj[itemNo]->SetRetake(trigger);
-
-		log("picSave = %s", pic);
-		xmlBag::getInstance()->setBagState(itemNo, true, pic); // save item data
-		_bfull = false;
-		if(itemNo>=6) _bfull = true;
+	for (int i = 0; i < numTarget; i++) {
+		_obj[itemNo]->SetTarget(target[i]); //set target rect
 	}
-	
-	/*else {
-		_bfull = true;
-	}*/
 
-	log(" bag full: %d", _bfull);
+	this->addChild(_obj[itemNo]);
+
+	GetItem(_obj[itemNo]); // put in list
+	ArrangeItem();
+	_obj[itemNo]->SetVisible(true); // shows in bag
+	_obj[itemNo]->SetCanUse(true);
+
+	_obj[itemNo]->SetUsed(false);
+
+	_obj[itemNo]->SetStagnant(isStagnant); // set it to be always in bag
+
+	if (canRetake) _obj[itemNo]->SetRetake(trigger);
+
+	log("picSave = %s", pic);
+	xmlBag::getInstance()->setBagState(itemNo, true, pic); // save item data
+	
+
+
 }
 
 
-void  CBag::AddObjXML(int inum, const char* pic, int numTarget, cocos2d::Rect *target, bool isStagnant, bool canRetake, CTrigger* trigger) {
+void  CBag::AddObjXML(int inum, const char* pic, int numTarget, cocos2d::Rect *target, bool isStagnant, bool canRetake, CTrigger *trigger) {
 
 	_obj[inum]->Clear();
 	_obj[inum]->Init(pic); //set bag item
@@ -239,7 +231,11 @@ void  CBag::AddObjXML(int inum, const char* pic, int numTarget, cocos2d::Rect *t
 
 	_obj[inum]->SetStagnant(isStagnant); // set it to be always in bag
 
-	if (canRetake) _obj[inum]->SetRetake(trigger);
+	if (canRetake) {
+		auto code = xmlItem::getInstance()->getTriggerCodeXML(pic);
+		_obj[inum]->SetRetake(trigger);
+
+	}
 
 
 }
@@ -257,7 +253,6 @@ void CBag::reset() {
 		_obj[i]->reset();
 
 	}
-	_bfull = false;
 }
 
 
@@ -289,7 +284,6 @@ int CBag::touchesEnded(cocos2d::Point inPos) {
 	for (size_t i = 0; i < ItemNum; i++)
 	{
 		if (_obj[i]->touchesEnded(inPos)) {
-			_bfull = false;
 			log("used obj");
 			if (!_obj[i]->GetStagnant()) { // if object is not stagnant
 				// when item is being used
@@ -297,10 +291,11 @@ int CBag::touchesEnded(cocos2d::Point inPos) {
 
 				if (_obj[i]->GetRetake()) { //if the item can be retake when it is used
 					if(_obj[i]->GetTrigger()!=nullptr)  (_obj[i]->GetTrigger())->SetPicked(false); // set it to be enabled
-					else {
-						int code = xmlBag::getInstance()->getTriggerCode(i);
+					/*else {
+						int code = xmlBag::getInstance()->getTriggerCode(i); //read data from xml (get item's trigger code)
 						xmlBag::getInstance()->setTriggerChange(_CurrentScene, code, false, false);
 					}
+					*/
 				}
 
 				_obj[i]->SetCanUse(false); //item cannot be used again
@@ -323,6 +318,3 @@ void CBag::SetCurrentScene(const char *scene) {
 	_CurrentScene = scene;
 }
 
-bool CBag::getState() {
-	return !_bfull;
-}

@@ -4,6 +4,7 @@
 #include <list>
 
 #include "xmlBag .h"
+#include "common\CTrigger.h"
 
 
 #define ItemNum 7
@@ -24,7 +25,7 @@ private:
 
 	int _posY;
 
-	bool _bfull;
+	//bool _bfull;
 	
 	//item in bag==================
 	CItem *_obj[ItemNum];
@@ -42,7 +43,7 @@ public:
 	~CBag();
 
 
-	void Init(const std::string& pic,Point pos);
+	void Init(const std::string& pic,Point pos, CTrigger* trigger);
 	void ArrangeItem();
 	void doStep(float dt);
 	void MoveX(float x); // swipe right/left
@@ -67,7 +68,5 @@ public:
 	bool touchesBegan(cocos2d::Point inPos);
 	bool touchesMoved(cocos2d::Point inPos);
 	int touchesEnded(cocos2d::Point inPos);
-
-	bool getState();
 };
 

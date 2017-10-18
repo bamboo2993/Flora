@@ -33,4 +33,7 @@ public:
 	~xmlItem();
 
 
+	void xmlItem::setTargetRectXML(int itemNum, cocos2d::Rect area);
+
+
 };

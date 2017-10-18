@@ -2,16 +2,16 @@
 <DataRoot version="1.0">
     <!--this is xml comment-->
     <scene>
-        <item no.="0" name="red" B_name="" state="scene">false</item>
+        <item no.="0" name="red" B_name="" state="scene">true</item>
         <item no.="1" name="green" B_name="" state="scene">true</item>
-        <item no.="2" name="blue" B_name="" state="scene">false</item>
+        <item no.="2" name="blue" B_name="" state="scene">true</item>
         <item no.="3" name="yellow" B_name="" state="scene">true</item>
-        <item no.="4" name="E_red" B_name="" state="node">false</item>
+        <item no.="4" name="E_red" B_name="" state="node">true</item>
         <item no.="5" name="E_green" B_name="" state="node">true</item>
-        <item no.="6" name="E_blue" B_name="" state="node">false</item>
+        <item no.="6" name="E_blue" B_name="" state="node">true</item>
         <item no.="7" name="E_yellow" B_name="" state="node">true</item>
-        <item no.="8" name="water" B_name="B_water.png" state="scene">false</item>
-        <item no.="9" name="glassrod" B_name="B_glassrod.png" state="scene">false</item>
+        <item no.="8" name="water" B_name="B_water.png" state="scene">true</item>
+        <item no.="9" name="glassrod" B_name="B_glassrod.png" state="scene">true</item>
         <item no.="10" name="alcohol_lamp01" B_name="" state="scene">true</item>
         <item no.="11" name="alcohol_lamp02" B_name="" state="scene">false</item>
         <item no.="12" name="bowl" B_name="" state="scene">true</item>
@@ -19,10 +19,10 @@
         <item no.="14" name="bowl_green" B_name="B_herbG.png" state="scene">false</item>
         <item no.="15" name="bowl_darkgreen" B_name="B_herbDG.png" state="scene">false</item>
         <item no.="16" name="bowl_yellow" B_name="B_herbY.png" state="scene">false</item>
-        <item no.="17" name="beaker" B_name="" state="scene">false</item>
+        <item no.="17" name="beaker" B_name="" state="scene">true</item>
         <item no.="18" name="beaker_red" B_name="B_red.png" state="scene">false</item>
         <item no.="19" name="beaker_green" B_name="B_green.png" state="scene">false</item>
-        <item no.="20" name="beaker_blue" B_name="B_blue.png" state="scene">true</item>
+        <item no.="20" name="beaker_blue" B_name="B_blue.png" state="scene">false</item>
         <item no.="21" name="beaker_yellow" B_name="B_yellow.png" state="scene">false</item>
         <item no.="22" name="beaker_orange" B_name="" state="scene">false</item>
         <item no.="23" name="beaker_purple" B_name="" state="scene">false</item>

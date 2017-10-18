@@ -2,104 +2,63 @@
 <DataRoot version="1.0">
     <!--this is xml comment-->
     <list>
-        <item no.="1" name="B_red.png" scene="labScene.cpp" stagnant="true" targetnum="2">
-          <target1 scene="labScene.cpp" x="" y="" height="" width="" />
-          <target2 scene="labScene.cpp" x="" y="" height="" width="" />
-          <retake scene="" triggercode="0">false</retake>
-          
+        <item no.="1" name="B_red.png" S_name="red.png" scene="labScene.cpp" stagnant="true" targetnum="2">
+            <target1 state="bag" x="" y="" height="" width=""/>
+            <retake triggercode="0">false</retake>
         </item>
-
         <item no.="2" name="B_green.png" scene="labScene.cpp" stagnant="true" targetnum="2">
-          <target1 x="" y="" height="" width="" />
-          <target2 x="" y="" height="" width="" />
-          <retake scene="" triggercode="1">false</retake>
+            <target1 state="bag" x="" y="" height="" width=""/>
+            <retake triggercode="1">false</retake>
         </item>
-      
         <item no.="3" name="B_blue.png" scene="labScene.cpp" stagnant="true" targetnum="2">
-          <target1 x="" y="" height="" width="" />
-          <target2 x="" y="" height="" width="" />
-          <stagnant> </stagnant>
-          <retake scene="" triggercode="2">false</retake>
+            <target1 state="bag" x="" y="" height="" width=""/>
+            <retake triggercode="2">false</retake>
         </item>
-      
         <item no.="4" name="B_yellow.png" scene="labScene.cpp" stagnant="true" targetnum="2">
-          <target1 x="" y="" height="" width="" />
-          <target2 x="" y="" height="" width="" />
-          <stagnant> </stagnant>
-          <retake scene="" triggercode="3">false</retake>
+            <target1 state="bag" x="" y="" height="" width=""/>
+            <stagnant/>
+            <retake triggercode="3">false</retake>
         </item>
-      
-      
-      
-      
-      
         <item no.="5" name="B_water.png" scene="labScene.cpp" stagnant="true" targetnum="2">
-          <target1 x="" y="" height="" width="" />
-          <target2 x="" y="" height="" width="" />
-          <stagnant> </stagnant>
-          <retake scene="" triggercode="4">false</retake>
+            <target1 state="labScene.cpp" x="" y="" height="" width=""/>
+            <stagnant/>
+            <retake triggercode="4">false</retake>
         </item>
-      
         <item no.="6" name="B_glassrod.png" scene="labScene.cpp" stagnant="true" targetnum="2">
-          <target1 x="" y="" height="" width="" />
-          <target2 x="" y="" height="" width="" />
-          <stagnant> </stagnant>
-          <retake scene="" triggercode="5">false</retake>
+            <target1 state="labScene.cpp" x="" y="" height="" width=""/>
+            <stagnant/>
+            <retake triggercode="5">false</retake>
         </item>
-
-      
-      
-      
-      
         <item no.="7" name="B_herbR.png" scene="labScene.cpp" stagnant="false" targetnum="1">
-          <target1 x="" y="" height="" width="" />
-          <target2 x="" y="" height="" width="" />
-          <stagnant> </stagnant>
-          <retake scene="labScene.cpp" triggercode="6">true</retake>
+            <target1 state="labScene.cpp" x="1205.18" y="235.392" height="86" width="95"/>
+            <retake triggercode="6">true</retake>
         </item>
-      
         <item no.="8" name="B_herbG.png" scene="labScene.cpp" stagnant="false" targetnum="1">
-          <target1 x="" y="" height="" width="" />
-          <target2 x="" y="" height="" width="" />
-          <stagnant> </stagnant>
-          <retake scene="labScene.cpp" triggercode="7">true</retake>
+            <target1 state="labScene.cpp" x="1205.18" y="235.392" height="86" width="95"/>
+            <stagnant/>
+            <retake triggercode="7">true</retake>
         </item>
-
         <item no.="9" name="B_herbDG.png" scene="labScene.cpp" stagnant="false" targetnum="1">
-          <target1 x="" y="" height="" width="" />
-          <target2 x="" y="" height="" width="" />
-          <stagnant> </stagnant>
-          <retake scene="labScene.cpp" triggercode="8">true</retake>
+            <target1 state="labScene.cpp" x="1205.18" y="235.392" height="86" width="95"/>
+            <stagnant/>
+            <retake triggercode="8">true</retake>
         </item>
-
-
         <item no.="10" name="B_herbY.png" scene="labScene.cpp" stagnant="false" targetnum="1">
-          <target1 x="" y="" height="" width="" />
-          <target2 x="" y="" height="" width="" />
-          <stagnant> </stagnant>
-          <retake scene="labScene.cpp" triggercode="9">true</retake>
+            <target1 state="labScene.cpp" x="1205.18" y="235.392" height="86" width="95"/>
+            <stagnant/>
+            <retake triggercode="9">true</retake>
         </item>
-      
-      
-      
-      
-
         <item no.="11" name="" scene="" stagnant="" targetnum="">
-          <target1 x="" y="" height="" weight="" />
-          <target2 x="" y="" height="" weight="" />
-          <stagnant> </stagnant>
-          <retake scene="" triggercode=""></retake>
+            <target1 x="" y="" height="" weight=""/>
+            <target2 x="" y="" height="" weight=""/>
+            <stagnant/>
+            <retake scene="" triggercode=""/>
         </item>
-
         <item no.="12" name="" scene="" stagnant="" targetnum="">
-          <target1 x="" y="" height="" weight="" />
-          <target2 x="" y="" height="" weight="" />
-          <stagnant> </stagnant>
-          <retake scene="" triggercode=""></retake>
+            <target1 x="" y="" height="" weight=""/>
+            <target2 x="" y="" height="" weight=""/>
+            <stagnant/>
+            <retake scene="" triggercode=""/>
         </item>
-
-
-
     </list>
-    
 </DataRoot>

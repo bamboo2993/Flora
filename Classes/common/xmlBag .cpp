@@ -1,7 +1,6 @@
 #include "xmlBag .h"
 #include "common\CBag.h"
 #include "common\xmlItems.h"
-#include "common\xmlTrigger.h"
 
 using namespace cocos2d;
 
@@ -35,7 +34,7 @@ xmlBag::~xmlBag(){
 
 }
 
-void xmlBag::parseXML()
+void xmlBag::parseXML(CTrigger *ptrigger)
 {
 	tinyxml2::XMLDocument *pDoc = new tinyxml2::XMLDocument();
 
@@ -72,9 +71,9 @@ void xmlBag::parseXML()
 			if(targetNum>1) _target[1] = xmlItem::getInstance()->getTargetRectXML(name,2);
 			bool isStagnant = xmlItem::getInstance()->getStagnantXML(name);
 			auto canRetake = xmlItem::getInstance()->getRetakeXML(name);
-			
 
-			CBag::getInstance()->AddObjXML(inum, name, targetNum, _target, isStagnant, canRetake);
+			CBag::getInstance()->AddObjXML(inum, name, targetNum, _target, isStagnant, canRetake, ptrigger);
+
 		}
 
 	}
@@ -199,9 +198,9 @@ const char* xmlBag::getItemName(int bagNum) {
 
 
 
-void xmlBag::setTriggerChange(const char *scene, int code, bool bPick, bool bAddtobag){
-	xmlTrigger::getInstance()->setTriggerStateXML(scene, code, bPick, bAddtobag);
-}
+//void xmlBag::setTriggerChange(const char *scene, int code, bool bPick, bool bAddtobag){
+//	xmlTrigger::getInstance()->setTriggerStateXML(scene, code, bPick, bAddtobag);
+//}
 
 
 
