@@ -26,7 +26,7 @@ private:
 	cocos2d::JumpBy   *_myJump;
 	int _NoJumps;
 	cocos2d::CallFunc *_mycallback;
-//	cocos2d::Point _runnerPt;
+
 
 	bool bFirst;
 
