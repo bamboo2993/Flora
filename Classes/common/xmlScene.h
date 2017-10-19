@@ -1,7 +1,8 @@
 #pragma once
 #include "cocostudio/CocoStudio.h"
 
-#include "common\CBag.h"
+#include "CBag.h"
+#include "xmlTrigger.h"
 
 #include "cocos2d.h"
 #include "tinyxml2/tinyxml2.h"
@@ -41,7 +42,4 @@ public:
 	xmlScene(const char *fileName);
 	~xmlScene();
 
-
-
-	void updateTriggerXML(const char *scene, CTrigger *ptrigger);
 };

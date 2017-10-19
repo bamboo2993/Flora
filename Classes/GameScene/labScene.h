@@ -15,7 +15,7 @@
 #include "common\CItem.h"
 #include "common\CLightbox.h"
 
-//#include "common\xmlTrigger.h"
+#include "common\xmlTrigger.h"
 #include "common\xmlScene.h"
 
 #include "common\CMix.h"

@@ -93,6 +93,9 @@
     <ClCompile Include="..\Classes\common\xmlScene.cpp">
       <Filter>src\common</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\common\xmlTrigger.cpp">
+      <Filter>src\common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -159,6 +162,9 @@
       <Filter>src\common</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\common\xmlScene.h">
+      <Filter>src\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\xmlTrigger.h">
       <Filter>src\common</Filter>
     </ClInclude>
   </ItemGroup>

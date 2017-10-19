@@ -56,11 +56,13 @@ labScene::labScene() {
 }
 labScene::~labScene()
 {
-	_xmlscene->updateTriggerXML(CURRENT_SCENE, _pTrigger);
+	xmlTrigger::getInstance()->updateTriggerXML(CURRENT_SCENE, _pTrigger);
 
 
 	CBag::getInstance()->destroyInstance();
 	xmlItem::getInstance()->destroyInstance();
+	xmlTrigger::getInstance()->destroyInstance();
+	xmlBag::getInstance()->destroyInstance();
 
 //	this->removeAllChildren();
 	SpriteFrameCache::getInstance()->removeUnusedSpriteFrames();
@@ -834,7 +836,11 @@ void  labScene::onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ä
 
 	if (!_procedure->GetOpen() && !_clear) {
 		//use items in bag===========================================
-		CBag::getInstance()->touchesMoved(_touchLoc);
+
+		if (_bbagOn) {
+			CBag::getInstance()->touchesMoved(_touchLoc);
+		}
+
 
 
 		//dragging beakers and bowl in scene------------
@@ -903,61 +909,65 @@ void  labScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ä
 
 			//use items in bag===========================================
 			
-			int i;
-			i = CBag::getInstance()->touchesEnded(_touchLoc);
+			if (_bbagOn) {
+				int i;
+				i = CBag::getInstance()->touchesEnded(_touchLoc);
 
-			//to detect item used and its effect-------
-			if (i >= 0) {
-				// mix mix
-				if (_pbeakerRect[0].containsPoint(_touchLoc) && !_bbOnFire[0]) {
+				//to detect item used and its effect-------
+				if (i >= 0) {
+					// mix mix
+					if (_pbeakerRect[0].containsPoint(_touchLoc) && !_bbOnFire[0]) {
 
 
-					if ((!strcmp(xmlBag::getInstance()->getItemName(i), "B_glassrod.png"))) {
-						// add stur sound
-						_mixing->playEffect();
+						if ((!strcmp(xmlBag::getInstance()->getItemName(i), "B_glassrod.png"))) {
+							// add stur sound
+							_mixing->playEffect();
+						}
+
+						else {
+							// add pour liquid sound
+							_pour->playEffect();
+						}
+						_mixA->mixing(i);
+						log("mix a, %d", i);
+
+
+
 					}
+					else if (_pbeakerRect[1].containsPoint(_touchLoc) && !_bbOnFire[1]) {
 
-					else {
-						// add pour liquid sound
-						_pour->playEffect();
+						if ((!strcmp(xmlBag::getInstance()->getItemName(i), "B_glassrod.png"))) {
+							// add stur sound
+							_mixing->playEffect();
+						}
+						else {
+							// add pour liquid sound
+							_pour->playEffect();
+						}
+						_mixB->mixing(i);
+						log("mix b, %d", i);
+
+
 					}
-					_mixA->mixing(i);
-					log("mix a, %d", i);
+					else if (_pbowlRect[0].containsPoint(_touchLoc)) {
 
+						// add grind sound
+
+						if ((!strcmp(xmlBag::getInstance()->getItemName(i), "B_herbR.png")) ||
+							(!strcmp(xmlBag::getInstance()->getItemName(i), "B_herbG.png")) ||
+							(!strcmp(xmlBag::getInstance()->getItemName(i), "B_herbDG.png")) ||
+							(!strcmp(xmlBag::getInstance()->getItemName(i), "B_herbY.png"))) {
+							// add debranch
+							_grinding->playEffect();
+						}
+						_grind->mixing(i);
+					}
 
 
 				}
-				else if (_pbeakerRect[1].containsPoint(_touchLoc) && !_bbOnFire[1]) {
-
-					if ((!strcmp(xmlBag::getInstance()->getItemName(i), "B_glassrod.png"))) {
-						// add stur sound
-						_mixing->playEffect();
-					}
-					else {
-						// add pour liquid sound
-						_pour->playEffect();
-					}
-					_mixB->mixing(i);
-					log("mix b, %d", i);
-
-
-				}
-				else if (_pbowlRect[0].containsPoint(_touchLoc)) {
-
-					// add grind sound
-
-					if ((!strcmp(xmlBag::getInstance()->getItemName(i), "B_herbR.png")) ||
-						(!strcmp(xmlBag::getInstance()->getItemName(i), "B_herbG.png")) ||
-						(!strcmp(xmlBag::getInstance()->getItemName(i), "B_herbDG.png")) ||
-						(!strcmp(xmlBag::getInstance()->getItemName(i), "B_herbY.png"))) {
-						// add debranch
-						_grinding->playEffect();
-					}
-					_grind->mixing(i);
-				}
-
-
 			}
+
+			
 
 			// drag beakerA=====================================================
 			if (_btouch[0] && !_bbOnFire[0]) {

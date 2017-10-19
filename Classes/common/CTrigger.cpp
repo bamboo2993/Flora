@@ -22,7 +22,6 @@ CTrigger::CTrigger() {
 	_bTouch = false;
 	_bPicked = false;
 	_bAddToBag = false;
-//	_bDel = false;
 }
 
 CTrigger::~CTrigger() {
@@ -47,8 +46,6 @@ void CTrigger::Init(const char * pic, Node *rootNode, bool visible, bool type, N
 		_objSprite = (cocos2d::Sprite*)_node->getChildByName(_item);
 		_objSprite->setVisible(visible);
 		SetRect();
-
-
 		
 	}
 
