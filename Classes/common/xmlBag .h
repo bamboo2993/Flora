@@ -1,13 +1,11 @@
 #pragma once
 #include "cocostudio/CocoStudio.h"
-
-
-#include "common\CTrigger.h"
-
-
-
 #include "cocos2d.h"
 #include "tinyxml2/tinyxml2.h"
+
+#include "CTrigger.h"
+
+
 using namespace tinyxml2;
 
 
@@ -23,6 +21,8 @@ private:
 	
 	cocos2d::Rect _target[2];
 
+	bool checkBagState(int bagNum); // used for sorting
+
 public:
 	static xmlBag* getInstance();
 	void destroyInstance(); // 釋放取得資源
@@ -33,12 +33,15 @@ public:
 
 	int getTriggerCode(int bagNum); // for load data. get item's trigger code from itemXML
 	const char* getItemName(int bagNum);
-//	void setTriggerChange(const char *scene, int code, bool bPick, bool bAddtobag);
+
+	void setArrangementXML(const char *cname, int order);
+	int getArrangement(int bagNum);
 
 	void reset();
 
 	xmlBag();
 	~xmlBag();
 
+	void sortItems();
 
 };

@@ -65,8 +65,8 @@ const char* xmlItem::getItemNameXML(int itemNum) {
 	delete pDoc;
 }
 
-
-const char* xmlItem::getTargetSceneXML(const char *cname) {
+bool xmlItem::getItemStateXML(const char * cname)
+{
 	tinyxml2::XMLDocument *pDoc = new tinyxml2::XMLDocument();
 
 	//	解析xml文件
@@ -79,7 +79,6 @@ const char* xmlItem::getTargetSceneXML(const char *cname) {
 		return false;
 	}
 
-	
 	//?取根元素
 	XMLElement *root = pDoc->RootElement();
 	XMLElement *List = root->FirstChildElement();
@@ -88,15 +87,19 @@ const char* xmlItem::getTargetSceneXML(const char *cname) {
 
 	for (XMLElement* item = List->FirstChildElement(); item; item = item->NextSiblingElement()) {
 		if ((!strcmp(item->Attribute("name"), cname))) {
-		
-			const char *scene = item->Attribute("scene");
-			return scene;
+
+			auto state = item->BoolAttribute("state");
+			return state;
 		}
 
 	}
 	//[6] ?放?存
 	delete pDoc;
 }
+
+
+
+
 
 bool xmlItem::getStagnantXML(const char *cname) {
 	tinyxml2::XMLDocument *pDoc = new tinyxml2::XMLDocument();
@@ -241,6 +244,48 @@ bool xmlItem::getRetakeXML(const char *cname) {
 	delete pDoc;
 }
 
+
+
+const char* xmlItem::getTargetSceneXML(const char *cname, bool num) {
+	tinyxml2::XMLDocument *pDoc = new tinyxml2::XMLDocument();
+
+	//	解析xml文件
+	XMLError errorId = pDoc->LoadFile(_filePath.c_str());
+
+	//判?是否解析??
+	if (errorId != 0) {
+		//xml格式??
+		CCLOG("Parse Error!");
+		return false;
+	}
+
+
+	//?取根元素
+	XMLElement *root = pDoc->RootElement();
+	XMLElement *List = root->FirstChildElement();
+
+	//?取子元素信息
+
+	for (XMLElement* item = List->FirstChildElement(); item; item = item->NextSiblingElement()) {
+		if ((!strcmp(item->Attribute("name"), cname))) {
+			if (num == 0) {
+				XMLElement* e = item->FirstChildElement();
+				const char *scene = e->Attribute("scene");
+				return scene;
+			}
+			else {
+				XMLElement* e = item->FirstChildElement()->NextSiblingElement();
+				const char *scene = e->Attribute("scene");
+				return scene;
+			}
+		}
+
+	}
+	//[6] ?放?存
+	delete pDoc;
+}
+
+
 const char* xmlItem::getTriggerSceneXML(const char *cname) {
 	tinyxml2::XMLDocument *pDoc = new tinyxml2::XMLDocument();
 
@@ -330,17 +375,6 @@ void xmlItem::setTargetRectXML(int itemNum, cocos2d::Rect area) {
 		int n = std::atoi(item->Attribute("no.")); //char 轉  int
 
 		if (itemNum == n) {
-			/*for (XMLElement* e = item->FirstChildElement(); e; e = e->NextSiblingElement()) {
-				int icode = trigger->IntAttribute("code");
-
-				if (ptrigger[icode].GetPicked() == true) {
-					trigger->FirstChild()->SetValue("false");
-				}
-				else trigger->FirstChild()->SetValue("true");
-
-
-
-			}*/
 
 			auto x = area.getMinX();
 			auto y = area.getMinY();
@@ -366,4 +400,43 @@ void xmlItem::setTargetRectXML(int itemNum, cocos2d::Rect area) {
 }
 
 
+
+int xmlItem::checkMixingXML(const char * cname, const char * mixname)
+{
+	tinyxml2::XMLDocument *pDoc = new tinyxml2::XMLDocument();
+
+	//	解析xml文件
+	XMLError errorId = pDoc->LoadFile(_filePath.c_str());
+
+	//判?是否解析??
+	if (errorId != 0) {
+		//xml格式??
+		CCLOG("Parse Error!");
+		return false;
+	}
+
+	//?取根元素
+	XMLElement *root = pDoc->RootElement();
+	XMLElement *List = root->FirstChildElement();
+
+	//?取子元素信息
+
+	for (XMLElement* item = List->FirstChildElement(); item; item = item->NextSiblingElement()) {
+		if ((!strcmp(item->Attribute("name"), cname))) {
+			XMLElement *mix = item->FirstChildElement();
+
+			if ((!strcmp(mix->Attribute("name"), mixname))) {
+
+				auto r = mix->IntAttribute("ToBe");
+				return r;
+			}
+
+
+			else return -1;
+		}
+
+	}
+	//[6] ?放?存
+	delete pDoc;
+}
 

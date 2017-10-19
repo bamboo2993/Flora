@@ -646,7 +646,7 @@ void labScene::PickObject(float dt) {
 
 		//create the corresponding item in bag
 		if (_pTrigger[6].GetAddToBag() && !_pTrigger[6].GetPicked()) {
-			CBag::getInstance()->AddObj("B_herbR.png", 1, _pbowlRect, false, true, &_pTrigger[6]);
+			CBag::getInstance()->AddObj("B_herbR.png", 1, _pbowlRect, false, true);
 			_pTrigger[6].SetAddToBag(false);
 			_pTrigger[6].SetPicked(true);
 
@@ -654,7 +654,7 @@ void labScene::PickObject(float dt) {
 			_debranch->playEffect();
 		}
 		else if (_pTrigger[7].GetAddToBag() && !_pTrigger[7].GetPicked()) {
-			CBag::getInstance()->AddObj("B_herbG.png", 1, _pbowlRect, false, true, &_pTrigger[7]);
+			CBag::getInstance()->AddObj("B_herbG.png", 1, _pbowlRect, false, true);
 			_pTrigger[7].SetAddToBag(false);
 			_pTrigger[7].SetPicked(true);
 
@@ -662,7 +662,7 @@ void labScene::PickObject(float dt) {
 			_debranch->playEffect();
 		}
 		else if (_pTrigger[8].GetAddToBag() && !_pTrigger[8].GetPicked()) {
-			CBag::getInstance()->AddObj("B_herbDG.png", 1, _pbowlRect, false, true, &_pTrigger[8]);
+			CBag::getInstance()->AddObj("B_herbDG.png", 1, _pbowlRect, false, true);
 			_pTrigger[8].SetAddToBag(false);
 			_pTrigger[8].SetPicked(true);
 
@@ -673,7 +673,7 @@ void labScene::PickObject(float dt) {
 
 		else if (_pTrigger[9].GetAddToBag() && !_pTrigger[9].GetPicked()) {
 			log("herb");
-			CBag::getInstance()->AddObj("B_herbY.png", 1, _pbowlRect, false, true, &_pTrigger[9]);
+			CBag::getInstance()->AddObj("B_herbY.png", 1, _pbowlRect, false, true);
 			_pTrigger[9].SetAddToBag(false);
 			_pTrigger[9].SetPicked(true);
 
