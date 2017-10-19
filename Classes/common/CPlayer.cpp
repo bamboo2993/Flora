@@ -143,3 +143,22 @@ bool CPlayer::Walk(Point i) {
 	}
 	else return(false);
 }
+
+void CPlayer::Talk(const std::string picName, bool isRight) {
+	_sentance = Sprite::createWithSpriteFrameName(picName);
+	Vec2 playerPos = _player->getPosition();
+
+	if (isRight) {
+		_sentance->setAnchorPoint(Point(0, 0));
+	}
+	else{
+		_sentance->setAnchorPoint(Point(1, 0));
+	}
+	
+	_sentance->setPosition(playerPos.x, playerPos.y + 50.0f);
+	_player->addChild(_sentance);
+}
+
+void CPlayer::StopTalking() {
+	_sentance->removeFromParent();
+}

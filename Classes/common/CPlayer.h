@@ -16,7 +16,7 @@ private:
 	cocos2d::Sprite *_body;
 	cocos2d::Sprite *_rest;
 
-
+	cocos2d::Sprite *_sentance;
 
 	cocos2d::Action *_action[2];
 
@@ -26,7 +26,7 @@ private:
 	cocos2d::JumpBy   *_myJump;
 	int _NoJumps;
 	cocos2d::CallFunc *_mycallback;
-	cocos2d::Point _runnerPt;
+//	cocos2d::Point _runnerPt;
 
 	bool bFirst;
 
@@ -45,6 +45,8 @@ public:
 	void Stop();
 	void X_Move(float dt, float x);
 	void Y_Move(float dt, float y);
+	void Talk(const std::string picName,bool isRight);
+	void StopTalking();
 	void Mirror();
 	bool Walk(Point x);
 	const Vec2 getPosition();
