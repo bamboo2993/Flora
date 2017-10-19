@@ -1,13 +1,14 @@
 #pragma once
 #include "cocos2d.h"
-#include "common\CTrigger.h"
+#include "CTrigger.h"
+#include "xmlItems.h"
+#include "xmlBag .h"
 
 USING_NS_CC;
 
 class CItem :public Node
 {
 private:
-	char* _pic; //item name
 	Sprite* _propSprite;
 	Point _prePos; // for drag
 	bool _bTouch;
@@ -21,7 +22,6 @@ private:
 	bool _canUse;
 
 	bool _bRetake;
-	CTrigger *_pTrigger;
 
 	Rect _targetRect[3]; //set item target rect
 	int _targetNum; //number of target rect
@@ -51,8 +51,8 @@ public:
 	void SetTarget(cocos2d::Rect target);
 	cocos2d::Rect GetTarget(int num);
 	bool GetRetake();
-	void SetRetake(CTrigger* trigger); // if the item can be retake (from trigger) when item used
-	CTrigger* GetTrigger();
+	void SetRetake(); // if the item can be retake (from trigger) when item used
+
 	void SetFeedback(cocos2d::Rect target);
 	void SetStagnant(bool x);
 	bool GetStagnant();
@@ -63,6 +63,6 @@ public:
 
 	bool touchesBegan(cocos2d::Point inPos);
 	bool touchesMoved(cocos2d::Point inPos);
-	bool touchesEnded(cocos2d::Point inPos);
+	bool touchesEnded(cocos2d::Point inPos, const char* scene, int num);
 };
 

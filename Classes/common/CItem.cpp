@@ -21,36 +21,20 @@ CItem::CItem() {
 	_canUse = false;
 	_targetNum = 0;
 	//_bRetake = false;
-
+	_bTouch = false;
 }
 
 CItem::~CItem() {
 	
 }
 void CItem::Init(const char* pic) {
-	/*
-	int len;
-	len = strlen(pic);
-	_pic = new char[len + 5]; //include ¡i.png¡j
-	memcpy(_pic, pic, len + 1);
-
-
-	int i = _count, j = 0;
-
-	while (i > 0) {
-		_cScore[8 - j] = i % 10 + 48;
-		i = i / 10;
-		j++;
-	}
-	label1->setString(_cScore);
-	*/
 
 	_propSprite = Sprite::createWithSpriteFrameName(pic);
 	this->addChild(_propSprite);
 	SetRect();
 	_bRetake = false;
 	_isStagnant = false;
-
+	_targetNum = 0;
 	_itemName = pic;
 
 }
@@ -80,8 +64,7 @@ const char* CItem::GetName() {
 	return _itemName;
 }
 
-void CItem::SetRetake( CTrigger* trigger) {
-	_pTrigger = trigger;
+void CItem::SetRetake() {
 	_bRetake = true;
 }
 
@@ -136,9 +119,6 @@ bool CItem::GetStagnant() {
 	return(_isStagnant);
 }
 
-CTrigger* CItem::GetTrigger() {
-	return(_pTrigger);
-}
 
 bool CItem::touchesBegan(Point inPos) {
 	if (!_isUsed) {
@@ -162,29 +142,50 @@ bool CItem::touchesMoved(Point inPos) {
 	return(false);
 }
 
-bool CItem::touchesEnded(cocos2d::Point inPos) {
+bool CItem::touchesEnded(cocos2d::Point inPos, const char* scene, int num) {
 
 	if (_bTouch ) {
-		for (size_t i = 0; i < _targetNum; i++) {
-			if (_targetRect[i].containsPoint(inPos)) {
+		auto name = xmlBag::getInstance()->getItemName(num);
+		auto state = xmlItem::getInstance()->getItemStateXML(name);
 
-				if (!_isStagnant) {
-					_propSprite->setVisible(false);
-					log("obj not stagnant");
-					SetUsed(true);
-					//	_Del = true;
-				}
-				else {
-					this->setPosition(_ResetPos); // when item is stagnant
-					log("obj stagnant");
-					//SetUsed(true);
-				}
+		//WHEN ITEM IS USED IN SCENE
+		if (state) {
+			for (size_t i = 0; i < _targetNum; i++) {
+				auto s = xmlItem::getInstance()->getTargetSceneXML(name, i);
+				if ((!strcmp(s, scene))) {
+					if (_targetRect[i].containsPoint(inPos)) {
 
-				_bTouch = false;
-				return(true);
+						if (!_isStagnant) {
+							_propSprite->setVisible(false);
+							log("obj not stagnant");
+							SetUsed(true);
+							//	_Del = true;
+						}
+						else {
+							this->setPosition(_ResetPos); // when item is stagnant
+							log("obj stagnant");
+							//SetUsed(true);
+						}
+
+						_bTouch = false;
+						return(true);
+					}
+
+				}
 			}
 		}
+
+		//WHEN ITEM IS USED IN BAG FOR MIX & MAKE
+		else {
+			int a = 1;
+
+		}
 		
+
+
+
+
+
 		//when obj not used (back to its position in bag)
 		this->setPosition(_ResetPos);
 		_bTouch = false;

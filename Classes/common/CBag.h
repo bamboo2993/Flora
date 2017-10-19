@@ -3,9 +3,10 @@
 #include "CItem.h"
 #include <list>
 
+#include "CTrigger.h"
+#include "xmlScene.h"
 #include "xmlBag .h"
-#include "common\CTrigger.h"
-
+#include "xmlItems.h"
 
 #define ItemNum 7
 
@@ -14,7 +15,6 @@ USING_NS_CC;
 class CBag :public Node
 {
 private:
-	//xmlBag *_xmlbag;
 	const char *_CurrentScene;
 
 
@@ -24,8 +24,6 @@ private:
 	int _ItemNum;
 
 	int _posY;
-
-	//bool _bfull;
 	
 	//item in bag==================
 	CItem *_obj[ItemNum];
@@ -62,11 +60,11 @@ public:
 
 
 	//控制bag 裡的 item
-	void AddObj(const char* pic, int numTarget, cocos2d::Rect *target, bool isStagnant = false, bool canRetake = false, CTrigger* trigger= nullptr); // 把item 加進 bag 裡
-	void AddObjXML(int inum, const char* pic, int numTarget, cocos2d::Rect *target, bool isStagnant, bool canRetake, CTrigger* trigger = nullptr);
+	void AddObj(const char* pic, int numTarget, cocos2d::Rect *target, bool isStagnant = false, bool canRetake = false); // 把item 加進 bag 裡
+	void AddObjXML(int inum, const char* pic, int numTarget, cocos2d::Rect *target, bool isStagnant, bool canRetake);
 
 	bool touchesBegan(cocos2d::Point inPos);
 	bool touchesMoved(cocos2d::Point inPos);
-	int touchesEnded(cocos2d::Point inPos);
+	int touchesEnded(cocos2d::Point inPos, const char* scene, CTrigger *trigger);
 };
 

@@ -1,5 +1,5 @@
 #include "CBag.h"
-#include "common\xmlItems.h"
+
 
 USING_NS_CC;
 
@@ -54,27 +54,13 @@ void CBag::Init(const std::string& pic,Point pos, CTrigger* trigger) {
 
 	_posY = pos.y;
 
-
-	//_xmlbag = new xmlBag("./res/xml/xmlfile_bag.xml");
 	xmlBag::getInstance()->parseXML(trigger);
 
 	this->schedule(CC_SCHEDULE_SELECTOR(CBag::doStep));
 
 }
-Point pt;
+
 void CBag::doStep(float dt) {
-
-	std::list <CItem*> ::iterator it3;
-	int a;
-	//for (it3 = _gotItems.begin(), a = 1; it3 != _gotItems.end(); it3++, a++)
-	//{
-	//
-	//	pt = (*it3)->getPosition();
-	//	//log("dostep %d :x= %f, y=%f", a, pt.x, pt.y);
-	//	log("_btouch %d :%d", a, (*it3)->_bTouch);
-	//}
-
-
 	if (_ItemNum != _gotItems.size()) {
 		_ItemNum = _gotItems.size();
 		ArrangeItem();
@@ -83,19 +69,6 @@ void CBag::doStep(float dt) {
 
 void CBag::GetItem(CItem *x) {
 	_gotItems.push_back(x);
-
-
-	std::list <CItem*> ::iterator it;
-	int a;
-	for (it = _gotItems.begin(), a=1; it != _gotItems.end(); it++,a++)
-	{
-
-		pt = (*it)->getPosition();
-		log("%d :x= %f, y=%f",a, pt.x ,pt.y);
-		//(*it)->SetBagPos(this->getPosition());
-
-
-	}
 
 }
 
@@ -117,24 +90,16 @@ void CBag::ArrangeItem() {
 	std::list <CItem*> ::iterator it;
 	int i;
 
-	for (it = _gotItems.begin(), i = 1; it != _gotItems.end(), (i-1) < _gotItems.size(); ++it,i++) 
-	{
+	for (it = _gotItems.begin(), i = 1; it != _gotItems.end(), (i-1) < _gotItems.size(); ++it,i++) {
 		(*it)->SetPos(Point((210.0f*i), _posY));
 		(*it)->SetRect(this->getPosition());
 
-		//(*it)->
+		xmlBag::getInstance()->setArrangementXML((*it)->GetName(), i);
 		this->addChild(*it);
-		log("dd");
+		log("arrange items in bag");
 	}
 
-	/*std::list <CItem*> ::iterator it2;
-	int a;
-	for (it2 = _gotItems.begin(), a = 1; it2 != _gotItems.end(); it2++, a++)
-	{
 
-		pt = (*it2)->getPosition();
-		log("arranged %d :x= %f, y=%f", a, pt.x, pt.y);
-	}*/
 }
 
 void CBag::MoveX(float x) {
@@ -177,42 +142,41 @@ void CBag::ResetItemPos() {
 
 // for ±±¨îbag ¸Ìªº item   API used in main scene
 
-void  CBag::AddObj(const char* pic, int numTarget, cocos2d::Rect *target, bool isStagnant, bool canRetake, CTrigger* trigger) {
+void  CBag::AddObj(const char* pic, int numTarget, cocos2d::Rect *target, bool isStagnant, bool canRetake) {
 	
 	int itemNo = xmlBag::getInstance()->getBagState(); // get bag num
 
 	log("itemNo = %d", itemNo);
 
+	if (itemNo >= 0) {
+		_obj[itemNo]->Clear();
+		_obj[itemNo]->Init(pic); //set bag item
 
-	_obj[itemNo]->Clear();
-	_obj[itemNo]->Init(pic); //set bag item
+		for (int i = 0; i < numTarget; i++) {
+			_obj[itemNo]->SetTarget(target[i]); //set target rect
+		}
 
-	for (int i = 0; i < numTarget; i++) {
-		_obj[itemNo]->SetTarget(target[i]); //set target rect
+		this->addChild(_obj[itemNo]);
+
+		GetItem(_obj[itemNo]); // put in list
+		ArrangeItem();
+		_obj[itemNo]->SetVisible(true); // shows in bag
+		_obj[itemNo]->SetCanUse(true);
+
+		_obj[itemNo]->SetUsed(false);
+
+		_obj[itemNo]->SetStagnant(isStagnant); // set it to be always in bag
+
+		if (canRetake) _obj[itemNo]->SetRetake();
+
+		log("picSave = %s", pic);
+		xmlBag::getInstance()->setBagState(itemNo, true, pic); // save item data
 	}
-
-	this->addChild(_obj[itemNo]);
-
-	GetItem(_obj[itemNo]); // put in list
-	ArrangeItem();
-	_obj[itemNo]->SetVisible(true); // shows in bag
-	_obj[itemNo]->SetCanUse(true);
-
-	_obj[itemNo]->SetUsed(false);
-
-	_obj[itemNo]->SetStagnant(isStagnant); // set it to be always in bag
-
-	if (canRetake) _obj[itemNo]->SetRetake(trigger);
-
-	log("picSave = %s", pic);
-	xmlBag::getInstance()->setBagState(itemNo, true, pic); // save item data
-	
-
 
 }
 
 
-void  CBag::AddObjXML(int inum, const char* pic, int numTarget, cocos2d::Rect *target, bool isStagnant, bool canRetake, CTrigger *trigger) {
+void  CBag::AddObjXML(int inum, const char* pic, int numTarget, cocos2d::Rect *target, bool isStagnant, bool canRetake) {
 
 	_obj[inum]->Clear();
 	_obj[inum]->Init(pic); //set bag item
@@ -233,7 +197,7 @@ void  CBag::AddObjXML(int inum, const char* pic, int numTarget, cocos2d::Rect *t
 
 	if (canRetake) {
 		auto code = xmlItem::getInstance()->getTriggerCodeXML(pic);
-		_obj[inum]->SetRetake(trigger);
+		_obj[inum]->SetRetake();
 
 	}
 
@@ -279,35 +243,43 @@ bool CBag::touchesMoved(Point inPos) {
 	return(false);
 }
 
-int CBag::touchesEnded(cocos2d::Point inPos) {
+int CBag::touchesEnded(cocos2d::Point inPos, const char* scene, CTrigger *trigger) {
 	//use items in bag===========================================
-	for (size_t i = 0; i < ItemNum; i++)
-	{
-		if (_obj[i]->touchesEnded(inPos)) {
-			log("used obj");
-			if (!_obj[i]->GetStagnant()) { // if object is not stagnant
-				// when item is being used
-				xmlBag::getInstance()->setBagState(i, false); // save item data
+	for (size_t i = 0; i < ItemNum; i++){
 
-				if (_obj[i]->GetRetake()) { //if the item can be retake when it is used
-					if(_obj[i]->GetTrigger()!=nullptr)  (_obj[i]->GetTrigger())->SetPicked(false); // set it to be enabled
-					/*else {
+		if (_obj[i]->GetCanUse() == true) {
+			if (_obj[i]->touchesEnded(inPos, scene, i)) {
+				log("used obj");
+				if (!_obj[i]->GetStagnant()) { // if object is not stagnant
+											   // when item is being used
+					xmlBag::getInstance()->setBagState(i, false); // save item data
+
+					if (_obj[i]->GetRetake()) { //if the item can be retake when it is used
+						auto name = xmlBag::getInstance()->getItemName(i);
 						int code = xmlBag::getInstance()->getTriggerCode(i); //read data from xml (get item's trigger code)
-						xmlBag::getInstance()->setTriggerChange(_CurrentScene, code, false, false);
+						auto triggerScene = xmlItem::getInstance()->getTriggerSceneXML(name);
+
+						auto ret = strcmp(triggerScene, scene);
+
+						if (ret) {
+							//when trigger scene is not current scene, save changes in xml
+							xmlTrigger::getInstance()->setTriggerStateXML(triggerScene, code, true);
+						}
+						else trigger[code].SetPicked(false);
 					}
-					*/
+
+					_obj[i]->SetCanUse(false); //item cannot be used again
+					DeleteItem(_obj[i]); // delete from bag
 				}
 
-				_obj[i]->SetCanUse(false); //item cannot be used again
-				DeleteItem(_obj[i]); // delete from bag
-				//_obj[i]->
+
+
+				return i; // i is used for mixing/ doing things
 			}
 
 
-
-			return i; // i is used for mixing/ doing things
 		}
-
+		
 	}
 	
 	return(-1);

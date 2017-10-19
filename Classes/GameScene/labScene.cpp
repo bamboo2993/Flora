@@ -911,7 +911,7 @@ void  labScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ä
 			
 			if (_bbagOn) {
 				int i;
-				i = CBag::getInstance()->touchesEnded(_touchLoc);
+				i = CBag::getInstance()->touchesEnded(_touchLoc, CURRENT_SCENE, _pTrigger);
 
 				//to detect item used and its effect-------
 				if (i >= 0) {
