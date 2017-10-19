@@ -56,12 +56,13 @@ labScene::labScene() {
 }
 labScene::~labScene()
 {
+	_xmlscene->updateTriggerXML(CURRENT_SCENE, _pTrigger);
+
 
 	CBag::getInstance()->destroyInstance();
 	xmlItem::getInstance()->destroyInstance();
-	xmlTrigger::getInstance()->destroyInstance();
 
-	this->removeAllChildren();
+//	this->removeAllChildren();
 	SpriteFrameCache::getInstance()->removeUnusedSpriteFrames();
 	Director::getInstance()->getTextureCache()->removeUnusedTextures();
 }
@@ -135,13 +136,6 @@ bool labScene::init()
 
 
 
-	//set bag =================================================================
-
-
-	CBag::getInstance()->Init("bag.png", Point(183, -40));
-	this->addChild(CBag::getInstance(),1000);
-
-
 
 	//set lightbox (experimental procedure) =================================================================
 	_procedure = CLightbox::create();
@@ -159,10 +153,19 @@ bool labScene::init()
 
 	
 	_xmlscene = new xmlScene("./res/xml/xmlfile_labScene.xml");
-	_xmlscene->parseXML(_rootNode);
+	_xmlscene->parseXML(_rootNode, CURRENT_SCENE, _pTrigger);
 	_xmlscene->parseNodeXML(_eNode[0]);
 
-	xmlTrigger::getInstance()->parseXML(CURRENT_SCENE, _pTrigger);
+
+
+	//set bag =================================================================
+
+
+	CBag::getInstance()->Init("bag.png", Point(183, -40), _pTrigger);
+	this->addChild(CBag::getInstance(), 1000);
+
+
+
 
 
 	// mix=======================================
@@ -385,14 +388,16 @@ void labScene::SetObject() {
 	pos = _bowl[4]->getPosition();
 	_pbowlRect[0] = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.width, size.height);
 
+	xmlItem::getInstance()->setTargetRectXML(7, _pbowlRect[0]);
+
+
 	//_pRect = &_bowlRect;
 }
 
 
 void labScene::doStep(float dt)
 {
-	_pTrigger[0].doStep(dt);
-
+	
 	_mixA->doStep(dt);
 	_mixB->doStep(dt);
 	_grind->doStep(dt);
@@ -517,10 +522,8 @@ void labScene::PickObject(float dt) {
 		// check which trigger is being touched
 		//log("_bpickObj = true");
 
-		if (CBag::getInstance()->getState()) {
-			_pTrigger[4].doStep(dt);
-			_pTrigger[5].doStep(dt);
-		}
+		_pTrigger[4].doStep(dt);
+		_pTrigger[5].doStep(dt);
 
 		_procedure->doStep(dt);
 
@@ -534,8 +537,7 @@ void labScene::PickObject(float dt) {
 			_pTrigger[4].SetAddToBag(false);
 			_pTrigger[4].SetPicked(true);
 
-			xmlTrigger::getInstance()->setTriggerStateXML(CURRENT_SCENE, 4, _pTrigger[4].GetPicked(), _pTrigger[4].GetAddToBag());
-
+		
 
 		}
 
@@ -545,8 +547,7 @@ void labScene::PickObject(float dt) {
 			_pTrigger[5].SetAddToBag(false);
 			_pTrigger[5].SetPicked(true);
 
-			xmlTrigger::getInstance()->setTriggerStateXML(CURRENT_SCENE, 5, _pTrigger[5].GetPicked(), _pTrigger[5].GetAddToBag());
-
+			
 		}
 
 
@@ -578,14 +579,10 @@ void labScene::PickObject(float dt) {
 
 	if (_bopenNode[0]) {
 
-		if (CBag::getInstance()->getState()) {
-			_pTrigger[0].doStep(dt);
-			_pTrigger[1].doStep(dt);
-			_pTrigger[2].doStep(dt);
-			_pTrigger[3].doStep(dt);
-		}
-		//log("node is open");
-
+		_pTrigger[0].doStep(dt);
+		_pTrigger[1].doStep(dt);
+		_pTrigger[2].doStep(dt);
+		_pTrigger[3].doStep(dt);
 
 		//create the corresponding item in bag
 		if (_pTrigger[0].GetAddToBag() && !_pTrigger[0].GetPicked()) {
@@ -595,8 +592,7 @@ void labScene::PickObject(float dt) {
 			_pTrigger[0].SetAddToBag(false);
 			_pTrigger[0].SetPicked(true); // if the object is picked and added into the bag
 
-			xmlTrigger::getInstance()->setTriggerStateXML(CURRENT_SCENE, 0, _pTrigger[0].GetPicked(), _pTrigger[0].GetAddToBag());
-
+			
 			_syrup[0]->setVisible(false);
 			_xmlscene->editItemState("red", false, _rootNode, 0, 35);
 		}
@@ -606,8 +602,7 @@ void labScene::PickObject(float dt) {
 			_pTrigger[1].SetAddToBag(false);
 			_pTrigger[1].SetPicked(true);
 
-			xmlTrigger::getInstance()->setTriggerStateXML(CURRENT_SCENE, 1, _pTrigger[1].GetPicked(), _pTrigger[1].GetAddToBag());
-
+		
 			_syrup[1]->setVisible(false);
 			_xmlscene->editItemState("green", false, _rootNode, 0, 35);
 		}
@@ -617,8 +612,7 @@ void labScene::PickObject(float dt) {
 			_pTrigger[2].SetAddToBag(false);
 			_pTrigger[2].SetPicked(true);
 
-			xmlTrigger::getInstance()->setTriggerStateXML(CURRENT_SCENE, 2, _pTrigger[2].GetPicked(), _pTrigger[2].GetAddToBag());
-
+			
 			_syrup[2]->setVisible(false);
 			_xmlscene->editItemState("blue", false, _rootNode, 0, 35);
 		}
@@ -629,8 +623,7 @@ void labScene::PickObject(float dt) {
 			_pTrigger[3].SetAddToBag(false);
 			_pTrigger[3].SetPicked(true);
 
-			xmlTrigger::getInstance()->setTriggerStateXML(CURRENT_SCENE, 3, _pTrigger[3].GetPicked(), _pTrigger[3].GetAddToBag());
-
+			
 			_syrup[3]->setVisible(false);
 			_xmlscene->editItemState("yellow", false, _rootNode, 0, 35);
 		}
@@ -641,12 +634,11 @@ void labScene::PickObject(float dt) {
 
 
 	else if (_bopenNode[1]) {
-		if (CBag::getInstance()->getState()) {
-			_pTrigger[6].doStep(dt);
-			_pTrigger[7].doStep(dt);
-			_pTrigger[8].doStep(dt);
-			_pTrigger[9].doStep(dt);
-		}
+		
+		_pTrigger[6].doStep(dt);
+		_pTrigger[7].doStep(dt);
+		_pTrigger[8].doStep(dt);
+		_pTrigger[9].doStep(dt);
 		//log("node is open");
 
 
@@ -656,8 +648,6 @@ void labScene::PickObject(float dt) {
 			_pTrigger[6].SetAddToBag(false);
 			_pTrigger[6].SetPicked(true);
 
-			xmlTrigger::getInstance()->setTriggerStateXML(CURRENT_SCENE, 6, _pTrigger[6].GetPicked(), _pTrigger[6].GetAddToBag());
-
 			//sound effect
 			_debranch->playEffect();
 		}
@@ -665,8 +655,6 @@ void labScene::PickObject(float dt) {
 			CBag::getInstance()->AddObj("B_herbG.png", 1, _pbowlRect, false, true, &_pTrigger[7]);
 			_pTrigger[7].SetAddToBag(false);
 			_pTrigger[7].SetPicked(true);
-
-			xmlTrigger::getInstance()->setTriggerStateXML(CURRENT_SCENE, 7, _pTrigger[7].GetPicked(), _pTrigger[7].GetAddToBag());
 
 			//sound effect
 			_debranch->playEffect();
@@ -676,8 +664,7 @@ void labScene::PickObject(float dt) {
 			_pTrigger[8].SetAddToBag(false);
 			_pTrigger[8].SetPicked(true);
 
-			xmlTrigger::getInstance()->setTriggerStateXML(CURRENT_SCENE, 8, _pTrigger[8].GetPicked(), _pTrigger[8].GetAddToBag());
-
+			
 			//sound effect
 			_debranch->playEffect();
 		}
@@ -688,7 +675,7 @@ void labScene::PickObject(float dt) {
 			_pTrigger[9].SetAddToBag(false);
 			_pTrigger[9].SetPicked(true);
 
-			xmlTrigger::getInstance()->setTriggerStateXML(CURRENT_SCENE, 9, _pTrigger[9].GetPicked(), _pTrigger[9].GetAddToBag());
+//			xmlTrigger::getInstance()->setTriggerStateXML(CURRENT_SCENE, 9, _pTrigger[9].GetPicked(), _pTrigger[9].GetAddToBag());
 
 			//sound effect
 			_debranch->playEffect();
@@ -742,8 +729,7 @@ void labScene::reset() {
 		_pTrigger[i].reset();
 
 	}
-	xmlTrigger::getInstance()->resetXML(CURRENT_SCENE);
-
+	
 	_bbOnFire[0] = false;
 	_bbOnFire[1] = false;
 	_btouch[0] = false;

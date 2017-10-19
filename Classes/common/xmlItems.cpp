@@ -189,7 +189,7 @@ cocos2d::Rect xmlItem::getTargetRectXML(const char *cname, const int targetno) {
 				auto y = target1->FloatAttribute("y");
 				auto h = target1->FloatAttribute("height");
 				auto w = target1->FloatAttribute("width");
-				auto rect= cocos2d::Rect(x - w / 2, y - h / 2, w, h);
+				auto rect= cocos2d::Rect(x , y , w, h);
 				return rect;
 			}
 			else {
@@ -197,7 +197,7 @@ cocos2d::Rect xmlItem::getTargetRectXML(const char *cname, const int targetno) {
 				auto y = target2->FloatAttribute("y");
 				auto h = target2->FloatAttribute("height");
 				auto w = target2->FloatAttribute("width");
-				auto rect = cocos2d::Rect(x - w / 2, y - h / 2, w, h);
+				auto rect = cocos2d::Rect(x, y , w, h);
 				return rect;
 			}
 		}
@@ -306,7 +306,64 @@ int xmlItem::getTriggerCodeXML(const char *cname) {
 }
 
 
+void xmlItem::setTargetRectXML(int itemNum, cocos2d::Rect area) {
+	tinyxml2::XMLDocument *pDoc = new tinyxml2::XMLDocument();
 
+	//	解析xml文件
+	XMLError errorId = pDoc->LoadFile(_filePath.c_str());
+
+	//判?是否解析??
+	if (errorId != 0) {
+		//xml格式??
+		CCLOG("Parse Error!");
+		return;
+	}
+
+	//?取根元素
+	XMLElement *root = pDoc->RootElement();
+	XMLElement *List = root->FirstChildElement();
+
+	//?取子元素信息
+
+	for (XMLElement* item = List->FirstChildElement(); item; item = item->NextSiblingElement()) {
+
+		int n = std::atoi(item->Attribute("no.")); //char 轉  int
+
+		if (itemNum == n) {
+			/*for (XMLElement* e = item->FirstChildElement(); e; e = e->NextSiblingElement()) {
+				int icode = trigger->IntAttribute("code");
+
+				if (ptrigger[icode].GetPicked() == true) {
+					trigger->FirstChild()->SetValue("false");
+				}
+				else trigger->FirstChild()->SetValue("true");
+
+
+
+			}*/
+
+			auto x = area.getMinX();
+			auto y = area.getMinY();
+
+			auto width = area.getMaxX() - area.getMinX();
+			auto height = area.getMaxY() - area.getMinY();
+
+
+
+			XMLElement* e = item->FirstChildElement();
+
+			e->SetAttribute("x", x);
+			e->SetAttribute("y", y);
+			e->SetAttribute("width", width);
+			e->SetAttribute("height", height);
+
+		}
+	}
+
+	pDoc->SaveFile(_filePath.c_str());
+	//[6] ?放?存
+	delete pDoc;
+}
 
 
 

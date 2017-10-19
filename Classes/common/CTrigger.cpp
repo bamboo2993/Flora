@@ -81,17 +81,23 @@ void CTrigger::doStep(float dt) {
 	if (_bTouch) {
 		//log("sssss");
 		// save data
-		
-  		xmlScene *xmlscene = new xmlScene("./res/xml/xmlfile_labScene.xml");
-		xmlscene->editItemState(_item, false, _node,0,36);
 
-		this->SetVisible(false);
-		_bTouch = !_bTouch;
-		_bAddToBag = true;
+		int itemNo = xmlBag::getInstance()->getBagState(); // get bag num and check if there is space
+		if (itemNo >= 0) {
+			xmlScene *xmlscene = new xmlScene("./res/xml/xmlfile_labScene.xml");
+			xmlscene->editItemState(_item, false, _node, 0, 36);
+
+			this->SetVisible(false);
+			_bTouch = !_bTouch;
+			_bAddToBag = true;
+
+		}
+
+		
+  		
 
 	}
 
-	//_bTouch = false;
 }
 
 
@@ -108,7 +114,6 @@ bool CTrigger::touchesBegan(Point inPos) {
 	if(_objRect.containsPoint(inPos)){
 		_bTouch = true;
 //		_bDel = true;
-		log("oo");
 
 		log("touchaa: %d", _bTouch);
 		return(true);

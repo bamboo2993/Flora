@@ -13,9 +13,6 @@
     <Filter Include="src\common">
       <UniqueIdentifier>{562f9101-ac58-44a6-a77d-61eb7c146fe8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\scene001">
-      <UniqueIdentifier>{8d2da532-ffb4-4b17-a0e1-e6afedb88cef}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\MainScene">
       <UniqueIdentifier>{b08d35aa-831c-4a35-807b-4295aac587c9}</UniqueIdentifier>
     </Filter>
@@ -44,9 +41,6 @@
     </ClCompile>
     <ClCompile Include="..\Classes\MainScene\MainScene.cpp">
       <Filter>src\MainScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\scene001\kitchenScene.cpp">
-      <Filter>src\scene001</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\common\CBox.cpp">
       <Filter>src\common</Filter>
@@ -87,9 +81,6 @@
     <ClCompile Include="..\Classes\common\CBag.cpp">
       <Filter>src\common</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\common\xmlTrigger.cpp">
-      <Filter>src\common</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\common\xmlItems.cpp">
       <Filter>src\common</Filter>
     </ClCompile>
@@ -118,9 +109,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\MainScene\MainScene.h">
       <Filter>src\MainScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\scene001\kitchenScene.h">
-      <Filter>src\scene001</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\common\CBox.h">
       <Filter>src\common</Filter>
@@ -159,9 +147,6 @@
       <Filter>src\GameScene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\common\CBag.h">
-      <Filter>src\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\common\xmlTrigger.h">
       <Filter>src\common</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\common\xmlItems.h">

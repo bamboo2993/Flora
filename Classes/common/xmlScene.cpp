@@ -17,6 +17,9 @@ xmlScene::xmlScene(const char *fileName){
 
 	//log("file name = %s", _fileName);
 
+	_triggerfilePath = FileUtils::getInstance()->fullPathFromRelativeFile("./res/xml/xmlfile_trigger.xml", "");
+
+
 }
 
 xmlScene::~xmlScene(){
@@ -26,11 +29,12 @@ xmlScene::~xmlScene(){
 
 
 
-void xmlScene::parseXML(cocos2d::Node *currentNode)
+void xmlScene::parseXML(cocos2d::Node *currentNode, const char *scene, CTrigger *ptrigger)
 {
+
 	tinyxml2::XMLDocument *pDoc = new tinyxml2::XMLDocument();
 	log("parse");
-	//	解析xml文件
+	//	解析xml文件 parse sceneXML====================================================
 	XMLError errorId = pDoc->LoadFile(_filePath.c_str());
 
 	//判?是否解析??
@@ -68,6 +72,46 @@ void xmlScene::parseXML(cocos2d::Node *currentNode)
 
 
 	} 
+
+	//	解析xml文件 parse triggerXML====================================================
+	errorId = pDoc->LoadFile(_triggerfilePath.c_str());
+
+	//判?是否解析??
+	if (errorId != 0) {
+		//xml格式??
+		CCLOG("Parse Error!");
+		return;
+	}
+
+	//?取根元素
+	root = pDoc->RootElement();
+
+
+	//XMLElement *roomInfo = sceneInfo->FirstChildElement();
+	//?取子元素信息
+
+	for (sceneInfo = root->FirstChildElement(); sceneInfo; sceneInfo = sceneInfo->NextSiblingElement()) {
+
+		bool ret = (!strcmp(sceneInfo->Attribute("scene"), scene)); // select the correct scene
+
+		if (true == ret) {
+			for (XMLElement* trigger = sceneInfo->FirstChildElement(); trigger; trigger = trigger->NextSiblingElement()) {
+
+				auto code = trigger->IntAttribute("code");
+
+				bool ret = (!strcmp(trigger->GetText(), "false"));
+
+				if (true == ret) {
+					ptrigger[code].SetPicked(true);
+					ptrigger[code].SetAddToBag(false);
+				}
+
+			}
+
+
+		}
+
+	}
 	//[6] ?放?存
 	delete pDoc;
 }
@@ -173,8 +217,6 @@ void xmlScene::editItemState(const int itemNo, bool state, cocos2d::Node *curren
 }
 
 
-
-
 void xmlScene::editItemState(const char *name, bool state, cocos2d::Node *currentNode, int start, int end) {
 	
 	tinyxml2::XMLDocument *pDoc = new tinyxml2::XMLDocument();
@@ -228,6 +270,7 @@ void xmlScene::editItemState(const char *name, bool state, cocos2d::Node *curren
 	delete pDoc;
 
 }
+
 
 
 void xmlScene::editRangeState(const int itemNo, bool state, cocos2d::Node *currentNode, int start, int end) {
@@ -425,4 +468,51 @@ int xmlScene::getItemNumXML(const char* itemName,bool type) {
 
 void xmlScene::reset() {
 
+}
+
+
+
+// used when switching scene
+void xmlScene::updateTriggerXML(const char *scene, CTrigger *ptrigger) {
+
+	tinyxml2::XMLDocument *pDoc = new tinyxml2::XMLDocument();
+
+	//	解析xml文件
+	XMLError errorId = pDoc->LoadFile(_triggerfilePath.c_str());
+
+	//判?是否解析??
+	if (errorId != 0) {
+		//xml格式??
+		CCLOG("Parse Error!");
+		return;
+	}
+
+	//?取根元素
+	XMLElement *root = pDoc->RootElement();
+
+	//?取子元素信息
+
+	for (XMLElement* s = root->FirstChildElement(); s; s = s->NextSiblingElement()) {
+
+		bool ret = (!strcmp(s->Attribute("scene"), scene)); // select the correct scene
+
+		if (true == ret) {
+			for (XMLElement* trigger = s->FirstChildElement(); trigger; trigger = trigger->NextSiblingElement()) {
+				int icode = trigger->IntAttribute("code");
+				
+				if (ptrigger[icode].GetPicked() == true ) {
+					trigger->FirstChild()->SetValue("false");
+				}
+				else trigger->FirstChild()->SetValue("true");
+
+
+
+			}
+
+		}
+	}
+
+	pDoc->SaveFile(_triggerfilePath.c_str());
+	//[6] ?放?存
+	delete pDoc;
 }
