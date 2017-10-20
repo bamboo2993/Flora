@@ -10,7 +10,7 @@
         <item no.="5" name="E_green" B_name="" state="node">true</item>
         <item no.="6" name="E_blue" B_name="" state="node">true</item>
         <item no.="7" name="E_yellow" B_name="" state="node">true</item>
-        <item no.="8" name="water" B_name="B_water.png" state="scene">false</item>
+        <item no.="8" name="water" B_name="B_water.png" state="scene">true</item>
         <item no.="9" name="glassrod" B_name="B_glassrod.png" state="scene">true</item>
         <item no.="10" name="alcohol_lamp01" B_name="" state="scene">true</item>
         <item no.="11" name="alcohol_lamp02" B_name="" state="scene">false</item>

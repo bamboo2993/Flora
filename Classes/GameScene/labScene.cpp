@@ -390,7 +390,7 @@ void labScene::SetObject() {
 	pos = _bowl[4]->getPosition();
 	_pbowlRect[0] = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.width, size.height);
 
-	xmlItem::getInstance()->setTargetRectXML(7, _pbowlRect[0]);
+	//xmlItem::getInstance()->setTargetRectXML(7, _pbowlRect[0]);
 
 
 	//_pRect = &_bowlRect;
@@ -731,6 +731,7 @@ void labScene::reset() {
 		_pTrigger[i].reset();
 
 	}
+	xmlTrigger::getInstance()->updateTriggerXML(CURRENT_SCENE, _pTrigger);
 	
 	_bbOnFire[0] = false;
 	_bbOnFire[1] = false;
@@ -741,6 +742,7 @@ void labScene::reset() {
 
 	_clear = false;
 	_win->setVisible(false);
+
 }
 
 
@@ -748,6 +750,14 @@ bool labScene::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)//Ä²¸
 {
 	_touchLoc = pTouch->getLocation();
 	_prePos = _touchLoc;
+
+	Rect xx = Rect(1900.0f,1440.0f,140.0f,98.0f);
+	if (xx.containsPoint(_touchLoc)) {
+		xmlTrigger::getInstance()->updateTriggerXML(CURRENT_SCENE, _pTrigger);
+	}
+
+
+
 	if (!_procedure->GetOpen() && !_clear) {
 		//swipe gesture
 		_startX = _touchLoc.x;

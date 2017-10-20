@@ -8,9 +8,9 @@
         <trigger code="3">true</trigger>
         <trigger code="4">true</trigger>
         <trigger code="5">true</trigger>
-        <trigger code="6">false</trigger>
-        <trigger code="7">false</trigger>
-        <trigger code="8">false</trigger>
+        <trigger code="6">true</trigger>
+        <trigger code="7">true</trigger>
+        <trigger code="8">true</trigger>
         <trigger code="9">true</trigger>
     </scene>
     <scene scene="">

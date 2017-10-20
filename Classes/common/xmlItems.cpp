@@ -307,9 +307,8 @@ const char* xmlItem::getTriggerSceneXML(const char *cname) {
 
 	for (XMLElement* item = List->FirstChildElement(); item; item = item->NextSiblingElement()) {
 		if ((!strcmp(item->Attribute("name"), cname))) {
-			XMLElement *retake = item->LastChildElement();
 
-			const char *scene = retake->Attribute("scene");
+			const char *scene = item->Attribute("scene");
 			return scene;
 		}
 
