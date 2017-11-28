@@ -164,7 +164,8 @@ private:
 
 
 	bool _bbagOn;
-
+	int _ibagState;
+	bool _useItem = false;
 
 	//bag==========================
 	//CBag *_bag;

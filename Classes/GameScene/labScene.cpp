@@ -10,7 +10,7 @@
 #define WALK_AREA_4 Vec2(420.0f,175.0f)
 
 #define BAG_OPEN_HEIGHT 150.0f
-#define BAG_CLOSE_HEIGHT 440.0f
+#define BAG_CLOSE_HEIGHT 250.0f
 
 #define BACKGROUND_FRONT "GameScene/labScene/labScene02.png"
 
@@ -57,7 +57,7 @@ labScene::labScene() {
 labScene::~labScene()
 {
 	xmlTrigger::getInstance()->updateTriggerXML(CURRENT_SCENE, _pTrigger);
-
+	xmlBag::getInstance()->sortItems();
 
 	CBag::getInstance()->destroyInstance();
 	xmlItem::getInstance()->destroyInstance();
@@ -163,7 +163,7 @@ bool labScene::init()
 	//set bag =================================================================
 
 
-	CBag::getInstance()->Init("bag.png", Point(183, -40), _pTrigger);
+	CBag::getInstance()->Init("bag.png", Point(172, -115), _pTrigger);
 	this->addChild(CBag::getInstance(), 1000);
 
 
@@ -754,6 +754,7 @@ bool labScene::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)//Ä²¸
 	Rect xx = Rect(1900.0f,1440.0f,140.0f,98.0f);
 	if (xx.containsPoint(_touchLoc)) {
 		xmlTrigger::getInstance()->updateTriggerXML(CURRENT_SCENE, _pTrigger);
+		xmlBag::getInstance()->sortItems();
 	}
 
 
@@ -813,8 +814,8 @@ bool labScene::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)//Ä²¸
 		}
 
 
-
-		if (_bbagOn) { //when bag is open
+		if (_ibagState) { //when bag is open
+		//if (_bbagOn) { //when bag is open
 			//use items in bag===========================================
 			CBag::getInstance()->touchesBegan(_touchLoc);
 
@@ -846,8 +847,8 @@ void  labScene::onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ä
 
 	if (!_procedure->GetOpen() && !_clear) {
 		//use items in bag===========================================
-
-		if (_bbagOn) {
+		if (_ibagState) { //when bag is open
+		//if (_bbagOn) {
 			CBag::getInstance()->touchesMoved(_touchLoc);
 		}
 
@@ -912,19 +913,21 @@ void  labScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ä
 		float offsetY = _endY - _startY;
 
 
+
 		if (!_procedure->GetOpen()) {
 			// reset button=========================
 
 			if (_resetRect.containsPoint(_touchLoc)) reset();
 
 			//use items in bag===========================================
-			
-			if (_bbagOn) {
+			if (_ibagState) { //when bag is open
+			//if (_bbagOn) {
 				int i;
-				i = CBag::getInstance()->touchesEnded(_touchLoc, CURRENT_SCENE, _pTrigger);
+				i = CBag::getInstance()->touchesEnded(_touchLoc, _ibagState, CURRENT_SCENE, _pTrigger);
 
 				//to detect item used and its effect-------
 				if (i >= 0) {
+					_useItem = true;
 					// mix mix
 					if (_pbeakerRect[0].containsPoint(_touchLoc) && !_bbOnFire[0]) {
 
@@ -975,6 +978,7 @@ void  labScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ä
 
 
 				}
+				else _useItem = false;
 			}
 
 			
@@ -1176,46 +1180,72 @@ void  labScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ä
 
 
 			//=====================================================================
-
+			log("_startY: %f ", _startY);
 			// open/close/swipe bag-------
-			if (_startY < BAG_OPEN_HEIGHT) { // when touched y< set height
+			if (!CBag::getInstance()->itemdrag()) {
+				if (!_ibagState && _startY < BAG_OPEN_HEIGHT) { // when touched y< set height
 
-				// bag oppened set bag and item position----------------------
-				if (fabs(offsetX) < fabs(offsetY) && offsetY > 0) { 
-					CBag::getInstance()->setPosition(183, 154);
-					CBag::getInstance()->SetItemRect();
-					_bbagOn = true;
-					log("bag open");
-
-				}
-			}
-
-			if (_bbagOn && _startY <= BAG_CLOSE_HEIGHT) {
-				if (fabs(offsetX) > fabs(offsetY)) {  //swipe bag
-					if (offsetX < 0) { // left
-						_isLeft = 1;
-						log("bag left");
-					}
-					else { // right
-						_isRight = 1;
-						log("bag right");
-					}
-				}
-				else if (fabs(offsetX) < fabs(offsetY)) { // close bag
-					if (offsetY < 0) { //down
-						CBag::getInstance()->setPosition(183, -40);
+																// bag oppened set bag and item position----------------------
+					if (fabs(offsetX) < fabs(offsetY) && offsetY > 0) {
+						CBag::getInstance()->setPosition(172, 115);
 						CBag::getInstance()->SetItemRect();
-						_bbagOn = false;
-						log("bag close");
-						CBag::getInstance()->ResetItemPos();
-
+						//_bbagOn = true;
+						_ibagState = 1;
+						log("bag open state:1");
 
 					}
 				}
+
+				else if (_ibagState == 2) {
+
+					if (fabs(offsetX) < fabs(offsetY)) { // close bag
+						if (offsetY < 0) { //down
+							
+							//CBag::getInstance()->SetItemRect();
+							//_bbagOn = false;
+							CBag::getInstance()->ToStateOne();
+							_ibagState = 1;
+							log("bag open state:1");
+							CBag::getInstance()->ResetItemPos();
+
+
+						}
+					}
+				}
+
+
+				else if (_ibagState == 1 && _startY <= BAG_CLOSE_HEIGHT) {
+					//if (_bbagOn && _startY <= BAG_CLOSE_HEIGHT) {
+
+					// bag oppened set bag and item position----------------------
+					if (fabs(offsetX) < fabs(offsetY) && offsetY > 0) {
+						CBag::getInstance()->ToStateTwo();
+						_ibagState = 2;
+						log("bag open state:2");
+
+					}
+
+					else if (fabs(offsetX) < fabs(offsetY)) { // close bag
+						if (offsetY < 0) { //down
+							CBag::getInstance()->setPosition(172, -115);
+							CBag::getInstance()->SetItemRect();
+							//_bbagOn = false;
+							_ibagState = 0;
+							log("bag close");
+							CBag::getInstance()->ResetItemPos();
+
+
+						}
+					}
+
+
+
+				}
 			}
+			
 
 
-			if (offsetX == 0 && offsetY == 0) { // when screen tapped
+			if (offsetX == 0 && offsetY == 0 && _touchLoc.y>227) { // when screen tapped
 
 
 

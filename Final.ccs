@@ -84,6 +84,9 @@
             <PlistImageFolder Image="labScene.png" PListFile="labScene.plist" Name=".labScene_PList.Dir">
               <PlistImageFile Name="alcohol_lamp01.png" Key="alcohol_lamp01.png" />
               <PlistImageFile Name="alcohol_lamp02.png" Key="alcohol_lamp02.png" />
+              <PlistImageFile Name="arrow_left.png" Key="arrow_left.png" />
+              <PlistImageFile Name="arrow_right.png" Key="arrow_right.png" />
+              <PlistImageFile Name="arrow_up.png" Key="arrow_up.png" />
               <PlistImageFile Name="B_blue.png" Key="B_blue.png" />
               <PlistImageFile Name="B_glassrod.png" Key="B_glassrod.png" />
               <PlistImageFile Name="B_green.png" Key="B_green.png" />
@@ -125,7 +128,9 @@
               <PlistImageFile Name="water.png" Key="water.png" />
               <PlistImageFile Name="yellow.png" Key="yellow.png" />
             </PlistImageFolder>
+            <Image Name="bag02.png" />
             <Image Name="lab_full.png" />
+            <Image Name="labScene.png" />
             <Image Name="labScene_blur.png" />
             <Image Name="labScene01.png" />
             <Image Name="labScene02.png" />
@@ -206,7 +211,9 @@
           <PlistImageFile Name="chefwalk007.png" Key="chefwalk007.png" />
           <PlistImageFile Name="chefwalk008.png" Key="chefwalk008.png" />
         </PlistImageFolder>
+        <Image Name="23798091_10213085434507992_1331483247_o.png" />
         <Project Name="AnimationAction.csd" Type="Scene" />
+        <Image Name="bag_02.png" />
         <Image Name="bananaa.png" />
         <Image Name="branch.png" />
         <Image Name="cheeseCard.png" />
@@ -225,6 +232,7 @@
         <Project Name="RunScene.csd" Type="Scene" />
         <Project Name="SceneDiningRoom.csd" Type="Scene" />
         <Image Name="shell.png" />
+        <Image Name="view_blue.png" />
       </RootFolder>
     </Group>
   </SolutionFolder>

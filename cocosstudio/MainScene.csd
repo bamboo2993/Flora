@@ -36,7 +36,7 @@
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.2043" Y="0.4301" />
             <PreSize X="0.0889" Y="0.1237" />
-            <FileData Type="PlistSubImage" Path="trashcan.png" Plist="GameScene/labScene/labScene.plist" />
+            <FileData Type="Default" Path="Default/Sprite.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
           <AbstractNodeData Name="select02" CanEdit="False" ActionTag="78370859" VisibleForFrame="False" Tag="63" IconVisible="False" LeftMargin="960.7559" RightMargin="905.2441" TopMargin="370.7040" BottomMargin="975.2960" ctype="SpriteObjectData">
@@ -47,7 +47,7 @@
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.5136" Y="0.6968" />
             <PreSize X="0.0889" Y="0.1237" />
-            <FileData Type="PlistSubImage" Path="trashcan.png" Plist="GameScene/labScene/labScene.plist" />
+            <FileData Type="Default" Path="Default/Sprite.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
           <AbstractNodeData Name="select03" CanEdit="False" ActionTag="-1328724501" VisibleForFrame="False" Tag="61" IconVisible="False" LeftMargin="1657.7327" RightMargin="208.2673" TopMargin="702.1333" BottomMargin="643.8667" ctype="SpriteObjectData">
@@ -58,7 +58,7 @@
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.8539" Y="0.4810" />
             <PreSize X="0.0889" Y="0.1237" />
-            <FileData Type="PlistSubImage" Path="trashcan.png" Plist="GameScene/labScene/labScene.plist" />
+            <FileData Type="Default" Path="Default/Sprite.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
         </Children>

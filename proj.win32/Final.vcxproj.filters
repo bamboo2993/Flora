@@ -33,9 +33,6 @@
     <ClCompile Include="..\Classes\AppDelegate.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\MainScene\SelectionScene.cpp">
-      <Filter>src\MainScene</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\common\CButton.cpp">
       <Filter>src\common</Filter>
     </ClCompile>
@@ -96,6 +93,9 @@
     <ClCompile Include="..\Classes\common\xmlTrigger.cpp">
       <Filter>src\common</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\MainScene\lockUsage.cpp">
+      <Filter>src\MainScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -103,9 +103,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\AppDelegate.h">
       <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\MainScene\SelectionScene.h">
-      <Filter>src\MainScene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\common\CButton.h">
       <Filter>src\common</Filter>
@@ -166,6 +163,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\common\xmlTrigger.h">
       <Filter>src\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MainScene\lockUsage.h">
+      <Filter>src\MainScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

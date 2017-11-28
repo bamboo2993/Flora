@@ -23,13 +23,15 @@ char g_Object3[MAX_LOCK_LETTERS][20] = {
 	,"pot03.png","plate.png","pot01.png","salt.png",
 	"vinegar.png", "cheese.png" };
 
-CLock::CLock() {
+CLock::CLock(bool type) {
+
 	_nowA = rand() % MAX_LOCK_LETTERS;
 	_nowB = rand() % MAX_LOCK_LETTERS;
 	_nowC = rand() % MAX_LOCK_LETTERS;
 
 	_btouch = false;
-	_bclear = false;
+	_state = false;
+	_check = false;
 }
 
 
@@ -39,7 +41,7 @@ CLock::~CLock() {
 	Director::getInstance()->getTextureCache()->removeUnusedTextures();
 }
 
-bool CLock::init(const int state) {
+bool CLock::init(const char *bg) {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
@@ -79,104 +81,35 @@ bool CLock::init(const int state) {
 
 
 	//setup number
-	if (state == 1) {
-		//int num = rand() % MAX_LOCK_LETTERS;
-		int num = 0;
 
-		for (int i = 0; i < 10; i++)
-		{
-			_numberA[i] = (cocos2d::Sprite *) Sprite::createWithSpriteFrameName(g_Object1[num]);
+	for (int i = 0; i < 10; i++){
+			_numberA[i] = (cocos2d::Sprite *) Sprite::createWithSpriteFrameName(g_Object1[i]);
 			_numberA[i]->setPosition(660, 730);
 			this->addChild(_numberA[i]);
 			_numberA[i]->setVisible(false);
-			if (num >= MAX_LOCK_LETTERS - 1) num = 0;
-			else num++;
 
 		}
 
-		//num = rand() % MAX_LOCK_LETTERS;
-		num = 0;
-		for (size_t i = 0; i < 10; i++)
-		{
-			_numberB[i] = (cocos2d::Sprite *) Sprite::createWithSpriteFrameName(g_Object1[num]);
+	for (size_t i = 0; i < 10; i++){
+			_numberB[i] = (cocos2d::Sprite *) Sprite::createWithSpriteFrameName(g_Object1[i]);
 			this->addChild(_numberB[i]);
 			_numberB[i]->setPosition(1060, 730);
 			_numberB[i]->setVisible(false);
-			if (num >= MAX_LOCK_LETTERS - 1) num = 0;
-			else num++;
 		}
 
 
-		//num = rand() % MAX_LOCK_LETTERS;
-		num = 0;
-		for (size_t i = 0; i < 10; i++)
+	for (size_t i = 0; i < 10; i++)
 		{
-			_numberC[i] = (cocos2d::Sprite *) Sprite::createWithSpriteFrameName(g_Object1[num]);
+			_numberC[i] = (cocos2d::Sprite *) Sprite::createWithSpriteFrameName(g_Object1[i]);
 			this->addChild(_numberC[i]);
 			_numberC[i]->setPosition(1460, 730);
 			_numberC[i]->setVisible(false);
-			if (num >= MAX_LOCK_LETTERS - 1) num = 0;
-			else num++;
 		}
-
-
-	}
-
-	else {
-		//int num = rand() % MAX_LOCK_LETTERS;
-		int num = 0;
-
-		for (int i = 0; i < 10; i++)
-		{
-			_numberA[i] = (cocos2d::Sprite *) Sprite::createWithSpriteFrameName(g_Object3[num]);
-			_numberA[i]->setPosition(660, 730);
-			this->addChild(_numberA[i]);
-			_numberA[i]->setVisible(false);
-			if (num >= MAX_LOCK_LETTERS - 1) num = 0;
-			else num++;
-
-		}
-
-		//num = rand() % MAX_LOCK_LETTERS;
-		num = 0;
-		for (size_t i = 0; i < 10; i++)
-		{
-			_numberB[i] = (cocos2d::Sprite *) Sprite::createWithSpriteFrameName(g_Object3[num]);
-			this->addChild(_numberB[i]);
-			_numberB[i]->setPosition(1060, 730);
-			_numberB[i]->setVisible(false);
-			if (num >= MAX_LOCK_LETTERS - 1) num = 0;
-			else num++;
-		}
-
-
-		//num = rand() % MAX_LOCK_LETTERS;
-		num = 0;
-		for (size_t i = 0; i < 10; i++)
-		{
-			_numberC[i] = (cocos2d::Sprite *) Sprite::createWithSpriteFrameName(g_Object3[num]);
-			this->addChild(_numberC[i]);
-			_numberC[i]->setPosition(1460, 730);
-			_numberC[i]->setVisible(false);
-			if (num >= MAX_LOCK_LETTERS - 1) num = 0;
-			else num++;
-		}
-
-
-	}
-
-
-
-	
 
 	_numberA[_nowA]->setVisible(true);
 	_numberB[_nowB]->setVisible(true);
 	_numberC[_nowC]->setVisible(true);
 
-
-	//enter button
-	_enter = new CButton;
-	_enter ->setButtonInfo("salt.png", "salt.png", *this, Vec2(1500, 600));
 
 	////frige
 	//_x = (cocos2d::Sprite *) Sprite::createWithSpriteFrameName("bean1_01.png");
@@ -195,7 +128,7 @@ bool CLock::init(const int state) {
 
 	this->setVisible(false);
 
-
+	this->schedule(CC_SCHEDULE_SELECTOR(CLock::doStep));
 	return true;
 }
 
@@ -232,7 +165,17 @@ void CLock::SetPassword(int a, int b, int c) {
 }
 
 void CLock::doStep(float dt) {
-	
+	if (_check) {
+		if (_nowA == _ansA && _nowB == _ansB && _nowC == _ansC) {
+			log("correct");
+			label->setString("Correct!");
+
+			_state = true;
+			this->setVisible(false);
+			_check = false;
+		}
+		_check = false;
+	}
 }
 
 void CLock::reset() {
@@ -252,6 +195,11 @@ void CLock::reset() {
 	_numberC[_nowC]->setVisible(true);
 }
 
+bool CLock::GetState()
+{
+	return _state;
+}
+
 bool CLock::TouchBegan(const cocos2d::Point pt) {
 	
 	_button[0]->touchesBegin(pt);
@@ -261,7 +209,6 @@ bool CLock::TouchBegan(const cocos2d::Point pt) {
 	_button[4]->touchesBegin(pt);
 	_button[5]->touchesBegin(pt);
 
-	_enter->touchesBegin(pt);
 	return true;
 }
 
@@ -275,7 +222,6 @@ bool CLock::TouchMoved(const cocos2d::Point pt) {
 	_button[4]->touchesMoved(pt);
 	_button[5]->touchesMoved(pt);
 
-	_enter->touchesMoved(pt);
 	return true;
 }
 bool CLock::TouchEnded(const cocos2d::Point pt) {
@@ -286,12 +232,15 @@ bool CLock::TouchEnded(const cocos2d::Point pt) {
 	return false;
 	}
 
-	if (!_bgRect.containsPoint(pt) && _btouch) {
-	this->setVisible(false);
-	_btouch = false;
+	else if (!_bgRect.containsPoint(pt) && _btouch) {
+		if (!_state) {
+			this->setVisible(false);
+			_btouch = false;
 
-	reset();
-	return false;
+			reset();
+			return false;
+		}
+		return false;
 	}
 
 
@@ -305,54 +254,50 @@ bool CLock::TouchEnded(const cocos2d::Point pt) {
 			_numberA[_nowA]->setVisible(true);
 			label->setString("Up!");
 			log("a   %d", _nowA);
-
+			_check = true;
 		}
-		if (_button[1]->touchesEnded(pt)) {
+		else if (_button[1]->touchesEnded(pt)) {
 			_numberA[_nowA]->setVisible(false);
 			if (_nowA == 0) _nowA = MAX_LOCK_LETTERS - 1;
 			else _nowA--;
 			_numberA[_nowA]->setVisible(true);
 			label->setString("Down!");
 			log("a   %d", _nowA);
+			_check = true;
 		}
-		if (_button[2]->touchesEnded(pt)) {
+		else if (_button[2]->touchesEnded(pt)) {
 			_numberB[_nowB]->setVisible(false);
 			if (_nowB >= MAX_LOCK_LETTERS - 1) _nowB = 0;
 			else _nowB++;
 			_numberB[_nowB]->setVisible(true);
 			log("b   %d", _nowB);
+			_check = true;
 		}
-		if (_button[3]->touchesEnded(pt)) {
+		else if (_button[3]->touchesEnded(pt)) {
 			_numberB[_nowB]->setVisible(false);
 			if (_nowB == 0) _nowB = MAX_LOCK_LETTERS - 1;
 			else _nowB--;
 			_numberB[_nowB]->setVisible(true);
 			log("b   %d", _nowB);
+			_check = true;
 		}
-		if (_button[4]->touchesEnded(pt)) {
+		else if (_button[4]->touchesEnded(pt)) {
 			_numberC[_nowC]->setVisible(false);
 			if (_nowC >= MAX_LOCK_LETTERS - 1) _nowC = 0;
 			else _nowC++;
 			_numberC[_nowC]->setVisible(true);
 			log("c   %d", _nowC);
+			_check = true;
 		}
-		if (_button[5]->touchesEnded(pt)) {
+		else if (_button[5]->touchesEnded(pt)) {
 			_numberC[_nowC]->setVisible(false);
 			if (_nowC == 0) _nowC = MAX_LOCK_LETTERS - 1;
 			else _nowC--;
 			_numberC[_nowC]->setVisible(true);
 			log("c   %d", _nowC);
+			_check = true;
 		}
 
 
-		if (_enter->touchesEnded(pt)) {
-			if (_nowA == _ansA && _nowB == _ansB && _nowC == _ansC) {
-				_bclear = true;
-				log("correct");
-				label->setString("Correct!");
-
-				return true;
-			}
-		}
 	}
 }

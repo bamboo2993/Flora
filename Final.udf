@@ -31,7 +31,6 @@
           <FilePathData Path="fgnode.csd" />
           <FilePathData Path="RunScene.csd" />
           <FilePathData Path="labScene.csd" />
-          <FilePathData Path="obstaclenode.csd" />
         </OpenedDocuments>
         <ActiveDocument Path="labScene.csd" />
       </Value>

@@ -8,7 +8,7 @@
 #include "xmlBag .h"
 #include "xmlItems.h"
 
-#define ItemNum 7
+#define ItemNum 23
 
 USING_NS_CC;
 
@@ -17,14 +17,19 @@ class CBag :public Node
 private:
 	const char *_CurrentScene;
 
-
 	static CBag *_pBag;
-	Sprite* _bagSprite;
+	Sprite* _bagSprite[2];
+	Sprite* _bagButton[3];
+	int _posY;
+	int _pageNum;
+	int _pageTot;
+	Rect _button[2];
+
+
 	std::list<CItem*>_gotItems;
 	int _ItemNum;
+	int _bagState;
 
-	int _posY;
-	
 	//item in bag==================
 	CItem *_obj[ItemNum];
 
@@ -43,14 +48,21 @@ public:
 
 	void Init(const std::string& pic,Point pos, CTrigger* trigger);
 	void ArrangeItem();
+	void ArrangeItemStateTwo();
 	void doStep(float dt);
 	void MoveX(float x); // swipe right/left
-	void SetItemRect();
+	void Move(bool direction); // true: page down, false: page up
+	void Move(int page);
 
+	void ToStateTwo();	
+	void ToStateOne();
+
+	void SetItemRect();
 	//must be added to main scene. where bag is closed
 	void ResetItemPos();
 
 	void SetCurrentScene(const char *scene);
+	bool itemdrag();
 
 	void reset();
 
@@ -65,6 +77,6 @@ public:
 
 	bool touchesBegan(cocos2d::Point inPos);
 	bool touchesMoved(cocos2d::Point inPos);
-	int touchesEnded(cocos2d::Point inPos, const char* scene, CTrigger *trigger);
+	int touchesEnded(cocos2d::Point inPos, int bagstate, const char* scene, CTrigger *trigger);
 };
 

@@ -22,12 +22,15 @@ private:
 	bool _canUse;
 
 	bool _bRetake;
+	bool _isdrag=false;
 
 	Rect _targetRect[3]; //set item target rect
 	int _targetNum; //number of target rect
 	bool _isStagnant;
 
 	const char* _itemName;   //item name ie xxx.png
+
+	float _startX, _startY;
 public:
 	static CItem* create();
 	CItem();
@@ -63,6 +66,10 @@ public:
 
 	bool touchesBegan(cocos2d::Point inPos);
 	bool touchesMoved(cocos2d::Point inPos);
-	bool touchesEnded(cocos2d::Point inPos, const char* scene, int num);
+	int touchesEnded(cocos2d::Point inPos, int bagstate, const char* scene, int num, int pageNum);
+
+
+	int detectUse(cocos2d::Point pos, bool state = false);
+	bool detectDrag();
 };
 

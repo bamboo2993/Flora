@@ -31,11 +31,21 @@ public:
 	int getBagState(); // get the bag no. to put items in 
 	void setBagState(int bagNum, bool state, const char* item=nullptr);
 
+	void setBagState(const char * before, const char * after);
+
 	int getTriggerCode(int bagNum); // for load data. get item's trigger code from itemXML
 	const char* getItemName(int bagNum);
 
+	int getItemNum(const char *cname);
+
+	const char * getNameFromArrangement(int arrangement);
+
+	int getNumFromArrangement(int arrangement);
+
 	void setArrangementXML(const char *cname, int order);
 	int getArrangement(int bagNum);
+
+	int getNextArrangement(int bagNum);
 
 	void reset();
 

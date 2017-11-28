@@ -28,9 +28,11 @@ CBag* CBag::getInstance() {
 void CBag::destroyInstance() { CC_SAFE_DELETE(_pBag); }
 
 CBag::CBag() {
-	_bagSprite = nullptr;
+	_bagSprite[1] = nullptr;
+	_bagSprite[0] = nullptr;
 	_ItemNum = 0;
-
+	_pageNum = 1;
+	_pageTot = 1;
 }
 
 CBag::~CBag() {
@@ -39,10 +41,34 @@ CBag::~CBag() {
 }
 
 void CBag::Init(const std::string& pic,Point pos, CTrigger* trigger) {
-	_bagSprite = Sprite::createWithSpriteFrameName(pic);
-	_bagSprite->setPosition(1024-pos.x, pos.y);
-	this->addChild(_bagSprite);
-	this->setPosition(pos);
+	_pageNum = 1;
+	
+	_bagSprite[0] = Sprite::createWithSpriteFrameName(pic);
+
+	_bagSprite[0]->setPosition(1024-pos.x, 0);
+
+
+	this->addChild(_bagSprite[0]);
+
+	_bagSprite[1] = Sprite::create("GameScene/labScene/bag02.png");  // 使用 create 函式,給予檔名即可
+	_bagSprite[1]->setPosition(1024 - pos.x, 768.0f-115.0f);
+
+	_bagSprite[1]->setVisible(false);
+	this->addChild(_bagSprite[1]);
+
+	_bagButton[0] = Sprite::createWithSpriteFrameName("arrow_up.png");
+	_bagButton[0]->setPosition(1024 - pos.x, 115+60);
+	_bagButton[1] = Sprite::createWithSpriteFrameName("arrow_left.png");
+	_bagButton[2] = Sprite::createWithSpriteFrameName("arrow_right.png");
+	_bagButton[2]->setPosition((213.0f*8), 0);
+	this->addChild(_bagButton[0]);
+	this->addChild(_bagButton[1]);
+	this->addChild(_bagButton[2]);
+	Size size = _bagButton[1]->getContentSize();
+	Point position = _bagButton[1]->getPosition();
+	_button[0] = Rect(172.0f - size.width / 2, 115.0f - size.height / 2, size.width, size.height);
+	position = _bagButton[2]->getPosition();
+	_button[1] = Rect(position.x + 172.0f - size.width / 2, position.y + 115.0f - size.height / 2, size.width, size.height);
 
 	//道具
 	for (size_t i = 0; i < ItemNum; i++)
@@ -53,6 +79,7 @@ void CBag::Init(const std::string& pic,Point pos, CTrigger* trigger) {
 	}
 
 	_posY = pos.y;
+	this->setPosition(pos);
 
 	xmlBag::getInstance()->parseXML(trigger);
 
@@ -61,9 +88,11 @@ void CBag::Init(const std::string& pic,Point pos, CTrigger* trigger) {
 }
 
 void CBag::doStep(float dt) {
+
 	if (_ItemNum != _gotItems.size()) {
 		_ItemNum = _gotItems.size();
-		ArrangeItem();
+		if (_bagState == 1) ArrangeItem();
+		else if (_bagState == 2) ArrangeItemStateTwo();
 	}
 }
 
@@ -89,18 +118,49 @@ void CBag::DeleteItem(CItem *x) {
 void CBag::ArrangeItem() {
 	std::list <CItem*> ::iterator it;
 	int i;
-
 	for (it = _gotItems.begin(), i = 1; it != _gotItems.end(), (i-1) < _gotItems.size(); ++it,i++) {
-		(*it)->SetPos(Point((210.0f*i), _posY));
-		(*it)->SetRect(this->getPosition());
-
 		xmlBag::getInstance()->setArrangementXML((*it)->GetName(), i);
+		
+		auto divide = (int) i / 7;
+		auto dividedeci = i % 7;
+
+		if (dividedeci == 0) divide--;
+		(*it)->SetPos(Point((213.0f*i)+(557.0f*divide), 0));
+		(*it)->SetRect(this->getPosition());
+		(*it)->SetVisible(true); // shows in bag
+
 		this->addChild(*it);
 		log("arrange items in bag");
+
+
+		_pageTot = divide + 1;
 	}
 
-
+	Move(_pageNum); //flip to the current page
 }
+
+void CBag::ArrangeItemStateTwo() {
+	std::list <CItem*> ::iterator it;
+	int i, j;
+	for (it = _gotItems.begin(), i = 1; it != _gotItems.end(), (i - 1) < _gotItems.size(); ++it, i++) {
+		xmlBag::getInstance()->setArrangementXML((*it)->GetName(), i);
+
+		auto divide = (int)i / 7;
+		auto dividedeci = i % 7;
+
+		if (dividedeci == 0) {
+			divide--;
+			(*it)->SetPos(Point((213.0f * 7), 1079.0f - (213.0f*divide)));
+		}
+		else (*it)->SetPos(Point((213.0f*dividedeci), 1079.0f - (213.0f*divide)));
+		(*it)->SetRect(this->getPosition());
+		(*it)->SetVisible(true); // shows in bag
+
+		this->addChild(*it);
+		log("arrange items in bag [STATE TWO]");
+	}
+}
+
 
 void CBag::MoveX(float x) {
 	std::list <CItem*> ::iterator it;
@@ -110,6 +170,71 @@ void CBag::MoveX(float x) {
 		//(*it)->SetRect();
 		(*it)->SetRect(this->getPosition());
 	}
+}
+
+
+void CBag::Move(bool direction) {
+	std::list <CItem*> ::iterator it;
+	//page down
+	if (direction) {
+		for (it = _gotItems.begin(); it != _gotItems.end(); it++) {
+			(*it)->MoveX(-2048.0f);
+			(*it)->SetRect(this->getPosition());
+		}
+
+		_pageNum ++;
+	}
+	else {
+		for (it = _gotItems.begin(); it != _gotItems.end(); it++) {
+			(*it)->MoveX(2048.0f);
+			(*it)->SetRect(this->getPosition());
+		}
+
+		_pageNum--;
+	}
+
+
+
+
+}
+
+
+void CBag::Move(int page) {
+	std::list <CItem*> ::iterator it;
+	//page down
+	if (page > 1) {
+		for (it = _gotItems.begin(); it != _gotItems.end(); it++) {
+			(*it)->MoveX(-2048.0f*(page - 1));
+			(*it)->SetRect(this->getPosition());
+		}
+	}
+
+
+}
+
+void CBag::ToStateTwo(){
+	_bagSprite[0]->setVisible(false);
+	_bagSprite[1]->setVisible(true);
+
+	_bagButton[0]->setVisible(false);
+	_bagButton[1]->setVisible(false);
+	_bagButton[2]->setVisible(false);
+
+	ArrangeItemStateTwo();
+
+	
+}
+
+void CBag::ToStateOne(){
+	_bagSprite[0]->setVisible(true);
+	_bagSprite[1]->setVisible(false);
+
+
+	_bagButton[0]->setVisible(true);
+	_bagButton[1]->setVisible(true);
+	_bagButton[2]->setVisible(true);
+
+	ArrangeItem();
 }
 
 void CBag::SetItemRect() {
@@ -156,21 +281,18 @@ void  CBag::AddObj(const char* pic, int numTarget, cocos2d::Rect *target, bool i
 			_obj[itemNo]->SetTarget(target[i]); //set target rect
 		}
 
-		this->addChild(_obj[itemNo]);
-
-		GetItem(_obj[itemNo]); // put in list
-		ArrangeItem();
-		_obj[itemNo]->SetVisible(true); // shows in bag
+		//_obj[itemNo]->SetVisible(true); // shows in bag
 		_obj[itemNo]->SetCanUse(true);
-
 		_obj[itemNo]->SetUsed(false);
-
 		_obj[itemNo]->SetStagnant(isStagnant); // set it to be always in bag
-
 		if (canRetake) _obj[itemNo]->SetRetake();
 
 		log("picSave = %s", pic);
 		xmlBag::getInstance()->setBagState(itemNo, true, pic); // save item data
+
+
+		this->addChild(_obj[itemNo]);
+		GetItem(_obj[itemNo]); // put in list
 	}
 
 }
@@ -188,24 +310,34 @@ void  CBag::AddObjXML(int inum, const char* pic, int numTarget, cocos2d::Rect *t
 	this->addChild(_obj[inum]);
 
 	GetItem(_obj[inum]); // put in list
-	_obj[inum]->SetVisible(true); // shows in bag
+	//_obj[inum]->SetVisible(true); // shows in bag
 	_obj[inum]->SetCanUse(true);
 
 	_obj[inum]->SetUsed(false);
 
 	_obj[inum]->SetStagnant(isStagnant); // set it to be always in bag
 
-	if (canRetake) {
-		auto code = xmlItem::getInstance()->getTriggerCodeXML(pic);
-		_obj[inum]->SetRetake();
-
-	}
-
+	if (canRetake) _obj[inum]->SetRetake();
+	ArrangeItem();
 
 }
 
 
+bool CBag::itemdrag(){
+
+	std::list <CItem*> ::iterator it;
+	for (it = _gotItems.begin(); it != _gotItems.end(); it++){
+		if ((*it)->detectDrag()) return true;
+	}
+
+	return false;
+}
+
 void CBag::reset() {
+	_ItemNum = 0;
+	_pageNum = 1;
+	_pageTot = 1;
+
 	std::list <CItem*> ::iterator it;
 	for (it = _gotItems.begin(); it != _gotItems.end(); ){
 
@@ -229,8 +361,30 @@ bool CBag ::touchesBegan(Point inPos) {
 				log("item touched (bag)");
 			}
 		}
-
+		
 	}
+
+	if (_bagState==1) {
+		if (_button[0].containsPoint(inPos)) {
+			log("flip page?");
+			if (_pageNum > 1) {
+				log("page up");
+				Move(false);
+				log("page no: %d", _pageNum);
+			}
+		}
+
+		else if (_button[1].containsPoint(inPos)) {
+			log("flip page?");
+			if (_pageNum < _pageTot) {
+				log("page down");
+				Move(true);
+				log("page no: %d", _pageNum);
+			}
+
+		}
+	}
+	
 	return(false);
 }
 
@@ -243,12 +397,14 @@ bool CBag::touchesMoved(Point inPos) {
 	return(false);
 }
 
-int CBag::touchesEnded(cocos2d::Point inPos, const char* scene, CTrigger *trigger) {
+int CBag::touchesEnded(cocos2d::Point inPos, int bagstate, const char* scene, CTrigger *trigger) {
+	_bagState = bagstate;
 	//use items in bag===========================================
 	for (size_t i = 0; i < ItemNum; i++){
 
 		if (_obj[i]->GetCanUse() == true) {
-			if (_obj[i]->touchesEnded(inPos, scene, i)) {
+			auto type = _obj[i]->touchesEnded(inPos, _bagState, scene, i,_pageNum);
+			if (type == 1) {
 				log("used obj");
 				if (!_obj[i]->GetStagnant()) { // if object is not stagnant
 											   // when item is being used
@@ -276,8 +432,47 @@ int CBag::touchesEnded(cocos2d::Point inPos, const char* scene, CTrigger *trigge
 
 				return i; // i is used for mixing/ doing things
 			}
+			//xmlBag::getInstance()->getNameFromArrangement
+			else if (type >1) {
+				auto ToBe = type-5;
+				int Border;
+				if (_bagState == 1) {
+					Border = _obj[i]->detectUse(inPos);
+					Border = Border + 7 * (_pageNum - 1);
+				}
+				else if(_bagState ==2) Border = _obj[i]->detectUse(inPos,true);
+				
+				auto Bnum = xmlBag::getInstance()->getNumFromArrangement(Border);
 
+				auto newObj = xmlItem::getInstance()->getItemNameXML(ToBe);
+				DeleteItem(_obj[i]); // delete the used item from bag
+				auto oldObj = _obj[Bnum]->GetName();
 
+				//set new item =========================================
+				_obj[Bnum]->Clear(); //clear origin pic
+				_obj[Bnum]->Init(newObj); //set new item
+
+				//get data from xml
+				auto targetNum = xmlItem::getInstance()->getTargetNumXML(newObj);
+				cocos2d::Rect target[2];
+				target[0] = xmlItem::getInstance()->getTargetRectXML(newObj);
+				if (targetNum>1) target[1] = xmlItem::getInstance()->getTargetRectXML(newObj, 2);
+				bool isStagnant = xmlItem::getInstance()->getStagnantXML(newObj);
+				auto canRetake = xmlItem::getInstance()->getRetakeXML(newObj);
+
+				//set values for obj
+				for (int i = 0; i < targetNum; i++) {
+					_obj[Bnum]->SetTarget(target[i]); //set target rect
+				}
+
+				_obj[Bnum]->SetStagnant(isStagnant); // set it to be always in bag
+				if (canRetake) _obj[Bnum]->SetRetake();
+
+				
+ 				xmlBag::getInstance()->setBagState(oldObj, newObj); // save item data
+
+				
+			}
 		}
 		
 	}
@@ -285,8 +480,8 @@ int CBag::touchesEnded(cocos2d::Point inPos, const char* scene, CTrigger *trigge
 	return(-1);
 }
 
-
-void CBag::SetCurrentScene(const char *scene) {
-	_CurrentScene = scene;
-}
-
+//
+//void CBag::SetCurrentScene(const char *scene) {
+//	_CurrentScene = scene;
+//}
+//

@@ -10,7 +10,6 @@ class CLock : public cocos2d::Layer
 {
 private:
 	CButton *_button[6];
-	CButton *_enter;
 	cocos2d::Sprite *_numberA[10];
 	cocos2d::Sprite *_numberB[10];
 	cocos2d::Sprite *_numberC[10];
@@ -23,21 +22,24 @@ private:
 	cocos2d::Rect    _lockAreaRect;
 
 	bool _btouch; 
-
-
+	//bool _type; // 0:up down key type, 1:calculator type
+	bool _check; //check if the number now is equal to the password set
+	bool _state; // state if the lock is being opened
 
 	cocos2d::LabelTTF *label;
 
 
 public:
-	CLock();
+	CLock(bool type=false);
 	~CLock();
-	bool _bclear; // state if the lock is opened
-	virtual bool init( const int state );
+
+	virtual bool init(const char *bg = NULL);
 	
 	void SetArea(const cocos2d::Rect &lockarea);
 	void SetPassword(int a, int b, int c);
 	void reset();
+
+	bool GetState();
 
 	void doStep(float dt);
 

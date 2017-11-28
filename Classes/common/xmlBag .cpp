@@ -196,6 +196,116 @@ const char* xmlBag::getItemName(int bagNum) {
 	delete pDoc;
 }
 
+
+int xmlBag::getItemNum(const char *cname)
+{
+	tinyxml2::XMLDocument *pDoc = new tinyxml2::XMLDocument();
+
+	//	解析xml文件
+	XMLError errorId = pDoc->LoadFile(_filePath.c_str());
+
+	//判?是否解析??
+	if (errorId != 0) {
+		//xml格式??
+		CCLOG("Parse Error!");
+		return false;
+	}
+
+	//?取根元素
+	XMLElement *root = pDoc->RootElement();
+	XMLElement *sceneInfo = root->FirstChildElement();
+
+	//XMLElement *roomInfo = sceneInfo->FirstChildElement();
+	//?取子元素信息
+
+	for (XMLElement* item = sceneInfo->FirstChildElement(); item; item = item->NextSiblingElement()) {
+		bool ret = (!strcmp(item->Attribute("name"), cname));
+			if (true == ret) {
+				int num = item->IntAttribute("no.");
+				return num;
+			}
+
+
+	}
+
+	return -1;
+	//[6] ?放?存
+	delete pDoc;
+}
+
+
+
+const char* xmlBag::getNameFromArrangement(int arrangement) {
+	tinyxml2::XMLDocument *pDoc = new tinyxml2::XMLDocument();
+
+	//	解析xml文件
+	XMLError errorId = pDoc->LoadFile(_filePath.c_str());
+
+	//判?是否解析??
+	if (errorId != 0) {
+		//xml格式??
+		CCLOG("Parse Error!");
+		return false;
+	}
+
+	//?取根元素
+	XMLElement *root = pDoc->RootElement();
+	XMLElement *sceneInfo = root->FirstChildElement();
+
+	//?取子元素信息
+
+	for (XMLElement* item = sceneInfo->FirstChildElement(); item; item = item->NextSiblingElement()) {
+		bool ret = (!strcmp(item->GetText(), "true"));
+		if (item->IntAttribute("arrangement") == arrangement) {
+			if (true == ret) {
+				const char *name = item->Attribute("name");
+				return name;
+			}
+
+		}
+	}
+
+	return nullptr;
+	//[6] ?放?存
+	delete pDoc;
+}
+
+int xmlBag::getNumFromArrangement(int arrangement) {
+	tinyxml2::XMLDocument *pDoc = new tinyxml2::XMLDocument();
+
+	//	解析xml文件
+	XMLError errorId = pDoc->LoadFile(_filePath.c_str());
+
+	//判?是否解析??
+	if (errorId != 0) {
+		//xml格式??
+		CCLOG("Parse Error!");
+		return false;
+	}
+
+	//?取根元素
+	XMLElement *root = pDoc->RootElement();
+	XMLElement *sceneInfo = root->FirstChildElement();
+
+	//?取子元素信息
+
+	for (XMLElement* item = sceneInfo->FirstChildElement(); item; item = item->NextSiblingElement()) {
+		bool ret = (!strcmp(item->GetText(), "true"));
+		if (item->IntAttribute("arrangement") == arrangement) {
+			if (true == ret) {
+				int num = item->IntAttribute("no.");
+				return num;
+			}
+
+		}
+	}
+
+	return -1;
+	//[6] ?放?存
+	delete pDoc;
+}
+
+
 void xmlBag::setArrangementXML(const char * cname, int order){
 	tinyxml2::XMLDocument *pDoc = new tinyxml2::XMLDocument();
 
@@ -216,8 +326,12 @@ void xmlBag::setArrangementXML(const char * cname, int order){
 	//XMLElement *roomInfo = sceneInfo->FirstChildElement();
 	//?取子元素信息
 	for (XMLElement* item = sceneInfo->FirstChildElement(); item; item = item->NextSiblingElement()) {
+		bool ret = (!strcmp(item->GetText(), "true"));
 		if ((!strcmp(item->Attribute("name"), cname))) {
+			if (ret == true) {
 			item->SetAttribute("arrangement", order);
+			}
+
 		}
 
 		//if (item->IntAttribute("no.") == bagNum) {
@@ -264,6 +378,47 @@ int xmlBag::getArrangement(int bagNum)
 }
 
 
+int xmlBag::getNextArrangement(int bagNum)
+{
+	tinyxml2::XMLDocument *pDoc = new tinyxml2::XMLDocument();
+
+	//	解析xml文件
+	XMLError errorId = pDoc->LoadFile(_filePath.c_str());
+
+	//判?是否解析??
+	if (errorId != 0) {
+		//xml格式??
+		CCLOG("Parse Error!");
+		return false;
+	}
+
+	//?取根元素
+	XMLElement *root = pDoc->RootElement();
+	XMLElement *sceneInfo = root->FirstChildElement();
+
+	//XMLElement *roomInfo = sceneInfo->FirstChildElement();
+	//?取子元素信息
+
+	for (XMLElement* item = sceneInfo->FirstChildElement(); item; item = item->NextSiblingElement()) {
+		bool ret = (!strcmp(item->GetText(), "true"));
+		if (item->IntAttribute("no.") > bagNum) {
+			if (true == ret) {
+				int order = item->IntAttribute("arrangement");
+				return order;
+			}
+
+		}
+	}
+
+	return -1;
+	//[6] ?放?存
+	delete pDoc;
+}
+
+
+
+
+
 void xmlBag::setBagState(int bagNum, bool state, const char* obj) {
 	tinyxml2::XMLDocument *pDoc = new tinyxml2::XMLDocument();
 
@@ -301,6 +456,42 @@ void xmlBag::setBagState(int bagNum, bool state, const char* obj) {
 
 }
 
+
+void xmlBag::setBagState(const char* before, const char* after) {
+	tinyxml2::XMLDocument *pDoc = new tinyxml2::XMLDocument();
+
+	//	解析xml文件
+	XMLError errorId = pDoc->LoadFile(_filePath.c_str());
+
+	//判?是否解析??
+	if (errorId != 0) {
+		//xml格式??
+		CCLOG("Parse Error!");
+		return;
+	}
+
+	//?取根元素
+	XMLElement *root = pDoc->RootElement();
+	XMLElement *sceneInfo = root->FirstChildElement();
+
+	//?取子元素信息
+	for (XMLElement* item = sceneInfo->FirstChildElement(); item; item = item->NextSiblingElement()) {
+		bool ret = (!strcmp(item->GetText(), "true"));
+		if ((!strcmp(item->Attribute("name"), before))) {
+			if (ret == true) {
+			item->SetAttribute("name", after);
+			}
+
+		}
+		
+	
+	}
+	pDoc->SaveFile(_filePath.c_str());
+
+	//[6] ?放?存
+	delete pDoc;
+
+}
 
 
 void xmlBag::reset() {
@@ -373,7 +564,6 @@ bool xmlBag::checkBagState(int bagNum){
 
 
 void xmlBag::sortItems(){
-	int i = 0, j = 0;
 	const char *objA;
 	const char *objB;
 
@@ -381,23 +571,31 @@ void xmlBag::sortItems(){
 
 	do {
 		iswitch = 0;
-		for (i = 0; i < ItemNum; i++) {
-			auto A = getArrangement(i);
-			auto B = getArrangement(i + 1);
+		for (int i = 0; i < ItemNum; i++) {
+			auto check = checkBagState(i);
+			if (check) {
+				auto A = getArrangement(i);
+				auto B = getNextArrangement(i);
 
-			if (A > B) {
-				objA = getItemName(i);
-				objB = getItemName(i + 1);
 
-				setArrangementXML(objA, B);
-				setArrangementXML(objB, A);
 
-				setBagState(i, true, objB);
-				setBagState(i + 1, true, objA);
+				if (A > B && B != -1) {
+					objA = getItemName(i);
+					objB = getNameFromArrangement(B);
 
-				iswitch = 1;
+					auto bNum = getItemNum(objB);
 
+					setArrangementXML(objA, B);
+					setArrangementXML(objB, A);
+
+					setBagState(i, true, objB);
+					setBagState(bNum, true, objA);
+
+					iswitch = 1;
+
+				}
 			}
+
 		}
 	} while (iswitch);
 
