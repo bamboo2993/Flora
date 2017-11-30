@@ -16,7 +16,6 @@ private:
 	Rect _propsRect;
 	Point _propsPos; // for setRect
 
-	Point _BagPos; 
 	Point _ResetPos; 
 	bool _isUsed;
 	bool _canUse;
@@ -49,7 +48,7 @@ public:
 	bool GetCanUse();
 	void MoveX(float x); // swipe left/right
 
-	void SetBagPos(Point pos);
+
 	Point GetResetPos();
 	void SetTarget(cocos2d::Rect target);
 	cocos2d::Rect GetTarget(int num);
@@ -65,8 +64,8 @@ public:
 	void reset();
 
 	bool touchesBegan(cocos2d::Point inPos);
-	bool touchesMoved(cocos2d::Point inPos);
-	int touchesEnded(cocos2d::Point inPos, int bagstate, const char* scene, int num, int pageNum);
+	bool touchesMoved(cocos2d::Point inPos, bool lightboxState);
+	int touchesEnded(cocos2d::Point inPos, int bagstate, const char* scene, int num, int pageNum, bool lightboxState);
 
 
 	int detectUse(cocos2d::Point pos, bool state = false);

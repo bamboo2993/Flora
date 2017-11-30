@@ -349,6 +349,39 @@ int xmlItem::getTriggerCodeXML(const char *cname) {
 	delete pDoc;
 }
 
+const char* xmlItem::getItemDescriptionXML(const char *cname) {
+	tinyxml2::XMLDocument *pDoc = new tinyxml2::XMLDocument();
+
+	//	解析xml文件
+	XMLError errorId = pDoc->LoadFile(_filePath.c_str());
+
+	//判?是否解析??
+	if (errorId != 0) {
+		//xml格式??
+		CCLOG("Parse Error!");
+		return false;
+	}
+
+
+	//?取根元素
+	XMLElement *root = pDoc->RootElement();
+	XMLElement *List = root->FirstChildElement();
+
+	//?取子元素信息
+
+	for (XMLElement* item = List->FirstChildElement(); item; item = item->NextSiblingElement()) {
+		if ((!strcmp(item->Attribute("name"), cname))) {
+			XMLElement *observe = item->FirstChildElement("observe");
+			auto result = observe->GetText();
+			return result;
+		}
+
+	}
+	//[6] ?放?存
+	delete pDoc;
+}
+
+
 
 void xmlItem::setTargetRectXML(int itemNum, cocos2d::Rect area) {
 	tinyxml2::XMLDocument *pDoc = new tinyxml2::XMLDocument();

@@ -34,6 +34,8 @@ public:
 
 	int getTriggerCodeXML(const char *cname);
 
+	const char * getItemDescriptionXML(const char * cname);
+
 
 	int checkMixingXML(const char *cname, const char *mixname);
 

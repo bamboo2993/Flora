@@ -23,166 +23,103 @@ class labScene : public cocos2d::Layer
 {
 private:
 
-	bool _clear;
-	// sound effect
+
+	// sound effect====================================
 	cocostudio::ComAudio *_pour;
 	cocostudio::ComAudio *_powder;
 	cocostudio::ComAudio *_mixing;
 	cocostudio::ComAudio *_grinding;
 	cocostudio::ComAudio *_debranch;
 
-	cocos2d::Sprite *_win;
-	cocos2d::Sprite *_bkBlur;
-	cocos2d::Node *_eNode[2];
-
-	cocos2d::Sprite *_detect[2];
-	cocos2d::Rect	_detectRect[2];
-	cocos2d::Rect	_offRect[2];
-	bool _btouchNode[2] = { false };//for E_node
-	bool _bopenNode[2] = { false };//for E_node
 
 
-	cocos2d::Sprite *_syrup[4];
+	//set up========================================
 
+	cocos2d::Node *_rootNode;
 
-	cocos2d::Sprite *_trash;
-	cocos2d::Rect	_trashRect;
+	cocos2d::Sprite *_bkBlur; // blur background sprite
+	cocos2d::Node *_eNode[2]; // 放大鏡 node
+
+	cocos2d::Sprite *_win; //stage clear sprite
+	bool _clear; //stage clear
 
 	cocos2d::Sprite *_reset;
-	cocos2d::Rect	_resetRect;
+	cocos2d::Rect	_resetRect; // reset button
+
+	xmlScene *_xmlscene; // xml file [scene]
 
 
-	bool _bbOnFire[2];
-	
-	//mix==========================
+	//bag=============================================
+	int _ibagState;
 
-	CMix *_mixA;
-	CMix *_mixB;
+	//觸控-----------
+	cocos2d::Point _touchLoc;
+	cocos2d::Point _prePos;
+	cocos2d::Point _itempos;
+	float _startX, _startY;
+
+	int _iObjUsed;
+
 	bool bb[2] = { false };
 
 
-	CMix *_grind;
-	//===============================
-
-	cocos2d::Node *_rootNode;
-	cocos2d::Point _touchLoc;
-
-	xmlScene *_xmlscene;
-
-	//set object==========================================================
-	//CTrigger *_trigger[10]; // set trigger
-	CTrigger *_pTrigger;
-	cocos2d::Sprite *_alcoholLamp[2]; //酒精燈 first-> off, second -> on
-	cocos2d::Sprite *_bowl[5];   //草藥(磨好)  0:one empty, 1:yellow 【correct】, 【others:failed】 -- 2:garkgreen, 3:green, 4:red
-
-
-	cocos2d::Rect	_alcoholLampRect;
-	cocos2d::Rect	_beakerARect;
-	cocos2d::Rect	_beakerBRect;
-	cocos2d::Rect	_beakerCompleteRect;
-	cocos2d::Rect	_bowlRect;
-
-
-	cocos2d::Rect	*_pbeakerRect;
-	cocos2d::Rect	*_pbowlRect;
-	//cocos2d::Rect	_beakerRect[2];
-
-
-
-
-
-
-	//CTrigger *_syrup[4]; //藥水 以 yellow, red, blue, green  排列
-	//CTrigger *_glassrod; //玻璃棒
-	//CTrigger *_water; //蒸餾水
-	cocos2d::Sprite *_beakerA[9]; //量杯  0: yellow, 1:red, 2:blue, 3:green, 4:orange (1+0), 5:purple (1+2), 6:brown,  7:failed, 8 : empty
-	cocos2d::Sprite *_beakerB[9]; //量杯  0: yellow, 1:red, 2:blue, 3:green, 4:orange (1+0), 5:purple (1+2), 6:brown,  7:failed, 8 : empty
-	cocos2d::Sprite *_beakerComplete; //量杯  brown (completeLvl)
-	cocos2d::Sprite *_beakerFailed; //量杯  
-
-
-
-	cocos2d::Rect	_syrupRect[4];
-	cocos2d::Rect	_glassrodRect;
-	cocos2d::Rect	_waterRect;
-
-	CTrigger *_herbRect[4];  //草藥 0: ligth green, 1: red, 2: dark green, 3: yellow
-
-
-
-
-	cocos2d::Point _prePos;
-	bool _btouch[5];
-	cocos2d::Point _itempos;
-
 	//player===================================
 	CPlayer *_player;
-	bool _bWalk = false; //detect if player is walking
+	cocos2d::Point _TargetLoc; // for walk pos
 	bool _bWalkpos;
-	cocos2d::Point _TargetLoc;
 
-	//判斷 walk
 
+	//判斷 walk------------------
+	bool _bWalk = false; //detect if player is walking
 	bool _bwithinArea; // detect if touch_pts are in walkable area
-	//bool _bonObj; //detect if obj is touched up
 
+	//判斷 物品----------------
 	bool _bpickObj; //detect if player arrive near object being picked
-	bool _bpickSyrup[4]; //pick syrup
-	bool _bpickWater; //pick water
-	bool _bpickRod; //pick glassrod
+	bool _btouchNode[2] = { false };//for E_node
+	bool _bopenNode[2] = { false };//for E_node
+	bool _btouch[5]; // for item in scene
 
+	bool _bbOnFire[2]; // if beaker A/B is on flame
 
-	//判斷 detect what is add into beakerA
-	bool _buseSyrupA[4]; // add syrup into beaker 以 yellow, red, blue, green  排列
-
-	//判斷 detect what is add into beakerB
-	bool _buseSyrupB[4]; // add syrup into beaker 以 yellow, red, blue, green  排列
-
-	bool _bgetOSyrup; //get orange syrup
-	bool _bgetPSyrup; // get purple syrup
-	bool _bgetBSyrup[2]; // get brown syrup -- 0:beaker【A】 , 1:beaker【B】
-	bool _bpourIntoA; //pour 【beaker B】 into 【beaker A】
-	bool _bpourIntoB; //pour 【beaker A】 into 【beaker B】
-
-	//判斷 detect what herb is being grind in bowl
-	bool _bgrindG;  //grind 【green herb】
-	bool _bgrindDG;  //grind 【dark green herb】
-	bool _bgrindR;  //grind 【red herb】
-	bool _bgrindY;  //grind 【yellow herb】
-
-
-	bool _buseHerb; // add grind 【herb】 into 【beaker】
-
-	bool _buseWater;  
-	bool _buseGlassrod; 
-
-
-	//bool _bcompleteSyrup[2]; // complete syrup -- 0:in beakerA, 1:in beakerB
-
-
-
-
-
-	bool _bbagOn;
-	int _ibagState;
-	bool _useItem = false;
-
-	//bag==========================
-	//CBag *_bag;
-	float _startX, _startY, _endX, _endY;
-	bool  _isLeft, _isRight;
-
-	int _iObjUsed; 
-
-	// set lightbox
+	// set lightbox==============================
 	CLightbox *_procedure;
 
 
 
+	//set object==========================================================
+	CTrigger *_pTrigger; // items that can be taken: 藥水以 red, green, blue, yellow 排列、蒸餾水、玻璃棒、草藥
 
 
+	cocos2d::Sprite *_detect[2]; // detect syrup and herb area (放大鏡 node)
+	cocos2d::Rect	_detectRect[2];
+	cocos2d::Rect	_offRect[2]; // area to close node (放大鏡 node)
+
+	cocos2d::Sprite *_trash;
+	cocos2d::Rect	_trashRect; // dust bin area
 
 
+	cocos2d::Sprite *_syrup[4]; // syrup in scene
+
+	cocos2d::Sprite *_alcoholLamp[2]; //酒精燈 first-> off, second -> on
+	cocos2d::Rect	_alcoholLampRect; //酒精燈範圍
+
+	cocos2d::Sprite *_beakerA[9]; //量杯  0: yellow, 1:red, 2:blue, 3:green, 4:orange (1+0), 5:purple (1+2), 6:brown,  7:failed, 8 : empty
+	cocos2d::Sprite *_beakerB[9]; //量杯  0: yellow, 1:red, 2:blue, 3:green, 4:orange (1+0), 5:purple (1+2), 6:brown,  7:failed, 8 : empty
+	cocos2d::Rect	*_pbeakerRect; //beaker A+B area
+
+	cocos2d::Sprite *_beakerComplete; //量杯  brown (completeLvl) [on flame]
+	cocos2d::Sprite *_beakerFailed; //量杯 [on flame]
+	cocos2d::Rect	_beakerCompleteRect;
+
+	cocos2d::Sprite *_bowl[5];   //草藥(磨好)  0:one empty, 1:yellow 【correct】, 【others:failed】 -- 2:garkgreen, 3:green, 4:red
+	cocos2d::Rect	*_pbowlRect;
+
+
+	//mix==============================================
+
+	CMix *_mixA;
+	CMix *_mixB;
+	CMix *_grind;
 
 
 
@@ -217,7 +154,7 @@ public:
 	void onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent); //觸碰結束事件 
 
 
-																	   // implement the "static create()" method manually
+	// implement the "static create()" method manually
 	CREATE_FUNC(labScene);
 };
 

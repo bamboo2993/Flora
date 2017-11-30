@@ -7,35 +7,46 @@
 #include "xmlScene.h"
 #include "xmlBag .h"
 #include "xmlItems.h"
+#include "CLightbox.h"
 
-#define ItemNum 23
+#define ItemNum 23 // max num of item
 
 USING_NS_CC;
 
 class CBag :public Node
 {
 private:
-	const char *_CurrentScene;
-
+	//set up
 	static CBag *_pBag;
-	Sprite* _bagSprite[2];
+
+	Sprite* _bagSprite[2]; 
 	Sprite* _bagButton[3];
-	int _posY;
-	int _pageNum;
-	int _pageTot;
 	Rect _button[2];
+	CLightbox *_itemDetail;
 
-
+	CItem *_obj[ItemNum];
 	std::list<CItem*>_gotItems;
-	int _ItemNum;
+	int _ItemNum; // current number of items in bag
 	int _bagState;
 
-	//item in bag==================
-	CItem *_obj[ItemNum];
+	int _pageNum; // current page
+	int _pageTot; // total page
 
-	// used within the class
+
+
+
+	const char *_CurrentScene;	
+
+
+	//item in bag==================
+
+
+	// used within the class-------
 	void GetItem(CItem *x);
 	void DeleteItem(CItem *x);
+
+
+
 
 public:
 	static CBag* create();
@@ -57,9 +68,6 @@ public:
 	void ToStateTwo();	
 	void ToStateOne();
 
-	void SetItemRect();
-	//must be added to main scene. where bag is closed
-	void ResetItemPos();
 
 	void SetCurrentScene(const char *scene);
 	bool itemdrag();
@@ -68,7 +76,7 @@ public:
 
 
 
-	void SetTarget(cocos2d::Rect target);
+	//void SetTarget(cocos2d::Rect target);
 
 
 	//±±¨îbag ¸Ìªº item
@@ -78,5 +86,6 @@ public:
 	bool touchesBegan(cocos2d::Point inPos);
 	bool touchesMoved(cocos2d::Point inPos);
 	int touchesEnded(cocos2d::Point inPos, int bagstate, const char* scene, CTrigger *trigger);
+	bool LightboxState();
 };
 

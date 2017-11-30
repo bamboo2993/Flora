@@ -50,8 +50,10 @@ labScene::labScene() {
 	_bbOnFire[0] =false;
 	_bbOnFire[1] = false;
 	_clear = false;
-
-
+	for (size_t i = 0; i < 5; i++){
+		_btouch[i] = false;
+	}
+	
 
 }
 labScene::~labScene()
@@ -159,17 +161,6 @@ bool labScene::init()
 	_xmlscene->parseNodeXML(_eNode[0]);
 
 
-
-	//set bag =================================================================
-
-
-	CBag::getInstance()->Init("bag.png", Point(172, -115), _pTrigger);
-	this->addChild(CBag::getInstance(), 1000);
-
-
-
-
-
 	// mix=======================================
 
 
@@ -207,6 +198,15 @@ bool labScene::init()
 
 	_grind = new CMix(_rootNode);
 	_grind->init(12,16,false);
+
+	//set bag =================================================================
+
+
+	CBag::getInstance()->Init("bag.png", Point(172, -115), _pTrigger);
+	this->addChild(CBag::getInstance(), 1000);
+
+
+
 	//-------------------------------------------------------------------------------------------------
 
 	_listener1 = EventListenerTouchOneByOne::create();	//³Ð«Ø¤@­Ó¤@¹ï¤@ªº¨Æ¥ó²âÅ¥¾¹
@@ -491,7 +491,6 @@ void labScene::doStep(float dt)
 			if (_player->Walk(Vec2(_touchLoc.x, WALK_AREA_4.y)) == false) {
 				_bWalk = 0;
 				_bpickObj = true;
-				log("haaaaqq");
 			}
 			_player->go(_TargetLoc);
 		}
@@ -766,7 +765,7 @@ bool labScene::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)//Ä²¸
 
 
 		//drag obj from the bg scene==================================
-		if (!_bopenNode[0] && !_bopenNode[1] && !_bWalk) {
+		if (!_bopenNode[0] && !_bopenNode[1] && !_bWalk && !CBag::getInstance()->LightboxState()) {
 
 			//dragging beaker-----------
 			if (_pbeakerRect[0].containsPoint(_touchLoc)) {  
@@ -815,21 +814,10 @@ bool labScene::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)//Ä²¸
 
 
 		if (_ibagState) { //when bag is open
-		//if (_bbagOn) { //when bag is open
 			//use items in bag===========================================
 			CBag::getInstance()->touchesBegan(_touchLoc);
 
-	//		//swipe bag
-	//		//if (_isLeft)
-	//		//{
-	//		//	_bag->MoveX(-100.0f);
-	//		//	_isLeft = 0;
-	//		//}
-	//		//if (_isRight)
-	//		//{
-	//		//	_bag->MoveX(100.0f);
-	//		//	_isRight = 0;
-	//		//}
+	
 		}
 
 
@@ -848,47 +836,48 @@ void  labScene::onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ä
 	if (!_procedure->GetOpen() && !_clear) {
 		//use items in bag===========================================
 		if (_ibagState) { //when bag is open
-		//if (_bbagOn) {
 			CBag::getInstance()->touchesMoved(_touchLoc);
 		}
 
 
+		if (!CBag::getInstance()->LightboxState()) {
+			//dragging beakers and bowl in scene------------
+			if (_btouch[0]) {
+				for (size_t i = 0; i < 9; i++) {
+					_beakerA[i]->setPosition(_beakerA[i]->getPosition() + (_touchLoc - _prePos));
+				}
 
-		//dragging beakers and bowl in scene------------
-		if (_btouch[0]) {
-			for (size_t i = 0; i < 9; i++) {
-				_beakerA[i]->setPosition(_beakerA[i]->getPosition() + (_touchLoc - _prePos));
+				_prePos = _touchLoc;
+
 			}
 
-			_prePos = _touchLoc;
+			else if (_btouch[1]) {
+				for (size_t i = 0; i < 9; i++) {
+					_beakerB[i]->setPosition(_beakerB[i]->getPosition() + (_touchLoc - _prePos));
+				}
 
-		}
+				_prePos = _touchLoc;
 
-		else if (_btouch[1]) {
-			for (size_t i = 0; i < 9; i++) {
-				_beakerB[i]->setPosition(_beakerB[i]->getPosition() + (_touchLoc - _prePos));
 			}
 
-			_prePos = _touchLoc;
+			else if (_btouch[2]) {
+				for (size_t i = 0; i < 4; i++) {
+					_bowl[i]->setPosition(_bowl[i]->getPosition() + (_touchLoc - _prePos));
+				}
 
-		}
+				_prePos = _touchLoc;
 
-		else if (_btouch[2]) {
-			for (size_t i = 0; i < 4; i++) {
-				_bowl[i]->setPosition(_bowl[i]->getPosition() + (_touchLoc - _prePos));
 			}
 
-			_prePos = _touchLoc;
+			else if (_btouch[3]) {
 
+				_beakerComplete->setPosition(_beakerComplete->getPosition() + (_touchLoc - _prePos));
+				_beakerFailed->setPosition(_beakerFailed->getPosition() + (_touchLoc - _prePos));
+				_prePos = _touchLoc;
+
+			}
 		}
 
-		else if (_btouch[3]) {
-
-			_beakerComplete->setPosition(_beakerComplete->getPosition() + (_touchLoc - _prePos));
-			_beakerFailed->setPosition(_beakerFailed->getPosition() + (_touchLoc - _prePos));
-			_prePos = _touchLoc;
-
-		}
 
 
 	}
@@ -907,27 +896,365 @@ void  labScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ä
 
 	if (!_clear) {
 		//swipe gesture
-		_endX = _touchLoc.x;
-		_endY = _touchLoc.y;
-		float offsetX = _endX - _startX;
-		float offsetY = _endY - _startY;
+		float offsetX = _touchLoc.x - _startX;
+		float offsetY = _touchLoc.y - _startY;
 
 
 
 		if (!_procedure->GetOpen()) {
-			// reset button=========================
+			
 
-			if (_resetRect.containsPoint(_touchLoc)) reset();
+			if (_ibagState != 2) {
+				// reset button=========================
+				if (_resetRect.containsPoint(_touchLoc)) reset();
+
+				// [WALK + PICK OBJECT]===================
+				if (offsetX == 0 && offsetY == 0 && _touchLoc.y>227 && !CBag::getInstance()->LightboxState()) { // when screen tapped
+
+					//walk area ====================================
+					if (_touchLoc.x > WALK_AREA_4.x && _touchLoc.x > WALK_AREA_1.x && _touchLoc.x < WALK_AREA_2.x && _touchLoc.x < WALK_AREA_3.x
+						&& _touchLoc.y > WALK_AREA_4.y  && _touchLoc.y > WALK_AREA_3.y  && _touchLoc.y < WALK_AREA_1.y && _touchLoc.y < WALK_AREA_2.y) {
+						// detect if touch pts are in walkable area
+
+						_bwithinArea = true;
+						log("walk!!");
+
+					}
+					else  _bwithinArea = false;
+
+					////player walk =====================================================
+
+					//©ñ¤jÃè¨S¶} & ¨S«ö­«¸m--------------
+					if (!_bopenNode[0] && !_bopenNode[1] && !_resetRect.containsPoint(_touchLoc)) {
+						_bWalk = 1;
+
+						if (_touchLoc.x > _player->_rpos.x) {
+							_player->_bSide = 1;
+							_player->Mirror();
+						}
+						else {
+							_player->_bSide = 0;
+							_player->Mirror();
+						}
+
+						//-------------------------------
+						_TargetLoc = _touchLoc;
+
+
+						//====================================
+						//detect for [water], [glass rod], [experimental procedure]------
+						_pTrigger[4].touchesBegan(_touchLoc);
+						_pTrigger[5].touchesBegan(_touchLoc);
+
+						_procedure->TouchBegan(_touchLoc);
+
+					}
+
+					//©ñ¤jÃè[0]¶}---------------------
+					if (_bopenNode[0]) {
+						_pTrigger[0].touchesBegan(_touchLoc);
+						_pTrigger[1].touchesBegan(_touchLoc);
+						_pTrigger[2].touchesBegan(_touchLoc);
+						_pTrigger[3].touchesBegan(_touchLoc);
+					}
+					//©ñ¤jÃè[1]¶}---------------------
+					else if (_bopenNode[1]) {
+						_pTrigger[6].touchesBegan(_touchLoc);
+						_pTrigger[7].touchesBegan(_touchLoc);
+						_pTrigger[8].touchesBegan(_touchLoc);
+						_pTrigger[9].touchesBegan(_touchLoc);
+					}
+
+
+
+					if (!_bopenNode[0] && _detectRect[0].containsPoint(_touchLoc)) {
+
+						_btouchNode[0] = true;
+						log("touched detect");
+					}
+					else if (!_bopenNode[0] && !_detectRect[0].containsPoint(_touchLoc)) {
+						_btouchNode[0] = false;
+					}
+					else if (_bopenNode[0] && !_offRect[0].containsPoint(_touchLoc)) {
+						_bopenNode[0] = !_bopenNode[0];
+						_eNode[0]->setVisible(false);
+						_bkBlur->setVisible(false);
+						log("close detect");
+					}
+
+					if (!_bopenNode[1] && _detectRect[1].containsPoint(_touchLoc)) {
+
+						_btouchNode[1] = true;
+						log("touched detect node2");
+					}
+					else if (!_bopenNode[1] && !_detectRect[1].containsPoint(_touchLoc)) {
+						_btouchNode[1] = false;
+					}
+					else if (_bopenNode[1] && !_offRect[1].containsPoint(_touchLoc)) {
+						_bopenNode[1] = !_bopenNode[1];
+						_eNode[1]->setVisible(false);
+						_bkBlur->setVisible(false);
+						log("close detect");
+					}
+
+				}
+
+				// drag beakerA=====================================================
+				if (_btouch[0] && !_bbOnFire[0]) {
+					for (size_t i = 0; i < 9; i++) {
+						_beakerA[i]->setPosition(_itempos);
+					}
+
+					// to beakerB.......
+					if (_pbeakerRect[1].containsPoint(_touchLoc)) {
+
+
+						if (_mixA->getCurrentObj() != 17) {
+							// add pour liquid sound
+							_pour->playEffect();
+							_mixB->mixing(_mixA->getCurrentObj(), 0);
+						}
+						_mixA->Clear();
+
+					}
+
+					// to trash.......
+					else if (_trashRect.containsPoint(_touchLoc) && _mixA->getCurrentObj() != 17) {
+						// add pour liquid sound
+						_pour->playEffect();
+						// clear beaker
+						_mixA->Clear();
+					}
+
+					// to alcohol lamp
+					else if (_alcoholLampRect.containsPoint(_touchLoc)) {
+
+						if (_mixA->getCurrentObj() != 17) {
+
+							// show beaker on lamp
+							if (_mixA->getCompleteStep()) {
+								_xmlscene->editItemState(35, true, _rootNode);
+								_clear = true;
+								_win->setVisible(true);
+							}
+
+							else {
+								_xmlscene->editItemState(36, true, _rootNode);
+							}
+
+
+							_bbOnFire[0] = true;
+
+
+							// clear beaker
+							_mixA->Clear();
+							_xmlscene->editItemState(17, false, _rootNode);
+
+						}
+
+
+					}
+
+
+
+					_btouch[0] = false;
+				}
+
+				// drag beakerB--------------------------------------
+				else if (_btouch[1] && !_bbOnFire[1]) {
+					for (size_t i = 0; i < 9; i++) {
+						_beakerB[i]->setPosition(_itempos);
+					}
+
+					// to beakerA.......
+					if (_pbeakerRect[0].containsPoint(_touchLoc)) {
+
+						if (_mixB->getCurrentObj() != 26) {
+							// add pour liquid sound
+							_pour->playEffect();
+							_mixA->mixing(_mixB->getCurrentObj(), 0);
+						}
+						_mixB->Clear();
+
+					}
+
+
+					// to trash.......
+					else if (_trashRect.containsPoint(_touchLoc) && _mixB->getCurrentObj() != 26) {
+						// add pour liquid sound
+						_pour->playEffect();
+						// clear beaker
+						_mixB->Clear();
+					}
+
+
+					else if (_alcoholLampRect.containsPoint(_touchLoc)) {
+						if (_mixB->getCurrentObj() != 26) {
+
+							// show beaker on lamp
+							if (_mixB->getCompleteStep()) {
+								_xmlscene->editItemState(35, true, _rootNode);
+							}
+
+							else {
+								_xmlscene->editItemState(36, true, _rootNode);
+							}
+
+
+							_bbOnFire[1] = true;
+
+
+							// clear beaker
+							_mixB->Clear();
+							_xmlscene->editItemState(26, false, _rootNode);
+						}
+
+
+					}
+
+
+
+					_btouch[1] = false;
+				}
+
+				// drag bowl------------------------------------------
+				else if (_btouch[2]) {
+					for (size_t i = 0; i < 4; i++) {
+						_bowl[i]->setPosition(_itempos);
+					}
+
+					// to beakerA.......
+					if (_pbeakerRect[0].containsPoint(_touchLoc) && !_bbOnFire[0]) {
+						if (_grind->getCurrentObj() != 12 && _mixA->getCurrentObj() != 17) {
+
+
+							// add pour powder sound
+							_powder->playEffect();
+							_mixA->mixing(_grind->getCurrentObj(), 0);
+							_grind->Clear();
+						}
+
+
+					}
+
+					// to beakerB.......
+					else if (_pbeakerRect[1].containsPoint(_touchLoc) && !_bbOnFire[1]) {
+						if (_grind->getCurrentObj() != 12 && _mixB->getCurrentObj() != 26) {
+
+							// add pour powder sound
+							_powder->playEffect();
+							_mixB->mixing(_grind->getCurrentObj(), 0);
+							_grind->Clear();
+						}
+
+
+					}
+
+					// to trash.......
+					else if (_trashRect.containsPoint(_touchLoc) && _grind->getCurrentObj() != 12) {
+						// add pour powder sound
+						_powder->playEffect();
+						// clear bowl
+						_grind->Clear();
+					}
+
+					_btouch[2] = false;
+				}
+
+
+				// drag beaker on alcohol lamp -------------------------
+				else if (_btouch[3]) {
+					_beakerComplete->setPosition(_itempos);
+					_beakerFailed->setPosition(_itempos);
+
+
+					// to trash.......
+					if (_trashRect.containsPoint(_touchLoc)) {
+						// add pour powder sound
+
+
+						_xmlscene->editItemState(35, false, _rootNode);
+						_xmlscene->editItemState(36, false, _rootNode);
+						if (_bbOnFire[0]) {
+
+							_xmlscene->editItemState(17, true, _rootNode);
+							_bbOnFire[0] = false;
+						}
+						else if (_bbOnFire[1]) {
+
+							_xmlscene->editItemState(26, true, _rootNode);
+							_bbOnFire[1] = false;
+						}
+
+					}
+
+					_btouch[3] = false;
+				}
+			}
+
+			//=====================================================================
+			// open/close/swipe bag-------
+			if (!CBag::getInstance()->itemdrag() && !CBag::getInstance()->LightboxState()) {
+				if (!_ibagState && _startY < BAG_OPEN_HEIGHT) { // when touched y< set height
+
+																// bag oppened set bag and item position----------------------
+					if (fabs(offsetX) < fabs(offsetY) && offsetY > 0) {
+						CBag::getInstance()->setPosition(172, 115);
+						_ibagState = 1;
+						log("bag open state:1");
+
+					}
+				}
+
+				else if (_ibagState == 2) {
+
+					if (fabs(offsetX) < fabs(offsetY)) { // close bag
+						if (offsetY < 0) { //down
+							CBag::getInstance()->ToStateOne();
+							_ibagState = 1;
+							log("bag open state:1");
+
+						}
+					}
+				}
+
+
+				else if (_ibagState == 1 && _startY <= BAG_CLOSE_HEIGHT) {
+					//if (_bbagOn && _startY <= BAG_CLOSE_HEIGHT) {
+
+					// bag oppened set bag and item position----------------------
+					if (fabs(offsetX) < fabs(offsetY) && offsetY > 0) {
+						CBag::getInstance()->ToStateTwo();
+						_ibagState = 2;
+						log("bag open state:2");
+
+					}
+
+					else if (fabs(offsetX) < fabs(offsetY)) { // close bag
+						if (offsetY < 0) { //down
+							CBag::getInstance()->setPosition(172, -115);
+							_ibagState = 0;
+							log("bag close");
+
+
+						}
+					}
+
+
+
+				}
+			}
+
+			
 
 			//use items in bag===========================================
 			if (_ibagState) { //when bag is open
-			//if (_bbagOn) {
 				int i;
 				i = CBag::getInstance()->touchesEnded(_touchLoc, _ibagState, CURRENT_SCENE, _pTrigger);
 
 				//to detect item used and its effect-------
 				if (i >= 0) {
-					_useItem = true;
+					//_useItem = true;
 					// mix mix
 					if (_pbeakerRect[0].containsPoint(_touchLoc) && !_bbOnFire[0]) {
 
@@ -978,366 +1305,10 @@ void  labScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ä
 
 
 				}
-				else _useItem = false;
+				//else _useItem = false;
 			}
 
 			
-
-			// drag beakerA=====================================================
-			if (_btouch[0] && !_bbOnFire[0]) {
-				for (size_t i = 0; i < 9; i++) {
-					_beakerA[i]->setPosition(_itempos);
-				}
-
-				// to beakerB.......
-				if (_pbeakerRect[1].containsPoint(_touchLoc)) {
-
-
-					if (_mixA->getCurrentObj() != 17) {
-						// add pour liquid sound
-						_pour->playEffect();
-						_mixB->mixing(_mixA->getCurrentObj(), 0);
-					}
-					_mixA->Clear();
-
-				}
-
-				// to trash.......
-				else if (_trashRect.containsPoint(_touchLoc) && _mixA->getCurrentObj() != 17) {
-					// add pour liquid sound
-					_pour->playEffect();
-					// clear beaker
-					_mixA->Clear();
-				}
-
-				// to alcohol lamp
-				else if (_alcoholLampRect.containsPoint(_touchLoc)) {
-
-					if (_mixA->getCurrentObj() != 17) {
-
-						// show beaker on lamp
-						if (_mixA->getCompleteStep()) {
-							_xmlscene->editItemState(35, true, _rootNode);
-							_clear = true;
-							_win->setVisible(true);
-						}
-
-						else {
-							_xmlscene->editItemState(36, true, _rootNode);
-						}
-
-
-						_bbOnFire[0] = true;
-
-
-						// clear beaker
-						_mixA->Clear();
-						_xmlscene->editItemState(17, false, _rootNode);
-
-					}
-
-
-				}
-
-
-
-				_btouch[0] = false;
-			}
-
-			// drag beakerB--------------------------------------
-			else if (_btouch[1] && !_bbOnFire[1]) {
-				for (size_t i = 0; i < 9; i++) {
-					_beakerB[i]->setPosition(_itempos);
-				}
-
-				// to beakerA.......
-				if (_pbeakerRect[0].containsPoint(_touchLoc)) {
-
-					if (_mixB->getCurrentObj() != 26) {
-						// add pour liquid sound
-						_pour->playEffect();
-						_mixA->mixing(_mixB->getCurrentObj(), 0);
-					}
-					_mixB->Clear();
-
-				}
-
-
-				// to trash.......
-				else if (_trashRect.containsPoint(_touchLoc) && _mixB->getCurrentObj() != 26) {
-					// add pour liquid sound
-					_pour->playEffect();
-					// clear beaker
-					_mixB->Clear();
-				}
-
-
-				else if (_alcoholLampRect.containsPoint(_touchLoc)) {
-					if (_mixB->getCurrentObj() != 26) {
-
-						// show beaker on lamp
-						if (_mixB->getCompleteStep()) {
-							log("");
-
-							_xmlscene->editItemState(35, true, _rootNode);
-						}
-
-						else {
-							_xmlscene->editItemState(36, true, _rootNode);
-						}
-
-
-						_bbOnFire[1] = true;
-
-
-						// clear beaker
-						_mixB->Clear();
-						_xmlscene->editItemState(26, false, _rootNode);
-					}
-
-
-				}
-
-
-
-				_btouch[1] = false;
-			}
-
-			// drag bowl------------------------------------------
-			else if (_btouch[2]) {
-				for (size_t i = 0; i < 4; i++) {
-					_bowl[i]->setPosition(_itempos);
-				}
-
-				// to beakerA.......
-				if (_pbeakerRect[0].containsPoint(_touchLoc) && !_bbOnFire[0]) {
-					if (_grind->getCurrentObj() != 12 && _mixA->getCurrentObj() != 17) {
-
-
-						// add pour powder sound
-						_powder->playEffect();
-						_mixA->mixing(_grind->getCurrentObj(), 0);
-						_grind->Clear();
-					}
-
-
-				}
-
-				// to beakerB.......
-				else if (_pbeakerRect[1].containsPoint(_touchLoc) && !_bbOnFire[1]) {
-					if (_grind->getCurrentObj() != 12 && _mixB->getCurrentObj() != 26) {
-
-						// add pour powder sound
-						_powder->playEffect();
-						_mixB->mixing(_grind->getCurrentObj(), 0);
-						_grind->Clear();
-					}
-
-
-				}
-
-				// to trash.......
-				else if (_trashRect.containsPoint(_touchLoc) && _grind->getCurrentObj() != 12) {
-					// add pour powder sound
-					_powder->playEffect();
-					// clear bowl
-					_grind->Clear();
-				}
-
-				_btouch[2] = false;
-			}
-
-
-			// drag beaker on alcohol lamp -------------------------
-			else if (_btouch[3]) {
-				_beakerComplete->setPosition(_itempos);
-				_beakerFailed->setPosition(_itempos);
-
-
-				// to trash.......
-				if (_trashRect.containsPoint(_touchLoc)) {
-					// add pour powder sound
-
-
-					_xmlscene->editItemState(35, false, _rootNode);
-					_xmlscene->editItemState(36, false, _rootNode);
-					if (_bbOnFire[0]) {
-
-						_xmlscene->editItemState(17, true, _rootNode);
-						_bbOnFire[0] = false;
-					}
-					else if (_bbOnFire[1]) {
-
-						_xmlscene->editItemState(26, true, _rootNode);
-						_bbOnFire[1] = false;
-					}
-
-				}
-
-				_btouch[3] = false;
-			}
-
-
-
-			//=====================================================================
-			log("_startY: %f ", _startY);
-			// open/close/swipe bag-------
-			if (!CBag::getInstance()->itemdrag()) {
-				if (!_ibagState && _startY < BAG_OPEN_HEIGHT) { // when touched y< set height
-
-																// bag oppened set bag and item position----------------------
-					if (fabs(offsetX) < fabs(offsetY) && offsetY > 0) {
-						CBag::getInstance()->setPosition(172, 115);
-						CBag::getInstance()->SetItemRect();
-						//_bbagOn = true;
-						_ibagState = 1;
-						log("bag open state:1");
-
-					}
-				}
-
-				else if (_ibagState == 2) {
-
-					if (fabs(offsetX) < fabs(offsetY)) { // close bag
-						if (offsetY < 0) { //down
-							
-							//CBag::getInstance()->SetItemRect();
-							//_bbagOn = false;
-							CBag::getInstance()->ToStateOne();
-							_ibagState = 1;
-							log("bag open state:1");
-							CBag::getInstance()->ResetItemPos();
-
-
-						}
-					}
-				}
-
-
-				else if (_ibagState == 1 && _startY <= BAG_CLOSE_HEIGHT) {
-					//if (_bbagOn && _startY <= BAG_CLOSE_HEIGHT) {
-
-					// bag oppened set bag and item position----------------------
-					if (fabs(offsetX) < fabs(offsetY) && offsetY > 0) {
-						CBag::getInstance()->ToStateTwo();
-						_ibagState = 2;
-						log("bag open state:2");
-
-					}
-
-					else if (fabs(offsetX) < fabs(offsetY)) { // close bag
-						if (offsetY < 0) { //down
-							CBag::getInstance()->setPosition(172, -115);
-							CBag::getInstance()->SetItemRect();
-							//_bbagOn = false;
-							_ibagState = 0;
-							log("bag close");
-							CBag::getInstance()->ResetItemPos();
-
-
-						}
-					}
-
-
-
-				}
-			}
-			
-
-
-			if (offsetX == 0 && offsetY == 0 && _touchLoc.y>227) { // when screen tapped
-
-
-
-
-				//walk area ====================================
-				if (_touchLoc.x > WALK_AREA_4.x && _touchLoc.x > WALK_AREA_1.x && _touchLoc.x < WALK_AREA_2.x && _touchLoc.x < WALK_AREA_3.x
-					&& _touchLoc.y > WALK_AREA_4.y  && _touchLoc.y > WALK_AREA_3.y  && _touchLoc.y < WALK_AREA_1.y && _touchLoc.y < WALK_AREA_2.y) {
-					// detect if touch pts are in walkable area
-
-					_bwithinArea = true;
-					log("walk!!");
-
-				}
-				else  _bwithinArea = false;
-
-				////player walk =====================================================
-
-				//©ñ¤jÃè¨S¶} & ¨S«ö­«¸m--------------
-				if (!_bopenNode[0] && !_bopenNode[1]  && !_resetRect.containsPoint(_touchLoc)) {
-					_bWalk = 1;
-
-					if (_touchLoc.x > _player->_rpos.x) {
-						_player->_bSide = 1;
-						_player->Mirror();
-					}
-					else {
-						_player->_bSide = 0;
-						_player->Mirror();
-					}
-
-					//-------------------------------
-					_TargetLoc = _touchLoc;
-
-
-					//====================================
-					//detect for [water], [glass rod], [experimental procedure]------
-					_pTrigger[4].touchesBegan(_touchLoc);
-					_pTrigger[5].touchesBegan(_touchLoc);
-
-					_procedure->TouchBegan(_touchLoc);
-
-				}
-
-				//©ñ¤jÃè[0]¶}---------------------
-				if (_bopenNode[0]) {
-					_pTrigger[0].touchesBegan(_touchLoc);
-					_pTrigger[1].touchesBegan(_touchLoc);
-					_pTrigger[2].touchesBegan(_touchLoc);
-					_pTrigger[3].touchesBegan(_touchLoc);
-				}
-				//©ñ¤jÃè[1]¶}---------------------
-				else if (_bopenNode[1]) {
-					_pTrigger[6].touchesBegan(_touchLoc);
-					_pTrigger[7].touchesBegan(_touchLoc);
-					_pTrigger[8].touchesBegan(_touchLoc);
-					_pTrigger[9].touchesBegan(_touchLoc);
-				}
-
-
-
-				if (!_bopenNode[0] && _detectRect[0].containsPoint(_touchLoc)) {
-					
-					_btouchNode[0] = true;
-					log("touched detect");
-				}
-				else if (!_bopenNode[0] && !_detectRect[0].containsPoint(_touchLoc)) {
-					_btouchNode[0] = false;
-				}
-				else if (_bopenNode[0] && !_offRect[0].containsPoint(_touchLoc)) {
-					_bopenNode[0] = !_bopenNode[0];
-					_eNode[0]->setVisible(false);
-					_bkBlur->setVisible(false);
-					log("close detect");
-				}
-
-				if (!_bopenNode[1] && _detectRect[1].containsPoint(_touchLoc)) {
-					
-					_btouchNode[1] = true;
-					log("touched detect node2");
-				}
-				else if (!_bopenNode[1] && !_detectRect[1].containsPoint(_touchLoc)) {
-					_btouchNode[1] = false;
-				}
-				else if (_bopenNode[1] && !_offRect[1].containsPoint(_touchLoc)) {
-					_bopenNode[1] = !_bopenNode[1];
-					_eNode[1]->setVisible(false);
-					_bkBlur->setVisible(false);
-					log("close detect");
-				}
-
-			}
-
 		}
 		else _procedure->TouchBegan(_touchLoc);
 	}

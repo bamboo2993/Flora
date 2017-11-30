@@ -16,7 +16,7 @@ CItem* CItem::create() {
 
 CItem::CItem() {
 	_propSprite = nullptr;
-//	_Del = false;
+	_itemName = nullptr;
 	_isUsed = false;
 	_canUse = false;
 	_targetNum = 0;
@@ -90,9 +90,6 @@ void CItem::SetPos(Point pos) {
 	this->setPosition(pos);
 }
 
-void CItem::SetBagPos(Point pos) {
-	_BagPos = pos;
-}
 
 void CItem::SetRect(){
 	Size size = _propSprite->getContentSize();
@@ -136,12 +133,13 @@ bool CItem::touchesBegan(Point inPos) {
 			_isdrag = true;
 			return(true);
 		}
+		return(false);
 	}
 	return(false);
 }
 
-bool CItem::touchesMoved(Point inPos) {
-	if(_bTouch){
+bool CItem::touchesMoved(Point inPos, bool lightboxState) {
+	if(_bTouch && !lightboxState){
 		this->setPosition(this->getPosition()+ (inPos - _prePos));
 		_prePos = inPos;
 
@@ -150,101 +148,110 @@ bool CItem::touchesMoved(Point inPos) {
 	return(false);
 }
 
-int CItem::touchesEnded(cocos2d::Point inPos, int bagstate, const char* scene, int num, int pageNum) {
+int CItem::touchesEnded(cocos2d::Point inPos, int bagstate, const char* scene, int num, int pageNum, bool lightboxState) {
 
 	if (_bTouch ) {
 		float offsetX = inPos.x - _startX;
 		float offsetY = inPos.y - _startY;
+		if (offsetX < 0) offsetX = offsetX - (2 * offsetX);
+		if (offsetY < 0) offsetX = offsetY - (2 * offsetY);
 
 		auto name = xmlBag::getInstance()->getItemName(num);
 		auto state = xmlItem::getInstance()->getItemStateXML(name);
 
-		if (offsetX == 5 && offsetY == 5 && bagstate) {
-			// observe item
-
+		//for item detaial====================
+		if (offsetX <= 2 && offsetY <= 2) {
+			//when obj not used (back to its position in bag)
+			this->setPosition(_ResetPos);
+			_bTouch = false;
+			_isdrag = false;
+			return(1000);
 		}
 
+		if (!lightboxState) {
+			//for bagstate==1==============
+			if (bagstate == 1) {
+				//WHEN ITEM IS USED IN SCENE
+				if (state) {
+					for (size_t i = 0; i < _targetNum; i++) {
+						auto s = xmlItem::getInstance()->getTargetSceneXML(name, i);
+						if ((!strcmp(s, scene))) {
+							if (_targetRect[i].containsPoint(inPos)) {
 
-		//for bagstate==1==============
-		if (bagstate == 1) {
-			//WHEN ITEM IS USED IN SCENE
-			if (state) {
-				for (size_t i = 0; i < _targetNum; i++) {
-					auto s = xmlItem::getInstance()->getTargetSceneXML(name, i);
-					if ((!strcmp(s, scene))) {
-						if (_targetRect[i].containsPoint(inPos)) {
+								if (!_isStagnant) {
+									_propSprite->setVisible(false);
+									log("obj not stagnant");
+									SetUsed(true);
+									//	_Del = true;
+								}
+								else {
+									this->setPosition(_ResetPos); // when item is stagnant
+									log("obj stagnant");
+									//SetUsed(true);
+								}
 
-							if (!_isStagnant) {
+								_bTouch = false;
+								_isdrag = false;
+								return(1);
+							}
+
+						}
+					}
+				}
+
+				//WHEN ITEM IS USED IN BAG FOR MIX & MAKE
+				else {
+					auto bagNum = detectUse(inPos);
+
+					if (bagNum > 0) {
+						bagNum = bagNum + 7 * (pageNum - 1);
+						auto item = xmlBag::getInstance()->getNameFromArrangement(bagNum);
+						if (item != nullptr) {
+							int mixState = xmlItem::getInstance()->checkMixingXML(name, item);
+							if (mixState >= 0) { //mix correctly==============================
 								_propSprite->setVisible(false);
-								log("obj not stagnant");
+								xmlBag::getInstance()->setBagState(num, false); // item being dragged is used
+								SetCanUse(false); //item cannot be used again
 								SetUsed(true);
-								//	_Del = true;
-							}
-							else {
-								this->setPosition(_ResetPos); // when item is stagnant
-								log("obj stagnant");
-								//SetUsed(true);
-							}
 
-							_bTouch = false;
-							_isdrag = false;
-							return(1);
+								_isdrag = false;
+								return (mixState + 5);
+							}
 						}
 
 					}
+
 				}
+
 			}
 
-			//WHEN ITEM IS USED IN BAG FOR MIX & MAKE
+			//for bagstate == 2 [full screen]===================
 			else {
-				auto bagNum = detectUse(inPos);
-				
-				if (bagNum > 0) {
-					bagNum = bagNum + 7 * (pageNum - 1);
-					auto item = xmlBag::getInstance()->getNameFromArrangement(bagNum);
-					if (item != nullptr) {
-						int mixState = xmlItem::getInstance()->checkMixingXML(name, item);
-						if (mixState >= 0) { //mix correctly==============================
-							_propSprite->setVisible(false);
-							xmlBag::getInstance()->setBagState(num, false); // item being dragged is used
-							SetCanUse(false); //item cannot be used again
-							SetUsed(true);
+				if (!state) {
+					auto bagNum = detectUse(inPos, true);
+					if (bagNum > 0) {
+						auto item = xmlBag::getInstance()->getNameFromArrangement(bagNum);
+						if (item != nullptr) {
+							int mixState = xmlItem::getInstance()->checkMixingXML(name, item);
+							if (mixState >= 0) { //mix correctly==============================
+								_propSprite->setVisible(false);
+								xmlBag::getInstance()->setBagState(num, false); // item being dragged is used
+								SetCanUse(false); //item cannot be used again
+								SetUsed(true);
 
-							_isdrag = false;
-							return (mixState + 5);
+								_isdrag = false;
+								return (mixState + 5);
+							}
 						}
+
 					}
 
 				}
-
 			}
 
 		}
 
-		//for bagstate == 2 [full screen]
-		else {
-			if(!state) {
-				auto bagNum = detectUse(inPos,true);
-				if (bagNum > 0) {
-					auto item = xmlBag::getInstance()->getNameFromArrangement(bagNum);
-					if (item != nullptr) {
-						int mixState = xmlItem::getInstance()->checkMixingXML(name, item);
-						if (mixState >= 0) { //mix correctly==============================
-							_propSprite->setVisible(false);
-							xmlBag::getInstance()->setBagState(num, false); // item being dragged is used
-							SetCanUse(false); //item cannot be used again
-							SetUsed(true);
-
-							_isdrag = false;
-							return (mixState + 5);
-						}
-					}
-
-				}
-
-			}
-		}
-
+		
 
 		//when obj not used (back to its position in bag)
 		this->setPosition(_ResetPos);

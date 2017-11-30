@@ -24,13 +24,17 @@ public:
 	CLightbox();
 
 
-	virtual bool init(Node *rootNode, const std::string& item, const std::string& enlarge);
+	bool init(Node *rootNode, const std::string& item, const std::string& enlarge);
+	bool init();
+
+	void setPic(const std::string& enlarge);
+
 	void doStep(float dt);
 	bool GetOpen();
 
 	//Ä²¸I
 	bool TouchBegan(const cocos2d::Point pt);
-
+	bool TouchBegan(const cocos2d::Point pt, int bagstate, const std::string& enlarge=NULL);
 };
 
 

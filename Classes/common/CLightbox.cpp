@@ -15,12 +15,12 @@ CLightbox* CLightbox::create() {
 }
 
 CLightbox::CLightbox(){
-
+	_enlarge = nullptr;
 	_btouch = false;
 	_isOpen = false;
 }
 
-
+//for items in scene
 bool CLightbox::init(Node *rootNode, const std::string& item, const std::string& enlarge) {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -51,12 +51,46 @@ bool CLightbox::init(Node *rootNode, const std::string& item, const std::string&
 
 	this->setVisible(false);
 
+	return true;
+}
+
+//for bag item description
+bool CLightbox::init() {
+	
+	//add dim layer
+	CCLayerColor *bgLayer = CCLayerColor::create(ccc4(0, 0, 0, 170));
+	this->addChild(bgLayer);
+
+	this->setVisible(false);
 
 	return true;
 }
 
+void CLightbox::setPic(const std::string & enlarge){
+
+
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+	Vec2 origin = Director::getInstance()->getVisibleOrigin();
+
+	if (_enlarge != nullptr) {
+      		_enlarge->removeFromParentAndCleanup(true);
+	}
+
+	//set enlarge sprite =================================================================================
+
+	_enlarge = (cocos2d::Sprite *) Sprite::create(enlarge);
+	_enlarge->setPosition(visibleSize.width / 2.0f, visibleSize.height / 2.0f);
+	this->addChild(_enlarge, 1);
+	Size size = _enlarge->getContentSize();
+	Point pt = _enlarge->getPosition();
+	_enlargeRect = Rect(pt.x - size.width / 2, pt.y - size.height / 2, size.width, size.height);
+
+
+
+}
 
 void CLightbox::doStep(float dt) {
+	// for items in scene
 	if (_btouch && _itemRect.containsPoint(_touchpt)) {
 		log("haaaa");
 		/*daa->editItemState("kitchen", "obj_apple", false);*/
@@ -67,25 +101,66 @@ void CLightbox::doStep(float dt) {
 		log("open_procedure");
 	}
 
-	//_bTouch = false;
+	
 }
 
 
 bool CLightbox::TouchBegan(const cocos2d::Point pt) {
 	log("TouchLB");
 	_touchpt = pt;
+
+	// for item in scene==============
+	
 	if (_itemRect.containsPoint(_touchpt) && !_isOpen) {
 		_btouch = true;
 		log("go_procedure");
 		return true;
 	}
-	else if(!_enlargeRect.containsPoint(_touchpt) && _isOpen) {
+	else if (!_enlargeRect.containsPoint(_touchpt) && _isOpen) {
 		this->setVisible(false);
 		_btouch = true;
 		_isOpen = !_isOpen;
 		log("close_procedure");
 		return false;
 	}
+
+	
+
+}
+
+bool CLightbox::TouchBegan(const cocos2d::Point pt, int bagstate, const std::string & enlarge) {
+	log("TouchLB");
+	_touchpt = pt;
+
+	//for bag item detail ===================
+
+	if (!_isOpen) {
+		setPic(enlarge);
+		this->setVisible(true);
+		_isOpen = true;
+		return true;
+	}
+	else if(bagstate==2){
+		if (!_enlargeRect.containsPoint(_touchpt) && _isOpen) {
+			this->setVisible(false);
+
+			_isOpen = false;
+		}
+		return false;
+	}
+	else if (bagstate == 1) {
+		if (_touchpt.y > 230.0f) {
+			if (!_enlargeRect.containsPoint(_touchpt) && _isOpen) {
+				this->setVisible(false);
+				_isOpen = false;
+			}
+			return false;
+		}
+		else setPic(enlarge);
+		return true;
+	}
+
+	return false;
 
 }
 
