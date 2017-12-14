@@ -25,6 +25,7 @@ public:
 
 
 	bool init(Node *rootNode, const std::string& item, const std::string& enlarge);
+	bool init(cocos2d::Rect area, const std::string & enlarge);
 	bool init();
 
 	void setPic(const std::string& enlarge);

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataRoot version="1.0">
+    <!--this is xml comment-->
+      <item no.="0" arrangement="1" name="B_herbG.png">true</item>
+      <item no.="1" arrangement="2" name="B_herbR.png">true</item>
+      <item no.="2" arrangement="3" name="B_herbY.png">true</item>
+      <item no.="3" arrangement="4" name="B_blue.png">false</item>
+      <item no.="4" arrangement="5" name="B_red.png">false</item>
+      <item no.="5" arrangement="2" name="B_blue.png">false</item>
+      <item no.="6" arrangement="6" name="B_red.png">false</item>
+      <item no.="7" arrangement="8" name="B_green.png">false</item>
+      <item no.="8" arrangement="9" name="B_herbG.png">false</item>
+      <item no.="9" arrangement="10" name="B_herbY.png">false</item>
+      <item no.="10" arrangement="15" name="B_yellow.png">false</item>
+      <item no.="11" arrangement="15" name="B_yellow.png">false</item>
+      <item no.="12" arrangement="15" name="B_yellow.png">false</item>
+      <item no.="13" arrangement="15" name="B_yellow.png">false</item>
+      <item no.="14" arrangement="15" name="B_yellow.png">false</item>
+      <item no.="15" arrangement="16" name="B_yellow.png">false</item>
+      <item no.="16" arrangement="17" name="B_yellow.png">false</item>
+      <item no.="17" arrangement="18" name="B_yellow.png">false</item>
+      <item no.="18" arrangement="19" name="B_yellow.png">false</item>
+      <item no.="19" arrangement="20" name="B_yellow.png">false</item>
+      <item no.="20" arrangement="21" name="B_yellow.png">false</item>
+      <item no.="21" arrangement="22" name="B_yellow.png">false</item>
+      <item no.="22" arrangement="22" name="B_yellow.png">false</item>
+
+</DataRoot>

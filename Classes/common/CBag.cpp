@@ -38,7 +38,7 @@ CBag::~CBag() {
 	//if (_xmlbag != nullptr) delete _xmlbag;
 }
 
-void CBag::Init(const std::string& pic,Point pos, CTrigger* trigger) {
+void CBag::Init(Point pos, CTrigger* trigger) {
 	_pageNum = 1;
 
 
@@ -56,7 +56,7 @@ void CBag::Init(const std::string& pic,Point pos, CTrigger* trigger) {
 	this->addChild(_itemDetail, 1);
 
 	
-	_bagSprite[0] = Sprite::createWithSpriteFrameName(pic);
+	_bagSprite[0] = Sprite::createWithSpriteFrameName("bag.png");
 	_bagSprite[0]->setPosition(1024-pos.x, 0);
 	this->addChild(_bagSprite[0], 2);
 
@@ -106,10 +106,8 @@ void CBag::GetItem(CItem *x) {
 
 void CBag::DeleteItem(CItem *x) {
 	std::list <CItem*> ::iterator it;
-	for (it = _gotItems.begin(); it != _gotItems.end(); )
-	{
-		if (*it == x)
-		{
+	for (it = _gotItems.begin(); it != _gotItems.end(); ){
+		if (*it == x){
 			_gotItems.erase(it++);
 		}
 		else

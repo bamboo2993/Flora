@@ -67,20 +67,26 @@
             <observe>D_herbY.png</observe>
             <retake triggercode="9">true</retake>
 
+          
+          
         </item>
-        <item no.="11" name="" scene="" stagnant="" targetnum="" state="0">
-            <target1 x="" y="" height="" weight=""/>
-            <observe></observe>
-            <retake scene="" triggercode=""/>
-            
-        </item>
-        <item no.="12" name="" scene="" stagnant="" targetnum="" state="0">
-            <Mix name="" ToBe=""/>
-            <observe></observe>
-            <retake scene="" triggercode=""/>
+
+        <item no.="11" name="B_sudoku.png" scene="GRScene.cpp" stagnant="false" targetnum="1" state="1">
+            <target1 scene="GRScene.cpp" x="1145.00" y="404.00" height="42" weight="150"/>
+            <observe>common/BB_sudoku.png</observe>
+            <retake triggercode="0">false</retake>
             
         </item>
 
+        <item no.="12" name="B_key.png" scene="GRScene.cpp" stagnant="false" targetnum="1" state="1">
+          <target1 scene="GRScene.cpp" x="1900.50" y="903.50" height="23" weight="29"/>
+          <observe>common/BB_key.png</observe>
+          <retake triggercode="1">false</retake>
+
+        </item>
+      
+      
+      
 
         <item no.="13" name="xxxB_herbY.png" scene="labScene.cpp" stagnant="false" targetnum="1" state="1">
             <target1 scene="labScene.cpp" x="1205.18" y="235.392" height="86" width="95"/>

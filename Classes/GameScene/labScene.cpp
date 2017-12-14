@@ -158,7 +158,7 @@ bool labScene::init()
 	
 	_xmlscene = new xmlScene("./res/xml/xmlfile_labScene.xml");
 	_xmlscene->parseXML(_rootNode, CURRENT_SCENE, _pTrigger);
-	_xmlscene->parseNodeXML(_eNode[0]);
+	_xmlscene->parseNodeXML(_eNode[0], "eN0");
 
 
 	// mix=======================================
@@ -202,7 +202,7 @@ bool labScene::init()
 	//set bag =================================================================
 
 
-	CBag::getInstance()->Init("bag.png", Point(172, -115), _pTrigger);
+	CBag::getInstance()->Init(Point(172, -115), _pTrigger);
 	this->addChild(CBag::getInstance(), 1000);
 
 
@@ -717,8 +717,6 @@ void labScene::reset() {
 	}
 	for (size_t i = 4; i < 8; i++) {
 		_xmlscene->editItemState(i, true, _eNode[0]);
-		_pTrigger[i].reset();
-
 	}
 	_xmlscene->editItemState(8, true, _rootNode);
 	_xmlscene->editItemState(9, true, _rootNode);
@@ -905,8 +903,6 @@ void  labScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ä
 			
 
 			if (_ibagState != 2) {
-				// reset button=========================
-				if (_resetRect.containsPoint(_touchLoc)) reset();
 
 				// [WALK + PICK OBJECT]===================
 				if (offsetX == 0 && offsetY == 0 && _touchLoc.y>227 && !CBag::getInstance()->LightboxState()) { // when screen tapped
@@ -924,29 +920,36 @@ void  labScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ä
 
 					////player walk =====================================================
 
-					//©ñ¤jÃè¨S¶} & ¨S«ö­«¸m--------------
-					if (!_bopenNode[0] && !_bopenNode[1] && !_resetRect.containsPoint(_touchLoc)) {
-						_bWalk = 1;
+					//©ñ¤jÃè¨S¶}--------------
+					if (!_bopenNode[0] && !_bopenNode[1]) {
+						//¨S«ö­«¸m--------------
+						if (!_resetRect.containsPoint(_touchLoc)) {
+							_bWalk = 1;
 
-						if (_touchLoc.x > _player->_rpos.x) {
-							_player->_bSide = 1;
-							_player->Mirror();
+							if (_touchLoc.x > _player->_rpos.x) {
+								_player->_bSide = 1;
+								_player->Mirror();
+							}
+							else {
+								_player->_bSide = 0;
+								_player->Mirror();
+							}
+
+							//-------------------------------
+							_TargetLoc = _touchLoc;
+
+
+							//====================================
+							//detect for [water], [glass rod], [experimental procedure]------
+							_pTrigger[4].touchesBegan(_touchLoc);
+							_pTrigger[5].touchesBegan(_touchLoc);
+
+							_procedure->TouchBegan(_touchLoc);
 						}
 						else {
-							_player->_bSide = 0;
-							_player->Mirror();
+							// reset button=========================
+							reset();
 						}
-
-						//-------------------------------
-						_TargetLoc = _touchLoc;
-
-
-						//====================================
-						//detect for [water], [glass rod], [experimental procedure]------
-						_pTrigger[4].touchesBegan(_touchLoc);
-						_pTrigger[5].touchesBegan(_touchLoc);
-
-						_procedure->TouchBegan(_touchLoc);
 
 					}
 
@@ -956,6 +959,13 @@ void  labScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ä
 						_pTrigger[1].touchesBegan(_touchLoc);
 						_pTrigger[2].touchesBegan(_touchLoc);
 						_pTrigger[3].touchesBegan(_touchLoc);
+
+						if (!_offRect[0].containsPoint(_touchLoc)) {
+							_bopenNode[0] = !_bopenNode[0];
+							_eNode[0]->setVisible(false);
+							_bkBlur->setVisible(false);
+							log("close detect");
+						}
 					}
 					//©ñ¤jÃè[1]¶}---------------------
 					else if (_bopenNode[1]) {
@@ -963,6 +973,14 @@ void  labScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ä
 						_pTrigger[7].touchesBegan(_touchLoc);
 						_pTrigger[8].touchesBegan(_touchLoc);
 						_pTrigger[9].touchesBegan(_touchLoc);
+
+						if (!_offRect[1].containsPoint(_touchLoc)) {
+							_bopenNode[1] = !_bopenNode[1];
+							_eNode[1]->setVisible(false);
+							_bkBlur->setVisible(false);
+							log("close detect");
+						}
+
 					}
 
 
@@ -975,12 +993,7 @@ void  labScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ä
 					else if (!_bopenNode[0] && !_detectRect[0].containsPoint(_touchLoc)) {
 						_btouchNode[0] = false;
 					}
-					else if (_bopenNode[0] && !_offRect[0].containsPoint(_touchLoc)) {
-						_bopenNode[0] = !_bopenNode[0];
-						_eNode[0]->setVisible(false);
-						_bkBlur->setVisible(false);
-						log("close detect");
-					}
+
 
 					if (!_bopenNode[1] && _detectRect[1].containsPoint(_touchLoc)) {
 
@@ -990,13 +1003,7 @@ void  labScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ä
 					else if (!_bopenNode[1] && !_detectRect[1].containsPoint(_touchLoc)) {
 						_btouchNode[1] = false;
 					}
-					else if (_bopenNode[1] && !_offRect[1].containsPoint(_touchLoc)) {
-						_bopenNode[1] = !_bopenNode[1];
-						_eNode[1]->setVisible(false);
-						_bkBlur->setVisible(false);
-						log("close detect");
-					}
-
+					
 				}
 
 				// drag beakerA=====================================================

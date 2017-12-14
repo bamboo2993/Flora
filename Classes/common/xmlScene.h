@@ -21,7 +21,7 @@ private:
 
 public:
 	void parseXML(cocos2d::Node *currentNode, const char *scene, CTrigger *ptrigger); // load every time switching into  new scene
-	void parseNodeXML(cocos2d::Node *currentNode); // load every time switching into  new scene
+	void parseNodeXML(cocos2d::Node *currentNode, const char *node); // load every time switching into  new scene
 
 
 	void editItemState(const int itemNo, bool state, cocos2d::Node *currentNode); // save state of obj when state has changed

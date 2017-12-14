@@ -79,7 +79,7 @@ void xmlScene::parseXML(cocos2d::Node *currentNode, const char *scene, CTrigger 
 
 
 
-void xmlScene::parseNodeXML(cocos2d::Node *currentNode)
+void xmlScene::parseNodeXML(cocos2d::Node *currentNode, const char *node)
 {
 	tinyxml2::XMLDocument *pDoc = new tinyxml2::XMLDocument();
 	log("parse");
@@ -101,7 +101,7 @@ void xmlScene::parseNodeXML(cocos2d::Node *currentNode)
 	//?取子元素信息
 
 	for (XMLElement* item = sceneInfo->FirstChildElement(); item; item = item->NextSiblingElement()) {
-		if (!strcmp(item->Attribute("state"), "node")) {
+		if (!strcmp(item->Attribute("state"), node)) {
 			bool ret = (!strcmp(item->GetText(), "false"));
 
 			if (true == ret) {

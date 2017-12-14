@@ -10,7 +10,7 @@ CPlayer::CPlayer(const std::string body, const std::string aniBody, cocos2d::Lay
 {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
-	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Animation/ater.plist");
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Animation/ater_1.plist");
 
 	// Åª¨ú¨¤¦â
 	_player = Sprite::createWithSpriteFrameName(body);
@@ -90,12 +90,20 @@ void CPlayer::setPosition(const float x, const float y)
 	_player->setPosition(x, y);
 }
 
+void CPlayer::setPreviousPosition(){
+	_previousPos.x = _player->getPosition().x;
+	_previousPos.y = _player->getPosition().y - 200.0f;
+}
+
+cocos2d::Point CPlayer::getPreviousPosition(){
+	return _previousPos;
+}
+
 
 const Vec2 CPlayer::getPosition()
 {
 	return _player->getPosition();
 }
-
 
 
 void CPlayer::go(cocos2d::Point pt)

@@ -1,4 +1,4 @@
-#define SceneTransition 1
+#define SceneTransition 60
 
 
 #include "AppDelegate.h"
@@ -16,6 +16,8 @@
 #include "MainScene\lockUsage.h"
 
 
+#elif SceneTransition == 60
+#include "GameScene\GRScene.h"
 
 #elif SceneTransition == 30
 #include "ActionScene\RunScene\RunScene1.h"
@@ -95,6 +97,11 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
 #elif SceneTransition == 50
 	auto scene = SelectionScene::createScene();
+	director->runWithScene(scene);
+
+
+#elif SceneTransition == 60
+	auto scene = GRScene::createScene();
 	director->runWithScene(scene);
 
 

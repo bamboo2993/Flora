@@ -59,24 +59,6 @@ bool SelectionScene::init()
 
 
 
-	////button======================================================================================================================================
-	////start button
-	//_StartBtn = new CButton();
-	//_StartBtn->setButtonInfo("startNormal.png", "startTouched.png", *this, Point(visibleSize.width / 2, visibleSize.height / 2));
-
-	//_bToSelectScene = false; //start game
-
-	//						 //exit button
-	//_ExitBtn = new CButton();
-	//_ExitBtn->setButtonInfo("exitNormal.png", "exitTouched.png", *this, Point(visibleSize.width / 2, visibleSize.height / 2));
-
-
-	////setting button
-	//_ContinueBtn = new CButton();
-	//_ContinueBtn->setButtonInfo("continueNormal.png", "continueTouched.png", *this, Point(visibleSize.width / 2, visibleSize.height / 2));
-	//_bToLoadingScene = false; //setting
-
-
 
 
 
@@ -95,6 +77,15 @@ bool SelectionScene::init()
 	_lock->SetArea(_lockAreaRect);
 	_lock->SetPassword(1, 1, 1);
 
+
+	_elock = new CeLock();
+	_elock->init("GameScene/lab_door.png");
+	this->addChild(_elock);
+	_elock->SetArea(_lockAreaRect);
+	_elock->SetKeyArea(Point(896.8f,692.6f),287,254);
+	_elock->SetEnterArea(Point(896.8f, 617.6f), 287, 72);
+	_elock->SetNumAppear(1149.0f+40.0f, 1032.0f);
+	_elock->SetPassword(3,721);
 
 
 	//=============================================================================================================================================
@@ -151,7 +142,8 @@ void SelectionScene::doStep(float dt)
 bool SelectionScene::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)//觸碰開始事件
 {
 	Point touchLoc = pTouch->getLocation();
-	_lock->TouchBegan(touchLoc);
+	//_lock->TouchBegan(touchLoc);
+	_elock->TouchBegan(touchLoc);
 
 	/*_StartBtn->touchesBegin(touchLoc);
 	_ExitBtn->touchesBegin(touchLoc);
@@ -164,8 +156,8 @@ void  SelectionScene::onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEven
 {
 	Point touchLoc = pTouch->getLocation();
 
-	_lock->TouchMoved(touchLoc);
-
+	//_lock->TouchMoved(touchLoc);
+	_elock->TouchMoved(touchLoc);
 	/*_StartBtn->touchesMoved(touchLoc);
 	_ExitBtn->touchesMoved(touchLoc);
 	_ContinueBtn->touchesMoved(touchLoc);*/
@@ -176,8 +168,8 @@ void  SelectionScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEven
 {
 	Point touchLoc = pTouch->getLocation();
 
-	_lock->TouchEnded(touchLoc);
-
+	//_lock->TouchEnded(touchLoc);
+	_elock->TouchEnded(touchLoc);
 
 	//if (_StartBtn->touchesEnded(touchLoc)) { // 進行場景的切換
 	//	_bToSelectScene = true;

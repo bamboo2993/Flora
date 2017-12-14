@@ -11,6 +11,7 @@ USING_NS_CC;
 class CPlayer
 {
 private:
+	cocos2d::Point _previousPos;
 
 	cocos2d::Sprite *_player;
 	cocos2d::Sprite *_body;
@@ -39,6 +40,10 @@ public:
 	~CPlayer();
 	void setPosition(const cocos2d::Point &pos);
 	void setPosition(const float x, const float y);
+
+	void setPreviousPosition();
+	cocos2d::Point getPreviousPosition();
+
 	void setAnimation(const char *plistFile);
 	void go(cocos2d::Point pt);
 	void Update();

@@ -96,6 +96,12 @@
     <ClCompile Include="..\Classes\MainScene\lockUsage.cpp">
       <Filter>src\MainScene</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\common\CeLock .cpp">
+      <Filter>src\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameScene\GRScene.cpp">
+      <Filter>src\GameScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -166,6 +172,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\MainScene\lockUsage.h">
       <Filter>src\MainScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\CeLock .h">
+      <Filter>src\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameScene\GRScene.h">
+      <Filter>src\GameScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

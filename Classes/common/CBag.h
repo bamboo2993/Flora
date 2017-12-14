@@ -57,7 +57,7 @@ public:
 	~CBag();
 
 
-	void Init(const std::string& pic,Point pos, CTrigger* trigger);
+	void Init(Point pos, CTrigger* trigger);
 	void ArrangeItem();
 	void ArrangeItemStateTwo();
 	void doStep(float dt);

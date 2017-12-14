@@ -54,6 +54,39 @@ bool CLightbox::init(Node *rootNode, const std::string& item, const std::string&
 	return true;
 }
 
+bool CLightbox::init(cocos2d::Rect area, const std::string& enlarge) {
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+	Vec2 origin = Director::getInstance()->getVisibleOrigin();
+
+
+	//add dim layer
+	CCLayerColor *bgLayer = CCLayerColor::create(ccc4(0, 0, 0, 170));
+	this->addChild(bgLayer);
+
+
+	//set item sprite =================================================================================
+
+	_itemRect = area;
+
+	//set enlarge sprite =================================================================================
+
+	_enlarge = (cocos2d::Sprite *) Sprite::create(enlarge);
+	_enlarge->setPosition(visibleSize.width / 2.0f, visibleSize.height / 2.0f);
+	this->addChild(_enlarge, 1);
+	Size size = _enlarge->getContentSize();
+	Point pt = _enlarge->getPosition();
+	_enlargeRect = Rect(pt.x - size.width / 2, pt.y - size.height / 2, size.width, size.height);
+
+
+	this->setVisible(false);
+
+	return true;
+}
+
+
+
+
+
 //for bag item description
 bool CLightbox::init() {
 	

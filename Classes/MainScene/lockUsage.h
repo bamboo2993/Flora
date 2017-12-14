@@ -14,6 +14,7 @@
 
 
 #include "common\CLock.h"
+#include "common\CeLock .h"
 
 class SelectionScene : public cocos2d::Layer
 {
@@ -27,7 +28,7 @@ private:
 
 
 
-
+	CeLock *_elock;
 
 	CLock *_lock;
 	cocos2d::Rect    _lockAreaRect;

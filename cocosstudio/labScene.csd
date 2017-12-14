@@ -422,17 +422,6 @@
             <PreSize X="0.0000" Y="0.0000" />
             <FileData Type="Normal" Path="E_labScene_Node2.csd" Plist="" />
           </AbstractNodeData>
-          <AbstractNodeData Name="labScene02_91" ActionTag="-1118231805" Tag="208" IconVisible="False" ctype="SpriteObjectData">
-            <Size X="2048.0000" Y="1536.0000" />
-            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="1024.0000" Y="768.0000" />
-            <Scale ScaleX="1.0000" ScaleY="1.0000" />
-            <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="0.5000" Y="0.5000" />
-            <PreSize X="1.0000" Y="1.0000" />
-            <FileData Type="Normal" Path="GameScene/labScene/labScene02.png" Plist="" />
-            <BlendFunc Src="1" Dst="771" />
-          </AbstractNodeData>
           <AbstractNodeData Name="detect_procedure" CanEdit="False" ActionTag="485460679" VisibleForFrame="False" Tag="42" IconVisible="False" LeftMargin="1088.0120" RightMargin="853.9880" TopMargin="1233.1954" BottomMargin="208.8046" ctype="SpriteObjectData">
             <Size X="106.0000" Y="94.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
@@ -549,18 +538,7 @@
             <FileData Type="Normal" Path="congratulation.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="view_blue_3" Visible="False" ActionTag="-1090677541" Tag="80" IconVisible="False" ctype="SpriteObjectData">
-            <Size X="2048.0000" Y="1536.0000" />
-            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="1024.0000" Y="768.0000" />
-            <Scale ScaleX="1.0000" ScaleY="1.0000" />
-            <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="0.5000" Y="0.5000" />
-            <PreSize X="1.0000" Y="1.0000" />
-            <FileData Type="Normal" Path="view_blue.png" Plist="" />
-            <BlendFunc Src="1" Dst="771" />
-          </AbstractNodeData>
-          <AbstractNodeData Name="bag_1" ActionTag="1950416549" Tag="70" IconVisible="False" LeftMargin="-0.0002" RightMargin="0.0002" TopMargin="1306.0000" ctype="SpriteObjectData">
+          <AbstractNodeData Name="bag_1" ActionTag="1950416549" VisibleForFrame="False" Tag="70" IconVisible="False" LeftMargin="-0.0002" RightMargin="0.0002" TopMargin="1306.0000" ctype="SpriteObjectData">
             <Size X="2048.0000" Y="230.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="1023.9998" Y="115.0000" />
@@ -593,28 +571,6 @@
             <FileData Type="PlistSubImage" Path="B_blue.png" Plist="GameScene/labScene/labScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="B_blue_1" ActionTag="1027834416" VisibleForFrame="False" Tag="74" IconVisible="False" LeftMargin="333.2151" RightMargin="1656.7849" TopMargin="1107.0870" BottomMargin="318.9130" ctype="SpriteObjectData">
-            <Size X="58.0000" Y="110.0000" />
-            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="362.2151" Y="373.9130" />
-            <Scale ScaleX="1.0000" ScaleY="1.0000" />
-            <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="0.1769" Y="0.2434" />
-            <PreSize X="0.0283" Y="0.0716" />
-            <FileData Type="PlistSubImage" Path="B_blue.png" Plist="GameScene/labScene/labScene.plist" />
-            <BlendFunc Src="1" Dst="771" />
-          </AbstractNodeData>
-          <AbstractNodeData Name="B_herbY_3" ActionTag="557661259" VisibleForFrame="False" Tag="72" IconVisible="False" LeftMargin="529.7896" RightMargin="1437.2104" TopMargin="1078.4019" BottomMargin="296.5981" ctype="SpriteObjectData">
-            <Size X="81.0000" Y="161.0000" />
-            <AnchorPoint ScaleX="1.0000" />
-            <Position X="610.7896" Y="296.5981" />
-            <Scale ScaleX="1.0000" ScaleY="1.0000" />
-            <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="0.2982" Y="0.1931" />
-            <PreSize X="0.0396" Y="0.1048" />
-            <FileData Type="PlistSubImage" Path="B_herbY.png" Plist="GameScene/labScene/labScene.plist" />
-            <BlendFunc Src="1" Dst="771" />
-          </AbstractNodeData>
           <AbstractNodeData Name="B_blue_114" ActionTag="-744311175" VisibleForFrame="False" Tag="235" IconVisible="False" LeftMargin="360.5142" RightMargin="1629.4858" TopMargin="1376.3352" BottomMargin="49.6648" ctype="SpriteObjectData">
             <Size X="58.0000" Y="110.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
@@ -626,18 +582,7 @@
             <FileData Type="PlistSubImage" Path="B_blue.png" Plist="GameScene/labScene/labScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="B_blue_118" ActionTag="354893137" Tag="239" IconVisible="False" LeftMargin="367.0000" RightMargin="1623.0000" TopMargin="1367.5000" BottomMargin="58.5000" ctype="SpriteObjectData">
-            <Size X="58.0000" Y="110.0000" />
-            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="396.0000" Y="113.5000" />
-            <Scale ScaleX="1.0000" ScaleY="1.0000" />
-            <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="0.1934" Y="0.0739" />
-            <PreSize X="0.0283" Y="0.0716" />
-            <FileData Type="PlistSubImage" Path="B_blue.png" Plist="GameScene/labScene/labScene.plist" />
-            <BlendFunc Src="1" Dst="771" />
-          </AbstractNodeData>
-          <AbstractNodeData Name="arrow_left_4" ActionTag="701959107" Tag="81" IconVisible="False" LeftMargin="154.5000" RightMargin="1858.5000" TopMargin="1393.0000" BottomMargin="87.0000" ctype="SpriteObjectData">
+          <AbstractNodeData Name="arrow_left_4" ActionTag="701959107" VisibleForFrame="False" Tag="81" IconVisible="False" LeftMargin="154.5000" RightMargin="1858.5000" TopMargin="1393.0000" BottomMargin="87.0000" ctype="SpriteObjectData">
             <Size X="35.0000" Y="56.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="172.0000" Y="115.0000" />
@@ -648,7 +593,7 @@
             <FileData Type="PlistSubImage" Path="arrow_left.png" Plist="GameScene/labScene/labScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="arrow_right_5" ActionTag="-2107050816" Tag="82" IconVisible="False" LeftMargin="1858.5000" RightMargin="154.5000" TopMargin="1393.0000" BottomMargin="87.0000" ctype="SpriteObjectData">
+          <AbstractNodeData Name="arrow_right_5" ActionTag="-2107050816" VisibleForFrame="False" Tag="82" IconVisible="False" LeftMargin="1858.5000" RightMargin="154.5000" TopMargin="1393.0000" BottomMargin="87.0000" ctype="SpriteObjectData">
             <Size X="35.0000" Y="56.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="1876.0000" Y="115.0000" />
@@ -659,7 +604,7 @@
             <FileData Type="PlistSubImage" Path="arrow_right.png" Plist="GameScene/labScene/labScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="arrow_up_6" ActionTag="726008239" Tag="83" IconVisible="False" LeftMargin="971.8231" RightMargin="1011.1769" TopMargin="1172.5007" BottomMargin="323.4992" ctype="SpriteObjectData">
+          <AbstractNodeData Name="arrow_up_6" ActionTag="726008239" VisibleForFrame="False" Tag="83" IconVisible="False" LeftMargin="971.8231" RightMargin="1011.1769" TopMargin="1172.5007" BottomMargin="323.4992" ctype="SpriteObjectData">
             <Size X="65.0000" Y="40.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="1004.3231" Y="343.4992" />

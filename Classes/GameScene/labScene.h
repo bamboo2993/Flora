@@ -136,12 +136,8 @@ public:
 	void doStep(float dt);
 
 	void SetObject(); //set objects in scene
-	void SetItem(); // set items in bag
 
 	void PickObject(float dt); //pick and save obj
-	void MixSyrup(); //mix syrup
-	void GrindHerb();
-	void UseHerb();
 
 	void reset();
 
