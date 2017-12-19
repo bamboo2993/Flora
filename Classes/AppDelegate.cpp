@@ -1,10 +1,10 @@
-#define SceneTransition 60
+#define SceneTransition 80
 
 
 #include "AppDelegate.h"
 
 #if SceneTransition == 1 || SceneTransition == 2
-#include "GameScene\labScene.h"
+#include "GameScene\BMScene.h"
 
 #elif SceneTransition == 3
 #include "scene001\kitchenScene.h"
@@ -18,6 +18,12 @@
 
 #elif SceneTransition == 60
 #include "GameScene\GRScene.h"
+
+#elif SceneTransition == 70
+#include "GameScene\SRScene.h"
+
+#elif SceneTransition == 80
+#include "GameScene\labScene.h"
 
 #elif SceneTransition == 30
 #include "ActionScene\RunScene\RunScene1.h"
@@ -76,10 +82,10 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
 
 #if SceneTransition == 1
-	auto scene = labScene::createScene();
+	auto scene = BMScene::createScene();
 	director->runWithScene(scene);
 #elif SceneTransition == 2
-	auto scene = TransitionMoveInL::create(0.6f, labScene::createScene());
+	auto scene = TransitionMoveInL::create(0.6f, BMScene::createScene());
 	director->runWithScene(scene);
 
 #elif SceneTransition == 3
@@ -104,6 +110,13 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	auto scene = GRScene::createScene();
 	director->runWithScene(scene);
 
+#elif SceneTransition == 70
+	auto scene = SRScene::createScene();
+	director->runWithScene(scene);
+
+#elif SceneTransition == 80
+	auto scene = labScene::createScene();
+	director->runWithScene(scene);
 
 #endif
 

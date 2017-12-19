@@ -2,7 +2,7 @@
 <DataRoot version="1.0">
     <!--this is xml comment-->
     <scene>
-        <item no.="0" arrangement="3" name="B_herbG.png">false</item>
+        <item no.="0" arrangement="1" name="B_sudoku.png">true</item>
         <item no.="1" arrangement="2" name="B_herbR.png">false</item>
         <item no.="2" arrangement="1" name="B_red.png">false</item>
         <item no.="3" arrangement="4" name="B_green.png">false</item>

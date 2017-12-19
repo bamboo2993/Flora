@@ -4,65 +4,65 @@
     <!--for item state, 0 => used in bag    1 => used in scene-->
     <!--the ToBe tag saves the item no. that is becoming-->
     <list>
-        <item no.="1" name="B_red.png" S_name="red.png" scene="labScene.cpp" stagnant="true" targetnum="2" state="1">
-            <target1 scene="labScene.cpp" x="1427.25" y="214.989" height="107" width="88"/>
-            <target2 scene="labScene.cpp" x="1520.89" y="231.657" height="107" width="88"/>
-            <observe>GameScene/labScene/D_red.png</observe>
+        <item no.="1" name="B_red.png" S_name="red.png" scene="BMScene.cpp" stagnant="true" targetnum="2" state="1">
+            <target1 scene="BMScene.cpp" x="1427.25" y="214.989" height="107" width="88"/>
+            <target2 scene="BMScene.cpp" x="1520.89" y="231.657" height="107" width="88"/>
+            <observe>GameScene/BMScene/D_red.png</observe>
             <retake triggercode="0">false</retake>
         </item>
-        <item no.="2" name="B_green.png" scene="labScene.cpp" stagnant="true" targetnum="2" state="1">
-            <target1 scene="labScene.cpp" x="1427.25" y="214.989" height="107" width="88"/>
-            <target2 scene="labScene.cpp" x="1520.89" y="231.657" height="107" width="88"/>
-            <observe>GameScene/labScene/procedure.png</observe>
+        <item no.="2" name="B_green.png" scene="BMScene.cpp" stagnant="true" targetnum="2" state="1">
+            <target1 scene="BMScene.cpp" x="1427.25" y="214.989" height="107" width="88"/>
+            <target2 scene="BMScene.cpp" x="1520.89" y="231.657" height="107" width="88"/>
+            <observe>GameScene/BMScene/procedure.png</observe>
             <retake triggercode="1">false</retake>
             
         </item>
-        <item no.="3" name="B_blue.png" scene="labScene.cpp" stagnant="true" targetnum="2" state="1">
-            <target1 scene="labScene.cpp" x="1427.25" y="214.989" height="107" width="88"/>
-            <target2 scene="labScene.cpp" x="1520.89" y="231.657" height="107" width="88"/>
+        <item no.="3" name="B_blue.png" scene="BMScene.cpp" stagnant="true" targetnum="2" state="1">
+            <target1 scene="BMScene.cpp" x="1427.25" y="214.989" height="107" width="88"/>
+            <target2 scene="BMScene.cpp" x="1520.89" y="231.657" height="107" width="88"/>
             <observe>D_blue.png</observe>
             <retake triggercode="2">false</retake>
             
         </item>
-        <item no.="4" name="B_yellow.png" scene="labScene.cpp" stagnant="true" targetnum="2" state="1">
-            <target1 scene="labScene.cpp" x="1427.25" y="214.989" height="107" width="88"/>
-            <target2 scene="labScene.cpp" x="1520.89" y="231.657" height="107" width="88"/>
+        <item no.="4" name="B_yellow.png" scene="BMScene.cpp" stagnant="true" targetnum="2" state="1">
+            <target1 scene="BMScene.cpp" x="1427.25" y="214.989" height="107" width="88"/>
+            <target2 scene="BMScene.cpp" x="1520.89" y="231.657" height="107" width="88"/>
             <observe>D_yellow.png</observe>
             <retake triggercode="3">false</retake>
             
         </item>
-        <item no.="5" name="B_water.png" scene="labScene.cpp" stagnant="true" targetnum="2" state="1">
-            <target1 scene="labScene.cpp" x="1427.25" y="214.989" height="107" width="88"/>
-            <target2 scene="labScene.cpp" x="1520.89" y="231.657" height="107" width="88"/>
+        <item no.="5" name="B_water.png" scene="BMScene.cpp" stagnant="true" targetnum="2" state="1">
+            <target1 scene="BMScene.cpp" x="1427.25" y="214.989" height="107" width="88"/>
+            <target2 scene="BMScene.cpp" x="1520.89" y="231.657" height="107" width="88"/>
             <observe>D_water.png</observe>
             <retake triggercode="4">false</retake>
         </item>
-        <item no.="6" name="B_glassrod.png" scene="labScene.cpp" stagnant="true" targetnum="2" state="1">
-            <target1 scene="labScene.cpp" x="1427.25" y="214.989" height="107" width="88"/>
-            <target2 scene="labScene.cpp" x="1520.89" y="231.657" height="107" width="88"/>
+        <item no.="6" name="B_glassrod.png" scene="BMScene.cpp" stagnant="true" targetnum="2" state="1">
+            <target1 scene="BMScene.cpp" x="1427.25" y="214.989" height="107" width="88"/>
+            <target2 scene="BMScene.cpp" x="1520.89" y="231.657" height="107" width="88"/>
             <observe>D_glassrod.png</observe>
             <retake triggercode="5">false</retake>
 
         </item>
-        <item no.="7" name="B_herbR.png" scene="labScene.cpp" stagnant="false" targetnum="1" state="1">
-            <target1 scene="labScene.cpp" x="1205.18" y="235.392" height="86" width="95"/>
+        <item no.="7" name="B_herbR.png" scene="BMScene.cpp" stagnant="false" targetnum="1" state="1">
+            <target1 scene="BMScene.cpp" x="1205.18" y="235.392" height="86" width="95"/>
             <observe>D_herbR.png</observe>
             <retake triggercode="6">true</retake>
 
         </item>
-        <item no.="8" name="B_herbG.png" scene="labScene.cpp" stagnant="false" targetnum="1" state="1">
-            <target1 scene="labScene.cpp" x="1205.18" y="235.392" height="86" width="95"/>
+        <item no.="8" name="B_herbG.png" scene="BMScene.cpp" stagnant="false" targetnum="1" state="1">
+            <target1 scene="BMScene.cpp" x="1205.18" y="235.392" height="86" width="95"/>
             <observe>D_herbG.png</observe>
             <retake triggercode="7">true</retake>
 
         </item>
-        <item no.="9" name="B_herbDG.png" scene="labScene.cpp" stagnant="false" targetnum="1" state="1">
-            <target1 scene="labScene.cpp" x="1205.18" y="235.392" height="86" width="95"/>
+        <item no.="9" name="B_herbDG.png" scene="BMScene.cpp" stagnant="false" targetnum="1" state="1">
+            <target1 scene="BMScene.cpp" x="1205.18" y="235.392" height="86" width="95"/>
             <observe>D_herbDG.png</observe>
             <retake triggercode="8">true</retake>
 
         </item>
-        <item no.="10" name="B_herbY.png" scene="labScene.cpp" stagnant="false" targetnum="1" state="0">
+        <item no.="10" name="B_herbY.png" scene="BMScene.cpp" stagnant="false" targetnum="1" state="0">
             <Mix name="B_herbR.png" ToBe="3"/>
             <observe>D_herbY.png</observe>
             <retake triggercode="9">true</retake>
@@ -88,8 +88,8 @@
       
       
 
-        <item no.="13" name="xxxB_herbY.png" scene="labScene.cpp" stagnant="false" targetnum="1" state="1">
-            <target1 scene="labScene.cpp" x="1205.18" y="235.392" height="86" width="95"/>
+        <item no.="13" name="xxxB_herbY.png" scene="BMScene.cpp" stagnant="false" targetnum="1" state="1">
+            <target1 scene="BMScene.cpp" x="1205.18" y="235.392" height="86" width="95"/>
             <observe></observe>
             <retake triggercode="9">true</retake>
             

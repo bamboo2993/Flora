@@ -674,24 +674,132 @@ void  GRScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸
 	if (_ibagState != 2) {
 
 		// [WALK + PICK OBJECT]===================
-		if (offsetX == 0 && offsetY == 0 && _touchLoc.y > 227 && !CBag::getInstance()->LightboxState()) { // when screen tapped
+		if (offsetX == 0 && offsetY == 0 && !CBag::getInstance()->LightboxState()) { // when screen tapped
+			if (_touchLoc.y > 227) {
+				//walk area ====================================
+				if (WALK_AREA_1.containsPoint(_touchLoc) || WALK_AREA_2.containsPoint(_touchLoc) || WALK_AREA_3.containsPoint(_touchLoc) ||
+					WALK_AREA_4.containsPoint(_touchLoc) || WALK_AREA_5.containsPoint(_touchLoc)) {
+					// detect if touch pts are in walkable area
+					_bwithinArea = true;
+					log("walk!!");
 
-			//walk area ====================================
-			if (WALK_AREA_1.containsPoint(_touchLoc) || WALK_AREA_2.containsPoint(_touchLoc) || WALK_AREA_3.containsPoint(_touchLoc) ||
-				WALK_AREA_4.containsPoint(_touchLoc) || WALK_AREA_5.containsPoint(_touchLoc)) {
-				// detect if touch pts are in walkable area
-				_bwithinArea = true;
-				log("walk!!");
+				}
+				else  _bwithinArea = false;
 
+				////player walk =====================================================
+
+				//放大鏡沒開 --------------
+				if (!_bopenNode[0] && !_bopenNode[1] && !_bopenNode[2]) {
+					//沒按重置-------------
+					if (!_resetRect.containsPoint(_touchLoc)) {
+						_bWalk = 1;
+						_player->setPreviousPosition();
+
+						if (_touchLoc.x > _player->_rpos.x) {
+							_player->_bSide = 1;
+							_player->Mirror();
+						}
+						else {
+							_player->_bSide = 0;
+							_player->Mirror();
+						}
+
+						//-------------------------------
+						_TargetLoc = _touchLoc;
+
+						//====================================
+
+					}
+					else {
+						// reset button=========================
+						reset();
+					}
+
+				}
+
+
+
+
+				//znode[0]開---------------------
+				if (_bopenNode[0]) {
+					_bwithinArea = false;
+					_pTrigger[0].touchesBegan(_touchLoc);
+
+					if (_closeRect.containsPoint(_touchLoc)) {
+						_bopenNode[0] = !_bopenNode[0];
+						_zNode[0]->setVisible(false);
+						log("close detect");
+					}
+
+				}
+				//znode[1]開---------------------
+				else if (_bopenNode[1]) {
+					_bwithinArea = false;
+					_pTrigger[1].touchesBegan(_touchLoc);
+
+					if (_bsolve[0]) _procedure[0]->TouchBegan(_touchLoc);
+					_procedure[1]->TouchBegan(_touchLoc);
+
+					if (_closeRect.containsPoint(_touchLoc)) {
+						_bopenNode[1] = !_bopenNode[1];
+						_zNode[1]->setVisible(false);
+						log("close detect");
+					}
+				}
+				//znode[2]開---------------------
+				else if (_bopenNode[2]) {
+					_bwithinArea = false;
+					if (_bsolve[1])_procedure[2]->TouchBegan(_touchLoc);
+
+					if (_closeRect.containsPoint(_touchLoc)) {
+						_bopenNode[2] = !_bopenNode[2];
+						_zNode[2]->setVisible(false);
+						log("close detect");
+					}
+				}
+
+
+				//0
+				if (!_bopenNode[0] && _detectRect[0].containsPoint(_touchLoc)) {
+					_btouchNode[0] = true;
+					log("touched detect");
+				}
+				else if (!_bopenNode[0] && !_detectRect[0].containsPoint(_touchLoc)) {
+					_btouchNode[0] = false;
+				}
+				//1
+				if (!_bopenNode[1] && _detectRect[1].containsPoint(_touchLoc)) {
+					_btouchNode[1] = true;
+					log("touched detect node2");
+				}
+				else if (!_bopenNode[1] && !_detectRect[1].containsPoint(_touchLoc)) {
+					_btouchNode[1] = false;
+				}
+				//2
+				if (!_bopenNode[2] && _detectRect[2].containsPoint(_touchLoc)) {
+					_btouchNode[2] = true;
+					log("touched detect node2");
+				}
+				else if (!_bopenNode[2] && !_detectRect[2].containsPoint(_touchLoc)) {
+					_btouchNode[2] = false;
+				}
 			}
-			else  _bwithinArea = false;
+			else {
+				//walk area ====================================
+				if (WALK_AREA_1.containsPoint(_touchLoc) || WALK_AREA_2.containsPoint(_touchLoc) || WALK_AREA_3.containsPoint(_touchLoc) ||
+					WALK_AREA_4.containsPoint(_touchLoc) || WALK_AREA_5.containsPoint(_touchLoc)) {
+					// detect if touch pts are in walkable area
+					_bwithinArea = true;
+					log("walk!!");
 
-			////player walk =====================================================
+				}
+				else  _bwithinArea = false;
 
-			//放大鏡沒開 --------------
-			if (!_bopenNode[0] && !_bopenNode[1] && !_bopenNode[2] ) {
-				//沒按重置-------------
-				if (!_resetRect.containsPoint(_touchLoc)) {
+				////player walk =====================================================
+
+				//放大鏡沒開 --------------
+				if (!_bopenNode[0] && !_bopenNode[1] && !_bopenNode[2]) {
+					
 					_bWalk = 1;
 					_player->setPreviousPosition();
 
@@ -710,79 +818,9 @@ void  GRScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸
 					//====================================
 
 				}
-				else {
-					// reset button=========================
-					 reset();
-				}
-
+					
 			}
 
-			
-
-
-			//znode[0]開---------------------
-			if (_bopenNode[0]) {
-				_bwithinArea = false;
-				_pTrigger[0].touchesBegan(_touchLoc);
-
-				if (_closeRect.containsPoint(_touchLoc)) {
-					_bopenNode[0] = !_bopenNode[0];
-					_zNode[0]->setVisible(false);
-					log("close detect");
-				}
-
-			}
-			//znode[1]開---------------------
-			else if (_bopenNode[1]) {
-				_bwithinArea = false;
-				_pTrigger[1].touchesBegan(_touchLoc);
-
-				if(_bsolve[0]) _procedure[0]->TouchBegan(_touchLoc);
-				_procedure[1]->TouchBegan(_touchLoc);
-
-				if (_closeRect.containsPoint(_touchLoc)) {
-					_bopenNode[1] = !_bopenNode[1];
-					_zNode[1]->setVisible(false);
-					log("close detect");
-				}
-			}
-			//znode[2]開---------------------
-			else if (_bopenNode[2]) {
-				_bwithinArea = false;
-				if (_bsolve[1])_procedure[2]->TouchBegan(_touchLoc);
-
-				if (_closeRect.containsPoint(_touchLoc)) {
-					_bopenNode[2] = !_bopenNode[2];
-					_zNode[2]->setVisible(false);
-					log("close detect");
-				}
-			}
-
-
-			//0
-			if (!_bopenNode[0] && _detectRect[0].containsPoint(_touchLoc)) {
-				_btouchNode[0] = true;
-				log("touched detect");
-			}
-			else if (!_bopenNode[0] && !_detectRect[0].containsPoint(_touchLoc)) {
-				_btouchNode[0] = false;
-			}
-			//1
-			if (!_bopenNode[1] && _detectRect[1].containsPoint(_touchLoc)) {
-				_btouchNode[1] = true;
-				log("touched detect node2");
-			}
-			else if (!_bopenNode[1] && !_detectRect[1].containsPoint(_touchLoc)) {
-				_btouchNode[1] = false;
-			}
-			//2
-			if (!_bopenNode[2] && _detectRect[2].containsPoint(_touchLoc)) {
-				_btouchNode[2] = true;
-				log("touched detect node2");
-			}
-			else if (!_bopenNode[2] && !_detectRect[2].containsPoint(_touchLoc)) {
-				_btouchNode[2] = false;
-			}
 
 		}
 

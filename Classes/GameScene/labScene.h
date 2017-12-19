@@ -1,7 +1,7 @@
 #pragma once
 #pragma once
-#ifndef __ANIMATIONACTION_SCENE_H__
-#define __ANIMATIONACTION_SCENE_H__
+#ifndef __LAB_SCENE_H__
+#define __LAB_SCENE_H__
 
 
 #include "cocos2d.h"
@@ -37,8 +37,7 @@ private:
 
 	cocos2d::Node *_rootNode;
 
-	cocos2d::Sprite *_bkBlur; // blur background sprite
-	cocos2d::Node *_eNode[2]; // 放大鏡 node
+	cocos2d::Node *_zNode[3]; // zoomin node
 
 	cocos2d::Sprite *_win; //stage clear sprite
 	bool _clear; //stage clear
@@ -75,14 +74,12 @@ private:
 
 	//判斷 物品----------------
 	bool _bpickObj; //detect if player arrive near object being picked
-	bool _btouchNode[2] = { false };//for E_node
-	bool _bopenNode[2] = { false };//for E_node
+	bool _btouchNode[3] = { false };//for E_node
+	bool _bopenNode[3] = { false };//for E_node
 	bool _btouch[5]; // for item in scene
 
-	bool _bbOnFire[2]; // if beaker A/B is on flame
-
 	// set lightbox==============================
-	CLightbox *_procedure;
+	CLightbox *_procedure[3];
 
 
 
@@ -90,37 +87,14 @@ private:
 	CTrigger *_pTrigger; // items that can be taken: 藥水以 red, green, blue, yellow 排列、蒸餾水、玻璃棒、草藥
 
 
-	cocos2d::Sprite *_detect[2]; // detect syrup and herb area (放大鏡 node)
-	cocos2d::Rect	_detectRect[2];
-	cocos2d::Rect	_offRect[2]; // area to close node (放大鏡 node)
+	cocos2d::Sprite *_detect[3]; // detect zoom node
+	cocos2d::Rect	_detectRect[3];
+	cocos2d::Rect	_closeRect; // area to close node (znode)
 
-	cocos2d::Sprite *_trash;
-	cocos2d::Rect	_trashRect; // dust bin area
+	cocos2d::Rect	*_pTsudokuRect; //sudoku target rect area
+	cocos2d::Rect	*_pTkeyRect; //key target rect area
 
-
-	cocos2d::Sprite *_syrup[4]; // syrup in scene
-
-	cocos2d::Sprite *_alcoholLamp[2]; //酒精燈 first-> off, second -> on
-	cocos2d::Rect	_alcoholLampRect; //酒精燈範圍
-
-	cocos2d::Sprite *_beakerA[9]; //量杯  0: yellow, 1:red, 2:blue, 3:green, 4:orange (1+0), 5:purple (1+2), 6:brown,  7:failed, 8 : empty
-	cocos2d::Sprite *_beakerB[9]; //量杯  0: yellow, 1:red, 2:blue, 3:green, 4:orange (1+0), 5:purple (1+2), 6:brown,  7:failed, 8 : empty
-	cocos2d::Rect	*_pbeakerRect; //beaker A+B area
-
-	cocos2d::Sprite *_beakerComplete; //量杯  brown (completeLvl) [on flame]
-	cocos2d::Sprite *_beakerFailed; //量杯 [on flame]
-	cocos2d::Rect	_beakerCompleteRect;
-
-	cocos2d::Sprite *_bowl[5];   //草藥(磨好)  0:one empty, 1:yellow 【correct】, 【others:failed】 -- 2:garkgreen, 3:green, 4:red
-	cocos2d::Rect	*_pbowlRect;
-
-
-	//mix==============================================
-
-	CMix *_mixA;
-	CMix *_mixB;
-	CMix *_grind;
-
+	bool _bsolve[2]; //state if the quiz is being solved
 
 
 public:
@@ -136,7 +110,6 @@ public:
 	void doStep(float dt);
 
 	void SetObject(); //set objects in scene
-
 	void PickObject(float dt); //pick and save obj
 
 	void reset();

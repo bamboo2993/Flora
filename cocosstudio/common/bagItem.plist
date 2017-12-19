@@ -4,10 +4,114 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>B_key.png</key>
+            <key>B_Bslides.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{698,0},{170,170}}</string>
+                <string>{{193,0},{170,170}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{170,170}}</string>
+                <key>sourceSize</key>
+                <string>{170,170}</string>
+            </dict>
+            <key>B_BslidesLOD.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{363,0},{170,170}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{170,170}}</string>
+                <key>sourceSize</key>
+                <string>{170,170}</string>
+            </dict>
+            <key>B_DGslides.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{533,0},{170,170}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{170,170}}</string>
+                <key>sourceSize</key>
+                <string>{170,170}</string>
+            </dict>
+            <key>B_DGslidesLOD.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{703,0},{170,170}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{170,170}}</string>
+                <key>sourceSize</key>
+                <string>{170,170}</string>
+            </dict>
+            <key>B_Gslides.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1342,0},{170,170}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{170,170}}</string>
+                <key>sourceSize</key>
+                <string>{170,170}</string>
+            </dict>
+            <key>B_GslidesLOD.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1512,0},{170,170}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{170,170}}</string>
+                <key>sourceSize</key>
+                <string>{170,170}</string>
+            </dict>
+            <key>B_Key.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{81,170},{170,170}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{170,170}}</string>
+                <key>sourceSize</key>
+                <string>{170,170}</string>
+            </dict>
+            <key>B_Pslides.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{421,170},{170,170}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{170,170}}</string>
+                <key>sourceSize</key>
+                <string>{170,170}</string>
+            </dict>
+            <key>B_PslidesLOD.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{591,170},{170,170}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -30,10 +134,36 @@
                 <key>sourceSize</key>
                 <string>{58,110}</string>
             </dict>
+            <key>B_dropper.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{873,0},{170,170}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{170,170}}</string>
+                <key>sourceSize</key>
+                <string>{170,170}</string>
+            </dict>
+            <key>B_dropperLOD.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1043,0},{170,170}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{170,170}}</string>
+                <key>sourceSize</key>
+                <string>{170,170}</string>
+            </dict>
             <key>B_glassrod.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{193,0},{72,42}}</string>
+                <string>{{1213,0},{72,42}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -46,7 +176,7 @@
             <key>B_green.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{265,0},{57,108}}</string>
+                <string>{{1285,0},{57,108}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -59,7 +189,7 @@
             <key>B_herbDG.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{322,0},{81,137}}</string>
+                <string>{{1682,0},{81,137}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -72,7 +202,7 @@
             <key>B_herbG.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{403,0},{114,161}}</string>
+                <string>{{1763,0},{114,161}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -85,7 +215,7 @@
             <key>B_herbR.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{517,0},{100,147}}</string>
+                <string>{{1877,0},{100,147}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -98,7 +228,7 @@
             <key>B_herbY.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{617,0},{81,161}}</string>
+                <string>{{0,170},{81,161}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -108,10 +238,23 @@
                 <key>sourceSize</key>
                 <string>{81,161}</string>
             </dict>
+            <key>B_lodine.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{251,170},{170,170}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{170,170}}</string>
+                <key>sourceSize</key>
+                <string>{170,170}</string>
+            </dict>
             <key>B_red.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{868,0},{57,107}}</string>
+                <string>{{761,170},{57,107}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -124,7 +267,7 @@
             <key>B_sudoku.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{925,0},{170,170}}</string>
+                <string>{{818,170},{170,170}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -137,7 +280,7 @@
             <key>B_water.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1095,0},{84,125}}</string>
+                <string>{{988,170},{84,125}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -150,7 +293,7 @@
             <key>B_yellow.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1179,0},{58,111}}</string>
+                <string>{{1072,170},{58,111}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -202,7 +345,7 @@
             <key>bag.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{0,170},{2048,230}}</string>
+                <string>{{0,340},{2048,230}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -224,9 +367,9 @@
             <key>realTextureFileName</key>
             <string>bagItem.png</string>
             <key>size</key>
-            <string>{2048,512}</string>
+            <string>{2048,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:f3a3bed35da8e9a68cb09e69b3621b79:de04da392cf4049aa5b51f39a33ff8ae:1c13b6d0f35cdf32ab4c1483e695b120$</string>
+            <string>$TexturePacker:SmartUpdate:e1b9933abb8da9f12e6032813a22b485:19f7c5ab61e38aecb024f8d0d4c1d6b3:1c13b6d0f35cdf32ab4c1483e695b120$</string>
             <key>textureFileName</key>
             <string>bagItem.png</string>
         </dict>

@@ -14,7 +14,7 @@
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />
             <PreSize X="0.0000" Y="0.0000" />
-            <FileData Type="PlistSubImage" Path="E_node2.png" Plist="GameScene/labScene/labScene.plist" />
+            <FileData Type="Default" Path="Default/Sprite.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
           <AbstractNodeData Name="herb1" ActionTag="-1552135944" VisibleForFrame="False" Tag="73" IconVisible="False" LeftMargin="442.8829" RightMargin="-488.8829" TopMargin="-547.1986" BottomMargin="501.1986" ctype="SpriteObjectData">
@@ -25,7 +25,7 @@
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />
             <PreSize X="0.0000" Y="0.0000" />
-            <FileData Type="PlistSubImage" Path="B_water.png" Plist="GameScene/labScene/labScene.plist" />
+            <FileData Type="Default" Path="Default/Sprite.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
           <AbstractNodeData Name="herb2" ActionTag="888822379" VisibleForFrame="False" Tag="78" IconVisible="False" LeftMargin="564.0760" RightMargin="-610.0760" TopMargin="-546.6932" BottomMargin="500.6932" ctype="SpriteObjectData">
@@ -36,7 +36,7 @@
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />
             <PreSize X="0.0000" Y="0.0000" />
-            <FileData Type="PlistSubImage" Path="B_herbR.png" Plist="GameScene/labScene/labScene.plist" />
+            <FileData Type="Default" Path="Default/Sprite.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
           <AbstractNodeData Name="herb3" ActionTag="-1036173691" VisibleForFrame="False" Tag="72" IconVisible="False" LeftMargin="693.7426" RightMargin="-739.7426" TopMargin="-532.2817" BottomMargin="486.2817" ctype="SpriteObjectData">
@@ -47,7 +47,7 @@
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />
             <PreSize X="0.0000" Y="0.0000" />
-            <FileData Type="PlistSubImage" Path="B_herbR.png" Plist="GameScene/labScene/labScene.plist" />
+            <FileData Type="Default" Path="Default/Sprite.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
           <AbstractNodeData Name="herb4" ActionTag="1886686845" VisibleForFrame="False" Tag="77" IconVisible="False" LeftMargin="809.0035" RightMargin="-855.0035" TopMargin="-539.0624" BottomMargin="493.0624" ctype="SpriteObjectData">
@@ -58,7 +58,7 @@
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />
             <PreSize X="0.0000" Y="0.0000" />
-            <FileData Type="PlistSubImage" Path="B_herbG.png" Plist="GameScene/labScene/labScene.plist" />
+            <FileData Type="Default" Path="Default/Sprite.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
         </Children>

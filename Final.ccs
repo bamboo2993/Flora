@@ -80,13 +80,24 @@
             <PlistImageFile Name="arrow_right.png" Key="arrow_right.png" />
             <PlistImageFile Name="arrow_up.png" Key="arrow_up.png" />
             <PlistImageFile Name="B_blue.png" Key="B_blue.png" />
+            <PlistImageFile Name="B_Bslides.png" Key="B_Bslides.png" />
+            <PlistImageFile Name="B_BslidesLOD.png" Key="B_BslidesLOD.png" />
+            <PlistImageFile Name="B_DGslides.png" Key="B_DGslides.png" />
+            <PlistImageFile Name="B_DGslidesLOD.png" Key="B_DGslidesLOD.png" />
+            <PlistImageFile Name="B_dropper.png" Key="B_dropper.png" />
+            <PlistImageFile Name="B_dropperLOD.png" Key="B_dropperLOD.png" />
             <PlistImageFile Name="B_glassrod.png" Key="B_glassrod.png" />
             <PlistImageFile Name="B_green.png" Key="B_green.png" />
+            <PlistImageFile Name="B_Gslides.png" Key="B_Gslides.png" />
+            <PlistImageFile Name="B_GslidesLOD.png" Key="B_GslidesLOD.png" />
             <PlistImageFile Name="B_herbDG.png" Key="B_herbDG.png" />
             <PlistImageFile Name="B_herbG.png" Key="B_herbG.png" />
             <PlistImageFile Name="B_herbR.png" Key="B_herbR.png" />
             <PlistImageFile Name="B_herbY.png" Key="B_herbY.png" />
-            <PlistImageFile Name="B_key.png" Key="B_key.png" />
+            <PlistImageFile Name="B_Key.png" Key="B_Key.png" />
+            <PlistImageFile Name="B_lodine.png" Key="B_lodine.png" />
+            <PlistImageFile Name="B_Pslides.png" Key="B_Pslides.png" />
+            <PlistImageFile Name="B_PslidesLOD.png" Key="B_PslidesLOD.png" />
             <PlistImageFile Name="B_red.png" Key="B_red.png" />
             <PlistImageFile Name="B_sudoku.png" Key="B_sudoku.png" />
             <PlistImageFile Name="B_water.png" Key="B_water.png" />
@@ -126,26 +137,8 @@
           <TTF Name="Marker Felt.ttf" />
         </Folder>
         <Folder Name="GameScene">
-          <Folder Name="GRScene">
-            <PlistImageFolder Image="GRScene.png" PListFile="GRScene.plist" Name=".GRScene_PList.Dir">
-              <PlistImageFile Name="GR_S01_01.png" Key="GR_S01_01.png" />
-              <PlistImageFile Name="GR_Z01_01.png" Key="GR_Z01_01.png" />
-              <PlistImageFile Name="GR_Z02_01.png" Key="GR_Z02_01.png" />
-              <PlistImageFile Name="GR_Z02_02.png" Key="GR_Z02_02.png" />
-              <PlistImageFile Name="GR_Z03_01.png" Key="GR_Z03_01.png" />
-            </PlistImageFolder>
-            <Image Name="GR_full.png" />
-            <Image Name="GR_P01.png" />
-            <Image Name="GR_P02.png" />
-            <Image Name="GR_P03.png" />
-            <Image Name="GR_S01.png" />
-            <Image Name="GR_S02.png" />
-            <Image Name="GR_Z01.png" />
-            <Image Name="GR_Z02.png" />
-            <Image Name="GR_Z03.png" />
-          </Folder>
-          <Folder Name="labScene">
-            <PlistImageFolder Image="labScene.png" PListFile="labScene.plist" Name=".labScene_PList.Dir">
+          <Folder Name="BMScene">
+            <PlistImageFolder Image="BMScene.png" PListFile="BMScene.plist" Name=".BMScene_PList.Dir">
               <PlistImageFile Name="alcohol_lamp01.png" Key="alcohol_lamp01.png" />
               <PlistImageFile Name="alcohol_lamp02.png" Key="alcohol_lamp02.png" />
               <PlistImageFile Name="arrow_left.png" Key="arrow_left.png" />
@@ -161,7 +154,6 @@
               <PlistImageFile Name="B_red.png" Key="B_red.png" />
               <PlistImageFile Name="B_water.png" Key="B_water.png" />
               <PlistImageFile Name="B_yellow.png" Key="B_yellow.png" />
-              <PlistImageFile Name="bag.png" Key="bag.png" />
               <PlistImageFile Name="beaker.png" Key="beaker.png" />
               <PlistImageFile Name="beaker_blue.png" Key="beaker_blue.png" />
               <PlistImageFile Name="beaker_brown.png" Key="beaker_brown.png" />
@@ -194,11 +186,57 @@
             </PlistImageFolder>
             <Image Name="bag02.png" />
             <Image Name="lab_full.png" />
-            <Image Name="labScene.png" />
             <Image Name="labScene_blur.png" />
             <Image Name="labScene01.png" />
             <Image Name="labScene02.png" />
             <Image Name="procedure.png" />
+          </Folder>
+          <Folder Name="GRScene">
+            <PlistImageFolder Image="GRScene.png" PListFile="GRScene.plist" Name=".GRScene_PList.Dir">
+              <PlistImageFile Name="GR_S01_01.png" Key="GR_S01_01.png" />
+              <PlistImageFile Name="GR_Z01_01.png" Key="GR_Z01_01.png" />
+              <PlistImageFile Name="GR_Z02_01.png" Key="GR_Z02_01.png" />
+              <PlistImageFile Name="GR_Z02_02.png" Key="GR_Z02_02.png" />
+              <PlistImageFile Name="GR_Z03_01.png" Key="GR_Z03_01.png" />
+            </PlistImageFolder>
+            <Image Name="GR_full.png" />
+            <Image Name="GR_P01.png" />
+            <Image Name="GR_P02.png" />
+            <Image Name="GR_P03.png" />
+            <Image Name="GR_S01.png" />
+            <Image Name="GR_S02.png" />
+            <Image Name="GR_Z01.png" />
+            <Image Name="GR_Z02.png" />
+            <Image Name="GR_Z03.png" />
+          </Folder>
+          <Folder Name="labScene">
+            <PlistImageFolder Image="labScene.png" PListFile="labScene.plist" Name=".labScene_PList.Dir">
+              <PlistImageFile Name="lab_01_01.png" Key="lab_01_01.png" />
+              <PlistImageFile Name="lab_Z01_01.png" Key="lab_Z01_01.png" />
+              <PlistImageFile Name="lab_Z01_02.png" Key="lab_Z01_02.png" />
+              <PlistImageFile Name="lab_Z01_03.png" Key="lab_Z01_03.png" />
+              <PlistImageFile Name="lab_Z01_04.png" Key="lab_Z01_04.png" />
+              <PlistImageFile Name="lab_Z01_05.png" Key="lab_Z01_05.png" />
+            </PlistImageFolder>
+            <Image Name="lab_01.png" />
+            <Image Name="lab_02.png" />
+            <Image Name="lab_E01.png" />
+            <Image Name="lab_E02.png" />
+            <Image Name="lab_E03.png" />
+            <Image Name="lab_E04.png" />
+            <Image Name="lab_E05.png" />
+            <Image Name="lab_Z01.png" />
+            <Image Name="lab_Z02.png" />
+            <Image Name="lab_Z03.png" />
+            <Image Name="labScene_full.png" />
+          </Folder>
+          <Folder Name="SRScene">
+            <Image Name="SR_full.png" />
+            <Image Name="SR_S01.png" />
+            <Image Name="SR_S02.png" />
+            <Image Name="SR_Z01.png" />
+            <Image Name="SR_Z02.png" />
+            <Image Name="SR_Z03.png" />
           </Folder>
         </Folder>
         <Folder Name="MainScene">
@@ -277,6 +315,7 @@
         </PlistImageFolder>
         <Project Name="AnimationAction.csd" Type="Scene" />
         <Image Name="bananaa.png" />
+        <Project Name="BMScene.csd" Type="Scene" />
         <Image Name="branch.png" />
         <Image Name="cheeseCard.png" />
         <Image Name="cola.png" />
@@ -295,10 +334,19 @@
         <Project Name="Node_GR_Z01.csd" Type="Node" />
         <Project Name="Node_GR_Z02.csd" Type="Node" />
         <Project Name="Node_GR_Z03.csd" Type="Node" />
+        <Project Name="Node_lab_Z01.csd" Type="Node" />
+        <Project Name="Node_lab_Z02.csd" Type="Node" />
+        <Project Name="Node_lab_Z03.csd" Type="Node" />
+        <Project Name="Node_SR_Z01.csd" Type="Node" />
+        <Project Name="Node_SR_Z02.csd" Type="Node" />
+        <Project Name="Node_SR_Z03.csd" Type="Node" />
         <Project Name="obstaclenode.csd" Type="Node" />
         <Project Name="RunScene.csd" Type="Scene" />
         <Project Name="SceneDiningRoom.csd" Type="Scene" />
         <Image Name="shell.png" />
+        <Image Name="SR_Z3_01.png" />
+        <Image Name="SR_Z3_02.png" />
+        <Project Name="SRScene.csd" Type="Scene" />
       </RootFolder>
     </Group>
   </SolutionFolder>

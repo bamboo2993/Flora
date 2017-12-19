@@ -1,5 +1,5 @@
 <GameFile>
-  <PropertyGroup Name="Node_GR_Z06" Type="Node" ID="114065cc-eaed-4193-a40e-56cf3915e076" Version="3.10.0.0" />
+  <PropertyGroup Name="Node_GR_Z03" Type="Node" ID="114065cc-eaed-4193-a40e-56cf3915e076" Version="3.10.0.0" />
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="0" Speed="1.0000" />
@@ -28,15 +28,15 @@
             <FileData Type="PlistSubImage" Path="GR_Z03_01.png" Plist="GameScene/GRScene/GRScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="close" ActionTag="57909507" VisibleForFrame="False" Tag="48" IconVisible="False" LeftMargin="3.9354" RightMargin="-131.9354" TopMargin="-1532.7211" BottomMargin="1329.7211" ctype="SpriteObjectData">
-            <Size X="128.0000" Y="203.0000" />
+          <AbstractNodeData Name="close" ActionTag="57909507" VisibleForFrame="False" Tag="48" IconVisible="False" LeftMargin="44.9354" RightMargin="-90.9354" TopMargin="-1454.2211" BottomMargin="1408.2211" ctype="SpriteObjectData">
+            <Size X="159.0000" Y="231.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="67.9354" Y="1431.2211" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />
             <PreSize X="0.0000" Y="0.0000" />
-            <FileData Type="PlistSubImage" Path="E_green.png" Plist="GameScene/labScene/labScene.plist" />
+            <FileData Type="PlistSubImage" Path="E_red.png" Plist="GameScene/BMScene/BMScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
         </Children>

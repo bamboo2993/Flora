@@ -165,7 +165,7 @@
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.0461" Y="0.9397" />
             <PreSize X="0.0889" Y="0.1237" />
-            <FileData Type="PlistSubImage" Path="trashcan.png" Plist="GameScene/labScene/labScene.plist" />
+            <FileData Type="PlistSubImage" Path="trashcan.png" Plist="GameScene/BMScene/BMScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
         </Children>

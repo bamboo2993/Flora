@@ -92,7 +92,7 @@ void CPlayer::setPosition(const float x, const float y)
 
 void CPlayer::setPreviousPosition(){
 	_previousPos.x = _player->getPosition().x;
-	_previousPos.y = _player->getPosition().y - 200.0f;
+	_previousPos.y = _player->getPosition().y - 300.0f;
 }
 
 cocos2d::Point CPlayer::getPreviousPosition(){
@@ -110,7 +110,7 @@ void CPlayer::go(cocos2d::Point pt)
 {
 	if (bFirst) {
 		auto a = _player->getPosition();
-		pt.y += 200.0f;
+		pt.y += 300.0f;
 		if (a.y > pt.y)  _player->runAction(_action[0]);
 		else _player->runAction(_action[1]);
 		
@@ -140,7 +140,7 @@ void CPlayer::Mirror() {
 
 bool CPlayer::Walk(Point i) {
 	_rpos = _player->getPosition();
-	i.y += 200.0f;
+	i.y += 300.0f;
 	//	_rpos.y = _rpos.y- _contentSize.height / 2;
 	float fx = i.x - _rpos.x;
 	float fy = i.y - _rpos.y;

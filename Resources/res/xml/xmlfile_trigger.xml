@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <DataRoot version="1.0">
     <!--this is xml comment-->
-    <scene scene="labScene.cpp">
+    <scene scene="BMScene.cpp">
         <trigger code="0">true</trigger>
         <trigger code="1">true</trigger>
         <trigger code="2">true</trigger>

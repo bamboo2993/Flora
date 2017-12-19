@@ -135,7 +135,7 @@
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.9554" Y="0.9387" />
             <PreSize X="0.0889" Y="0.1237" />
-            <FileData Type="PlistSubImage" Path="trashcan.png" Plist="GameScene/labScene/labScene.plist" />
+            <FileData Type="Default" Path="Default/Sprite.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
           <AbstractNodeData Name="congratulation" ActionTag="-1810312797" VisibleForFrame="False" Tag="24" IconVisible="False" ctype="SpriteObjectData">
@@ -157,7 +157,7 @@
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.4926" Y="0.2729" />
             <PreSize X="0.0889" Y="0.1237" />
-            <FileData Type="PlistSubImage" Path="trashcan.png" Plist="GameScene/labScene/labScene.plist" />
+            <FileData Type="Default" Path="Default/Sprite.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
           <AbstractNodeData Name="b1" ActionTag="-1135928761" VisibleForFrame="False" Tag="29" IconVisible="False" ctype="SpriteObjectData">

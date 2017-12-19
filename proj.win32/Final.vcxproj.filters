@@ -72,9 +72,6 @@
     <ClCompile Include="..\Classes\common\CLightbox.cpp">
       <Filter>src\common</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\GameScene\labScene.cpp">
-      <Filter>src\GameScene</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\common\CBag.cpp">
       <Filter>src\common</Filter>
     </ClCompile>
@@ -100,6 +97,15 @@
       <Filter>src\common</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\GameScene\GRScene.cpp">
+      <Filter>src\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameScene\SRScene.cpp">
+      <Filter>src\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameScene\BMScene.cpp">
+      <Filter>src\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameScene\labScene.cpp">
       <Filter>src\GameScene</Filter>
     </ClCompile>
   </ItemGroup>
@@ -149,9 +155,6 @@
     <ClInclude Include="..\Classes\common\CLightbox.h">
       <Filter>src\common</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\GameScene\labScene.h">
-      <Filter>src\GameScene</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\common\CBag.h">
       <Filter>src\common</Filter>
     </ClInclude>
@@ -177,6 +180,15 @@
       <Filter>src\common</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GameScene\GRScene.h">
+      <Filter>src\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameScene\SRScene.h">
+      <Filter>src\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameScene\BMScene.h">
+      <Filter>src\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameScene\labScene.h">
       <Filter>src\GameScene</Filter>
     </ClInclude>
   </ItemGroup>
