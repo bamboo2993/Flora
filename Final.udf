@@ -25,5 +25,16 @@
         <LastRunType Value="Windows" />
       </Value>
     </Item>
+    <Item Key="TabsParamsKey">
+      <Value ctype="TabsInfo">
+        <OpenedDocuments>
+          <FilePathData Path="SRScene.csd" />
+          <FilePathData Path="Node_SR_Z01.csd" />
+          <FilePathData Path="Node_SR_Z02.csd" />
+          <FilePathData Path="Node_SR_Z03.csd" />
+        </OpenedDocuments>
+        <ActiveDocument Path="Node_SR_Z03.csd" />
+      </Value>
+    </Item>
   </Properties>
 </UserData>

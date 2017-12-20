@@ -54,7 +54,7 @@ BMScene::BMScene() {
 		_btouch[i] = false;
 	}
 	
-
+	_ibagState = 0;
 }
 BMScene::~BMScene()
 {
@@ -514,6 +514,10 @@ void BMScene::doStep(float dt)
 	//// pick up obj ==========================
 	PickObject(dt);
 
+	if (_clear) {
+		this->unschedule(schedule_selector(BMScene::doStep));
+		Director::getInstance()->replaceScene(RunScene1::createScene());
+	}
 	
 }
 
@@ -740,7 +744,7 @@ void BMScene::reset() {
 
 	_clear = false;
 	_win->setVisible(false);
-
+	_ibagState = 0;
 }
 
 
@@ -821,7 +825,7 @@ bool BMScene::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)//Ä²¸I
 
 
 	}
-	
+
 
 	return true;
 }

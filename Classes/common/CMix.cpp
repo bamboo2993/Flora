@@ -10,7 +10,7 @@ CMix::CMix(cocos2d::Node *currentNode) {
 
 	//_xmlbag = new xmlBag("./res/xml/xmlfile_bag.xml");
 	//_xmlitem = new xmlItem();
-	_xmlscene = new xmlScene("./res/xml/xmlfile_labScene.xml");
+	_xmlscene = new xmlScene("./res/xml/xmlfile_BMScene.xml");
 
 	_ioriginalItem = 0;
 	//_itargetNum = 0;

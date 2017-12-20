@@ -1,7 +1,7 @@
 #pragma once
 #pragma once
-#ifndef __ANIMATIONACTION_SCENE_H__
-#define __ANIMATIONACTION_SCENE_H__
+#ifndef __BMSCENE_SCENE_H__
+#define ___BMSCENE_SCENE_H__
 
 
 #include "cocos2d.h"
@@ -18,6 +18,8 @@
 #include "common\xmlScene.h"
 
 #include "common\CMix.h"
+
+#include "ActionScene\RunScene\RunScene1.h"
 
 class BMScene : public cocos2d::Layer
 {

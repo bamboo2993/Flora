@@ -2,8 +2,8 @@
 #pragma once
 
 
-#ifndef __SELECTION_SCENE_H__
-#define __SELECTION_SCENE_H__
+#ifndef __LOCK_USAGE_SCENE_H__
+#define __LOCK_USAGE_SCENE_H__
 
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
