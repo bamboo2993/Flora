@@ -17,7 +17,18 @@
             <FileData Type="Normal" Path="GameScene/SRScene/SR_Z02.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="close" ActionTag="87534675" VisibleForFrame="False" Tag="147" IconVisible="False" LeftMargin="57.3434" RightMargin="-103.3434" TopMargin="-1445.0829" BottomMargin="1399.0829" ctype="SpriteObjectData">
+          <AbstractNodeData Name="SR_P02_trigger" CanEdit="False" ActionTag="1877082950" VisibleForFrame="False" Tag="122" IconVisible="False" LeftMargin="378.5414" RightMargin="-665.5414" TopMargin="-684.9562" BottomMargin="354.9562" ctype="SpriteObjectData">
+            <Size X="287.0000" Y="330.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="522.0414" Y="519.9562" />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition />
+            <PreSize X="0.0000" Y="0.0000" />
+            <FileData Type="PlistSubImage" Path="SR_Z3_01.png" Plist="GameScene/SRScene/SRScene.plist" />
+            <BlendFunc Src="1" Dst="771" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="close" ActionTag="87534675" VisibleForFrame="False" Tag="147" IconVisible="False" LeftMargin="0.8434" RightMargin="-159.8434" TopMargin="-1537.5829" BottomMargin="1306.5829" ctype="SpriteObjectData">
             <Size X="159.0000" Y="231.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="80.3434" Y="1422.0829" />

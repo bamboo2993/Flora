@@ -48,6 +48,7 @@ labScene::labScene() {
 
 	_bpickObj = false;
 	
+	_bmicroscope = false;
 	_bsolve[0] =false;
 	_bsolve[1] = false;
 	_clear = false;
@@ -101,6 +102,34 @@ bool labScene::init()
 
 	Sprite *bkimage = (cocos2d::Sprite *) _rootNode->getChildByName(BACKGROUND_FRONT);
 	this->addChild(bkimage, 100);
+
+	_microscope[0] = Sprite::create("GameScene/labScene/lab_E01.png");
+	_microscope[0]->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
+	_microscope[0]->setVisible(false);
+	this->addChild(_microscope[0], 1001);
+
+	_microscope[1] = Sprite::create("GameScene/labScene/lab_E02.png");
+	_microscope[1]->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
+	_microscope[1]->setVisible(false);
+	this->addChild(_microscope[1], 1001);
+
+	_microscope[2] = Sprite::create("GameScene/labScene/lab_E03.png");
+	_microscope[2]->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
+	_microscope[2]->setVisible(false);
+	this->addChild(_microscope[2], 1001);
+
+	_microscope[3] = Sprite::create("GameScene/labScene/lab_E04.png");
+	_microscope[3]->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
+	_microscope[3]->setVisible(false);
+	this->addChild(_microscope[3], 1001);
+
+	_microscope[4] = Sprite::create("GameScene/labScene/lab_E05.png");
+	_microscope[4]->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
+	_microscope[4]->setVisible(false);
+	this->addChild(_microscope[4], 1001);
+
+
+
 
 
 
@@ -156,18 +185,17 @@ bool labScene::init()
 	//this->addChild(_procedure[2], 10000);
 
 
-	//_pTrigger = new CTrigger[2];
+	_pTrigger = new CTrigger[6];
 
-	//_pTsudokuRect = new Rect;
-	//_pTkeyRect = new Rect;
+	_pTslidesRect = new Rect;
 
 	////set objects=========================================
 	SetObject();
 
-	//
-	//_xmlscene = new xmlScene("./res/xml/xmlfile_labScene.xml");
-	//_xmlscene->parseXML(_rootNode, CURRENT_SCENE, _pTrigger);
-	//_xmlscene->parseNodeXML(_zNode[0], "zN0");
+	
+	_xmlscene = new xmlScene("./res/xml/xmlfile_labScene.xml");
+	_xmlscene->parseXML(_rootNode, CURRENT_SCENE, _pTrigger);
+	_xmlscene->parseNodeXML(_zNode[0], "zN0");
 	//_xmlscene->parseNodeXML(_zNode[1], "zN1");
 	//_xmlscene->parseNodeXML(_zNode[2], "zN2");
 
@@ -199,14 +227,26 @@ bool labScene::init()
 void labScene::SetObject() {
 	//set objects
 
-	//_pTrigger[0].create();
-	//_pTrigger[0].Init("GR_Z01_01", _rootNode, true, 1, _zNode[0]); //sudoku trigger
+	_pTrigger[0].create();
+	_pTrigger[0].Init("lab_01_01", _rootNode, true); // iodine trigger
 
-	//_pTrigger[1].create();
-	//_pTrigger[1].Init("GR_Z02_02", _rootNode, true, 1, _zNode[1]); //key trigger
 
-	//
-	//this->addChild(_pTrigger);
+	_pTrigger[1].create();
+	_pTrigger[1].Init("lab_Z01_01", _rootNode, true, 1, _zNode[0]); //DGslides trigger
+
+	_pTrigger[2].create();
+	_pTrigger[2].Init("lab_Z01_02", _rootNode, true, 1, _zNode[0]); //Bslides trigger
+
+	_pTrigger[3].create();
+	_pTrigger[3].Init("lab_Z01_03", _rootNode, true, 1, _zNode[0]); //dropper trigger
+
+	_pTrigger[4].create();
+	_pTrigger[4].Init("lab_Z01_04", _rootNode, true, 1, _zNode[0]); //Gslides trigger
+
+	_pTrigger[5].create();
+	_pTrigger[5].Init("lab_Z01_05", _rootNode, true, 1, _zNode[0]); //Pslides trigger
+
+	this->addChild(_pTrigger);
 
 
 
@@ -240,10 +280,10 @@ void labScene::SetObject() {
 
 
 	////set sudoku target area
-	//auto a = (cocos2d::Sprite*)_zNode[2]->getChildByName("GR_Z03_01");
-	//size = a->getContentSize();
-	//pos = a->getPosition();
-	//_pTsudokuRect[0] = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.width, size.height);
+	auto a = (cocos2d::Sprite*)_rootNode->getChildByName("target_slides");
+	size = a->getContentSize();
+	pos = a->getPosition();
+	_pTslidesRect[0] = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.width * 1.5, size.height * 2);
 
 	////set key target area
 	//a = (cocos2d::Sprite*)_zNode[1]->getChildByName("GR_Z02_01");
@@ -252,7 +292,7 @@ void labScene::SetObject() {
 	//_pTkeyRect[0] = Rect(pos.x - size.width / 2, pos.y, size.width, size.height/2);
 
 	//set close target area [znode]
-	auto a = (cocos2d::Sprite*)_zNode[0]->getChildByName("close");
+	a = (cocos2d::Sprite*)_zNode[0]->getChildByName("close");
 	size = a->getContentSize();
 	pos = a->getPosition();
 	_closeRect = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.width, size.height);
@@ -279,7 +319,7 @@ void labScene::doStep(float dt){
 			}
 			else {
 				_player->Walk(Vec2(598.58f, WALK_AREA_2.getMinY()-3));
-				_player->go(_TargetLoc);	
+				_player->go(Vec2(598.58f, WALK_AREA_2.getMinY()-3));	
 				log("B");
 				if (_player->Walk(Vec2(598.58f, WALK_AREA_2.getMinY() - 3)) == false) {
 					_bWalk = 0;
@@ -299,7 +339,7 @@ void labScene::doStep(float dt){
 			}
 			else {
 				_player->Walk(Vec2(598.58f, WALK_AREA_2.getMinY()));
-				_player->go(_TargetLoc);
+				_player->go(Vec2(598.58f, WALK_AREA_2.getMinY()));
 				log("D");
 				if (_player->Walk(Vec2(598.58f, WALK_AREA_2.getMinY())) == false) {
 					_bWalk = 0;
@@ -312,83 +352,86 @@ void labScene::doStep(float dt){
 
 	}
 
-	/*
+	
 	else if (_bWalk) { // when touched obj in scene that can be picked up
 		
 		// A
-		if (_touchLoc.y >  WALK_AREA_3.getMinY() && _touchLoc.y < LINE_Y && _touchLoc.x < WALK_AREA_2.getMinX()) {
-			log("walk A");
-			_player->Walk(Vec2(WALK_AREA_2.getMinX(), _touchLoc.y));
-			_player->go(_TargetLoc);
-			if (_player->Walk(Vec2(WALK_AREA_2.getMinX(), _touchLoc.y)) == false) {
+		if (_touchLoc.y >  WALK_AREA_3.getMinY() && _touchLoc.x < WALK_AREA_3.getMinX()) {
+
+			if (_player->getPreviousPosition().y>WALK_AREA_3.getMinY()) {
+				log("walk A-1");
+				_player->Walk(Vec2(WALK_AREA_3.getMinX()+80, WALK_AREA_3.getMidY()));
+				_player->go(Vec2(WALK_AREA_3.getMinX() + 80, WALK_AREA_3.getMidY()));
+				if (_player->Walk(Vec2(WALK_AREA_3.getMinX() + 80, WALK_AREA_3.getMidY())) == false) {
+					_bWalk = 0;
+					//if (_bonObj) _bpickObj = true; //pick up obj
+					_bpickObj = true; //pick up obj
+				}
+			}
+
+			else {
+				log("walk A-2");
+				_player->Walk(Vec2(_touchLoc.x, WALK_AREA_2.getMidY()));
+				_player->go(Vec2(WALK_AREA_3.getMinX() + 80, WALK_AREA_3.getMidY()));
+				if (_player->Walk(Vec2(_touchLoc.x, WALK_AREA_2.getMidY())) == false) {
+					_bWalk = 0;
+					//if (_bonObj) _bpickObj = true; //pick up obj
+					_bpickObj = true; //pick up obj
+				}
+			}
+
+			
+
+
+		}
+
+
+		
+		// B
+		else if (_touchLoc.y > WALK_AREA_3.getMaxY() && _touchLoc.x > WALK_AREA_3.getMinX() && _touchLoc.x < WALK_AREA_4.getMinX()) {
+			log("walk B");
+
+			_player->Walk(Vec2(_touchLoc.x, WALK_AREA_3.getMidY()));
+			_player->go(Vec2(_touchLoc.x, WALK_AREA_3.getMidY()));
+			if (_player->Walk(Vec2(_touchLoc.x, WALK_AREA_3.getMidY())) == false) {
+				_bWalk = 0;
+				//if (_bonObj) _bpickObj = true; //pick up obj
+				_bpickObj = true; //pick up obj
+			}
+		}
+
+
+
+		// C
+		else if (_touchLoc.y > WALK_AREA_4.getMinY() && _touchLoc.x > WALK_AREA_4.getMinX() && _touchLoc.x < WALK_AREA_4.getMaxX()) {
+			log("walk C");
+			_player->Walk(Vec2(_touchLoc.x, WALK_AREA_4.getMidY()));
+			_player->go(Vec2(_touchLoc.x, WALK_AREA_4.getMidY()));
+			if (_player->Walk(Vec2(_touchLoc.x, WALK_AREA_4.getMidY())) == false) {
 				_bWalk = 0;
 				//if (_bonObj) _bpickObj = true; //pick up obj
 				_bpickObj = true; //pick up obj
 			}
 
-
 		}
-		// A-1
-		else if (_touchLoc.y >  WALK_AREA_2.getMaxY() && _touchLoc.x < WALK_AREA_2.getMinX()) {
-			log("walk A-1");
-			_player->Walk(Vec2(WALK_AREA_2.getMinX(), WALK_AREA_2.getMaxY()));
-			_player->go(_TargetLoc);
-			if (_player->Walk(Vec2(WALK_AREA_2.getMinX(), WALK_AREA_2.getMaxY())) == false) {
-				_bWalk = 0;
-				//if (_bonObj) _bpickObj = true; //pick up obj
-				_bpickObj = true; //pick up obj
-			}
-
-
-		}
-
-
-
-		// B-1
-		else if (_touchLoc.y > LINE_Y  && _touchLoc.x > WALK_AREA_2.getMinX() && _touchLoc.x < WALK_AREA_3.getMinX()) {
-			log("walk B-1");
-
-			_player->Walk(Vec2(_touchLoc.x, WALK_AREA_2.getMaxY()));
-			_player->go(_TargetLoc);
-			if (_player->Walk(Vec2(_touchLoc.x, WALK_AREA_2.getMaxY())) == false) {
-				_bWalk = 0;
-				//if (_bonObj) _bpickObj = true; //pick up obj
-				_bpickObj = true; //pick up obj
-			}
-		}
-
-
-
-		// C-1
-		else if (_touchLoc.y > LINE_Y && _touchLoc.x > 958.41f && _touchLoc.x < WALK_AREA_4.getMaxX()) {
-			log("walk C-1");
-			_player->Walk(Vec2(_touchLoc.x, WALK_AREA_4.getMaxY()));
-			_player->go(_TargetLoc);
-			if (_player->Walk(Vec2(_touchLoc.x, WALK_AREA_4.getMaxY())) == false) {
-				_bWalk = 0;
-				//if (_bonObj) _bpickObj = true; //pick up obj
-				_bpickObj = true; //pick up obj
-			}
-
-		}
-
 
 
 		// D
-		else if (_touchLoc.y < WALK_AREA_2.getMaxY() && _touchLoc.x >  WALK_AREA_1.getMaxX()) {
+		else if (_touchLoc.y > 752.20f && _touchLoc.x >  WALK_AREA_4.getMaxX()) {
 			log("walk D");
-			_player->Walk(Vec2(WALK_AREA_2.getMaxX(), _touchLoc.y));
-			_player->go(_TargetLoc);
-			if (_player->Walk(Vec2(WALK_AREA_2.getMaxX(), _touchLoc.y)) == false) {
+			_player->Walk(Vec2(WALK_AREA_4.getMidX(), WALK_AREA_4.getMidY()));
+			_player->go(Vec2(WALK_AREA_4.getMidX(), WALK_AREA_4.getMidY()));
+			if (_player->Walk(Vec2(WALK_AREA_4.getMidX(), WALK_AREA_4.getMidY())) == false) {
 				_bWalk = 0;
 				//if (_bonObj) _bpickObj = true; //pick up obj
 				_bpickObj = true; //pick up obj
 			}
 
 		}
-
+	
+/*	*/
 	}
-	*/
+	
 	else {
 		_player->Stop();
 	}
@@ -406,7 +449,15 @@ void labScene::PickObject(float dt) {
 		// check which trigger is being touched
 		//log("_bpickObj = true");
 	
+		_pTrigger[0].doStep(dt);
+
 		 //create the corresponding item in bag
+		if (_pTrigger[0].GetAddToBag() && !_pTrigger[0].GetPicked()) {
+			CBag::getInstance()->AddObj("B_lodine.png");
+			_pTrigger[0].SetAddToBag(false);
+			_pTrigger[0].SetPicked(true);
+
+		}
 
 
 		//open node=========
@@ -420,16 +471,16 @@ void labScene::PickObject(float dt) {
 		}
 		//else if (_btouchNode[1]) {
 		//	_zNode[1]->setVisible(true);
-
+		//
 		//	_bopenNode[1] = !_bopenNode[1];
 		//	_btouchNode[1] = !_btouchNode[1];
 		//	//log("show detect node2");
-
+		//
 		//}
 
 		//else if (_btouchNode[2]) {
 		//	_zNode[2]->setVisible(true);
-
+		//
 		//	_bopenNode[2] = !_bopenNode[2];
 		//	_btouchNode[2] = !_btouchNode[2];
 		//	//log("show detect node3");
@@ -440,26 +491,70 @@ void labScene::PickObject(float dt) {
 
 	}
 
-	/*if (_bopenNode[0]) {
+	if (_bopenNode[0]) {
 
-		_pTrigger[0].doStep(dt);
+		_pTrigger[1].doStep(dt);
+		_pTrigger[2].doStep(dt);
+		_pTrigger[3].doStep(dt);
+		_pTrigger[4].doStep(dt);
+		_pTrigger[5].doStep(dt);
 
 
 		//create the corresponding item in bag
-		if (_pTrigger[0].GetAddToBag() && !_pTrigger[0].GetPicked()) {
+		if (_pTrigger[1].GetAddToBag() && !_pTrigger[1].GetPicked()) {
 
-			CBag::getInstance()->AddObj("B_sudoku.png", 1, _pTsudokuRect, false);
+			CBag::getInstance()->AddObj("B_DGslides.png", 1, true, _pTslidesRect);
 
-			_pTrigger[0].SetAddToBag(false);
-			_pTrigger[0].SetPicked(true); // if the object is picked and added into the bag
+			_pTrigger[1].SetAddToBag(false);
+			_pTrigger[1].SetPicked(true); // if the object is picked and added into the bag
 
-			_xmlscene->editItemState("GR_Z01_01", false, _zNode[0], 0, 1);
+			_xmlscene->editItemState("lab_Z01_01", false, _zNode[0], 1, 5);
+		}
+
+		else if (_pTrigger[2].GetAddToBag() && !_pTrigger[2].GetPicked()) {
+
+			CBag::getInstance()->AddObj("B_Bslides.png", 1, true, _pTslidesRect);
+
+			_pTrigger[2].SetAddToBag(false);
+			_pTrigger[2].SetPicked(true); // if the object is picked and added into the bag
+
+			_xmlscene->editItemState("lab_Z01_02", false, _zNode[0], 1, 5);
+		}
+
+		else if (_pTrigger[3].GetAddToBag() && !_pTrigger[3].GetPicked()) {
+
+			CBag::getInstance()->AddObj("B_dropper.png");
+
+			_pTrigger[3].SetAddToBag(false);
+			_pTrigger[3].SetPicked(true); // if the object is picked and added into the bag
+
+			_xmlscene->editItemState("lab_Z01_03", false, _zNode[0], 1, 5);
+		}
+
+		else if (_pTrigger[4].GetAddToBag() && !_pTrigger[4].GetPicked()) {
+
+			CBag::getInstance()->AddObj("B_Gslides.png", 1, true, _pTslidesRect);
+
+			_pTrigger[4].SetAddToBag(false);
+			_pTrigger[4].SetPicked(true); // if the object is picked and added into the bag
+
+			_xmlscene->editItemState("lab_Z01_04", false, _zNode[0], 1, 5);
+		}
+
+		else if (_pTrigger[5].GetAddToBag() && !_pTrigger[5].GetPicked()) {
+
+			CBag::getInstance()->AddObj("B_Pslides.png", 1, true, _pTslidesRect);
+
+			_pTrigger[5].SetAddToBag(false);
+			_pTrigger[5].SetPicked(true); // if the object is picked and added into the bag
+
+			_xmlscene->editItemState("lab_Z01_05", false, _zNode[0], 1, 5);
 		}
 		
 	}
 
 
-
+/*
 	else if (_bopenNode[1]) {
 		_pTrigger[1].doStep(dt);
 
@@ -498,26 +593,32 @@ void labScene::reset() {
 	_bpickObj = false;
 	
 	_zNode[0]->setVisible(false);
-	_zNode[1]->setVisible(false);
-	_zNode[2]->setVisible(false);
+	//_zNode[1]->setVisible(false);
+	//_zNode[2]->setVisible(false);
 
-	_procedure[0]->setVisible(false);
-	_procedure[1]->setVisible(false);
-	_procedure[2]->setVisible(false);
+	//_procedure[0]->setVisible(false);
+	//_procedure[1]->setVisible(false);
+	//_procedure[2]->setVisible(false);
 
-	_xmlscene->editItemState(0, false, _rootNode);
+	_xmlscene->editItemState(0, true, _rootNode);
 	_xmlscene->editItemState(1, true, _zNode[0]);
-	_xmlscene->editItemState(2, false, _zNode[1]);
-	_xmlscene->editItemState(3, true, _zNode[1]);
-	_xmlscene->editItemState(4, false, _zNode[2]);
+	_xmlscene->editItemState(2, true, _zNode[0]);
+	_xmlscene->editItemState(3, true, _zNode[0]);
+	_xmlscene->editItemState(4, true, _zNode[0]);
+	_xmlscene->editItemState(5, true, _zNode[0]);
 
 	_pTrigger[0].reset();
 	_pTrigger[1].reset();
+	_pTrigger[2].reset();
+	_pTrigger[3].reset();
+	_pTrigger[4].reset();
+	_pTrigger[5].reset();
 
 	xmlTrigger::getInstance()->updateTriggerXML(CURRENT_SCENE, _pTrigger);
 
-	_bsolve[0] = false;
-	_bsolve[1] = false;
+	_bmicroscope = false;
+	//_bsolve[0] = false;
+	//_bsolve[1] = false;
 
 }
 
@@ -577,7 +678,7 @@ void  labScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ä
 	if (_ibagState != 2) {
 
 		// [WALK + PICK OBJECT]===================
-		if (offsetX == 0 && offsetY == 0 && !CBag::getInstance()->LightboxState()) { // when screen tapped
+		if (offsetX == 0 && offsetY == 0 && !CBag::getInstance()->LightboxState()  && !_bmicroscope) { // when screen tapped
 			if (_touchLoc.y > 227) {
 				//walk area ====================================
 				if (WALK_AREA_1.containsPoint(_touchLoc) || WALK_AREA_2.containsPoint(_touchLoc) || WALK_AREA_3.containsPoint(_touchLoc) ||
@@ -611,12 +712,15 @@ void  labScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ä
 						_TargetLoc = _touchLoc;
 
 						//====================================
-
+						//detect for [iodine]------
+						_pTrigger[0].touchesBegan(_touchLoc);
 					}
 					else {
 						// reset button=========================
 						reset();
 					}
+
+
 
 				}
 
@@ -626,7 +730,11 @@ void  labScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ä
 				//znode[0]¶}---------------------
 				if (_bopenNode[0]) {
 					_bwithinArea = false;
-					//_pTrigger[0].touchesBegan(_touchLoc);
+					_pTrigger[1].touchesBegan(_touchLoc);
+					_pTrigger[2].touchesBegan(_touchLoc);
+					_pTrigger[3].touchesBegan(_touchLoc);
+					_pTrigger[4].touchesBegan(_touchLoc);
+					_pTrigger[5].touchesBegan(_touchLoc);
 
 					if (_closeRect.containsPoint(_touchLoc)) {
 						_bopenNode[0] = !_bopenNode[0];
@@ -661,6 +769,8 @@ void  labScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ä
 					}
 				}
 
+
+				
 
 				//0
 				if (!_bopenNode[0] && _detectRect[0].containsPoint(_touchLoc)) {
@@ -725,14 +835,38 @@ void  labScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ä
 
 					}
 
+					//znode[0]¶}---------------------
+					if (_bopenNode[0]) {
+						_bwithinArea = false;
+						_pTrigger[1].touchesBegan(_touchLoc);
+						_pTrigger[2].touchesBegan(_touchLoc);
+						_pTrigger[3].touchesBegan(_touchLoc);
+						_pTrigger[4].touchesBegan(_touchLoc);
+						_pTrigger[5].touchesBegan(_touchLoc);
 
+						if (_closeRect.containsPoint(_touchLoc)) {
+							_bopenNode[0] = !_bopenNode[0];
+							_zNode[0]->setVisible(false);
+							log("close detect");
+						}
+
+					}
 
 				}
 			}
 			
 		}
 
+		else if (_bmicroscope && !CBag::getInstance()->LightboxState()) {
+			if (_closeRect.containsPoint(_touchLoc)) {
+				_bmicroscope = !_bmicroscope;
+				for (size_t i = 0; i < 5; i++) {
+					_microscope[i]->setVisible(false);
+				}
 
+				log("close detect");
+			}
+		}
 	}
 
 	
@@ -797,31 +931,55 @@ void  labScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ä
 		i = CBag::getInstance()->touchesEnded(_touchLoc, _ibagState, CURRENT_SCENE, _pTrigger);
 
 		//to detect item used and its effect-------
-		/*if (i >= 0) {
+		if (i >= 0) {
 			// mix mix
 
 			// add sound
 
-			if (!strcmp(xmlBag::getInstance()->getItemName(i), "B_sudoku.png")) {
+			if (!strcmp(xmlBag::getInstance()->getItemName(i), "B_Bslides.png") || !strcmp(xmlBag::getInstance()->getItemName(i), "B_DGslides.png") || !strcmp(xmlBag::getInstance()->getItemName(i), "B_Gslides.png") || !strcmp(xmlBag::getInstance()->getItemName(i), "B_Pslides.png") ) {
 				// add debranch
 				//_grinding->playEffect();
-				_xmlscene->editItemState("GR_Z03_01", true, _zNode[2], 0, 4);
-				_xmlscene->editItemState("GR_S01_01", true, _rootNode, 0, 4);
-				_bsolve[1] = true;
+				_microscope[0]->setVisible(true);
+
+				_bmicroscope = true;
 
 			}
 
-			else if (!strcmp(xmlBag::getInstance()->getItemName(i), "B_key.png")) {
+			else if (!strcmp(xmlBag::getInstance()->getItemName(i), "B_BslidesLOD.png")) {
 				// add debranch
 				//_grinding->playEffect();
-				_xmlscene->editItemState("GR_Z02_01", true, _zNode[1], 2, 3);
-				_bsolve[0] = true;
+				_microscope[4]->setVisible(true);
+				_bmicroscope = true;
+
+			}
+
+			else if (!strcmp(xmlBag::getInstance()->getItemName(i), "B_DGslidesLOD.png")) {
+				// add debranch
+				//_grinding->playEffect();
+				_microscope[2]->setVisible(true);
+				_bmicroscope = true;
+
+			}
+
+			else if (!strcmp(xmlBag::getInstance()->getItemName(i), "B_GslidesLOD.png")) {
+				// add debranch
+				//_grinding->playEffect();
+				_microscope[3]->setVisible(true);
+				_bmicroscope = true;
+
+			}
+
+			else if (!strcmp(xmlBag::getInstance()->getItemName(i), "B_PslidesLOD.png")) {
+				// add debranch
+				//_grinding->playEffect();
+				_microscope[1]->setVisible(true);
+				_bmicroscope = true;
 
 			}
 			
 
 
-		}*/
+		}
 	}
 
 }

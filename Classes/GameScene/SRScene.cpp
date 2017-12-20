@@ -165,8 +165,8 @@ bool SRScene::init()
 	SetObject();
 
 	//
-	_xmlscene = new xmlScene("./res/xml/xmlfile_SRScene.xml");
-	_xmlscene->parseXML(_rootNode, CURRENT_SCENE, _pTrigger);
+	//_xmlscene = new xmlScene("./res/xml/xmlfile_SRScene.xml");
+	//_xmlscene->parseXML(_rootNode, CURRENT_SCENE, _pTrigger);
 	//_xmlscene->parseNodeXML(_zNode[0], "zN0");
 	//_xmlscene->parseNodeXML(_zNode[1], "zN1");
 	//_xmlscene->parseNodeXML(_zNode[2], "zN2");
@@ -284,7 +284,7 @@ void SRScene::doStep(float dt){
 		if (_touchLoc.y >  WALK_AREA_2.getMinY() && _touchLoc.y < LINE_Y && _touchLoc.x < WALK_AREA_2.getMinX()) {
 			log("walk A");
 			_player->Walk(Vec2(WALK_AREA_2.getMinX(), _touchLoc.y));
-			_player->go(_TargetLoc);
+			_player->go(Vec2(WALK_AREA_2.getMinX(), _touchLoc.y));
 			if (_player->Walk(Vec2(WALK_AREA_2.getMinX(), _touchLoc.y)) == false) {
 				_bWalk = 0;
 				//if (_bonObj) _bpickObj = true; //pick up obj
@@ -297,7 +297,7 @@ void SRScene::doStep(float dt){
 		else if (_touchLoc.y >  WALK_AREA_2.getMaxY() && _touchLoc.x < WALK_AREA_2.getMinX()) {
 			log("walk A-1");
 			_player->Walk(Vec2(WALK_AREA_2.getMinX(), WALK_AREA_2.getMaxY()));
-			_player->go(_TargetLoc);
+			_player->go(Vec2(WALK_AREA_2.getMinX(), WALK_AREA_2.getMaxY()));
 			if (_player->Walk(Vec2(WALK_AREA_2.getMinX(), WALK_AREA_2.getMaxY())) == false) {
 				_bWalk = 0;
 				//if (_bonObj) _bpickObj = true; //pick up obj
@@ -311,7 +311,7 @@ void SRScene::doStep(float dt){
 		else if (_touchLoc.y <  WALK_AREA_1.getMaxY() && _touchLoc.x < WALK_AREA_2.getMinX()) {
 			log("walk A-2");
 			_player->Walk(Vec2(WALK_AREA_2.getMinX(), WALK_AREA_2.getMinY()));
-			_player->go(_TargetLoc);
+			_player->go(Vec2(WALK_AREA_2.getMinX(), WALK_AREA_2.getMinY()));
 			if (_player->Walk(Vec2(WALK_AREA_2.getMinX(), WALK_AREA_2.getMinY())) == false) {
 				_bWalk = 0;
 				//if (_bonObj) _bpickObj = true; //pick up obj
@@ -325,7 +325,7 @@ void SRScene::doStep(float dt){
 		else if (_touchLoc.y <  WALK_AREA_1.getMaxY() && _touchLoc.x > WALK_AREA_2.getMinX() && _touchLoc.x < WALK_AREA_1.getMinX()) {
 			log("walk A-3");
 			_player->Walk(Vec2(_touchLoc.x, WALK_AREA_2.getMinY()));
-			_player->go(_TargetLoc);
+			_player->go(Vec2(_touchLoc.x, WALK_AREA_2.getMinY()));
 			if (_player->Walk(Vec2(_touchLoc.x, WALK_AREA_2.getMinY())) == false) {
 				_bWalk = 0;
 				//if (_bonObj) _bpickObj = true; //pick up obj
@@ -341,7 +341,7 @@ void SRScene::doStep(float dt){
 			log("walk B-1");
 
 			_player->Walk(Vec2(_touchLoc.x, WALK_AREA_2.getMaxY()));
-			_player->go(_TargetLoc);
+			_player->go(Vec2(_touchLoc.x, WALK_AREA_2.getMaxY()));
 			if (_player->Walk(Vec2(_touchLoc.x, WALK_AREA_2.getMaxY())) == false) {
 				_bWalk = 0;
 				//if (_bonObj) _bpickObj = true; //pick up obj
@@ -355,7 +355,7 @@ void SRScene::doStep(float dt){
 			log("walk B-2");
 
 			_player->Walk(Vec2(_touchLoc.x, WALK_AREA_3.getMaxY()));
-			_player->go(_TargetLoc);
+			_player->go(Vec2(_touchLoc.x, WALK_AREA_3.getMaxY()));
 			if (_player->Walk(Vec2(_touchLoc.x, WALK_AREA_3.getMaxY())) == false) {
 				_bWalk = 0;
 				//if (_bonObj) _bpickObj = true; //pick up obj
@@ -369,7 +369,7 @@ void SRScene::doStep(float dt){
 			log("walk B-3");
 
 			_player->Walk(Vec2(_touchLoc.x, WALK_AREA_4.getMaxY()));
-			_player->go(_TargetLoc);
+			_player->go(Vec2(_touchLoc.x, WALK_AREA_4.getMaxY()));
 			if (_player->Walk(Vec2(_touchLoc.x, WALK_AREA_4.getMaxY())) == false) {
 				_bWalk = 0;
 				//if (_bonObj) _bpickObj = true; //pick up obj
@@ -381,7 +381,7 @@ void SRScene::doStep(float dt){
 		else if (_touchLoc.y > LINE_Y && _touchLoc.x > 958.41f && _touchLoc.x < WALK_AREA_4.getMaxX()) {
 			log("walk C-1");
 			_player->Walk(Vec2(_touchLoc.x, WALK_AREA_4.getMaxY()));
-			_player->go(_TargetLoc);
+			_player->go(Vec2(_touchLoc.x, WALK_AREA_4.getMaxY()));
 			if (_player->Walk(Vec2(_touchLoc.x, WALK_AREA_4.getMaxY())) == false) {
 				_bWalk = 0;
 				//if (_bonObj) _bpickObj = true; //pick up obj
@@ -394,7 +394,7 @@ void SRScene::doStep(float dt){
 		else if (_touchLoc.y > LINE_Y && _touchLoc.x > WALK_AREA_4.getMaxX() && _touchLoc.x < WALK_AREA_3.getMaxX()) {
 			log("walk C-2");
 			_player->Walk(Vec2(_touchLoc.x, WALK_AREA_3.getMaxY()));
-			_player->go(_TargetLoc);
+			_player->go(Vec2(_touchLoc.x, WALK_AREA_3.getMaxY()));
 			if (_player->Walk(Vec2(_touchLoc.x, WALK_AREA_3.getMaxY())) == false) {
 				_bWalk = 0;
 				//if (_bonObj) _bpickObj = true; //pick up obj
@@ -408,7 +408,7 @@ void SRScene::doStep(float dt){
 			log("walk C-3");
 
 			_player->Walk(Vec2(_touchLoc.x, WALK_AREA_2.getMaxY()));
-			_player->go(_TargetLoc);
+			_player->go(Vec2(_touchLoc.x, WALK_AREA_2.getMaxY()));
 			if (_player->Walk(Vec2(_touchLoc.x, WALK_AREA_2.getMaxY())) == false) {
 				_bWalk = 0;
 				//if (_bonObj) _bpickObj = true; //pick up obj
@@ -420,7 +420,7 @@ void SRScene::doStep(float dt){
 		else if (_touchLoc.y > WALK_AREA_2.getMaxY() && _touchLoc.x > WALK_AREA_2.getMaxX()) {
 			log("walk C-4");
 			_player->Walk(Vec2(WALK_AREA_2.getMaxX(), WALK_AREA_2.getMaxY()));
-			_player->go(_TargetLoc);
+			_player->go(Vec2(WALK_AREA_2.getMaxX(), WALK_AREA_2.getMaxY()));
 			if (_player->Walk(Vec2(WALK_AREA_2.getMaxX(), WALK_AREA_2.getMaxY())) == false) {
 				_bWalk = 0;
 				//if (_bonObj) _bpickObj = true; //pick up obj
@@ -435,7 +435,7 @@ void SRScene::doStep(float dt){
 		else if (_touchLoc.y < WALK_AREA_2.getMaxY() && _touchLoc.x >  WALK_AREA_1.getMaxX()) {
 			log("walk D");
 			_player->Walk(Vec2(WALK_AREA_2.getMaxX(), _touchLoc.y));
-			_player->go(_TargetLoc);
+			_player->go(Vec2(WALK_AREA_2.getMaxX(), _touchLoc.y));
 			if (_player->Walk(Vec2(WALK_AREA_2.getMaxX(), _touchLoc.y)) == false) {
 				_bWalk = 0;
 				//if (_bonObj) _bpickObj = true; //pick up obj

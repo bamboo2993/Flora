@@ -17,4 +17,17 @@
         <trigger code="0">true</trigger>
         <trigger code="1">true</trigger>
     </scene>
+    <scene scene="labScene.cpp">
+        <trigger code="0">true</trigger>
+        <trigger code="1">true</trigger>
+        <trigger code="2">true</trigger>
+        <trigger code="3">true</trigger>
+        <trigger code="4">true</trigger>
+        <trigger code="5">true</trigger>
+        <trigger code="6">true</trigger>
+        <trigger code="7">true</trigger>
+        <trigger code="8">true</trigger>
+        <trigger code="9">true</trigger>
+        <trigger code="10">true</trigger>
+    </scene>
 </DataRoot>

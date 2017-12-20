@@ -108,6 +108,9 @@
     <ClCompile Include="..\Classes\GameScene\labScene.cpp">
       <Filter>src\GameScene</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\MainScene\SelectionScene.cpp">
+      <Filter>src\MainScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -190,6 +193,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\GameScene\labScene.h">
       <Filter>src\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MainScene\SelectionScene.h">
+      <Filter>src\MainScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

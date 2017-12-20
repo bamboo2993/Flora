@@ -17,10 +17,10 @@
             <FileData Type="Normal" Path="GameScene/GRScene/GR_Z02.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="GR_Z02_01" ActionTag="-264041507" VisibleForFrame="False" Tag="151" IconVisible="False" LeftMargin="774.4502" RightMargin="-2032.4502" TopMargin="-630.3076" BottomMargin="172.3076" ctype="SpriteObjectData">
+          <AbstractNodeData Name="GR_Z02_01" ActionTag="-264041507" VisibleForFrame="False" Tag="151" IconVisible="False" LeftMargin="774.4503" RightMargin="-2032.4503" TopMargin="-630.3086" BottomMargin="172.3086" ctype="SpriteObjectData">
             <Size X="1258.0000" Y="458.0000" />
-            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="1403.4502" Y="401.3076" />
+            <AnchorPoint ScaleX="0.5077" ScaleY="0.5118" />
+            <Position X="1413.1678" Y="406.7185" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />
@@ -61,7 +61,7 @@
             <FileData Type="PlistSubImage" Path="GR_Z03_01.png" Plist="GameScene/GRScene/GRScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="close" ActionTag="826016699" VisibleForFrame="False" Tag="50" IconVisible="False" LeftMargin="49.2414" RightMargin="-95.2414" TopMargin="-1448.1245" BottomMargin="1402.1245" ctype="SpriteObjectData">
+          <AbstractNodeData Name="close" ActionTag="826016699" VisibleForFrame="False" Tag="50" IconVisible="False" LeftMargin="-7.2586" RightMargin="-151.7414" TopMargin="-1540.6245" BottomMargin="1309.6245" ctype="SpriteObjectData">
             <Size X="159.0000" Y="231.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="72.2414" Y="1425.1245" />
@@ -70,6 +70,17 @@
             <PrePosition />
             <PreSize X="0.0000" Y="0.0000" />
             <FileData Type="PlistSubImage" Path="E_red.png" Plist="GameScene/BMScene/BMScene.plist" />
+            <BlendFunc Src="1" Dst="771" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="cola_1" ActionTag="-518259923" VisibleForFrame="False" Tag="96" IconVisible="False" LeftMargin="909.4200" RightMargin="-982.4200" TopMargin="-399.7800" BottomMargin="328.7800" ctype="SpriteObjectData">
+            <Size X="73.0000" Y="71.0000" />
+            <AnchorPoint />
+            <Position X="909.4200" Y="328.7800" />
+            <Scale ScaleX="15.5022" ScaleY="4.2854" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition />
+            <PreSize X="0.0000" Y="0.0000" />
+            <FileData Type="Normal" Path="cola.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
         </Children>

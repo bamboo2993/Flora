@@ -9,13 +9,13 @@ using namespace ui;
 using namespace CocosDenshion;
 
 
-Scene* SelectionScene::createScene()
+Scene* lockUsage::createScene()
 {
 	// 'scene' is an autorelease object
 	auto scene = Scene::create();
 
 	// 'layer' is an autorelease object
-	auto layer = SelectionScene::create();
+	auto layer = lockUsage::create();
 
 	// add layer as a child to scene
 	scene->addChild(layer);
@@ -24,7 +24,7 @@ Scene* SelectionScene::createScene()
 	return scene;
 }
 
-SelectionScene::~SelectionScene()
+lockUsage::~lockUsage()
 {
 
 
@@ -33,7 +33,7 @@ SelectionScene::~SelectionScene()
 	Director::getInstance()->getTextureCache()->removeUnusedTextures();
 }
 
-bool SelectionScene::init()
+bool lockUsage::init()
 {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -91,23 +91,23 @@ bool SelectionScene::init()
 	//=============================================================================================================================================
 
 	_listener1 = EventListenerTouchOneByOne::create();	//創建一個一對一的事件聆聽器
-	_listener1->onTouchBegan = CC_CALLBACK_2(SelectionScene::onTouchBegan, this);		//加入觸碰開始事件
-	_listener1->onTouchMoved = CC_CALLBACK_2(SelectionScene::onTouchMoved, this);		//加入觸碰移動事件
-	_listener1->onTouchEnded = CC_CALLBACK_2(SelectionScene::onTouchEnded, this);		//加入觸碰離開事件
+	_listener1->onTouchBegan = CC_CALLBACK_2(lockUsage::onTouchBegan, this);		//加入觸碰開始事件
+	_listener1->onTouchMoved = CC_CALLBACK_2(lockUsage::onTouchMoved, this);		//加入觸碰移動事件
+	_listener1->onTouchEnded = CC_CALLBACK_2(lockUsage::onTouchEnded, this);		//加入觸碰離開事件
 
 	this->_eventDispatcher->addEventListenerWithSceneGraphPriority(_listener1, this);	//加入剛創建的事件聆聽器
-	this->schedule(CC_SCHEDULE_SELECTOR(SelectionScene::doStep));
+	this->schedule(CC_SCHEDULE_SELECTOR(lockUsage::doStep));
 
 	return true;
 }
 
 
-void SelectionScene::doStep(float dt)
+void lockUsage::doStep(float dt)
 {
 
 	//if (_bToScene001) { // 切換到 SecondScene
 	//						// 先將這個 SCENE 的 Update(這裡使用 OnFrameMove, 從 schedule update 中移出)
-	//	this->unschedule(schedule_selector(SelectionScene::doStep));
+	//	this->unschedule(schedule_selector(lockUsage::doStep));
 	//	//		SpriteFrameCache::getInstance()->removeSpriteFramesFromFile("mainscene.plist");
 	//	// 設定場景切換的特效
 	//	//		TransitionFade *pageTurn = TransitionFade::create(1.0F, GameScene::createScene());
@@ -118,7 +118,7 @@ void SelectionScene::doStep(float dt)
 
 	//if (_bToScene002) { // 切換到 SecondScene
 	//					   // 先將這個 SCENE 的 Update(這裡使用 OnFrameMove, 從 schedule update 中移出)
-	//	this->unschedule(schedule_selector(SelectionScene::doStep));
+	//	this->unschedule(schedule_selector(lockUsage::doStep));
 	//	//		SpriteFrameCache::getInstance()->removeSpriteFramesFromFile("mainscene.plist");
 	//	// 設定場景切換的特效
 	//	//		TransitionFade *pageTurn = TransitionFade::create(1.0F, GameScene::createScene());
@@ -129,7 +129,7 @@ void SelectionScene::doStep(float dt)
 
 	//if (_bToScene003) { // 切換到 SecondScene
 	//					// 先將這個 SCENE 的 Update(這裡使用 OnFrameMove, 從 schedule update 中移出)
-	//	this->unschedule(schedule_selector(SelectionScene::doStep));
+	//	this->unschedule(schedule_selector(lockUsage::doStep));
 	//	//		SpriteFrameCache::getInstance()->removeSpriteFramesFromFile("mainscene.plist");
 	//	// 設定場景切換的特效
 	//	//		TransitionFade *pageTurn = TransitionFade::create(1.0F, GameScene::createScene());
@@ -139,7 +139,7 @@ void SelectionScene::doStep(float dt)
 	//}
 }
 
-bool SelectionScene::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)//觸碰開始事件
+bool lockUsage::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)//觸碰開始事件
 {
 	Point touchLoc = pTouch->getLocation();
 	//_lock->TouchBegan(touchLoc);
@@ -152,7 +152,7 @@ bool SelectionScene::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent
 	return true;
 }
 
-void  SelectionScene::onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸碰移動事件
+void  lockUsage::onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸碰移動事件
 {
 	Point touchLoc = pTouch->getLocation();
 
@@ -164,7 +164,7 @@ void  SelectionScene::onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEven
 
 }
 
-void  SelectionScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸碰結束事件 
+void  lockUsage::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸碰結束事件 
 {
 	Point touchLoc = pTouch->getLocation();
 

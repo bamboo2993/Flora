@@ -19,7 +19,7 @@ USING_NS_CC;
 
 CRunner::CRunner(const char *body, cocos2d::Layer &parent)
 {
-	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Animation/ater.plist");
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Animation/ater_2.plist");
 //		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("SceneKitchenitem.plist");
 	// Åª¨ú¨¤¦â
 	_runner = Sprite::createWithSpriteFrameName(body);

@@ -18,6 +18,9 @@ CLightbox::CLightbox(){
 	_enlarge = nullptr;
 	_btouch = false;
 	_isOpen = false;
+	_bflip = false;
+	_ipageNum = 1;
+	_icurrentPage = 1;
 }
 
 //for items in scene

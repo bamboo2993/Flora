@@ -231,6 +231,10 @@
             <Image Name="labScene_full.png" />
           </Folder>
           <Folder Name="SRScene">
+            <PlistImageFolder Image="SRScene.png" PListFile="SRScene.plist" Name=".SRScene_PList.Dir">
+              <PlistImageFile Name="SR_Z3_01.png" Key="SR_Z3_01.png" />
+              <PlistImageFile Name="SR_Z3_02.png" Key="SR_Z3_02.png" />
+            </PlistImageFolder>
             <Image Name="SR_full.png" />
             <Image Name="SR_S01.png" />
             <Image Name="SR_S02.png" />

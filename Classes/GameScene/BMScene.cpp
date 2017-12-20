@@ -535,7 +535,7 @@ void BMScene::PickObject(float dt) {
 		 //create the corresponding item in bag
 
 		if (_pTrigger[4].GetAddToBag() && !_pTrigger[4].GetPicked()) {
-			CBag::getInstance()->AddObj("B_water.png", 2, _pbeakerRect, true);
+			CBag::getInstance()->AddObj("B_water.png", 2, true, _pbeakerRect);
 			_pTrigger[4].SetAddToBag(false);
 			_pTrigger[4].SetPicked(true);
 
@@ -545,7 +545,7 @@ void BMScene::PickObject(float dt) {
 
 
 		else if (_pTrigger[5].GetAddToBag() && !_pTrigger[5].GetPicked()) {
-			CBag::getInstance()->AddObj("B_glassrod.png", 2, _pbeakerRect, true);
+			CBag::getInstance()->AddObj("B_glassrod.png", 2, true, _pbeakerRect);
 			_pTrigger[5].SetAddToBag(false);
 			_pTrigger[5].SetPicked(true);
 
@@ -589,7 +589,7 @@ void BMScene::PickObject(float dt) {
 		//create the corresponding item in bag
 		if (_pTrigger[0].GetAddToBag() && !_pTrigger[0].GetPicked()) {
 
-			CBag::getInstance()->AddObj("B_red.png", 2, _pbeakerRect, true);
+			CBag::getInstance()->AddObj("B_red.png", 2, true, _pbeakerRect);
 
 			_pTrigger[0].SetAddToBag(false);
 			_pTrigger[0].SetPicked(true); // if the object is picked and added into the bag
@@ -600,7 +600,7 @@ void BMScene::PickObject(float dt) {
 		}
 
 		else if (_pTrigger[1].GetAddToBag() && !_pTrigger[1].GetPicked()) {
-			CBag::getInstance()->AddObj("B_green.png", 2, _pbeakerRect, true);
+			CBag::getInstance()->AddObj("B_green.png", 2, true, _pbeakerRect);
 			_pTrigger[1].SetAddToBag(false);
 			_pTrigger[1].SetPicked(true);
 
@@ -610,7 +610,7 @@ void BMScene::PickObject(float dt) {
 		}
 
 		else if (_pTrigger[2].GetAddToBag() && !_pTrigger[2].GetPicked()) {
-			CBag::getInstance()->AddObj("B_blue.png", 2, _pbeakerRect, true);
+			CBag::getInstance()->AddObj("B_blue.png", 2, true, _pbeakerRect);
 			_pTrigger[2].SetAddToBag(false);
 			_pTrigger[2].SetPicked(true);
 
@@ -621,7 +621,7 @@ void BMScene::PickObject(float dt) {
 
 		else if (_pTrigger[3].GetAddToBag() && !_pTrigger[3].GetPicked()) {
 
-			CBag::getInstance()->AddObj("B_yellow.png", 2, _pbeakerRect, true);
+			CBag::getInstance()->AddObj("B_yellow.png", 2, true, _pbeakerRect);
 			_pTrigger[3].SetAddToBag(false);
 			_pTrigger[3].SetPicked(true);
 
@@ -646,7 +646,7 @@ void BMScene::PickObject(float dt) {
 
 		//create the corresponding item in bag
 		if (_pTrigger[6].GetAddToBag() && !_pTrigger[6].GetPicked()) {
-			CBag::getInstance()->AddObj("B_herbR.png", 1, _pbowlRect, false, true);
+			CBag::getInstance()->AddObj("B_herbR.png", 1, false, _pbowlRect, true);
 			_pTrigger[6].SetAddToBag(false);
 			_pTrigger[6].SetPicked(true);
 
@@ -654,7 +654,7 @@ void BMScene::PickObject(float dt) {
 			_debranch->playEffect();
 		}
 		else if (_pTrigger[7].GetAddToBag() && !_pTrigger[7].GetPicked()) {
-			CBag::getInstance()->AddObj("B_herbG.png", 1, _pbowlRect, false, true);
+			CBag::getInstance()->AddObj("B_herbG.png", 1, false, _pbowlRect, true);
 			_pTrigger[7].SetAddToBag(false);
 			_pTrigger[7].SetPicked(true);
 
@@ -662,7 +662,7 @@ void BMScene::PickObject(float dt) {
 			_debranch->playEffect();
 		}
 		else if (_pTrigger[8].GetAddToBag() && !_pTrigger[8].GetPicked()) {
-			CBag::getInstance()->AddObj("B_herbDG.png", 1, _pbowlRect, false, true);
+			CBag::getInstance()->AddObj("B_herbDG.png", 1, false,_pbowlRect,  true);
 			_pTrigger[8].SetAddToBag(false);
 			_pTrigger[8].SetPicked(true);
 
@@ -673,7 +673,7 @@ void BMScene::PickObject(float dt) {
 
 		else if (_pTrigger[9].GetAddToBag() && !_pTrigger[9].GetPicked()) {
 			log("herb");
-			CBag::getInstance()->AddObj("B_herbY.png", 1, _pbowlRect, false, true);
+			CBag::getInstance()->AddObj("B_herbY.png", 1, false,_pbowlRect,  true);
 			_pTrigger[9].SetAddToBag(false);
 			_pTrigger[9].SetPicked(true);
 

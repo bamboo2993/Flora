@@ -25,17 +25,5 @@
         <LastRunType Value="Windows" />
       </Value>
     </Item>
-    <Item Key="TabsParamsKey">
-      <Value ctype="TabsInfo">
-        <OpenedDocuments>
-          <FilePathData Path="labScene.csd" />
-          <FilePathData Path="Node_lab_Z02.csd" />
-          <FilePathData Path="Node_lab_Z03.csd" />
-          <FilePathData Path="GRScene.csd" />
-          <FilePathData Path="Node_lab_Z01.csd" />
-        </OpenedDocuments>
-        <ActiveDocument Path="labScene.csd" />
-      </Value>
-    </Item>
   </Properties>
 </UserData>

@@ -281,7 +281,7 @@ void GRScene::doStep(float dt){
 			}
 			else {
 				_player->Walk(Vec2(_TargetLoc.x, _player->getPreviousPosition().y));
-				_player->go(_TargetLoc);
+				_player->go(Vec2(_TargetLoc.x, _player->getPreviousPosition().y));
 				if (_player->Walk(_TargetLoc) == false) {
 					_bWalk = 0;
 					//if (_bonObj) _bpickObj = true; //pick up obj
@@ -301,7 +301,7 @@ void GRScene::doStep(float dt){
 			}
 			else {
 				_player->Walk(Vec2(LINE_X,_TargetLoc.y));
-				_player->go(_TargetLoc);
+				_player->go(Vec2(LINE_X, _TargetLoc.y));
 				if (_player->Walk(_TargetLoc) == false) {
 					_bWalk = 0;
 					//if (_bonObj) _bpickObj = true; //pick up obj
@@ -321,7 +321,7 @@ void GRScene::doStep(float dt){
 			log("walk A");
 			if (_player->getPreviousPosition().x < WALK_AREA_1.getMaxX()) {
 				_player->Walk(Vec2(_touchLoc.x, WALK_AREA_1.getMaxY()));
-				_player->go(_TargetLoc);
+				_player->go(Vec2(_touchLoc.x, WALK_AREA_1.getMaxY()));
 				if (_player->Walk(Vec2(_touchLoc.x, WALK_AREA_1.getMaxY())) == false) {
 					_bWalk = 0;
 					//if (_bonObj) _bpickObj = true; //pick up obj
@@ -330,7 +330,7 @@ void GRScene::doStep(float dt){
 			}
 			else {
 				_player->Walk(Vec2(WALK_AREA_3.getMinX(), WALK_AREA_3.getMaxY()));
-				_player->go(_TargetLoc);
+				_player->go(Vec2(WALK_AREA_3.getMinX(), WALK_AREA_3.getMaxY()));
 				if (_player->Walk(Vec2(WALK_AREA_3.getMinX(), WALK_AREA_3.getMaxY())) == false) {
 					_bWalk = 0;
 					//if (_bonObj) _bpickObj = true; //pick up obj
@@ -345,7 +345,7 @@ void GRScene::doStep(float dt){
 
 			if (_player->getPreviousPosition().y < WALK_AREA_3.getMidY()) {
 				_player->Walk(Vec2(WALK_AREA_1.getMinX(), WALK_AREA_1.getMaxY()));
-				_player->go(_TargetLoc);
+				_player->go(Vec2(WALK_AREA_1.getMinX(), WALK_AREA_1.getMaxY()));
 				if (_player->Walk(Vec2(WALK_AREA_1.getMinX(), WALK_AREA_1.getMaxY())) == false) {
 					_bWalk = 0;
 					//if (_bonObj) _bpickObj = true; //pick up obj
@@ -356,11 +356,11 @@ void GRScene::doStep(float dt){
 				if (_player->getPosition().y-200 >= WALK_AREA_1.getMaxY()+3) {
 					
 					_player->Walk(Vec2(875.57f, WALK_AREA_1.getMaxY()));
-					_player->go(_TargetLoc);
+					_player->go(Vec2(875.57f, WALK_AREA_1.getMaxY()));
 				}
 				else {
 					_player->Walk(Vec2(WALK_AREA_1.getMinX(), WALK_AREA_1.getMaxY()));
-					_player->go(_TargetLoc);
+					_player->go(Vec2(WALK_AREA_1.getMinX(), WALK_AREA_1.getMaxY()));
 					if (_player->Walk(Vec2(WALK_AREA_1.getMinX(), WALK_AREA_1.getMaxY())) == false) {
 						_bWalk = 0;
 						//if (_bonObj) _bpickObj = true; //pick up obj
@@ -376,7 +376,7 @@ void GRScene::doStep(float dt){
 
 			if (_player->getPreviousPosition().x < WALK_AREA_3.getMinX()) {
 				_player->Walk(Vec2(WALK_AREA_1.getMinX(), _touchLoc.y));
-				_player->go(_TargetLoc);
+				_player->go(Vec2(WALK_AREA_1.getMinX(), _touchLoc.y));
 				if (_player->Walk(Vec2(WALK_AREA_1.getMinX(), _touchLoc.y)) == false) {
 					_bWalk = 0;
 					//if (_bonObj) _bpickObj = true; //pick up obj
@@ -386,12 +386,12 @@ void GRScene::doStep(float dt){
 			else {
 				if (_player->getPosition().x > WALK_AREA_3.getMinX()+3 && _player->getPosition().y-200 > WALK_AREA_2.getMidY() + 3) {
 					_player->Walk(Vec2(WALK_AREA_3.getMinX(), WALK_AREA_2.getMidY()));
-					_player->go(_TargetLoc);
+					_player->go(Vec2(WALK_AREA_3.getMinX(), WALK_AREA_2.getMidY()));
 
 				}
 				else {
 					_player->Walk(Vec2(WALK_AREA_1.getMinX(), _touchLoc.y));
-					_player->go(_TargetLoc);
+					_player->go(Vec2(WALK_AREA_1.getMinX(), _touchLoc.y));
 					if (_player->Walk(Vec2(WALK_AREA_1.getMinX(), _touchLoc.y)) == false) {
 						_bWalk = 0;
 						//if (_bonObj) _bpickObj = true; //pick up obj
@@ -405,7 +405,7 @@ void GRScene::doStep(float dt){
 		else if (_touchLoc.y >  WALK_AREA_3.getMaxY() && _touchLoc.x > WALK_AREA_3.getMinX() && _touchLoc.x < WALK_AREA_3.getMaxX()) {
 			log("walk B");
 			_player->Walk(Vec2(WALK_AREA_3.getMidX(), WALK_AREA_3.getMidY()));
-			_player->go(_TargetLoc);
+			_player->go(Vec2(WALK_AREA_3.getMidX(), WALK_AREA_3.getMidY()));
 			if (_player->Walk(Vec2(WALK_AREA_3.getMidX(), WALK_AREA_3.getMidY())) == false) {
 				_bWalk = 0;
 				//if (_bonObj) _bpickObj = true; //pick up obj
@@ -421,12 +421,12 @@ void GRScene::doStep(float dt){
 				
 				if (_player->getPosition().x < WALK_AREA_3.getMinX() - 3) {
 					_player->Walk(Vec2(WALK_AREA_3.getMinX(), WALK_AREA_3.getMinY()));
-					_player->go(_TargetLoc);
+					_player->go(Vec2(WALK_AREA_3.getMinX(), WALK_AREA_3.getMinY()));
 				}
 
 				else {
 					_player->Walk(Vec2(WALK_AREA_4.getMidX(), WALK_AREA_4.getMaxY()));
-					_player->go(_TargetLoc);
+					_player->go(Vec2(WALK_AREA_4.getMidX(), WALK_AREA_4.getMaxY()));
 					if (_player->Walk(Vec2(WALK_AREA_4.getMidX(), WALK_AREA_4.getMaxY())) == false) {
 						_bWalk = 0;
 						//if (_bonObj) _bpickObj = true; //pick up obj
@@ -439,7 +439,7 @@ void GRScene::doStep(float dt){
 			}
 			else {
 				_player->Walk(Vec2(WALK_AREA_4.getMidX(), WALK_AREA_4.getMaxY()));
-				_player->go(_TargetLoc);
+				_player->go(Vec2(WALK_AREA_4.getMidX(), WALK_AREA_4.getMaxY()));
 				if (_player->Walk(Vec2(WALK_AREA_4.getMidX(), WALK_AREA_4.getMaxY())) == false) {
 					_bWalk = 0;
 					//if (_bonObj) _bpickObj = true; //pick up obj
@@ -456,7 +456,7 @@ void GRScene::doStep(float dt){
 			if (_player->getPreviousPosition().x > WALK_AREA_5.getMinX()) {
 
 				_player->Walk(Vec2(_touchLoc.x, WALK_AREA_5.getMaxY()));
-				_player->go(_TargetLoc);
+				_player->go(Vec2(_touchLoc.x, WALK_AREA_5.getMaxY()));
 				if (_player->Walk(Vec2(_touchLoc.x, WALK_AREA_5.getMaxY())) == false) {
 					_bWalk = 0;
 					//if (_bonObj) _bpickObj = true; //pick up obj
@@ -469,7 +469,7 @@ void GRScene::doStep(float dt){
 
 				if (_player->getPosition().y-200 > WALK_AREA_5.getMinY() - 3) {
 					_player->Walk(Vec2(_touchLoc.x, WALK_AREA_5.getMaxY()));
-					_player->go(_TargetLoc);
+					_player->go(Vec2(_touchLoc.x, WALK_AREA_5.getMaxY()));
 					if (_player->Walk(Vec2(_touchLoc.x, WALK_AREA_5.getMaxY())) == false) {
 						_bWalk = 0;
 						//if (_bonObj) _bpickObj = true; //pick up obj
@@ -479,7 +479,7 @@ void GRScene::doStep(float dt){
 
 				else {
 					_player->Walk(Vec2(WALK_AREA_3.getMidX(), WALK_AREA_5.getMinY()));
-					_player->go(_TargetLoc);
+					_player->go(Vec2(WALK_AREA_3.getMidX(), WALK_AREA_5.getMinY()));
 					
 				}
 			}
@@ -545,7 +545,7 @@ void GRScene::PickObject(float dt) {
 		//create the corresponding item in bag
 		if (_pTrigger[0].GetAddToBag() && !_pTrigger[0].GetPicked()) {
 
-			CBag::getInstance()->AddObj("B_sudoku.png", 1, _pTsudokuRect, false);
+			CBag::getInstance()->AddObj("B_sudoku.png", 1, false, _pTsudokuRect);
 
 			_pTrigger[0].SetAddToBag(false);
 			_pTrigger[0].SetPicked(true); // if the object is picked and added into the bag
@@ -566,7 +566,7 @@ void GRScene::PickObject(float dt) {
 		//create the corresponding item in bag
 		if (_pTrigger[1].GetAddToBag() && !_pTrigger[1].GetPicked()) {
 
-			CBag::getInstance()->AddObj("B_key.png", 1, _pTkeyRect, false);
+			CBag::getInstance()->AddObj("B_key.png", 1, false, _pTkeyRect);
 
 			_pTrigger[1].SetAddToBag(false);
 			_pTrigger[1].SetPicked(true); // if the object is picked and added into the bag

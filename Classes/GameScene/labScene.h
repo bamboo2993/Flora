@@ -39,6 +39,8 @@ private:
 
 	cocos2d::Node *_zNode[3]; // zoomin node
 
+	cocos2d::Sprite *_microscope[5]; // lab_E01 ~ lab_E05  顯微鏡放大圖
+
 	cocos2d::Sprite *_win; //stage clear sprite
 	bool _clear; //stage clear
 
@@ -91,11 +93,10 @@ private:
 	cocos2d::Rect	_detectRect[3];
 	cocos2d::Rect	_closeRect; // area to close node (znode)
 
-	cocos2d::Rect	*_pTsudokuRect; //sudoku target rect area
-	cocos2d::Rect	*_pTkeyRect; //key target rect area
+	cocos2d::Rect	*_pTslidesRect; //sudoku target rect area
 
 	bool _bsolve[2]; //state if the quiz is being solved
-
+	bool _bmicroscope;
 
 public:
 	labScene();

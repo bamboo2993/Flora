@@ -135,8 +135,8 @@ void SelectionScene::doStep(float dt)
 		// 設定場景切換的特效
 		//		TransitionFade *pageTurn = TransitionFade::create(1.0F, GameScene::createScene());
 		//		Director::getInstance()->replaceScene(pageTurn);
-///		Director::getInstance()->replaceScene(RunScene1::createScene());
-		Director::getInstance()->replaceScene(labScene::createScene());
+		Director::getInstance()->replaceScene(RunScene1::createScene());
+//		Director::getInstance()->replaceScene(labScene::createScene());
 		//SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 	}
 
@@ -148,7 +148,9 @@ void SelectionScene::doStep(float dt)
 		// 設定場景切換的特效
 		//		TransitionFade *pageTurn = TransitionFade::create(1.0F, GameScene::createScene());
 		//		Director::getInstance()->replaceScene(pageTurn);
-		Director::getInstance()->replaceScene(labScene::createScene());
+
+		Director::getInstance()->replaceScene(RunScene1::createScene());
+		//Director::getInstance()->replaceScene(labScene::createScene());
 		//SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 	}
 
@@ -160,8 +162,8 @@ void SelectionScene::doStep(float dt)
 		// 設定場景切換的特效
 		//		TransitionFade *pageTurn = TransitionFade::create(1.0F, GameScene::createScene());
 		//		Director::getInstance()->replaceScene(pageTurn);
-///		Director::getInstance()->replaceScene(RunScene1::createScene());
-		Director::getInstance()->replaceScene(labScene::createScene());
+		Director::getInstance()->replaceScene(RunScene1::createScene());
+///		Director::getInstance()->replaceScene(labScene::createScene());
 		//SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 	}
 }

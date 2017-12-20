@@ -209,10 +209,18 @@ int CItem::touchesEnded(cocos2d::Point inPos, int bagstate, const char* scene, i
 						if (item != nullptr) {
 							int mixState = xmlItem::getInstance()->checkMixingXML(name, item);
 							if (mixState >= 0) { //mix correctly==============================
-								_propSprite->setVisible(false);
-								xmlBag::getInstance()->setBagState(num, false); // item being dragged is used
-								SetCanUse(false); //item cannot be used again
-								SetUsed(true);
+								if (!_isStagnant) {
+									_propSprite->setVisible(false);
+									xmlBag::getInstance()->setBagState(num, false); // item being dragged is used
+									SetCanUse(false); //item cannot be used again
+									SetUsed(true);
+								}
+
+								else {
+									this->setPosition(_ResetPos);
+									_bTouch = false;
+								}
+								
 
 								_isdrag = false;
 								return (mixState + 5);
@@ -234,10 +242,19 @@ int CItem::touchesEnded(cocos2d::Point inPos, int bagstate, const char* scene, i
 						if (item != nullptr) {
 							int mixState = xmlItem::getInstance()->checkMixingXML(name, item);
 							if (mixState >= 0) { //mix correctly==============================
-								_propSprite->setVisible(false);
-								xmlBag::getInstance()->setBagState(num, false); // item being dragged is used
-								SetCanUse(false); //item cannot be used again
-								SetUsed(true);
+
+								if (!_isStagnant) {
+									_propSprite->setVisible(false);
+									xmlBag::getInstance()->setBagState(num, false); // item being dragged is used
+									SetCanUse(false); //item cannot be used again
+									SetUsed(true);
+
+									
+								}
+								else {
+									this->setPosition(_ResetPos);
+									_bTouch = false;
+								}
 
 								_isdrag = false;
 								return (mixState + 5);

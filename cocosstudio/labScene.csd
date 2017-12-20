@@ -17,7 +17,18 @@
             <FileData Type="Normal" Path="GameScene/labScene/lab_01.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="lab_Z01_trigger" ActionTag="-1075487984" VisibleForFrame="False" Tag="21" IconVisible="False" LeftMargin="579.9360" RightMargin="1214.0640" TopMargin="608.9423" BottomMargin="639.0577" ctype="SpriteObjectData">
+          <AbstractNodeData Name="lab_01_01" ActionTag="1751169350" Tag="113" IconVisible="False" LeftMargin="488.7836" RightMargin="1510.2164" TopMargin="388.1481" BottomMargin="1097.8519" ctype="SpriteObjectData">
+            <Size X="49.0000" Y="50.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="513.2836" Y="1122.8519" />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.2506" Y="0.7310" />
+            <PreSize X="0.0239" Y="0.0326" />
+            <FileData Type="PlistSubImage" Path="lab_01_01.png" Plist="GameScene/labScene/labScene.plist" />
+            <BlendFunc Src="1" Dst="771" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="lab_Z01_trigger" CanEdit="False" ActionTag="-1075487984" VisibleForFrame="False" Tag="21" IconVisible="False" LeftMargin="579.9360" RightMargin="1214.0640" TopMargin="608.9423" BottomMargin="639.0577" ctype="SpriteObjectData">
             <Size X="254.0000" Y="288.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="706.9360" Y="783.0577" />
@@ -26,6 +37,17 @@
             <PrePosition X="0.3452" Y="0.5098" />
             <PreSize X="0.1240" Y="0.1875" />
             <FileData Type="PlistSubImage" Path="GR_Z03_01.png" Plist="GameScene/GRScene/GRScene.plist" />
+            <BlendFunc Src="1" Dst="771" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="target_slides" ActionTag="-213970274" VisibleForFrame="False" Tag="134" IconVisible="False" LeftMargin="526.0453" RightMargin="1448.9547" TopMargin="726.8276" BottomMargin="738.1724" ctype="SpriteObjectData">
+            <Size X="73.0000" Y="71.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="562.5453" Y="773.6724" />
+            <Scale ScaleX="1.5000" ScaleY="2.0000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.2747" Y="0.5037" />
+            <PreSize X="0.0356" Y="0.0462" />
+            <FileData Type="Normal" Path="cola.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
           <AbstractNodeData Name="Node_lab_Z01" ActionTag="994796211" VisibleForFrame="False" Tag="63" IconVisible="True" RightMargin="2048.0000" TopMargin="1536.0000" StretchWidthEnable="False" StretchHeightEnable="False" InnerActionSpeed="1.0000" CustomSizeEnabled="False" ctype="ProjectNodeObjectData">
@@ -91,7 +113,7 @@
             <FileData Type="PlistSubImage" Path="GR_Z03_01.png" Plist="GameScene/GRScene/GRScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="WALK_AREA_2" ActionTag="-1409677235" Tag="12" IconVisible="False" LeftMargin="776.8688" RightMargin="1017.1312" TopMargin="1136.0122" BottomMargin="111.9877" ctype="SpriteObjectData">
+          <AbstractNodeData Name="WALK_AREA_2" CanEdit="False" ActionTag="-1409677235" VisibleForFrame="False" Tag="12" IconVisible="False" LeftMargin="776.8688" RightMargin="1017.1312" TopMargin="1136.0122" BottomMargin="111.9877" ctype="SpriteObjectData">
             <Size X="254.0000" Y="288.0000" />
             <AnchorPoint ScaleX="0.4999" ScaleY="0.4689" />
             <Position X="903.8434" Y="247.0309" />
@@ -102,7 +124,7 @@
             <FileData Type="PlistSubImage" Path="GR_Z03_01.png" Plist="GameScene/GRScene/GRScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="WALK_AREA_3" ActionTag="-728477106" Tag="14" IconVisible="False" LeftMargin="1181.5549" RightMargin="612.4451" TopMargin="1004.6847" BottomMargin="243.3153" ctype="SpriteObjectData">
+          <AbstractNodeData Name="WALK_AREA_3" CanEdit="False" ActionTag="-728477106" VisibleForFrame="False" Tag="14" IconVisible="False" LeftMargin="1181.5549" RightMargin="612.4451" TopMargin="1004.6847" BottomMargin="243.3153" ctype="SpriteObjectData">
             <Size X="254.0000" Y="288.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="1308.5549" Y="387.3153" />
@@ -113,7 +135,7 @@
             <FileData Type="PlistSubImage" Path="GR_Z03_01.png" Plist="GameScene/GRScene/GRScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="WALK_AREA_4" ActionTag="-826567978" Tag="15" IconVisible="False" LeftMargin="1216.8771" RightMargin="577.1229" TopMargin="885.4854" BottomMargin="362.5146" ctype="SpriteObjectData">
+          <AbstractNodeData Name="WALK_AREA_4" CanEdit="False" ActionTag="-826567978" VisibleForFrame="False" Tag="15" IconVisible="False" LeftMargin="1216.8827" RightMargin="577.1173" TopMargin="885.4712" BottomMargin="362.5288" ctype="SpriteObjectData">
             <Size X="254.0000" Y="288.0000" />
             <AnchorPoint ScaleX="0.5044" ScaleY="0.4731" />
             <Position X="1345.0002" Y="498.7816" />
@@ -122,17 +144,6 @@
             <PrePosition X="0.6567" Y="0.3247" />
             <PreSize X="0.1240" Y="0.1875" />
             <FileData Type="PlistSubImage" Path="GR_Z03_01.png" Plist="GameScene/GRScene/GRScene.plist" />
-            <BlendFunc Src="1" Dst="771" />
-          </AbstractNodeData>
-          <AbstractNodeData Name="ater45_002_12" ActionTag="1171600658" Tag="42" IconVisible="False" LeftMargin="99.8200" RightMargin="1668.1799" TopMargin="849.6200" BottomMargin="28.3800" ctype="SpriteObjectData">
-            <Size X="280.0000" Y="658.0000" />
-            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="239.8200" Y="357.3800" />
-            <Scale ScaleX="1.0000" ScaleY="1.0000" />
-            <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="0.1171" Y="0.2327" />
-            <PreSize X="0.1367" Y="0.4284" />
-            <FileData Type="PlistSubImage" Path="ater45_002.png" Plist="Animation/ater_1.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
         </Children>

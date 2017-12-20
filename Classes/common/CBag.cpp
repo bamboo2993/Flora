@@ -42,7 +42,7 @@ void CBag::Init(Point pos, CTrigger* trigger) {
 	_pageNum = 1;
 
 
-	_bagSprite[1] = Sprite::create("GameScene/labScene/bag02.png");  // 使用 create 函式,給予檔名即可
+	_bagSprite[1] = Sprite::create("common/bag02.png");  // 使用 create 函式,給予檔名即可
 	_bagSprite[1]->setPosition(1024 - pos.x, 768.0f - 115.0f);
 
 	_bagSprite[1]->setVisible(false);
@@ -238,7 +238,7 @@ void CBag::ToStateOne(){
 
 // for 控制bag 裡的 item   API used in main scene
 
-void  CBag::AddObj(const char* pic, int numTarget, cocos2d::Rect *target, bool isStagnant, bool canRetake) {
+void  CBag::AddObj(const char* pic, int numTarget, bool isStagnant, cocos2d::Rect *target, bool canRetake) {
 	
 	int itemNo = xmlBag::getInstance()->getBagState(); // get bag num
 
@@ -432,12 +432,16 @@ int CBag::touchesEnded(cocos2d::Point inPos, int bagstate, const char* scene, CT
 				auto Bnum = xmlBag::getInstance()->getNumFromArrangement(Border);
 
 				auto newObj = xmlItem::getInstance()->getItemNameXML(ToBe);
-				DeleteItem(_obj[i]); // delete the used item from bag
+				if (!_obj[i]->GetStagnant()) {
+					DeleteItem(_obj[i]); // delete the used item from bag
+				}
+				
 				auto oldObj = _obj[Bnum]->GetName();
 
 				//set new item ...........
 				_obj[Bnum]->Clear(); //clear origin pic
 				_obj[Bnum]->Init(newObj); //set new item
+				_obj[Bnum]->SetVisible(true); // shows in bag
 
 				//get data from xml..........
 				auto targetNum = xmlItem::getInstance()->getTargetNumXML(newObj);

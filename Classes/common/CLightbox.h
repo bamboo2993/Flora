@@ -19,6 +19,10 @@ private:
 	bool _isOpen;
 	bool _btouch;
 
+
+	bool _bflip;
+	int _ipageNum;
+	int _icurrentPage;
 public:
 	static CLightbox* create();
 	CLightbox();
@@ -32,6 +36,9 @@ public:
 
 	void doStep(float dt);
 	bool GetOpen();
+
+	void setFlip(bool flip,int pageNum);
+
 
 	//Ä²¸I
 	bool TouchBegan(const cocos2d::Point pt);

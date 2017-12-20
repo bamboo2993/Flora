@@ -80,7 +80,7 @@ public:
 
 
 	//控制bag 裡的 item
-	void AddObj(const char* pic, int numTarget, cocos2d::Rect *target, bool isStagnant = false, bool canRetake = false); // 把item 加進 bag 裡
+	void AddObj(const char* pic, int numTarget=1, bool isStagnant = false, cocos2d::Rect *target = &Rect(), bool canRetake = false); // 把item 加進 bag 裡
 	void AddObjXML(int inum, const char* pic, int numTarget, cocos2d::Rect *target, bool isStagnant, bool canRetake);
 
 	bool touchesBegan(cocos2d::Point inPos);

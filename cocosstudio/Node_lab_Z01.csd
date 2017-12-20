@@ -17,7 +17,7 @@
             <FileData Type="Normal" Path="GameScene/labScene/lab_Z01.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="lab_Z01_01" ActionTag="528713167" Tag="609" IconVisible="False" LeftMargin="183.1554" RightMargin="-547.1554" TopMargin="-523.3680" BottomMargin="406.3680" ctype="SpriteObjectData">
+          <AbstractNodeData Name="lab_Z01_01" CanEdit="False" ActionTag="528713167" Tag="609" IconVisible="False" LeftMargin="183.1554" RightMargin="-547.1554" TopMargin="-523.3680" BottomMargin="406.3680" ctype="SpriteObjectData">
             <Size X="364.0000" Y="117.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="365.1554" Y="464.8680" />
@@ -28,7 +28,7 @@
             <FileData Type="PlistSubImage" Path="lab_Z01_01.png" Plist="GameScene/labScene/labScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="lab_Z01_02" ActionTag="2091668673" Tag="610" IconVisible="False" LeftMargin="265.4946" RightMargin="-651.4946" TopMargin="-345.9980" BottomMargin="144.9980" ctype="SpriteObjectData">
+          <AbstractNodeData Name="lab_Z01_02" CanEdit="False" ActionTag="2091668673" Tag="610" IconVisible="False" LeftMargin="265.4946" RightMargin="-651.4946" TopMargin="-345.9980" BottomMargin="144.9980" ctype="SpriteObjectData">
             <Size X="386.0000" Y="201.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="458.4946" Y="245.4980" />
@@ -39,7 +39,7 @@
             <FileData Type="PlistSubImage" Path="lab_Z01_02.png" Plist="GameScene/labScene/labScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="lab_Z01_03" ActionTag="1493036180" Tag="611" IconVisible="False" LeftMargin="1370.1482" RightMargin="-1869.1482" TopMargin="-949.5403" BottomMargin="874.5403" ctype="SpriteObjectData">
+          <AbstractNodeData Name="lab_Z01_03" CanEdit="False" ActionTag="1493036180" Tag="611" IconVisible="False" LeftMargin="1370.1482" RightMargin="-1869.1482" TopMargin="-949.5403" BottomMargin="874.5403" ctype="SpriteObjectData">
             <Size X="499.0000" Y="75.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="1619.6482" Y="912.0403" />
@@ -50,7 +50,7 @@
             <FileData Type="PlistSubImage" Path="lab_Z01_03.png" Plist="GameScene/labScene/labScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="lab_Z01_04" ActionTag="-1605919988" Tag="612" IconVisible="False" LeftMargin="1389.5096" RightMargin="-1689.5096" TopMargin="-826.3511" BottomMargin="663.3511" ctype="SpriteObjectData">
+          <AbstractNodeData Name="lab_Z01_04" CanEdit="False" ActionTag="-1605919988" Tag="612" IconVisible="False" LeftMargin="1389.5096" RightMargin="-1689.5096" TopMargin="-826.3511" BottomMargin="663.3511" ctype="SpriteObjectData">
             <Size X="300.0000" Y="163.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="1539.5096" Y="744.8511" />
@@ -61,7 +61,7 @@
             <FileData Type="PlistSubImage" Path="lab_Z01_04.png" Plist="GameScene/labScene/labScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="lab_Z01_05" ActionTag="1258730675" Tag="613" IconVisible="False" LeftMargin="1516.9152" RightMargin="-1756.9152" TopMargin="-628.7694" BottomMargin="339.7694" ctype="SpriteObjectData">
+          <AbstractNodeData Name="lab_Z01_05" CanEdit="False" ActionTag="1258730675" Tag="613" IconVisible="False" LeftMargin="1516.9152" RightMargin="-1756.9152" TopMargin="-628.7694" BottomMargin="339.7694" ctype="SpriteObjectData">
             <Size X="240.0000" Y="289.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="1636.9152" Y="484.2694" />

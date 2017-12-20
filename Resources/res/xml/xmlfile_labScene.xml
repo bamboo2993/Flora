@@ -2,10 +2,11 @@
 <DataRoot version="1.0">
     <!--this is xml comment-->
     <scene>
-        <item no.="0" name="GR_S01_01" B_name="" state="scene">false</item>
-        <item no.="1" name="GR_Z01_01" B_name="" state="zN0">false</item>
-        <item no.="2" name="GR_Z02_01" B_name="" state="zN1">true</item>
-        <item no.="3" name="GR_Z02_02" B_name="" state="zN1">false</item>
-        <item no.="4" name="GR_Z03_01" B_name="" state="zN2">false</item>
+        <item no.="0" name="lab_01_01" B_name="" state="scene">true</item>
+        <item no.="1" name="lab_Z01_01" B_name="" state="zN0">true</item>
+        <item no.="2" name="lab_Z01_02" B_name="" state="zN0">true</item>
+        <item no.="3" name="lab_Z01_03" B_name="" state="zN0">true</item>
+        <item no.="4" name="lab_Z01_04" B_name="" state="zN0">true</item>
+        <item no.="5" name="lab_Z01_05" B_name="" state="zN0">true</item>
     </scene>
 </DataRoot>

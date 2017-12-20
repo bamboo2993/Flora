@@ -16,7 +16,7 @@
 #include "common\CLock.h"
 #include "common\CeLock .h"
 
-class SelectionScene : public cocos2d::Layer
+class lockUsage : public cocos2d::Layer
 {
 private:
 	CButton *_StartBtn;
@@ -35,7 +35,7 @@ private:
 
 
 public:
-	~SelectionScene();
+	~lockUsage();
 	// there's no 'id' in cpp, so we recommend returning the class instance pointer
 	static cocos2d::Scene* createScene();
 
@@ -50,7 +50,7 @@ public:
 	void onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent); //Ä²¸Iµ²§ô¨Æ¥ó 
 
 																	   // implement the "static create()" method manually
-	CREATE_FUNC(SelectionScene);
+	CREATE_FUNC(lockUsage);
 };
 
 #endif // __SELECTION_SCENE_H__

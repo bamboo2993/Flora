@@ -235,8 +235,8 @@ bool xmlItem::getRetakeXML(const char *cname) {
 
 			bool ret = (!strcmp(retake->GetText(), "true"));
 
-			if (true == ret) return true;
-			else false;
+			if (ret) return true;
+			else return false;
 		}
 
 	}
@@ -455,16 +455,19 @@ int xmlItem::checkMixingXML(const char * cname, const char * mixname)
 
 	for (XMLElement* item = List->FirstChildElement(); item; item = item->NextSiblingElement()) {
 		if ((!strcmp(item->Attribute("name"), cname))) {
-			XMLElement *mix = item->FirstChildElement();
+			XMLElement *mixlist = item->FirstChildElement();
+			for (XMLElement* mix = mixlist->FirstChildElement(); mix; mix = mix->NextSiblingElement()) {
+				if ((!strcmp(mix->Attribute("name"), mixname))) {
+					auto r = mix->IntAttribute("ToBe");
+					return r;
+				}
 
-			if ((!strcmp(mix->Attribute("name"), mixname))) {
-
-				auto r = mix->IntAttribute("ToBe");
-				return r;
 			}
 
+			
 
-			else return -1;
+
+			return -1;
 		}
 
 	}
