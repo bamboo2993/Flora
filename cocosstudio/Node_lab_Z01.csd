@@ -72,15 +72,15 @@
             <FileData Type="PlistSubImage" Path="lab_Z01_05.png" Plist="GameScene/labScene/labScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="close" CanEdit="False" ActionTag="1482013920" VisibleForFrame="False" Tag="29" IconVisible="False" LeftMargin="5.9632" RightMargin="-164.9632" TopMargin="-1534.6567" BottomMargin="1303.6567" ctype="SpriteObjectData">
-            <Size X="159.0000" Y="231.0000" />
+          <AbstractNodeData Name="close" ActionTag="1482013920" Tag="29" IconVisible="False" LeftMargin="1.6346" RightMargin="-144.6346" TopMargin="-1534.3085" BottomMargin="1390.3085" ctype="SpriteObjectData">
+            <Size X="143.0000" Y="144.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="85.4632" Y="1419.1567" />
+            <Position X="73.1346" Y="1462.3085" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />
             <PreSize X="0.0000" Y="0.0000" />
-            <FileData Type="PlistSubImage" Path="E_red.png" Plist="GameScene/BMScene/BMScene.plist" />
+            <FileData Type="Normal" Path="common/go back.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
         </Children>

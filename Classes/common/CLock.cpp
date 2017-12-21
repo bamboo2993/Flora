@@ -4,34 +4,30 @@
 USING_NS_CC;
 using namespace cocos2d;
 
-#ifndef MAX_LOCK_LETTERS
-#define MAX_LOCK_LETTERS  10
-#endif
 
-char g_Object1[MAX_LOCK_LETTERS][20] = {
-	"apple.png","cheese.png","oil.png","plate.png",
-	"pot01.png","pot02.png","pot03.png","salt.png",
-	"soyasause.png","vinegar.png" };
-
-char g_Object2[MAX_LOCK_LETTERS][20] = {
-	"apple.png","pot03.png","oil.png","plate.png",
-	"pot02.png","salt.png","soyasause.png","cheese.png",
-	"vinegar.png" ,"pot01.png" };
-
-char g_Object3[MAX_LOCK_LETTERS][20] = {
-	"pot02.png","apple.png","soyasause.png","oil.png"
-	,"pot03.png","plate.png","pot01.png","salt.png",
-	"vinegar.png", "cheese.png" };
-
-CLock::CLock(bool type) {
-
-	_nowA = rand() % MAX_LOCK_LETTERS;
-	_nowB = rand() % MAX_LOCK_LETTERS;
-	_nowC = rand() % MAX_LOCK_LETTERS;
+CLock::CLock() {
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("common/lock.plist");
 
 	_btouch = false;
 	_state = false;
 	_check = false;
+	_solved = false;
+	
+	_ans[0] = NULL;// the correct password
+	_ans[1] = NULL;// the correct password
+	_ans[2] = NULL;// the correct password
+	_ans[3] = NULL;// the correct password
+	_ans[4] = NULL;// the correct password
+
+	for (int i = 0; i < MAX_LOCK_LETTERS*2; i++) {
+		_buttonState[i] = false;
+	}
+
+	for (size_t i = 0; i <  MAX_LOCK_LETTERS; i++) {
+
+		_now[i] = 1;
+	}
+
 }
 
 
@@ -41,92 +37,34 @@ CLock::~CLock() {
 	Director::getInstance()->getTextureCache()->removeUnusedTextures();
 }
 
-bool CLock::init(const char *bg) {
-	Size visibleSize = Director::getInstance()->getVisibleSize();
-	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("SceneKitchenitem.plist");
-	//SpriteFrameCache::getInstance()->addSpriteFramesWithFile(plistFile);
-
-	//add dim layer
-	CCLayerColor *bgLayer = CCLayerColor::create(ccc4(0, 0, 0, 170));
-	this->addChild(bgLayer);
-
-	//background image
-	//auto background = (cocos2d::Sprite *) Sprite::createWithSpriteFrameName("s101bgimg.png");
-	////set position
-	//background->setPosition(visibleSize.width / 2.0f, visibleSize.height / 2.0f);
-	//this->addChild(background);
-	CCLayerColor *bgLayer2 = CCLayerColor::create(ccc4(255, 200, 255, 255));
-	bgLayer2->setScale(0.5f);
-	this->addChild(bgLayer2);
-
-	_bgRect = Rect(512, 384, 1024, 768);
-	 
-	//setup button
-	for (size_t i = 0; i < 6; i++)
-	{
-		_button[i] = new CButton;
+bool CLock::init(int totDigit, cocos2d::Node *lockNode, int maxNum, bool zero, int keyType) {
+	_totDigit = totDigit;
+	_rootNode= lockNode;
+	_type = keyType;
+	_existZero = zero;
+	_maxNum = maxNum;
+	//setup button rect
+	Size size = _rootNode->getChildByName("1")->getContentSize();
+	for (size_t i = 0; i < _totDigit *2; i++){
+		auto s = std::to_string(i+1);
+		Point pos = _rootNode->getChildByName(s)->getPosition();
+		_buttonRect[i] = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.width, size.height);
 
 	}
-	_button[0]->setButtonInfo("apple.png", "apple.png", *this, Vec2(660, 1030));
-	_button[1]->setButtonInfo("apple.png", "apple.png", *this, Vec2(660, 490));
 
-	_button[2]->setButtonInfo("apple.png", "apple.png", *this, Vec2(1060, 1030));
-	_button[3]->setButtonInfo("apple.png", "apple.png", *this, Vec2(1060, 490));
+	//set key
+	if (_type == 1) {
+		for (int i = 0; i < _totDigit; i++) {
+			auto result = "SR_L_0" + std::to_string(i+1) + ".png";
+			auto name = std::to_string(i + 101);
+			Point pos = _rootNode->getChildByName(name)->getPosition();
 
-	_button[4]->setButtonInfo("apple.png", "apple.png", *this, Vec2(1460, 1030));
-	_button[5]->setButtonInfo("apple.png", "apple.png", *this, Vec2(1460, 490));
-
-
-
-	//setup number
-
-	for (int i = 0; i < 10; i++){
-			_numberA[i] = (cocos2d::Sprite *) Sprite::createWithSpriteFrameName(g_Object1[i]);
-			_numberA[i]->setPosition(660, 730);
-			this->addChild(_numberA[i]);
-			_numberA[i]->setVisible(false);
-
+			_number[i] = Sprite::createWithSpriteFrameName("SR_L_01.png");
+			_number[i]->setPosition(pos);
+			_rootNode->addChild(_number[i], 1);
 		}
-
-	for (size_t i = 0; i < 10; i++){
-			_numberB[i] = (cocos2d::Sprite *) Sprite::createWithSpriteFrameName(g_Object1[i]);
-			this->addChild(_numberB[i]);
-			_numberB[i]->setPosition(1060, 730);
-			_numberB[i]->setVisible(false);
-		}
-
-
-	for (size_t i = 0; i < 10; i++)
-		{
-			_numberC[i] = (cocos2d::Sprite *) Sprite::createWithSpriteFrameName(g_Object1[i]);
-			this->addChild(_numberC[i]);
-			_numberC[i]->setPosition(1460, 730);
-			_numberC[i]->setVisible(false);
-		}
-
-	_numberA[_nowA]->setVisible(true);
-	_numberB[_nowB]->setVisible(true);
-	_numberC[_nowC]->setVisible(true);
-
-
-	////frige
-	//_x = (cocos2d::Sprite *) Sprite::createWithSpriteFrameName("bean1_01.png");
-	////set position
-	//_x->setPosition(visibleSize.width / 2.0f, visibleSize.height / 2.0f);
-	//this->addChild(_x,1);
-	//Size size = _x->getContentSize();
-	//Point pt = _x->getPosition();
-	//auto rectx = Rect(pt.x - size.width / 2, pt.y - size.height / 2, size.width, size.height);
-
-
-	label = LabelTTF::create("Please Touch!", "Arial", 36);//?定相?文本的位置  
-	label->setPosition(ccp(visibleSize.width / 2, visibleSize.height / 5*4));//放在屏幕的中央
-	this->addChild(label, 100);
-
-
-	this->setVisible(false);
+	}
 
 	this->schedule(CC_SCHEDULE_SELECTOR(CLock::doStep));
 	return true;
@@ -134,80 +72,106 @@ bool CLock::init(const char *bg) {
 
 
 
-//void CLock::Set(const cocos2d::Sprite item, const std::string enlarge) {
-//
-//	//set enlarge sprite =================================================================================
-//
-//	Size visibleSize = this->getContentSize();
-//
-//
-//	_enlarge = (cocos2d::Sprite *) Sprite::createWithSpriteFrameName(enlarge);
-//	//set position
-//	_enlarge->setPosition(visibleSize.width / 2.0f, visibleSize.height / 2.0f);
-//	this->addChild(_enlarge, 1);
-//
-//	Size size = _enlarge->getContentSize();
-//	Point pt = _enlarge->getPosition();
-//	_enlargeRect = Rect(pt.x - size.width / 2, pt.y - size.height / 2, size.width, size.height);
-//
-//
-//}
-
-
 void CLock::SetArea(const cocos2d::Rect &lockarea) {
 	_lockAreaRect = lockarea;
 }
 
-void CLock::SetPassword(int a, int b, int c) {
-	_ansA = a;
-	_ansB = b;
-	_ansC = c;
+void CLock::SetExitArea(const cocos2d::Rect &lockarea) {
+	_exitRect = lockarea; // del button
+}
+
+void CLock::SetPassword(int num, int ans) {
+	_ansNum = num;
+	int x = ans;
+	for (int i = _ansNum - 1; i >= 0; i--) {
+		_ans[i] = x % 10;
+		x = (int)x / 10;
+	}
+
+}
+
+bool CLock::CheckAns() {
+	for (size_t i = 0; i < _totDigit; i++){
+		if(_now[i] != _ans[i])  return false;
+	}
+	return true;
 }
 
 void CLock::doStep(float dt) {
 	if (_check) {
-		if (_nowA == _ansA && _nowB == _ansB && _nowC == _ansC) {
+		if (CheckAns()) {
 			log("correct");
-			label->setString("Correct!");
-
-			_state = true;
-			this->setVisible(false);
+			_rootNode->setVisible(false);
 			_check = false;
+			_solved = true;
 		}
 		_check = false;
 	}
 }
 
 void CLock::reset() {
-	for (int i = 0; i < 10; i++)
-	{
-		
-		_numberA[i]->setVisible(false);
-		_numberB[i]->setVisible(false);
-		_numberC[i]->setVisible(false);
+	for (int i = 0; i < 10; i++){	
+		_number[i]->setVisible(false);
+		_number[i]->setVisible(false);
+		_number[i]->setVisible(false);
 	}
-	_nowA = rand() % MAX_LOCK_LETTERS;
-	_nowB = rand() % MAX_LOCK_LETTERS;
-	_nowC = rand() % MAX_LOCK_LETTERS;
-
-	_numberA[_nowA]->setVisible(true);
-	_numberB[_nowB]->setVisible(true);
-	_numberC[_nowC]->setVisible(true);
+	_now[0] = 1;
+	_now[1] = 1;
+	_now[2] = 1;
+	_now[3] = 1;
+	_now[4] = 1;
 }
 
-bool CLock::GetState()
-{
+bool CLock::GetState(){
 	return _state;
+}
+bool CLock::GetSolved() {
+	return _solved;
 }
 
 bool CLock::TouchBegan(const cocos2d::Point pt) {
 	
-	_button[0]->touchesBegin(pt);
-	_button[1]->touchesBegin(pt);
-	_button[2]->touchesBegin(pt);
-	_button[3]->touchesBegin(pt);
-	_button[4]->touchesBegin(pt);
-	_button[5]->touchesBegin(pt);
+
+
+	if (_state) {
+
+		if (_buttonRect[0].containsPoint(pt)) {
+			_buttonState[0] = true;
+		}
+		else if (_buttonRect[1].containsPoint(pt)) {
+			_buttonState[1] = true;
+		}
+		else if (_buttonRect[2].containsPoint(pt)) {
+			_buttonState[2] = true;
+		}
+		else if (_buttonRect[3].containsPoint(pt)) {
+			_buttonState[3] = true;
+		}
+		else if (_buttonRect[4].containsPoint(pt)) {
+			_buttonState[4] = true;
+		}
+		else if (_buttonRect[5].containsPoint(pt)) {
+			_buttonState[5] = true;
+		}
+		else if (_buttonRect[6].containsPoint(pt)) {
+			_buttonState[6] = true;
+		}
+		else if (_buttonRect[7].containsPoint(pt)) {
+			_buttonState[7] = true;
+		}
+			
+
+		else if (_exitRect.containsPoint(pt)) {
+			_btouch = true;
+		}
+
+	}
+	else {
+		if (_lockAreaRect.containsPoint(pt)) {
+			_btouch = true;
+		}
+	}
+
 
 	return true;
 }
@@ -215,89 +179,275 @@ bool CLock::TouchBegan(const cocos2d::Point pt) {
 
 
 bool CLock::TouchMoved(const cocos2d::Point pt) {
-	_button[0]->touchesMoved(pt);
-	_button[1]->touchesMoved(pt);
-	_button[2]->touchesMoved(pt);
-	_button[3]->touchesMoved(pt);
-	_button[4]->touchesMoved(pt);
-	_button[5]->touchesMoved(pt);
+	if (_state) {
+		if (_buttonState[0]) {// 只有被按住的時候才處理
+			if (!_buttonRect[0].containsPoint(pt)) {// 手指頭位置離開按鈕
+				_buttonState[0] = false;
+				return(false);
+			}
+			else return(false);
+		}
 
-	return true;
+		else if (_buttonState[1]) {// 只有被按住的時候才處理
+			if (!_buttonRect[1].containsPoint(pt)) {// 手指頭位置離開按鈕
+				_buttonState[1] = false;
+				return(false);
+			}
+			else return(false);
+		}
+		else if (_buttonState[2]) {// 只有被按住的時候才處理
+			if (!_buttonRect[2].containsPoint(pt)) {// 手指頭位置離開按鈕
+				_buttonState[2] = false;
+				return(false);
+			}
+			else return(false);
+		}
+		else if (_buttonState[3]) {// 只有被按住的時候才處理
+			if (!_buttonRect[3].containsPoint(pt)) {// 手指頭位置離開按鈕
+				_buttonState[3] = false;
+				return(false);
+			}
+			else return(false);
+		}
+		else if (_buttonState[4]) {// 只有被按住的時候才處理
+			if (!_buttonRect[4].containsPoint(pt)) {// 手指頭位置離開按鈕
+				_buttonState[4] = false;
+				return(false);
+			}
+			else return(false);
+		}
+		else if (_buttonState[5]) {// 只有被按住的時候才處理
+			if (!_buttonRect[5].containsPoint(pt)) {// 手指頭位置離開按鈕
+				_buttonState[5] = false;
+				return(false);
+			}
+			else return(false);
+		}
+		else if (_buttonState[6]) {// 只有被按住的時候才處理
+			if (!_buttonRect[6].containsPoint(pt)) {// 手指頭位置離開按鈕
+				_buttonState[6] = false;
+				return(false);
+			}
+			else return(false);
+		}
+		else if (_buttonState[7]) {// 只有被按住的時候才處理
+			if (!_buttonRect[7].containsPoint(pt)) {// 手指頭位置離開按鈕
+				_buttonState[7] = false;
+				return(false);
+			}
+			else return(false);
+		}
+		//else if (_btouch) {// 只有被按住的時候才處理
+		//	if (!_exitRect.containsPoint(pt)) {// 手指頭位置離開按鈕
+		//		_btouch = false;
+		//		return(false);
+		//	}
+		//	else return(false);
+		//}
+	}
+	else {
+		if (_btouch) {
+			if (!_lockAreaRect.containsPoint(pt)) {// 手指頭位置離開按鈕
+				_btouch = false;
+				return(false);
+			}
+			else return(false);
+		}
+	}
+
+
+
+	return false;// 事後再移到按鈕上將被忽略
 }
 bool CLock::TouchEnded(const cocos2d::Point pt) {
 
-	if (_lockAreaRect.containsPoint(pt) && !_btouch) {
-	this->setVisible(true);
-	_btouch = true;
-	return false;
-	}
+	if (_state) {
 
-	else if (!_bgRect.containsPoint(pt) && _btouch) {
-		if (!_state) {
-			this->setVisible(false);
+		//close lock
+		if (_exitRect.containsPoint(pt) && _btouch) {
+			_rootNode->setVisible(false);
 			_btouch = false;
+			_state = false;
+			return false;
 
-			reset();
+		}
+
+		//touch [arrow]
+		//number 1
+		if (_buttonState[0]) {
+			if (_now[0] >= _maxNum) {
+				if (_existZero) _now[0] = 0;
+				else _now[0] = 1;
+			}
+			else _now[0]++;
+
+			if (_type) {
+				auto result = "SR_L_0" + std::to_string(_now[0]) + ".png";
+				_number[0]->setSpriteFrame(result);
+			}
+
+			log("a   %d", _now[0]);
+			_check = true;			
+			_buttonState[0] = false;
+
+
+		}
+		else if (_buttonState[1]) {
+			if (_existZero) {
+				if (_now[0] == 0) _now[0] = _maxNum;
+				else _now[0]--;
+				if (_type) {
+					auto result = "SR_L_0" + std::to_string(_now[0]) + ".png";
+					_number[0]->setSpriteFrame(result);
+				}
+			}
+
+			else {
+				if (_now[0] == 1) _now[0] = _maxNum;
+				else _now[0]--;
+				if (_type) {
+					auto result = "SR_L_0" + std::to_string(_now[0]) + ".png";
+					_number[0]->setSpriteFrame(result);
+				}
+
+			}
+			log("a   %d", _now[0]);
+			_check = true;
+			_buttonState[1] = false;
+		}
+
+		//number 2
+		else if (_buttonState[2]) {
+			if (_now[1] >= _maxNum) {
+				if (_existZero) _now[1] = 0;
+				else _now[1] = 1;
+			}
+			else _now[1]++;
+
+			if (_type) {
+				auto result = "SR_L_0" + std::to_string(_now[1]) + ".png";
+				_number[1]->setSpriteFrame(result);
+			}
+
+			log("a   %d", _now[1]);
+			_check = true;
+			_buttonState[2] = false;
+		}
+		else if (_buttonState[3]) {
+			if (_existZero) {
+				if (_now[1] == 0) _now[1] = _maxNum;
+				else _now[1]--;
+				if (_type) {
+					auto result = "SR_L_0" + std::to_string(_now[1]) + ".png";
+					_number[1]->setSpriteFrame(result);
+				}
+			}
+
+			else {
+				if (_now[1] == 1) _now[1] = _maxNum;
+				else _now[1]--;
+				if (_type) {
+					auto result = "SR_L_0" + std::to_string(_now[1]) + ".png";
+					_number[1]->setSpriteFrame(result);
+				}
+
+			}
+			log("a   %d", _now[1]);
+			_check = true;
+			_buttonState[3] = false;
+		}
+
+		//number 3
+		else if (_buttonState[4]) {
+
+			if (_now[2] >= _maxNum) {
+				if (_existZero) _now[2] = 0;
+				else _now[2] = 1;
+			}
+			else _now[2]++;
+
+			if (_type) {
+				auto result = "SR_L_0" + std::to_string(_now[2]) + ".png";
+				_number[2]->setSpriteFrame(result);
+			}
+
+			log("a   %d", _now[2]);
+			_check = true;
+			_buttonState[4] = false;
+		}
+		else if (_buttonState[5]) {
+
+			if (_existZero) {
+				if (_now[2] == 0) _now[2] = _maxNum;
+				else _now[2]--;
+				if (_type) {
+					auto result = "SR_L_0" + std::to_string(_now[2]) + ".png";
+					_number[2]->setSpriteFrame(result);
+				}
+			}
+
+			else {
+				if (_now[2] == 1) _now[2] = _maxNum;
+				else _now[2]--;
+				if (_type) {
+					auto result = "SR_L_0" + std::to_string(_now[2]) + ".png";
+					_number[2]->setSpriteFrame(result);
+				}
+
+			}
+			log("a   %d", _now[2]);
+			_check = true;
+			_buttonState[5] = false;
+		}
+
+		//number 4
+		else if (_buttonState[6]) {
+			if (_now[3] >= _maxNum) {
+				if (_existZero) _now[3] = 0;
+				else _now[3] = 1;
+			}
+			else _now[3]++;
+
+			if (_type) {
+				auto result = "SR_L_0" + std::to_string(_now[3]) + ".png";
+				_number[3]->setSpriteFrame(result);
+			}
+
+			log("a   %d", _now[3]);
+			_check = true;
+			_buttonState[6] = false;
+		}
+		else if (_buttonState[7]) {
+			if (_existZero) {
+				if (_now[3] == 0) _now[3] = _maxNum;
+				else _now[3]--;
+				if (_type) {
+					auto result = "SR_L_0" + std::to_string(_now[3]) + ".png";
+					_number[3]->setSpriteFrame(result);
+				}
+			}
+
+			else {
+				if (_now[3] == 1) _now[3] = _maxNum;
+				else _now[3]--;
+				if (_type) {
+					auto result = "SR_L_0" + std::to_string(_now[3]) + ".png";
+					_number[3]->setSpriteFrame(result);
+				}
+
+			}
+			log("a   %d", _now[3]);
+			_check = true;
+			_buttonState[7] = false;
+		}
+
+	}
+	else {
+		if (_lockAreaRect.containsPoint(pt)) { //open lock scene
+			_rootNode->setVisible(true);
+			_btouch = false;
+			_state = true;
 			return false;
 		}
-		return false;
-	}
-
-
-
-
-	if (_btouch) {
-		if (_button[0]->touchesEnded(pt)) {
-			_numberA[_nowA]->setVisible(false);
-			if (_nowA >= MAX_LOCK_LETTERS - 1) _nowA = 0;
-			else _nowA++;
-			_numberA[_nowA]->setVisible(true);
-			label->setString("Up!");
-			log("a   %d", _nowA);
-			_check = true;
-		}
-		else if (_button[1]->touchesEnded(pt)) {
-			_numberA[_nowA]->setVisible(false);
-			if (_nowA == 0) _nowA = MAX_LOCK_LETTERS - 1;
-			else _nowA--;
-			_numberA[_nowA]->setVisible(true);
-			label->setString("Down!");
-			log("a   %d", _nowA);
-			_check = true;
-		}
-		else if (_button[2]->touchesEnded(pt)) {
-			_numberB[_nowB]->setVisible(false);
-			if (_nowB >= MAX_LOCK_LETTERS - 1) _nowB = 0;
-			else _nowB++;
-			_numberB[_nowB]->setVisible(true);
-			log("b   %d", _nowB);
-			_check = true;
-		}
-		else if (_button[3]->touchesEnded(pt)) {
-			_numberB[_nowB]->setVisible(false);
-			if (_nowB == 0) _nowB = MAX_LOCK_LETTERS - 1;
-			else _nowB--;
-			_numberB[_nowB]->setVisible(true);
-			log("b   %d", _nowB);
-			_check = true;
-		}
-		else if (_button[4]->touchesEnded(pt)) {
-			_numberC[_nowC]->setVisible(false);
-			if (_nowC >= MAX_LOCK_LETTERS - 1) _nowC = 0;
-			else _nowC++;
-			_numberC[_nowC]->setVisible(true);
-			log("c   %d", _nowC);
-			_check = true;
-		}
-		else if (_button[5]->touchesEnded(pt)) {
-			_numberC[_nowC]->setVisible(false);
-			if (_nowC == 0) _nowC = MAX_LOCK_LETTERS - 1;
-			else _nowC--;
-			_numberC[_nowC]->setVisible(true);
-			log("c   %d", _nowC);
-			_check = true;
-		}
-
-
 	}
 }

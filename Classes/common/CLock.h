@@ -3,43 +3,53 @@
 #include "cocos2d.h"
 #include "cocostudio/CocoStudio.h"
 
-#include "common\CButton.h"
-
+#ifndef MAX_LOCK_LETTERS
+#define MAX_LOCK_LETTERS  5
+#endif
 
 class CLock : public cocos2d::Layer
 {
 private:
-	CButton *_button[6];
-	cocos2d::Sprite *_numberA[10];
-	cocos2d::Sprite *_numberB[10];
-	cocos2d::Sprite *_numberC[10];
+	cocos2d::Node *_rootNode;
+	cocos2d::Rect	_buttonRect[MAX_LOCK_LETTERS * 2]; //sudoku target rect area
+	bool _buttonState[MAX_LOCK_LETTERS*2]; // state if button being pressed
 
-	int _nowA, _nowB, _nowC; // number displayed now
-	int _ansA, _ansB, _ansC; // the correct password
+	cocos2d::Sprite *_number[MAX_LOCK_LETTERS];
 
-	cocos2d::Rect    _bgRect;
+	int _totDigit; //number of character for password
+
+	int _ansNum; //number of character for password
+	int _ans[MAX_LOCK_LETTERS];// the correct password
+	int _now[MAX_LOCK_LETTERS]; // number displayed now
 
 	cocos2d::Rect    _lockAreaRect;
+	cocos2d::Rect    _exitRect; //exit area
 
 	bool _btouch; 
-	//bool _type; // 0:up down key type, 1:calculator type
+	bool _type; //
 	bool _check; //check if the number now is equal to the password set
 	bool _state; // state if the lock is being opened
+	bool _solved;
 
-	cocos2d::LabelTTF *label;
-
-
+	int _maxNum;
+	bool _existZero;
 public:
-	CLock(bool type=false);
+	CLock();
 	~CLock();
 
-	virtual bool init(const char *bg = NULL);
+	virtual bool init(int totDigit, cocos2d::Node *lockNode, int maxNum, bool zero, int keyType);
 	
 	void SetArea(const cocos2d::Rect &lockarea);
-	void SetPassword(int a, int b, int c);
+
+	void SetExitArea(const cocos2d::Rect & lockarea);
+
+	void SetPassword(int num, int ans);
+	bool CheckAns();
 	void reset();
 
 	bool GetState();
+
+	bool GetSolved();
 
 	void doStep(float dt);
 

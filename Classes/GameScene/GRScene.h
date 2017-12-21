@@ -79,7 +79,7 @@ private:
 	bool _btouch[5]; // for item in scene
 
 	// set lightbox==============================
-	CLightbox *_procedure[3];
+	CLightbox *_procedure[4];
 
 
 

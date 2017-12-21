@@ -17,7 +17,7 @@
 #include "common\xmlTrigger.h"
 #include "common\xmlScene.h"
 
-#include "common\CMix.h"
+#include "common\CLock.h"
 
 class SRScene : public cocos2d::Layer
 {
@@ -37,7 +37,7 @@ private:
 
 	cocos2d::Node *_rootNode;
 
-	cocos2d::Node *_zNode[3]; // zoomin node
+	cocos2d::Node *_zNode[4]; // zoomin node
 
 	cocos2d::Sprite *_win; //stage clear sprite
 	bool _clear; //stage clear
@@ -47,7 +47,7 @@ private:
 
 	xmlScene *_xmlscene; // xml file [scene]
 
-
+	CLock *_lock;// lock
 	//bag=============================================
 	int _ibagState;
 
@@ -74,8 +74,8 @@ private:
 
 	//判斷 物品----------------
 	bool _bpickObj; //detect if player arrive near object being picked
-	bool _btouchNode[3] = { false };//for E_node
-	bool _bopenNode[3] = { false };//for E_node
+	bool _btouchNode[4] = { false };//for E_node
+	bool _bopenNode[4] = { false };//for E_node
 	bool _btouch[5]; // for item in scene
 
 	// set lightbox==============================
@@ -87,15 +87,16 @@ private:
 	CTrigger *_pTrigger; // items that can be taken: 藥水以 red, green, blue, yellow 排列、蒸餾水、玻璃棒、草藥
 
 
-	cocos2d::Sprite *_detect[3]; // detect zoom node
-	cocos2d::Rect	_detectRect[3];
+	cocos2d::Sprite *_detect[4]; // detect zoom node
+	cocos2d::Rect	_detectRect[4];
 	cocos2d::Rect	_closeRect; // area to close node (znode)
 
-	cocos2d::Rect	*_pTsudokuRect; //sudoku target rect area
-	cocos2d::Rect	*_pTkeyRect; //key target rect area
+	//cocos2d::Rect	*_pTsudokuRect; //sudoku target rect area
+	//cocos2d::Rect	*_pTkeyRect; //key target rect area
 
 	bool _bsolve[2]; //state if the quiz is being solved
-
+	bool _btogger[2]; // 1- certificate togger, 2- book togger
+	cocos2d::Rect	_toggerRect[2]; //key togger rect area
 
 public:
 	SRScene();

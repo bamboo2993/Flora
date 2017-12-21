@@ -25,6 +25,7 @@ CBag* CBag::getInstance() {
 void CBag::destroyInstance() { CC_SAFE_DELETE(_pBag); }
 
 CBag::CBag() {
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("common/bagItem.plist");
 	_bagSprite[1] = nullptr;
 	_bagSprite[0] = nullptr;
 	_ItemNum = 0;
@@ -78,6 +79,7 @@ void CBag::Init(Point pos, CTrigger* trigger) {
 	//¹D¨ã
 	for (size_t i = 0; i < ItemNum; i++){
 		_obj[i] = CItem::create();
+		_obj[i]->Init("B_akey.png");
 		this->addChild(_obj[i], 2);
 
 	}
@@ -245,8 +247,7 @@ void  CBag::AddObj(const char* pic, int numTarget, bool isStagnant, cocos2d::Rec
 	log("itemNo = %d", itemNo);
 
 	if (itemNo >= 0) {
-		_obj[itemNo]->Clear();
-		_obj[itemNo]->Init(pic); //set bag item
+		_obj[itemNo]->ChangePic(pic); //set bag item
 
 		for (int i = 0; i < numTarget; i++) {
 			_obj[itemNo]->SetTarget(target[i]); //set target rect
@@ -271,8 +272,7 @@ void  CBag::AddObj(const char* pic, int numTarget, bool isStagnant, cocos2d::Rec
 
 void  CBag::AddObjXML(int inum, const char* pic, int numTarget, cocos2d::Rect *target, bool isStagnant, bool canRetake) {
 
-	_obj[inum]->Clear();
-	_obj[inum]->Init(pic); //set bag item
+	_obj[inum]->ChangePic(pic); //set bag item
 
 	for (int i = 0; i < numTarget; i++) {
 		_obj[inum]->SetTarget(target[i]); //set target rect

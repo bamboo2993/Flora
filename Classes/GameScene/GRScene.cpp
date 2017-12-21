@@ -93,7 +93,6 @@ bool GRScene::init()
 	//// 利用程式直接產生序列幀動畫 
 	//// STEP 1 : 讀入儲存多張圖片的 plist 檔
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("GRScene.plist");
-	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("common/bagItem.plist");
 	// ------------------------------------------------------------------------------------------------- 
 
 
@@ -147,16 +146,20 @@ bool GRScene::init()
 
 	//set lightbox (experimental procedure) =================================================================
 	_procedure[0] = CLightbox::create();
-	_procedure[0]->init(_zNode[1], "GR_P01_trigger", "GameScene/GRScene/GR_P01.png");
+	_procedure[0]->init(_zNode[1], "GR_Z02_P02_trigger", "GameScene/GRScene/GR_Z02_P02.png");
 	this->addChild(_procedure[0], 10000);
 
 	_procedure[1] = CLightbox::create();
-	_procedure[1]->init(Rect(587.0f, 761.0f,475.0f,282.0f), "GameScene/GRScene/GR_P02.png");
+	_procedure[1]->init(Rect(587.0f, 761.0f,475.0f,282.0f), "GameScene/GRScene/GR_Z02_P01.png");
 	this->addChild(_procedure[1], 10000);
 
 	_procedure[2] = CLightbox::create();
-	_procedure[2]->init(_zNode[2], "GR_Z03_01", "GameScene/GRScene/GR_P03.png");
+	_procedure[2]->init(_zNode[2], "GR_Z03_01", "GameScene/GRScene/GR_Z03_P01.png");
 	this->addChild(_procedure[2], 10000);
+
+	_procedure[3] = CLightbox::create();
+	_procedure[3]->init(_zNode[1], "GR_Z02_P03_trigger", "GameScene/GRScene/GR_Z02_P03.png");
+	this->addChild(_procedure[3], 10000);
 
 
 	_pTrigger = new CTrigger[2];
@@ -560,13 +563,16 @@ void GRScene::PickObject(float dt) {
 	else if (_bopenNode[1]) {
 		_pTrigger[1].doStep(dt);
 
-		if (_bsolve[0]) _procedure[0]->doStep(dt);
+		if (_bsolve[0]) {
+			_procedure[0]->doStep(dt);
+			_procedure[3]->doStep(dt);
+		}
 		 _procedure[1]->doStep(dt);
 
 		//create the corresponding item in bag
 		if (_pTrigger[1].GetAddToBag() && !_pTrigger[1].GetPicked()) {
 
-			CBag::getInstance()->AddObj("B_key.png", 1, false, _pTkeyRect);
+			CBag::getInstance()->AddObj("B_akey.png", 1, false, _pTkeyRect);
 
 			_pTrigger[1].SetAddToBag(false);
 			_pTrigger[1].SetPicked(true); // if the object is picked and added into the bag
@@ -601,6 +607,7 @@ void GRScene::reset() {
 	_procedure[0]->setVisible(false);
 	_procedure[1]->setVisible(false);
 	_procedure[2]->setVisible(false);
+	_procedure[3]->setVisible(false);
 
 	_xmlscene->editItemState(0, false, _rootNode);
 	_xmlscene->editItemState(1, true, _zNode[0]);
@@ -737,25 +744,35 @@ void  GRScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸
 					_bwithinArea = false;
 					_pTrigger[1].touchesBegan(_touchLoc);
 
-					if (_bsolve[0]) _procedure[0]->TouchBegan(_touchLoc);
+					if (!_procedure[0]->GetOpen() && !_procedure[1]->GetOpen() && !_procedure[3]->GetOpen()) {
+						if (_closeRect.containsPoint(_touchLoc)) {
+							_bopenNode[1] = !_bopenNode[1];
+							_zNode[1]->setVisible(false);
+							log("close detect");
+						}
+					}
+					if (_bsolve[0]) {
+						_procedure[0]->TouchBegan(_touchLoc);
+						_procedure[3]->TouchBegan(_touchLoc);
+					}
 					_procedure[1]->TouchBegan(_touchLoc);
 
-					if (_closeRect.containsPoint(_touchLoc)) {
-						_bopenNode[1] = !_bopenNode[1];
-						_zNode[1]->setVisible(false);
-						log("close detect");
-					}
+					
 				}
 				//znode[2]開---------------------
 				else if (_bopenNode[2]) {
 					_bwithinArea = false;
+					if (!_procedure[2]->GetOpen()) {
+						if (_closeRect.containsPoint(_touchLoc)) {
+							_bopenNode[2] = !_bopenNode[2];
+							_zNode[2]->setVisible(false);
+							log("close detect");
+						}
+					}
+
 					if (_bsolve[1])_procedure[2]->TouchBegan(_touchLoc);
 
-					if (_closeRect.containsPoint(_touchLoc)) {
-						_bopenNode[2] = !_bopenNode[2];
-						_zNode[2]->setVisible(false);
-						log("close detect");
-					}
+					
 				}
 
 
@@ -785,39 +802,45 @@ void  GRScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸
 				}
 			}
 			else {
-				//walk area ====================================
-				if (WALK_AREA_1.containsPoint(_touchLoc) || WALK_AREA_2.containsPoint(_touchLoc) || WALK_AREA_3.containsPoint(_touchLoc) ||
-					WALK_AREA_4.containsPoint(_touchLoc) || WALK_AREA_5.containsPoint(_touchLoc)) {
-					// detect if touch pts are in walkable area
-					_bwithinArea = true;
-					log("walk!!");
+				if (_ibagState == 0) {
+
+					//walk area ====================================
+					if (WALK_AREA_1.containsPoint(_touchLoc) || WALK_AREA_2.containsPoint(_touchLoc) || WALK_AREA_3.containsPoint(_touchLoc) ||
+						WALK_AREA_4.containsPoint(_touchLoc) || WALK_AREA_5.containsPoint(_touchLoc)) {
+						// detect if touch pts are in walkable area
+						_bwithinArea = true;
+						log("walk!!");
+
+					}
+					else  _bwithinArea = false;
+
+					////player walk =====================================================
+
+					//放大鏡沒開 --------------
+					if (!_bopenNode[0] && !_bopenNode[1] && !_bopenNode[2]) {
+
+						_bWalk = 1;
+						_player->setPreviousPosition();
+
+						if (_touchLoc.x > _player->_rpos.x) {
+							_player->_bSide = 1;
+							_player->Mirror();
+						}
+						else {
+							_player->_bSide = 0;
+							_player->Mirror();
+						}
+
+						//-------------------------------
+						_TargetLoc = _touchLoc;
+
+						//====================================
+
+					}
+
 
 				}
-				else  _bwithinArea = false;
-
-				////player walk =====================================================
-
-				//放大鏡沒開 --------------
-				if (!_bopenNode[0] && !_bopenNode[1] && !_bopenNode[2]) {
-					
-					_bWalk = 1;
-					_player->setPreviousPosition();
-
-					if (_touchLoc.x > _player->_rpos.x) {
-						_player->_bSide = 1;
-						_player->Mirror();
-					}
-					else {
-						_player->_bSide = 0;
-						_player->Mirror();
-					}
-
-					//-------------------------------
-					_TargetLoc = _touchLoc;
-
-					//====================================
-
-				}
+				
 					
 			}
 
@@ -903,7 +926,7 @@ void  GRScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸
 
 			}
 
-			else if (!strcmp(xmlBag::getInstance()->getItemName(i), "B_key.png")) {
+			else if (!strcmp(xmlBag::getInstance()->getItemName(i), "B_akey.png")) {
 				// add debranch
 				//_grinding->playEffect();
 				_xmlscene->editItemState("GR_Z02_01", true, _zNode[1], 2, 3);

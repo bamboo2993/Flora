@@ -2,7 +2,7 @@
 <DataRoot version="1.0">
     <!--this is xml comment-->
     <scene>
-        <item no.="0" name="SGR_Z03_01" B_name="" state="zN3">true</item>
-        <item no.="1" name="SR_Z03_02" B_name="" state="zN3">false</item>
+        <item no.="0" name="SGR_Z03_01" B_name="" state="zN2">true</item>
+        <item no.="1" name="SR_Z03_02" B_name="" state="zN2">false</item>
     </scene>
 </DataRoot>

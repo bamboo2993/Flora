@@ -4,7 +4,7 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>SR_Z3_01.png</key>
+            <key>SR_Z03_01.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{0,0},{287,330}}</string>
@@ -17,10 +17,10 @@
                 <key>sourceSize</key>
                 <string>{287,330}</string>
             </dict>
-            <key>SR_Z3_02.png</key>
+            <key>SR_Z03_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{0,330},{280,279}}</string>
+                <string>{{287,0},{280,279}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -29,6 +29,45 @@
                 <string>{{0,0},{280,279}}</string>
                 <key>sourceSize</key>
                 <string>{280,279}</string>
+            </dict>
+            <key>SR_Z04_01.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{567,0},{96,481}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{96,481}}</string>
+                <key>sourceSize</key>
+                <string>{96,481}</string>
+            </dict>
+            <key>SR_Z04_02.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{663,0},{228,640}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{228,640}}</string>
+                <key>sourceSize</key>
+                <string>{228,640}</string>
+            </dict>
+            <key>SR_Z04_03.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{891,0},{92,346}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{92,346}}</string>
+                <key>sourceSize</key>
+                <string>{92,346}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -42,9 +81,9 @@
             <key>realTextureFileName</key>
             <string>SRScene.png</string>
             <key>size</key>
-            <string>{512,1024}</string>
+            <string>{1024,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:3ecdbdbc5224086a0abf69c35de9f0cd:0832df6c3e0fa9a009bcfdeb433642cf:12c1ea2a1b19015a1c9df616ad3d894b$</string>
+            <string>$TexturePacker:SmartUpdate:b52419b41b2dabbafd3f542b3c7e56ca:ffde8de1dee7dedebc758bded097153e:12c1ea2a1b19015a1c9df616ad3d894b$</string>
             <key>textureFileName</key>
             <string>SRScene.png</string>
         </dict>

@@ -4,6 +4,8 @@
 #include "cocostudio/CocoStudio.h"
 
 
+#define MAX_PAGE 5
+
 class CLightbox :public cocos2d::Node
 {
 private:
@@ -12,8 +14,8 @@ private:
 	cocos2d::Rect    _itemRect;
 	
 
-	cocos2d::Sprite *_enlarge;
-	cocos2d::Rect    _enlargeRect;
+	cocos2d::Sprite *_enlarge[MAX_PAGE];
+	cocos2d::Rect    _enlargeRect[MAX_PAGE];
 
 	cocos2d::Point _touchpt;
 	bool _isOpen;
@@ -30,6 +32,8 @@ public:
 
 	bool init(Node *rootNode, const std::string& item, const std::string& enlarge);
 	bool init(cocos2d::Rect area, const std::string & enlarge);
+	bool init(Node * rootNode, const std::string & item, int totPage);
+	void setPage(int pageNum, const std::string & enlarge);
 	bool init();
 
 	void setPic(const std::string& enlarge);

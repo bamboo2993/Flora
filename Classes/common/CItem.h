@@ -61,6 +61,7 @@ public:
 	const char* GetName();
 
 	void Clear();
+	void ChangePic(const char * pic);
 	void reset();
 
 	bool touchesBegan(cocos2d::Point inPos);

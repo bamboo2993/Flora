@@ -79,6 +79,7 @@
             <PlistImageFile Name="arrow_left.png" Key="arrow_left.png" />
             <PlistImageFile Name="arrow_right.png" Key="arrow_right.png" />
             <PlistImageFile Name="arrow_up.png" Key="arrow_up.png" />
+            <PlistImageFile Name="B_akey.png" Key="B_akey.png" />
             <PlistImageFile Name="B_blue.png" Key="B_blue.png" />
             <PlistImageFile Name="B_Bslides.png" Key="B_Bslides.png" />
             <PlistImageFile Name="B_BslidesLOD.png" Key="B_BslidesLOD.png" />
@@ -94,7 +95,6 @@
             <PlistImageFile Name="B_herbG.png" Key="B_herbG.png" />
             <PlistImageFile Name="B_herbR.png" Key="B_herbR.png" />
             <PlistImageFile Name="B_herbY.png" Key="B_herbY.png" />
-            <PlistImageFile Name="B_Key.png" Key="B_Key.png" />
             <PlistImageFile Name="B_lodine.png" Key="B_lodine.png" />
             <PlistImageFile Name="B_Pslides.png" Key="B_Pslides.png" />
             <PlistImageFile Name="B_PslidesLOD.png" Key="B_PslidesLOD.png" />
@@ -115,19 +115,24 @@
             <PlistImageFile Name="elock07.png" Key="elock07.png" />
             <PlistImageFile Name="elock08.png" Key="elock08.png" />
             <PlistImageFile Name="elock09.png" Key="elock09.png" />
-            <PlistImageFile Name="lock00.png" Key="lock00.png" />
-            <PlistImageFile Name="lock01.png" Key="lock01.png" />
-            <PlistImageFile Name="lock02.png" Key="lock02.png" />
-            <PlistImageFile Name="lock03.png" Key="lock03.png" />
-            <PlistImageFile Name="lock04.png" Key="lock04.png" />
-            <PlistImageFile Name="lock05.png" Key="lock05.png" />
-            <PlistImageFile Name="lock06.png" Key="lock06.png" />
-            <PlistImageFile Name="lock07.png" Key="lock07.png" />
-            <PlistImageFile Name="lock08.png" Key="lock08.png" />
-            <PlistImageFile Name="lock09.png" Key="lock09.png" />
+            <PlistImageFile Name="lab_L_00.png" Key="lab_L_00.png" />
+            <PlistImageFile Name="lab_L_01.png" Key="lab_L_01.png" />
+            <PlistImageFile Name="lab_L_02.png" Key="lab_L_02.png" />
+            <PlistImageFile Name="lab_L_03.png" Key="lab_L_03.png" />
+            <PlistImageFile Name="lab_L_04.png" Key="lab_L_04.png" />
+            <PlistImageFile Name="lab_L_05.png" Key="lab_L_05.png" />
+            <PlistImageFile Name="lab_L_06.png" Key="lab_L_06.png" />
+            <PlistImageFile Name="lab_L_07.png" Key="lab_L_07.png" />
+            <PlistImageFile Name="lab_L_08.png" Key="lab_L_08.png" />
+            <PlistImageFile Name="lab_L_09.png" Key="lab_L_09.png" />
+            <PlistImageFile Name="SR_L_01.png" Key="SR_L_01.png" />
+            <PlistImageFile Name="SR_L_02.png" Key="SR_L_02.png" />
+            <PlistImageFile Name="SR_L_03.png" Key="SR_L_03.png" />
+            <PlistImageFile Name="SR_L_04.png" Key="SR_L_04.png" />
           </PlistImageFolder>
-          <Image Name="BB_Key.png" />
+          <Image Name="BB_akey.png" />
           <Image Name="BB_sudoku.png" />
+          <Image Name="go back.png" />
         </Folder>
         <Folder Name="fonts">
           <TTF Name="arial.ttf" />
@@ -200,9 +205,6 @@
               <PlistImageFile Name="GR_Z03_01.png" Key="GR_Z03_01.png" />
             </PlistImageFolder>
             <Image Name="GR_full.png" />
-            <Image Name="GR_P01.png" />
-            <Image Name="GR_P02.png" />
-            <Image Name="GR_P03.png" />
             <Image Name="GR_S01.png" />
             <Image Name="GR_S02.png" />
             <Image Name="GR_Z01.png" />
@@ -232,15 +234,27 @@
           </Folder>
           <Folder Name="SRScene">
             <PlistImageFolder Image="SRScene.png" PListFile="SRScene.plist" Name=".SRScene_PList.Dir">
-              <PlistImageFile Name="SR_Z3_01.png" Key="SR_Z3_01.png" />
-              <PlistImageFile Name="SR_Z3_02.png" Key="SR_Z3_02.png" />
+              <PlistImageFile Name="SR_Z03_01.png" Key="SR_Z03_01.png" />
+              <PlistImageFile Name="SR_Z03_02.png" Key="SR_Z03_02.png" />
+              <PlistImageFile Name="SR_Z04_01.png" Key="SR_Z04_01.png" />
+              <PlistImageFile Name="SR_Z04_02.png" Key="SR_Z04_02.png" />
+              <PlistImageFile Name="SR_Z04_03.png" Key="SR_Z04_03.png" />
             </PlistImageFolder>
             <Image Name="SR_full.png" />
             <Image Name="SR_S01.png" />
             <Image Name="SR_S02.png" />
             <Image Name="SR_Z01.png" />
+            <Image Name="SR_Z01_P01.png" />
             <Image Name="SR_Z02.png" />
+            <Image Name="SR_Z02_P01.png" />
             <Image Name="SR_Z03.png" />
+            <Image Name="SR_Z03_E01.png" />
+            <Image Name="SR_Z03_E02.png" />
+            <Image Name="SR_Z04.png" />
+            <Image Name="SR_Z04_P01.png" />
+            <Image Name="SR_Z04_P02.png" />
+            <Image Name="SR_Z04_P03.png" />
+            <Image Name="SR_Z04_P04.png" />
           </Folder>
         </Folder>
         <Folder Name="MainScene">
@@ -329,6 +343,10 @@
         <Project Name="E_labScene_Node1.csd" Type="Node" />
         <Project Name="E_labScene_Node2.csd" Type="Node" />
         <Project Name="fgnode.csd" Type="Node" />
+        <Image Name="GR_Z02_P01.png" />
+        <Image Name="GR_Z02_P02.png" />
+        <Image Name="GR_Z02_P03.png" />
+        <Image Name="GR_Z03_P01.png" />
         <Project Name="GRScene.csd" Type="Scene" />
         <Project Name="housenode.csd" Type="Node" />
         <Image Name="kitchen.png" />
@@ -341,15 +359,15 @@
         <Project Name="Node_lab_Z01.csd" Type="Node" />
         <Project Name="Node_lab_Z02.csd" Type="Node" />
         <Project Name="Node_lab_Z03.csd" Type="Node" />
+        <Project Name="Node_lock_SR.csd" Type="Node" />
         <Project Name="Node_SR_Z01.csd" Type="Node" />
         <Project Name="Node_SR_Z02.csd" Type="Node" />
         <Project Name="Node_SR_Z03.csd" Type="Node" />
+        <Project Name="Node_SR_Z04.csd" Type="Node" />
         <Project Name="obstaclenode.csd" Type="Node" />
         <Project Name="RunScene.csd" Type="Scene" />
         <Project Name="SceneDiningRoom.csd" Type="Scene" />
         <Image Name="shell.png" />
-        <Image Name="SR_Z3_01.png" />
-        <Image Name="SR_Z3_02.png" />
         <Project Name="SRScene.csd" Type="Scene" />
       </RootFolder>
     </Group>

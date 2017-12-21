@@ -70,12 +70,12 @@ bool lockUsage::init()
 
 	_lockAreaRect = Rect(p.x - size.width / 2, p.y - size.height / 2, size.width, size.height);
 
-	_lock = new CLock(0);
-	_lock->init();
-	this->addChild(_lock);
+	//_lock = new CLock();
+	//_lock->init();
+	//this->addChild(_lock);
 
-	_lock->SetArea(_lockAreaRect);
-	_lock->SetPassword(1, 1, 1);
+	//_lock->SetArea(_lockAreaRect);
+	//_lock->SetPassword(1, 1, 1);
 
 
 	_elock = new CeLock();

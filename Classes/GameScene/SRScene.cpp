@@ -55,7 +55,10 @@ SRScene::SRScene() {
 		_btouch[i] = false;
 	}
 	_ibagState = 0;
-	
+
+	_btogger[0] = false;
+	_btogger[1] = false;
+
 
 }
 SRScene::~SRScene()
@@ -115,9 +118,9 @@ bool SRScene::init()
 	_zNode[2] = (cocos2d::Node*)_rootNode->getChildByName("Node_SR_Z03");
 	addChild(_zNode[2], 300);
 
-
-
-
+	_zNode[3] = (cocos2d::Node*)_rootNode->getChildByName("Node_SR_Z04");
+	addChild(_zNode[3], 300);
+	
 	// 音效與音樂 --------------------------------------------------------------------------------
 
 	//SimpleAudioEngine::getInstance()->playBackgroundMusic("../music/GR_bgm.mp3", true);
@@ -143,17 +146,22 @@ bool SRScene::init()
 
 
 	//set lightbox (experimental procedure) =================================================================
-	//_procedure[0] = CLightbox::create();
-	//_procedure[0]->init(_zNode[1], "GR_P01_trigger", "GameScene/SRScene/GR_P01.png");
-	//this->addChild(_procedure[0], 10000);
+	_procedure[0] = CLightbox::create();
+	_procedure[0]->init(_zNode[0], "SR_Z01_P01_trigger", "GameScene/SRScene/SR_Z01_P01.png");
+	this->addChild(_procedure[0], 10000);
 
-	//_procedure[1] = CLightbox::create();
-	//_procedure[1]->init(Rect(587.0f, 761.0f,475.0f,282.0f), "GameScene/SRScene/GR_P02.png");
-	//this->addChild(_procedure[1], 10000);
+	_procedure[1] = CLightbox::create();
+	_procedure[1]->init(_zNode[1], "SR_Z02_P01_trigger", "GameScene/SRScene/SR_Z02_P01.png");
+	this->addChild(_procedure[1], 10000);
 
-	//_procedure[2] = CLightbox::create();
-	//_procedure[2]->init(_zNode[2], "GR_Z03_01", "GameScene/SRScene/GR_P03.png");
-	//this->addChild(_procedure[2], 10000);
+	_procedure[2] = CLightbox::create();
+
+	_procedure[2]->setPage(1, "GameScene/SRScene/SR_Z04_P01.png");
+	_procedure[2]->setPage(2, "GameScene/SRScene/SR_Z04_P02.png");
+	_procedure[2]->setPage(3, "GameScene/SRScene/SR_Z04_P03.png");
+	_procedure[2]->setPage(4, "GameScene/SRScene/SR_Z04_P04.png");
+	_procedure[2]->init(_zNode[3], "SR_Z04_03", 4);
+	this->addChild(_procedure[2], 10000);
 
 
 	//_pTrigger = new CTrigger[2];
@@ -164,8 +172,16 @@ bool SRScene::init()
 	////set objects=========================================
 	SetObject();
 
-	//
-	//_xmlscene = new xmlScene("./res/xml/xmlfile_SRScene.xml");
+
+	//set lock ===================================
+	_lock = new CLock();
+	_lock->init(4, _zNode[2]->getChildByName("Node_lock_SR"), 4, false, 1);
+
+	_lock->SetArea(_toggerRect[0]);
+	_lock->SetPassword(4, 1233);
+	_lock->SetExitArea(_closeRect);
+	
+	_xmlscene = new xmlScene("./res/xml/xmlfile_SRScene.xml");
 	//_xmlscene->parseXML(_rootNode, CURRENT_SCENE, _pTrigger);
 	//_xmlscene->parseNodeXML(_zNode[0], "zN0");
 	//_xmlscene->parseNodeXML(_zNode[1], "zN1");
@@ -231,6 +247,13 @@ void SRScene::SetObject() {
 	pos = _detect[2]->getPosition();
 	_detectRect[2] = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.width, size.height);
 
+	_detect[3] = (cocos2d::Sprite*)_rootNode->getChildByName("SR_Z04_trigger");
+	size = _detect[3]->getContentSize();
+	size.width = size.width * 3;
+	size.height = size.height * 1.4;
+	pos = _detect[3]->getPosition();
+	_detectRect[3] = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.width, size.height);
+
 
 	// reset button===============================================
 	_reset = (cocos2d::Sprite*)_rootNode->getChildByName("reset");
@@ -239,20 +262,20 @@ void SRScene::SetObject() {
 	_resetRect = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.height, size.width);
 
 
-	////set sudoku target area
-	//auto a = (cocos2d::Sprite*)_zNode[2]->getChildByName("GR_Z03_01");
-	//size = a->getContentSize();
-	//pos = a->getPosition();
-	//_pTsudokuRect[0] = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.width, size.height);
+	//set certificate togger area
+	auto a = (cocos2d::Sprite*)_zNode[2]->getChildByName("SR_Z03_02");
+	size = a->getContentSize();
+	pos = a->getPosition();
+	_toggerRect[0] = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.width, size.height);
 
-	////set key target area
-	//a = (cocos2d::Sprite*)_zNode[1]->getChildByName("GR_Z02_01");
-	//size = a->getContentSize();
-	//pos = a->getPosition();
-	//_pTkeyRect[0] = Rect(pos.x - size.width / 2, pos.y, size.width, size.height/2);
+	//set book togger area
+	a = (cocos2d::Sprite*)_zNode[3]->getChildByName("SR_Z04_01");
+	size = a->getContentSize();
+	pos = a->getPosition();
+	_toggerRect[1] = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.width, size.height);
 
 	//set close target area [znode]
-	auto a = (cocos2d::Sprite*)_zNode[0]->getChildByName("close");
+	a = (cocos2d::Sprite*)_zNode[0]->getChildByName("close");
 	size = a->getContentSize();
 	pos = a->getPosition();
 	_closeRect = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.width, size.height);
@@ -266,7 +289,7 @@ void SRScene::doStep(float dt){
 	
 	//walk===================================
 	//////只能在設定範圍走=============================
-	if (_bWalk && _bwithinArea) { //when player walk within walkable region
+	/*if (_bWalk && _bwithinArea) { //when player walk within walkable region
 		
 		_player->Walk(_TargetLoc);
 		_player->go(_TargetLoc);
@@ -278,7 +301,7 @@ void SRScene::doStep(float dt){
 
 	}
 	
-	else if (_bWalk) { // when touched obj in scene that can be picked up
+	else*/ if (_bWalk) { // when touched obj in scene that can be picked up
 		
 		// A
 		if (_touchLoc.y >  WALK_AREA_2.getMinY() && _touchLoc.y < LINE_Y && _touchLoc.x < WALK_AREA_2.getMinX()) {
@@ -296,9 +319,9 @@ void SRScene::doStep(float dt){
 		// A-1
 		else if (_touchLoc.y >  WALK_AREA_2.getMaxY() && _touchLoc.x < WALK_AREA_2.getMinX()) {
 			log("walk A-1");
-			_player->Walk(Vec2(WALK_AREA_2.getMinX(), WALK_AREA_2.getMaxY()));
-			_player->go(Vec2(WALK_AREA_2.getMinX(), WALK_AREA_2.getMaxY()));
-			if (_player->Walk(Vec2(WALK_AREA_2.getMinX(), WALK_AREA_2.getMaxY())) == false) {
+			_player->Walk(Vec2(WALK_AREA_2.getMinX()+100, WALK_AREA_2.getMaxY()-100));
+			_player->go(Vec2(WALK_AREA_2.getMinX()+100, WALK_AREA_2.getMaxY()- 100));
+			if (_player->Walk(Vec2(WALK_AREA_2.getMinX()+ 100, WALK_AREA_2.getMaxY()- 100)) == false) {
 				_bWalk = 0;
 				//if (_bonObj) _bpickObj = true; //pick up obj
 				_bpickObj = true; //pick up obj
@@ -340,9 +363,9 @@ void SRScene::doStep(float dt){
 		else if (_touchLoc.y > LINE_Y  && _touchLoc.x > WALK_AREA_2.getMinX() && _touchLoc.x < WALK_AREA_3.getMinX()) {
 			log("walk B-1");
 
-			_player->Walk(Vec2(_touchLoc.x, WALK_AREA_2.getMaxY()));
-			_player->go(Vec2(_touchLoc.x, WALK_AREA_2.getMaxY()));
-			if (_player->Walk(Vec2(_touchLoc.x, WALK_AREA_2.getMaxY())) == false) {
+			_player->Walk(Vec2(_touchLoc.x, WALK_AREA_2.getMaxY()- 100));
+			_player->go(Vec2(_touchLoc.x, WALK_AREA_2.getMaxY()- 100));
+			if (_player->Walk(Vec2(_touchLoc.x, WALK_AREA_2.getMaxY()- 100)) == false) {
 				_bWalk = 0;
 				//if (_bonObj) _bpickObj = true; //pick up obj
 				_bpickObj = true; //pick up obj
@@ -354,9 +377,9 @@ void SRScene::doStep(float dt){
 		else if (_touchLoc.y > LINE_Y  && _touchLoc.x > WALK_AREA_3.getMinX() && _touchLoc.x < WALK_AREA_4.getMinX()) {
 			log("walk B-2");
 
-			_player->Walk(Vec2(_touchLoc.x, WALK_AREA_3.getMaxY()));
-			_player->go(Vec2(_touchLoc.x, WALK_AREA_3.getMaxY()));
-			if (_player->Walk(Vec2(_touchLoc.x, WALK_AREA_3.getMaxY())) == false) {
+			_player->Walk(Vec2(_touchLoc.x, WALK_AREA_3.getMaxY()- 100));
+			_player->go(Vec2(_touchLoc.x, WALK_AREA_3.getMaxY() - 100));
+			if (_player->Walk(Vec2(_touchLoc.x, WALK_AREA_3.getMaxY() - 100)) == false) {
 				_bWalk = 0;
 				//if (_bonObj) _bpickObj = true; //pick up obj
 				_bpickObj = true; //pick up obj
@@ -368,9 +391,9 @@ void SRScene::doStep(float dt){
 		else if (_touchLoc.y > LINE_Y  && _touchLoc.x > WALK_AREA_4.getMinX() && _touchLoc.x < 958.41f) {
 			log("walk B-3");
 
-			_player->Walk(Vec2(_touchLoc.x, WALK_AREA_4.getMaxY()));
-			_player->go(Vec2(_touchLoc.x, WALK_AREA_4.getMaxY()));
-			if (_player->Walk(Vec2(_touchLoc.x, WALK_AREA_4.getMaxY())) == false) {
+			_player->Walk(Vec2(_touchLoc.x, WALK_AREA_4.getMaxY() - 100));
+			_player->go(Vec2(_touchLoc.x, WALK_AREA_4.getMaxY() - 100));
+			if (_player->Walk(Vec2(_touchLoc.x, WALK_AREA_4.getMaxY() - 100)) == false) {
 				_bWalk = 0;
 				//if (_bonObj) _bpickObj = true; //pick up obj
 				_bpickObj = true; //pick up obj
@@ -432,11 +455,11 @@ void SRScene::doStep(float dt){
 
 
 		// D
-		else if (_touchLoc.y < WALK_AREA_2.getMaxY() && _touchLoc.x >  WALK_AREA_1.getMaxX()) {
+		else if (_touchLoc.y < WALK_AREA_2.getMaxY() - 100 && _touchLoc.x >  WALK_AREA_1.getMaxX()) {
 			log("walk D");
-			_player->Walk(Vec2(WALK_AREA_2.getMaxX(), _touchLoc.y));
-			_player->go(Vec2(WALK_AREA_2.getMaxX(), _touchLoc.y));
-			if (_player->Walk(Vec2(WALK_AREA_2.getMaxX(), _touchLoc.y)) == false) {
+			_player->Walk(Vec2(WALK_AREA_2.getMaxX() - 100, _touchLoc.y));
+			_player->go(Vec2(WALK_AREA_2.getMaxX() - 100, _touchLoc.y));
+			if (_player->Walk(Vec2(WALK_AREA_2.getMaxX() - 100, _touchLoc.y)) == false) {
 				_bWalk = 0;
 				//if (_bonObj) _bpickObj = true; //pick up obj
 				_bpickObj = true; //pick up obj
@@ -452,8 +475,9 @@ void SRScene::doStep(float dt){
 
 	//// pick up obj ==========================
 	PickObject(dt);
-
+	_lock->doStep(dt);
 	
+	if (_lock->GetSolved()) _zNode[2]->getChildByName("SR_Z03_E02")->setVisible(true);
 }
 
 void SRScene::PickObject(float dt) {
@@ -493,54 +517,37 @@ void SRScene::PickObject(float dt) {
 
 		}
 
+		else if (_btouchNode[3]) {
+			_zNode[3]->setVisible(true);
+
+			_bopenNode[3] = !_bopenNode[3];
+			_btouchNode[3] = !_btouchNode[3];
+			//log("show detect node3");
+
+		}
+
 		_bpickObj = false;
 
 	}
 
-	/*if (_bopenNode[0]) {
+	if (_bopenNode[0]) {
 
-		_pTrigger[0].doStep(dt);
-
-
-		//create the corresponding item in bag
-		if (_pTrigger[0].GetAddToBag() && !_pTrigger[0].GetPicked()) {
-
-			CBag::getInstance()->AddObj("B_sudoku.png", 1, _pTsudokuRect, false);
-
-			_pTrigger[0].SetAddToBag(false);
-			_pTrigger[0].SetPicked(true); // if the object is picked and added into the bag
-
-			_xmlscene->editItemState("GR_Z01_01", false, _zNode[0], 0, 1);
-		}
+		_procedure[0]->doStep(dt);
 		
 	}
 
 
 
 	else if (_bopenNode[1]) {
-		_pTrigger[1].doStep(dt);
-
-		if (_bsolve[0]) _procedure[0]->doStep(dt);
-		 _procedure[1]->doStep(dt);
-
-		//create the corresponding item in bag
-		if (_pTrigger[1].GetAddToBag() && !_pTrigger[1].GetPicked()) {
-
-			CBag::getInstance()->AddObj("B_key.png", 1, _pTkeyRect, false);
-
-			_pTrigger[1].SetAddToBag(false);
-			_pTrigger[1].SetPicked(true); // if the object is picked and added into the bag
-
-			_xmlscene->editItemState("GR_Z02_02", false, _zNode[1], 2, 3);
-		}
+		_procedure[1]->doStep(dt);
 		
 
 	}
-	else if (_bopenNode[2]) {
-		if (_bsolve[1]) _procedure[2]->doStep(dt);
+	else if (_bopenNode[3]) {
+		if (_btogger[1]) _procedure[2]->doStep(dt);
 	}
 
-	*/
+	
 
 }
 
@@ -557,19 +564,20 @@ void SRScene::reset() {
 	_zNode[0]->setVisible(false);
 	_zNode[1]->setVisible(false);
 	_zNode[2]->setVisible(false);
+	_zNode[3]->setVisible(false);
 
 	_procedure[0]->setVisible(false);
 	_procedure[1]->setVisible(false);
 	_procedure[2]->setVisible(false);
 
-	_xmlscene->editItemState(0, false, _rootNode);
-	_xmlscene->editItemState(1, true, _zNode[0]);
-	_xmlscene->editItemState(2, false, _zNode[1]);
-	_xmlscene->editItemState(3, true, _zNode[1]);
-	_xmlscene->editItemState(4, false, _zNode[2]);
+	//_xmlscene->editItemState(0, false, _rootNode);
+	//_xmlscene->editItemState(1, true, _zNode[0]);
+	//_xmlscene->editItemState(2, false, _zNode[1]);
+	//_xmlscene->editItemState(3, true, _zNode[1]);
+	//_xmlscene->editItemState(4, false, _zNode[2]);
 
-	_pTrigger[0].reset();
-	_pTrigger[1].reset();
+	//_pTrigger[0].reset();
+	//_pTrigger[1].reset();
 
 	xmlTrigger::getInstance()->updateTriggerXML(CURRENT_SCENE, _pTrigger);
 
@@ -603,7 +611,12 @@ bool SRScene::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)//觸碰
 
 	}
 
-	
+	if (_btogger[0]) {
+		//lock==================
+		_lock->TouchBegan(_touchLoc);
+	}
+
+
 
 	return true;
 }
@@ -619,7 +632,10 @@ void  SRScene::onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸
 		CBag::getInstance()->touchesMoved(_touchLoc);
 	}
 	
-	
+	if (_btogger[0]) {
+		//lock==================
+		_lock->TouchMoved(_touchLoc);
+	}
 }
 
 void  SRScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸碰結束事件 
@@ -649,7 +665,7 @@ void  SRScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸
 				////player walk =====================================================
 
 				//放大鏡沒開 --------------
-				if (!_bopenNode[0] && !_bopenNode[1] && !_bopenNode[2]) {
+				if (!_bopenNode[0] && !_bopenNode[1] && !_bopenNode[2] && !_bopenNode[3]) {
 					//沒按重置-------------
 					if (!_resetRect.containsPoint(_touchLoc)) {
 						_bWalk = 1;
@@ -683,39 +699,90 @@ void  SRScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸
 				//znode[0]開---------------------
 				if (_bopenNode[0]) {
 					_bwithinArea = false;
-					//_pTrigger[0].touchesBegan(_touchLoc);
 
-					if (_closeRect.containsPoint(_touchLoc)) {
-						_bopenNode[0] = !_bopenNode[0];
-						_zNode[0]->setVisible(false);
-						log("close detect");
+					if (!_procedure[0]->GetOpen()) {
+						if (_closeRect.containsPoint(_touchLoc)) {
+							_bopenNode[0] = !_bopenNode[0];
+							_zNode[0]->setVisible(false);
+							log("close detect");
+						}
 					}
+					
+					_procedure[0]->TouchBegan(_touchLoc);
 
 				}
 				//znode[1]開---------------------
 				else if (_bopenNode[1]) {
 					_bwithinArea = false;
-					/*_pTrigger[1].touchesBegan(_touchLoc);
-
-					if(_bsolve[0]) _procedure[0]->TouchBegan(_touchLoc);
-					_procedure[1]->TouchBegan(_touchLoc);*/
-
-					if (_closeRect.containsPoint(_touchLoc)) {
-						_bopenNode[1] = !_bopenNode[1];
-						_zNode[1]->setVisible(false);
-						log("close detect");
+					
+					if (!_procedure[1]->GetOpen()) {
+						if (_closeRect.containsPoint(_touchLoc)) {
+							_bopenNode[1] = !_bopenNode[1];
+							_zNode[1]->setVisible(false);
+							log("close detect");
+						}
 					}
+
+					_procedure[1]->TouchBegan(_touchLoc);
+					
 				}
 				//znode[2]開---------------------
-				else if (_bopenNode[2]) {
+				else if (_bopenNode[2] && !_lock->GetState()) {
 					_bwithinArea = false;
-					//if (_bsolve[1])_procedure[2]->TouchBegan(_touchLoc);
+					if(_btogger[0]) _lock->TouchEnded(_touchLoc);
+					else {
+						if (_toggerRect[0].containsPoint(_touchLoc)){
+							_btogger[0] = true;
+							_zNode[2]->getChildByName("SR_Z03_01")->setVisible(!_btogger[0]);
+							_zNode[2]->getChildByName("SR_Z03_02")->setVisible(_btogger[0]);
+						}
+					}
 
 					if (_closeRect.containsPoint(_touchLoc)) {
 						_bopenNode[2] = !_bopenNode[2];
 						_zNode[2]->setVisible(false);
+
+						_btogger[0] = false;
+						_zNode[2]->getChildByName("SR_Z03_01")->setVisible(!_btogger[0]);
+						_zNode[2]->getChildByName("SR_Z03_02")->setVisible(_btogger[0]);
 						log("close detect");
 					}
+				}
+
+
+				else if (_lock->GetState()) {
+					_lock->TouchEnded(_touchLoc);
+
+				}
+
+				//znode[3]開---------------------
+				else if (_bopenNode[3]) {
+					_bwithinArea = false;
+					/*_pTrigger[1].touchesBegan(_touchLoc);*/
+					//_procedure[1]->TouchBegan(_touchLoc);
+
+					if (!_procedure[2]->GetOpen()) {
+						if (_toggerRect[1].containsPoint(_touchLoc)) {
+							if (!_btogger[1]) {
+								_btogger[1] = true;
+								_zNode[3]->getChildByName("SR_Z04_01")->setVisible(!_btogger[1]);
+								_zNode[3]->getChildByName("SR_Z04_02")->setVisible(_btogger[1]);
+							}
+						}
+
+						else if (_closeRect.containsPoint(_touchLoc)) {
+							_bopenNode[3] = !_bopenNode[3];
+							_zNode[3]->setVisible(false);
+
+							_btogger[1] = false;
+							_zNode[3]->getChildByName("SR_Z04_01")->setVisible(!_btogger[1]);
+							_zNode[3]->getChildByName("SR_Z04_02")->setVisible(_btogger[1]);
+
+							log("close detect");
+						}
+					}
+
+					if (_btogger[1]) _procedure[2]->TouchBegan(_touchLoc); // click book 2 [light box] ===============
 				}
 
 
@@ -742,6 +809,15 @@ void  SRScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸
 				}
 				else if (!_bopenNode[2] && !_detectRect[2].containsPoint(_touchLoc)) {
 					_btouchNode[2] = false;
+				}
+
+				//3
+				if (!_bopenNode[3] && _detectRect[3].containsPoint(_touchLoc)) {
+					_btouchNode[3] = true;
+					log("touched detect node2");
+				}
+				else if (!_bopenNode[3] && !_detectRect[3].containsPoint(_touchLoc)) {
+					_btouchNode[3] = false;
 				}
 
 			}

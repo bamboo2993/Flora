@@ -17,7 +17,7 @@
             <FileData Type="Normal" Path="GameScene/SRScene/SR_Z02.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="SR_P02_trigger" CanEdit="False" ActionTag="1877082950" VisibleForFrame="False" Tag="122" IconVisible="False" LeftMargin="378.5414" RightMargin="-665.5414" TopMargin="-684.9562" BottomMargin="354.9562" ctype="SpriteObjectData">
+          <AbstractNodeData Name="SR_Z02_P01_trigger" CanEdit="False" ActionTag="1877082950" VisibleForFrame="False" Tag="122" IconVisible="False" LeftMargin="378.5414" RightMargin="-665.5414" TopMargin="-684.9562" BottomMargin="354.9562" ctype="SpriteObjectData">
             <Size X="287.0000" Y="330.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="522.0414" Y="519.9562" />
@@ -25,18 +25,18 @@
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />
             <PreSize X="0.0000" Y="0.0000" />
-            <FileData Type="PlistSubImage" Path="SR_Z3_01.png" Plist="GameScene/SRScene/SRScene.plist" />
+            <FileData Type="PlistSubImage" Path="SR_Z03_01.png" Plist="GameScene/SRScene/SRScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="close" ActionTag="87534675" VisibleForFrame="False" Tag="147" IconVisible="False" LeftMargin="0.8434" RightMargin="-159.8434" TopMargin="-1537.5829" BottomMargin="1306.5829" ctype="SpriteObjectData">
-            <Size X="159.0000" Y="231.0000" />
+          <AbstractNodeData Name="close" ActionTag="87534675" Tag="147" IconVisible="False" LeftMargin="0.4564" RightMargin="-143.4564" TopMargin="-1532.8757" BottomMargin="1388.8757" ctype="SpriteObjectData">
+            <Size X="143.0000" Y="144.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="80.3434" Y="1422.0829" />
+            <Position X="71.9564" Y="1460.8757" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />
             <PreSize X="0.0000" Y="0.0000" />
-            <FileData Type="PlistSubImage" Path="E_red.png" Plist="GameScene/BMScene/BMScene.plist" />
+            <FileData Type="Normal" Path="common/go back.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
         </Children>

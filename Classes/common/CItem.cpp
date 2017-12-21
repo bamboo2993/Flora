@@ -15,6 +15,7 @@ CItem* CItem::create() {
 }
 
 CItem::CItem() {
+	
 	_propSprite = nullptr;
 	_itemName = nullptr;
 	_isUsed = false;
@@ -28,7 +29,7 @@ CItem::~CItem() {
 	
 }
 void CItem::Init(const char* pic) {
-
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("common/bagItem.plist");
 	_propSprite = Sprite::createWithSpriteFrameName(pic);
 	SetVisible(false);
 	this->addChild(_propSprite);
@@ -47,10 +48,18 @@ void CItem::Clear() {
 
 }
 
-void CItem::reset() {
-	Clear();
+void CItem::ChangePic(const char* pic) {
+	_propSprite->setSpriteFrame(pic);
+	_itemName = pic;
+	SetRect();
+	_bRetake = false;
+	_isStagnant = false;
+	_targetNum = 0;
+}
 
-	_propSprite = nullptr;
+void CItem::reset() {
+	
+	SetVisible(false);
 	_isUsed = false;
 	_canUse = false;
 	_targetNum = 0;

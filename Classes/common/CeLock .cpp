@@ -7,7 +7,7 @@ using namespace cocos2d;
 
 
 CeLock::CeLock() {
-	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("common/lock.plist");
+
 	_ansNum = NULL; //number of character for password
 	_ans[0] = NULL;// the correct password
 	_ans[1] = NULL;// the correct password
