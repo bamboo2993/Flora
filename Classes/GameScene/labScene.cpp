@@ -305,133 +305,37 @@ void labScene::SetObject() {
 void labScene::doStep(float dt){
 	
 	//walk===================================
-	//////¥u¯à¦b³]©w½d³ò¨«=============================
-	if (_bWalk && _bwithinArea) { //when player walk within walkable region
+	//open node=========
+	if (_btouchNode[0] || _touchSObj) {
+		_player->Walk(Vec2(908.58f, 368.85f));
+		_player->go(Vec2(908.58f, 368.85f));
 
-		if (_player->getPosition().y -300 >= WALK_AREA_2.getMinY()-1) {
-			if (_TargetLoc.y >= WALK_AREA_2.getMinY()) {
-				_player->Walk(_TargetLoc);
-				_player->go(_TargetLoc);
-				log("A");
-				if (_player->Walk(_TargetLoc) == false) {
-					_bWalk = 0;
-				}
-			}
-			else {
-				_player->Walk(Vec2(598.58f, WALK_AREA_2.getMinY()-3));
-				_player->go(Vec2(598.58f, WALK_AREA_2.getMinY()-3));	
-				log("B");
-				if (_player->Walk(Vec2(598.58f, WALK_AREA_2.getMinY() - 3)) == false) {
-					_bWalk = 0;
-					log("Bxxx");
-
-				}
-			}
-		}
-		else {
-			if (_TargetLoc.y <= WALK_AREA_2.getMinY()) {
-				_player->Walk(_TargetLoc);
-				_player->go(_TargetLoc);
-				log("C");
-				if (_player->Walk(_TargetLoc) == false) {
-					_bWalk = 0;
-				}
-			}
-			else {
-				_player->Walk(Vec2(598.58f, WALK_AREA_2.getMinY()));
-				_player->go(Vec2(598.58f, WALK_AREA_2.getMinY()));
-				log("D");
-				if (_player->Walk(Vec2(598.58f, WALK_AREA_2.getMinY())) == false) {
-					_bWalk = 0;
-				}
-				
-			}
-		}
-
-
-
-	}
-
-	
-	else if (_bWalk) { // when touched obj in scene that can be picked up
-		
-		// A
-		if (_touchLoc.y >  WALK_AREA_3.getMinY() && _touchLoc.x < WALK_AREA_3.getMinX()) {
-
-			if (_player->getPreviousPosition().y>WALK_AREA_3.getMinY()) {
-				log("walk A-1");
-				_player->Walk(Vec2(WALK_AREA_3.getMinX()+80, WALK_AREA_3.getMidY()));
-				_player->go(Vec2(WALK_AREA_3.getMinX() + 80, WALK_AREA_3.getMidY()));
-				if (_player->Walk(Vec2(WALK_AREA_3.getMinX() + 80, WALK_AREA_3.getMidY())) == false) {
-					_bWalk = 0;
-					//if (_bonObj) _bpickObj = true; //pick up obj
-					_bpickObj = true; //pick up obj
-				}
-			}
-
-			else {
-				log("walk A-2");
-				_player->Walk(Vec2(_touchLoc.x, WALK_AREA_2.getMidY()));
-				_player->go(Vec2(WALK_AREA_3.getMinX() + 80, WALK_AREA_3.getMidY()));
-				if (_player->Walk(Vec2(_touchLoc.x, WALK_AREA_2.getMidY())) == false) {
-					_bWalk = 0;
-					//if (_bonObj) _bpickObj = true; //pick up obj
-					_bpickObj = true; //pick up obj
-				}
-			}
-
+		if (_player->Walk(Vec2(908.58f, 368.85f)) == false) {
+			_bWalk = 0;
 			
+			//pick up obj
 
 
-		}
+			if (_btouchNode[0]) {
 
+				_zNode[0]->setVisible(true);
 
-		
-		// B
-		else if (_touchLoc.y > WALK_AREA_3.getMaxY() && _touchLoc.x > WALK_AREA_3.getMinX() && _touchLoc.x < WALK_AREA_4.getMinX()) {
-			log("walk B");
-
-			_player->Walk(Vec2(_touchLoc.x, WALK_AREA_3.getMidY()));
-			_player->go(Vec2(_touchLoc.x, WALK_AREA_3.getMidY()));
-			if (_player->Walk(Vec2(_touchLoc.x, WALK_AREA_3.getMidY())) == false) {
-				_bWalk = 0;
-				//if (_bonObj) _bpickObj = true; //pick up obj
-				_bpickObj = true; //pick up obj
+				_bopenNode[0] = !_bopenNode[0];
+				_btouchNode[0] = !_btouchNode[0];
 			}
-		}
-
-
-
-		// C
-		else if (_touchLoc.y > WALK_AREA_4.getMinY() && _touchLoc.x > WALK_AREA_4.getMinX() && _touchLoc.x < WALK_AREA_4.getMaxX()) {
-			log("walk C");
-			_player->Walk(Vec2(_touchLoc.x, WALK_AREA_4.getMidY()));
-			_player->go(Vec2(_touchLoc.x, WALK_AREA_4.getMidY()));
-			if (_player->Walk(Vec2(_touchLoc.x, WALK_AREA_4.getMidY())) == false) {
-				_bWalk = 0;
-				//if (_bonObj) _bpickObj = true; //pick up obj
-				_bpickObj = true; //pick up obj
+			else {
+				_touchSObj = !_touchSObj;
+				_openSObj = !_openSObj;
 			}
 
+			//log("show detect");
 		}
 
 
-		// D
-		else if (_touchLoc.y > 752.20f && _touchLoc.x >  WALK_AREA_4.getMaxX()) {
-			log("walk D");
-			_player->Walk(Vec2(WALK_AREA_4.getMidX(), WALK_AREA_4.getMidY()));
-			_player->go(Vec2(WALK_AREA_4.getMidX(), WALK_AREA_4.getMidY()));
-			if (_player->Walk(Vec2(WALK_AREA_4.getMidX(), WALK_AREA_4.getMidY())) == false) {
-				_bWalk = 0;
-				//if (_bonObj) _bpickObj = true; //pick up obj
-				_bpickObj = true; //pick up obj
-			}
-
-		}
-	
-/*	*/
 	}
-	
+
+
+
 	else {
 		_player->Stop();
 	}
@@ -445,53 +349,26 @@ void labScene::doStep(float dt){
 void labScene::PickObject(float dt) {
 
 	// pick up obj ==========================
-	if (_bpickObj) { // when item in scene is being touched
-		// check which trigger is being touched
-		//log("_bpickObj = true");
 	
+
+	if (_openSObj) {
 		_pTrigger[0].doStep(dt);
 
-		 //create the corresponding item in bag
-		if (_pTrigger[0].GetAddToBag() && !_pTrigger[0].GetPicked()) {
-			CBag::getInstance()->AddObj("B_lodine.png");
-			_pTrigger[0].SetAddToBag(false);
-			_pTrigger[0].SetPicked(true);
+		//fly to bag==========
+		if (CBag::getInstance()->Canfly()) {
+			//create the corresponding item in bag
+			if (_pTrigger[0].GetAddToBag() && !_pTrigger[0].GetPicked()) {
 
+				CBag::getInstance()->AddObj("B_lodine.png");
+				CBag::getInstance()->Fly(_pTrigger[0].GetPos(), "B_lodine.png");
+				_pTrigger[0].SetAddToBag(false);
+				_pTrigger[0].SetPicked(true);
+
+			}
 		}
-
-
-		//open node=========
-		if (_btouchNode[0]) {
-			_zNode[0]->setVisible(true);
-
-			_bopenNode[0] = !_bopenNode[0];
-			_btouchNode[0] = !_btouchNode[0];
-			//log("show detect");
-
-		}
-		//else if (_btouchNode[1]) {
-		//	_zNode[1]->setVisible(true);
-		//
-		//	_bopenNode[1] = !_bopenNode[1];
-		//	_btouchNode[1] = !_btouchNode[1];
-		//	//log("show detect node2");
-		//
-		//}
-
-		//else if (_btouchNode[2]) {
-		//	_zNode[2]->setVisible(true);
-		//
-		//	_bopenNode[2] = !_bopenNode[2];
-		//	_btouchNode[2] = !_btouchNode[2];
-		//	//log("show detect node3");
-
-		//}
-
-		_bpickObj = false;
-
 	}
 
-	if (_bopenNode[0]) {
+	else if (_bopenNode[0]) {
 
 		_pTrigger[1].doStep(dt);
 		_pTrigger[2].doStep(dt);
@@ -500,56 +377,68 @@ void labScene::PickObject(float dt) {
 		_pTrigger[5].doStep(dt);
 
 
-		//create the corresponding item in bag
-		if (_pTrigger[1].GetAddToBag() && !_pTrigger[1].GetPicked()) {
+		//fly to bag==========
+		if (CBag::getInstance()->Canfly()) {
+			//create the corresponding item in bag
+			if (_pTrigger[1].GetAddToBag() && !_pTrigger[1].GetPicked()) {
 
-			CBag::getInstance()->AddObj("B_DGslides.png", 1, true, _pTslidesRect);
+				CBag::getInstance()->AddObj("B_DGslides.png", 1, true, _pTslidesRect);
+				CBag::getInstance()->Fly(_pTrigger[1].GetPos(), "B_DGslides.png");
 
-			_pTrigger[1].SetAddToBag(false);
-			_pTrigger[1].SetPicked(true); // if the object is picked and added into the bag
+				_pTrigger[1].SetAddToBag(false);
+				_pTrigger[1].SetPicked(true); // if the object is picked and added into the bag
 
-			_xmlscene->editItemState("lab_Z01_01", false, _zNode[0], 1, 5);
+				_xmlscene->editItemState("lab_Z01_01", false, _zNode[0], 1, 5);
+			}
+
+			else if (_pTrigger[2].GetAddToBag() && !_pTrigger[2].GetPicked()) {
+
+				CBag::getInstance()->AddObj("B_Bslides.png", 1, true, _pTslidesRect);
+				CBag::getInstance()->Fly(_pTrigger[2].GetPos(), "B_Bslides.png");
+
+				_pTrigger[2].SetAddToBag(false);
+				_pTrigger[2].SetPicked(true); // if the object is picked and added into the bag
+
+				_xmlscene->editItemState("lab_Z01_02", false, _zNode[0], 1, 5);
+			}
+
+			else if (_pTrigger[3].GetAddToBag() && !_pTrigger[3].GetPicked()) {
+
+				CBag::getInstance()->AddObj("B_dropper.png");
+				CBag::getInstance()->Fly(_pTrigger[3].GetPos(), "B_dropper.png");
+
+				_pTrigger[3].SetAddToBag(false);
+				_pTrigger[3].SetPicked(true); // if the object is picked and added into the bag
+
+				_xmlscene->editItemState("lab_Z01_03", false, _zNode[0], 1, 5);
+			}
+
+			else if (_pTrigger[4].GetAddToBag() && !_pTrigger[4].GetPicked()) {
+
+				CBag::getInstance()->AddObj("B_Gslides.png", 1, true, _pTslidesRect);
+				CBag::getInstance()->Fly(_pTrigger[4].GetPos(), "B_Gslides.png");
+
+				_pTrigger[4].SetAddToBag(false);
+				_pTrigger[4].SetPicked(true); // if the object is picked and added into the bag
+
+				_xmlscene->editItemState("lab_Z01_04", false, _zNode[0], 1, 5);
+			}
+
+			else if (_pTrigger[5].GetAddToBag() && !_pTrigger[5].GetPicked()) {
+
+				CBag::getInstance()->AddObj("B_Pslides.png", 1, true, _pTslidesRect);
+				CBag::getInstance()->Fly(_pTrigger[5].GetPos(), "B_Pslides.png");
+
+				_pTrigger[5].SetAddToBag(false);
+				_pTrigger[5].SetPicked(true); // if the object is picked and added into the bag
+
+				_xmlscene->editItemState("lab_Z01_05", false, _zNode[0], 1, 5);
+			}
 		}
 
-		else if (_pTrigger[2].GetAddToBag() && !_pTrigger[2].GetPicked()) {
 
-			CBag::getInstance()->AddObj("B_Bslides.png", 1, true, _pTslidesRect);
 
-			_pTrigger[2].SetAddToBag(false);
-			_pTrigger[2].SetPicked(true); // if the object is picked and added into the bag
-
-			_xmlscene->editItemState("lab_Z01_02", false, _zNode[0], 1, 5);
-		}
-
-		else if (_pTrigger[3].GetAddToBag() && !_pTrigger[3].GetPicked()) {
-
-			CBag::getInstance()->AddObj("B_dropper.png");
-
-			_pTrigger[3].SetAddToBag(false);
-			_pTrigger[3].SetPicked(true); // if the object is picked and added into the bag
-
-			_xmlscene->editItemState("lab_Z01_03", false, _zNode[0], 1, 5);
-		}
-
-		else if (_pTrigger[4].GetAddToBag() && !_pTrigger[4].GetPicked()) {
-
-			CBag::getInstance()->AddObj("B_Gslides.png", 1, true, _pTslidesRect);
-
-			_pTrigger[4].SetAddToBag(false);
-			_pTrigger[4].SetPicked(true); // if the object is picked and added into the bag
-
-			_xmlscene->editItemState("lab_Z01_04", false, _zNode[0], 1, 5);
-		}
-
-		else if (_pTrigger[5].GetAddToBag() && !_pTrigger[5].GetPicked()) {
-
-			CBag::getInstance()->AddObj("B_Pslides.png", 1, true, _pTslidesRect);
-
-			_pTrigger[5].SetAddToBag(false);
-			_pTrigger[5].SetPicked(true); // if the object is picked and added into the bag
-
-			_xmlscene->editItemState("lab_Z01_05", false, _zNode[0], 1, 5);
-		}
+		
 		
 	}
 
@@ -680,40 +569,36 @@ void  labScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ä
 		// [WALK + PICK OBJECT]===================
 		if (offsetX == 0 && offsetY == 0 && !CBag::getInstance()->LightboxState()  && !_bmicroscope) { // when screen tapped
 			if (_touchLoc.y > 227) {
-				//walk area ====================================
-				if (WALK_AREA_1.containsPoint(_touchLoc) || WALK_AREA_2.containsPoint(_touchLoc) || WALK_AREA_3.containsPoint(_touchLoc) ||
-					WALK_AREA_4.containsPoint(_touchLoc)) {
-					// detect if touch pts are in walkable area
-					_bwithinArea = true;
-					log("walk!!");
-
-				}
-				else  _bwithinArea = false;
-
+				
 				////player walk =====================================================
 
 				//©ñ¤jÃè¨S¶} --------------
 				if (!_bopenNode[0] && !_bopenNode[1] && !_bopenNode[2]) {
 					//¨S«ö­«¸m-------------
 					if (!_resetRect.containsPoint(_touchLoc)) {
-						_bWalk = 1;
-						_player->setPreviousPosition();
 
-						if (_touchLoc.x > _player->_rpos.x) {
-							_player->_bSide = 1;
-							_player->Mirror();
-						}
-						else {
-							_player->_bSide = 0;
-							_player->Mirror();
-						}
-
-						//-------------------------------
-						_TargetLoc = _touchLoc;
 
 						//====================================
 						//detect for [iodine]------
-						_pTrigger[0].touchesBegan(_touchLoc);
+						if (_pTrigger[0].touchesBegan(_touchLoc)) {
+							_touchSObj = true;
+							_bWalk = 1;
+							_player->setPreviousPosition();
+
+							if (_touchLoc.x > _player->_rpos.x) {
+								_player->_bSide = 1;
+								_player->Mirror();
+							}
+							else {
+								_player->_bSide = 0;
+								_player->Mirror();
+							}
+
+							//-------------------------------
+							_TargetLoc = _touchLoc;
+						}
+					
+						
 					}
 					else {
 						// reset button=========================
@@ -769,33 +654,51 @@ void  labScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ä
 					}
 				}
 
+				if (!_bWalk) {
+					//0
+					if (!_bopenNode[0] && _detectRect[0].containsPoint(_touchLoc)) {
+						_btouchNode[0] = true;
 
+						_bWalk = 1;
+						_player->setPreviousPosition();
+
+						if (_touchLoc.x > _player->_rpos.x) {
+							_player->_bSide = 1;
+							_player->Mirror();
+						}
+						else {
+							_player->_bSide = 0;
+							_player->Mirror();
+						}
+
+						//-------------------------------
+						_TargetLoc = _touchLoc;
+
+						log("touched detect");
+					}
+					else if (!_bopenNode[0] && !_detectRect[0].containsPoint(_touchLoc)) {
+						_btouchNode[0] = false;
+					}
+					////1
+					//if (!_bopenNode[1] && _detectRect[1].containsPoint(_touchLoc)) {
+					//	_btouchNode[1] = true;
+					//	log("touched detect node2");
+					//}
+					//else if (!_bopenNode[1] && !_detectRect[1].containsPoint(_touchLoc)) {
+					//	_btouchNode[1] = false;
+					//}
+					////2
+					//if (!_bopenNode[2] && _detectRect[2].containsPoint(_touchLoc)) {
+					//	_btouchNode[2] = true;
+					//	log("touched detect node2");
+					//}
+					//else if (!_bopenNode[2] && !_detectRect[2].containsPoint(_touchLoc)) {
+					//	_btouchNode[2] = false;
+					//}
+				}
 				
 
-				//0
-				if (!_bopenNode[0] && _detectRect[0].containsPoint(_touchLoc)) {
-					_btouchNode[0] = true;
-					log("touched detect");
-				}
-				else if (!_bopenNode[0] && !_detectRect[0].containsPoint(_touchLoc)) {
-					_btouchNode[0] = false;
-				}
-				////1
-				//if (!_bopenNode[1] && _detectRect[1].containsPoint(_touchLoc)) {
-				//	_btouchNode[1] = true;
-				//	log("touched detect node2");
-				//}
-				//else if (!_bopenNode[1] && !_detectRect[1].containsPoint(_touchLoc)) {
-				//	_btouchNode[1] = false;
-				//}
-				////2
-				//if (!_bopenNode[2] && _detectRect[2].containsPoint(_touchLoc)) {
-				//	_btouchNode[2] = true;
-				//	log("touched detect node2");
-				//}
-				//else if (!_bopenNode[2] && !_detectRect[2].containsPoint(_touchLoc)) {
-				//	_btouchNode[2] = false;
-				//}
+
 
 			}
 			else {

@@ -17,7 +17,7 @@
             <FileData Type="Normal" Path="GameScene/labScene/lab_01.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="lab_01_01" ActionTag="1751169350" Tag="113" IconVisible="False" LeftMargin="488.7836" RightMargin="1510.2164" TopMargin="388.1481" BottomMargin="1097.8519" ctype="SpriteObjectData">
+          <AbstractNodeData Name="lab_01_01" ActionTag="1751169350" Tag="113" IconVisible="False" LeftMargin="488.7836" RightMargin="1510.2163" TopMargin="388.1481" BottomMargin="1097.8519" ctype="SpriteObjectData">
             <Size X="49.0000" Y="50.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="513.2836" Y="1122.8519" />

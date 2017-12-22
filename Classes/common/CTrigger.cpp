@@ -129,6 +129,10 @@ bool CTrigger::GetVis() {
 	return(_bVis);
 }
 
+Point CTrigger::GetPos() {
+	return(_objSprite->getPosition());
+}
+
 bool CTrigger::GetTouch() {
 	return(_bTouch);
 }

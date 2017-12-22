@@ -111,6 +111,9 @@
     <ClCompile Include="..\Classes\MainScene\SelectionScene.cpp">
       <Filter>src\MainScene</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\common\CFlyEffect.cpp">
+      <Filter>src\common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -196,6 +199,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\MainScene\SelectionScene.h">
       <Filter>src\MainScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\CFlyEffect.h">
+      <Filter>src\common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -32,6 +32,9 @@ CBag::CBag() {
 	_pageNum = 1;
 	_pageTot = 1;
 	_bagState = 0;
+
+	_startFly = false;
+	_flyState = false;
 }
 
 CBag::~CBag() {
@@ -49,12 +52,16 @@ void CBag::Init(Point pos, CTrigger* trigger) {
 	_bagSprite[1]->setVisible(false);
 	this->addChild(_bagSprite[1], 0);
 
+	//set fly node ===================
+	_flyNode= new CFlyEffect();
+	this->addChild(_flyNode, 1);
 
 	//set lightbox (item detail) =================================================================
 	_itemDetail = CLightbox::create();
 	_itemDetail->init();
 	_itemDetail->setPosition(-pos.x, -115.0f);
 	this->addChild(_itemDetail, 1);
+
 
 	
 	_bagSprite[0] = Sprite::createWithSpriteFrameName("bag.png");
@@ -93,6 +100,14 @@ void CBag::Init(Point pos, CTrigger* trigger) {
 }
 
 void CBag::doStep(float dt) {
+	_flyState =_flyNode->doStep();
+
+	if (_startFly) {
+		if (!_flyState) {
+			GetItem(_obj[_itemToAdd]);
+			_startFly = false;
+		}
+	}
 
 	if (_ItemNum != _gotItems.size()) {
 		_ItemNum = _gotItems.size();
@@ -238,6 +253,20 @@ void CBag::ToStateOne(){
 }
 
 
+void CBag::Fly(Point pos, const char* pic) {
+	
+	_flyNode->setPic(pic);
+	_flyNode->setFly(pos);
+	_startFly = true;
+}
+
+bool CBag::Canfly(){
+	if (!_flyState) return true;
+	else return false;
+}
+
+
+
 // for ±±¨îbag ¸Ìªº item   API used in main scene
 
 void  CBag::AddObj(const char* pic, int numTarget, bool isStagnant, cocos2d::Rect *target, bool canRetake) {
@@ -262,9 +291,9 @@ void  CBag::AddObj(const char* pic, int numTarget, bool isStagnant, cocos2d::Rec
 		log("picSave = %s", pic);
 		xmlBag::getInstance()->setBagState(itemNo, true, pic); // save item data
 
-
-		this->addChild(_obj[itemNo]);
-		GetItem(_obj[itemNo]); // put in list
+		
+		//GetItem(_obj[itemNo]); // put in list
+		_itemToAdd = itemNo;
 	}
 
 }
