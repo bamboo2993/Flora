@@ -55,6 +55,10 @@ BMScene::BMScene() {
 	}
 	
 	_ibagState = 0;
+
+	_aniStop = false;
+	_skip = false;
+
 }
 BMScene::~BMScene()
 {
@@ -89,9 +93,9 @@ bool BMScene::init()
 	//// STEP 1 : 讀入儲存多張圖片的 plist 檔
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("BMScene.plist");
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("common/bagItem.plist");
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("childhoodAni.plist");
 
 	// ------------------------------------------------------------------------------------------------- 
-
 
 	////以 Sprite 作為背景 ========================================================================
 	Sprite *bkimage = Sprite::create(BACKGROUND_FRONT);  // 使用 create 函式,給予檔名即可
@@ -116,12 +120,17 @@ bool BMScene::init()
 	this->addChild(_win, 2000);
 	_win->setVisible(false);
 
-
+	//skipBtn
+	_skipSprite = (cocos2d::Sprite*)_rootNode->getChildByName("skip");
+	Size size = _skipSprite->getContentSize();
+	Point pos = _skipSprite->getPosition();
+	_skipRect = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.width, size.height);
+	this->addChild(_skipSprite,20002);
 
 	// 音效與音樂 --------------------------------------------------------------------------------
 
-	SimpleAudioEngine::getInstance()->playBackgroundMusic("../music/lab_bgm.mp3", true);
-	SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.2f);  //尚未實作
+	SimpleAudioEngine::getInstance()->playBackgroundMusic("../music/memories.mp3", true);
+	//SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.2f);  //尚未實作
 
 	////SimpleAudioEngine::getInstance()->stopBackgroundMusic();	// 停止背景音樂
 
@@ -206,7 +215,17 @@ bool BMScene::init()
 	CBag::getInstance()->Init(Point(172, -115), _pTrigger);
 	this->addChild(CBag::getInstance(), 1000);
 
+	//Animation
+	_childhoodAni = new AniScene();
+	_childhoodAni->init(Point(visibleSize.width / 2, origin.y + visibleSize.height / 2.0), *this, 10, "0");
 
+
+	//key
+	auto keyboardListener = EventListenerKeyboard::create();
+	keyboardListener->onKeyPressed = CC_CALLBACK_2(BMScene::keyPressed, this);
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(keyboardListener, this);
+
+	reset();
 
 	//-------------------------------------------------------------------------------------------------
 
@@ -400,125 +419,144 @@ void BMScene::SetObject() {
 
 void BMScene::doStep(float dt)
 {
-	
-	_mixA->doStep(dt);
-	_mixB->doStep(dt);
-	_grind->doStep(dt);
+	if (!_aniStop) {
 
-
-
-	//walk===================================
-	//////只能在設定範圍走=============================
-	if (_bWalk && _bwithinArea) { //when player walk within walkable region
-		_player->Walk(_TargetLoc);
-		
-		if (_player->Walk(_TargetLoc) == false) {
-			_bWalk = 0;
-			//if (_bonObj) _bpickObj = true; //pick up obj
-			_bpickObj = true; //pick up obj
-		}
-		_player->go(_TargetLoc);
-
-	}
-
-
-	else if (_bWalk ) { // when touched obj in scene that can be picked up
-
-		//九宮格 1
-		if (_touchLoc.y > WALK_AREA_1.y && _touchLoc.x < WALK_AREA_1.x) {
-			_player->Walk(Vec2(WALK_AREA_1.x, WALK_AREA_1.y));
-			if (_player->Walk(Vec2(WALK_AREA_1.x, WALK_AREA_1.y)) == false) {
-				_bWalk = 0;
-				//_bpickObj = true;
+		if (_skip) {
+			if (_childhoodAni->skip(dt)) {
+				_aniStop = true;
+				//SimpleAudioEngine::getInstance()->stopBackgroundMusic();	// 停止背景音樂
+				SimpleAudioEngine::getInstance()->playBackgroundMusic("../music/lab_bgm.mp3", true);
 			}
-			_player->go(_TargetLoc);
 		}
-
-		//九宮格 2
-		else if (_touchLoc.y > WALK_AREA_1.y && _touchLoc.x > WALK_AREA_1.x && _touchLoc.x < WALK_AREA_2.x && _pTrigger[4].GetTouch() || _btouchNode[0]) {
-			_player->Walk(Vec2(_touchLoc.x, WALK_AREA_1.y));
-			if (_player->Walk(Vec2(_touchLoc.x, WALK_AREA_1.y)) == false) {
-				_bWalk = 0;
-				_bpickObj = true;
+		else {
+			if (_childhoodAni->doStep(dt)) {
+				_aniStop = true;
+				//SimpleAudioEngine::getInstance()->stopBackgroundMusic();	// 停止背景音樂
+				SimpleAudioEngine::getInstance()->playBackgroundMusic("../music/lab_bgm.mp3", true);
 			}
-			_player->go(_TargetLoc);
-		}
-
-
-		//九宮格 3
-		else if (_touchLoc.y > WALK_AREA_1.y && _touchLoc.x > WALK_AREA_2.x && _pTrigger[5].GetTouch()) {
-			_player->Walk(Vec2(WALK_AREA_2.x, WALK_AREA_2.y));
-			if (_player->Walk(Vec2(WALK_AREA_2.x, WALK_AREA_2.y)) == false) {
-				_bWalk = 0;
-				_bpickObj = true;
-			}
-			_player->go(_TargetLoc);
-		}
-
-		//九宮格 4
-		else if (_touchLoc.y > WALK_AREA_3.y && _touchLoc.y < WALK_AREA_2.y && _touchLoc.x < WALK_AREA_1.x) {
-			_player->Walk(Vec2(WALK_AREA_1.x, _touchLoc.y));
-			if (_player->Walk(Vec2(WALK_AREA_1.x, _touchLoc.y)) == false) {
-				_bWalk = 0;
-				_bpickObj = true;
-			}
-			_player->go(_TargetLoc);
-		}
-
-		//九宮格 6
-		else if (_touchLoc.y > WALK_AREA_3.y && _touchLoc.y < WALK_AREA_2.y && _touchLoc.x > WALK_AREA_2.x) {
-			_player->Walk(Vec2(WALK_AREA_2.x, _touchLoc.y));
-			if (_player->Walk(Vec2(WALK_AREA_2.x, _touchLoc.y)) == false) {
-				_bWalk = 0;
-				//_bpickObj = true;
-			}
-			_player->go(_TargetLoc);
-		}
-
-		//九宮格 7
-		else if ( _touchLoc.y < WALK_AREA_1.y  && _touchLoc.x < WALK_AREA_1.x) {
-			_player->Walk(Vec2(WALK_AREA_4.x, WALK_AREA_4.y));
-			if (_player->Walk(Vec2(WALK_AREA_4.x, WALK_AREA_4.y)) == false) {
-				_bWalk = 0;
-				//_bpickObj = true;
-			}
-			_player->go(_TargetLoc);
-		}
-
-
-		//九宮格 8
-		else if (_touchLoc.y < WALK_AREA_4.y && _touchLoc.x > WALK_AREA_4.x && _touchLoc.x < WALK_AREA_3.x || _btouchNode[1]) {
-			_player->Walk(Vec2(_touchLoc.x, WALK_AREA_4.y));
-			if (_player->Walk(Vec2(_touchLoc.x, WALK_AREA_4.y)) == false) {
-				_bWalk = 0;
-				_bpickObj = true;
-			}
-			_player->go(_TargetLoc);
-		}
-
-		//九宮格 9
-		else if (_touchLoc.y < WALK_AREA_4.y && _touchLoc.x > WALK_AREA_3.x) {
-			_player->Walk(Vec2(WALK_AREA_3.x, WALK_AREA_3.y));
-			if (_player->Walk(Vec2(WALK_AREA_3.x, WALK_AREA_3.y)) == false) {
-				_bWalk = 0;
-				_bpickObj = true;
-			}
-			_player->go(_TargetLoc);
 		}
 	}
-	else {
-		_player->Stop();
+	else
+	{
+		_skipSprite->setVisible(false);
+		_mixA->doStep(dt);
+		_mixB->doStep(dt);
+		_grind->doStep(dt);
+
+
+
+		//walk===================================
+		//////只能在設定範圍走=============================
+		if (_bWalk && _bwithinArea) { //when player walk within walkable region
+			_player->Walk(_TargetLoc);
+
+			if (_player->Walk(_TargetLoc) == false) {
+				_bWalk = 0;
+				//if (_bonObj) _bpickObj = true; //pick up obj
+				_bpickObj = true; //pick up obj
+			}
+			_player->go(_TargetLoc);
+
+		}
+
+
+		else if (_bWalk) { // when touched obj in scene that can be picked up
+
+			//九宮格 1
+			if (_touchLoc.y > WALK_AREA_1.y && _touchLoc.x < WALK_AREA_1.x) {
+				_player->Walk(Vec2(WALK_AREA_1.x, WALK_AREA_1.y));
+				if (_player->Walk(Vec2(WALK_AREA_1.x, WALK_AREA_1.y)) == false) {
+					_bWalk = 0;
+					//_bpickObj = true;
+				}
+				_player->go(_TargetLoc);
+			}
+
+			//九宮格 2
+			else if (_touchLoc.y > WALK_AREA_1.y && _touchLoc.x > WALK_AREA_1.x && _touchLoc.x < WALK_AREA_2.x && _pTrigger[4].GetTouch() || _btouchNode[0]) {
+				_player->Walk(Vec2(_touchLoc.x, WALK_AREA_1.y));
+				if (_player->Walk(Vec2(_touchLoc.x, WALK_AREA_1.y)) == false) {
+					_bWalk = 0;
+					_bpickObj = true;
+				}
+				_player->go(_TargetLoc);
+			}
+
+
+			//九宮格 3
+			else if (_touchLoc.y > WALK_AREA_1.y && _touchLoc.x > WALK_AREA_2.x && _pTrigger[5].GetTouch()) {
+				_player->Walk(Vec2(WALK_AREA_2.x, WALK_AREA_2.y));
+				if (_player->Walk(Vec2(WALK_AREA_2.x, WALK_AREA_2.y)) == false) {
+					_bWalk = 0;
+					_bpickObj = true;
+				}
+				_player->go(_TargetLoc);
+			}
+
+			//九宮格 4
+			else if (_touchLoc.y > WALK_AREA_3.y && _touchLoc.y < WALK_AREA_2.y && _touchLoc.x < WALK_AREA_1.x) {
+				_player->Walk(Vec2(WALK_AREA_1.x, _touchLoc.y));
+				if (_player->Walk(Vec2(WALK_AREA_1.x, _touchLoc.y)) == false) {
+					_bWalk = 0;
+					_bpickObj = true;
+				}
+				_player->go(_TargetLoc);
+			}
+
+			//九宮格 6
+			else if (_touchLoc.y > WALK_AREA_3.y && _touchLoc.y < WALK_AREA_2.y && _touchLoc.x > WALK_AREA_2.x) {
+				_player->Walk(Vec2(WALK_AREA_2.x, _touchLoc.y));
+				if (_player->Walk(Vec2(WALK_AREA_2.x, _touchLoc.y)) == false) {
+					_bWalk = 0;
+					//_bpickObj = true;
+				}
+				_player->go(_TargetLoc);
+			}
+
+			//九宮格 7
+			else if (_touchLoc.y < WALK_AREA_1.y  && _touchLoc.x < WALK_AREA_1.x) {
+				_player->Walk(Vec2(WALK_AREA_4.x, WALK_AREA_4.y));
+				if (_player->Walk(Vec2(WALK_AREA_4.x, WALK_AREA_4.y)) == false) {
+					_bWalk = 0;
+					//_bpickObj = true;
+				}
+				_player->go(_TargetLoc);
+			}
+
+
+			//九宮格 8
+			else if (_touchLoc.y < WALK_AREA_4.y && _touchLoc.x > WALK_AREA_4.x && _touchLoc.x < WALK_AREA_3.x || _btouchNode[1]) {
+				_player->Walk(Vec2(_touchLoc.x, WALK_AREA_4.y));
+				if (_player->Walk(Vec2(_touchLoc.x, WALK_AREA_4.y)) == false) {
+					_bWalk = 0;
+					_bpickObj = true;
+				}
+				_player->go(_TargetLoc);
+			}
+
+			//九宮格 9
+			else if (_touchLoc.y < WALK_AREA_4.y && _touchLoc.x > WALK_AREA_3.x) {
+				_player->Walk(Vec2(WALK_AREA_3.x, WALK_AREA_3.y));
+				if (_player->Walk(Vec2(WALK_AREA_3.x, WALK_AREA_3.y)) == false) {
+					_bWalk = 0;
+					_bpickObj = true;
+				}
+				_player->go(_TargetLoc);
+			}
+		}
+		else {
+			_player->Stop();
+		}
+
+
+		//// pick up obj ==========================
+		PickObject(dt);
+
+		if (_clear) {
+			this->unschedule(schedule_selector(BMScene::doStep));
+			Director::getInstance()->replaceScene(RunScene1::createScene());
+		}
 	}
-
-
-	//// pick up obj ==========================
-	PickObject(dt);
-
-	if (_clear) {
-		this->unschedule(schedule_selector(BMScene::doStep));
-		Director::getInstance()->replaceScene(RunScene1::createScene());
-	}
-	
 }
 
 void BMScene::PickObject(float dt) {
@@ -895,7 +933,12 @@ void  BMScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸
 {
 
 	_touchLoc = pTouch->getLocation();
-
+	
+	if (!_aniStop) {
+		if (_skipRect.containsPoint(_touchLoc)) {
+			_skip = true;
+		}
+	}
 
 	if (!_clear) {
 		//swipe gesture
@@ -953,7 +996,7 @@ void  BMScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸
 						}
 						else {
 							// reset button=========================
-							reset();
+							//reset();
 						}
 
 					}
@@ -1324,6 +1367,11 @@ void  BMScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸
 		}
 		else _procedure->TouchBegan(_touchLoc);
 	}
-
 	
+}
+
+void BMScene::keyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event) {
+	if (keyCode == EventKeyboard::KeyCode::KEY_A) {
+		_clear = true;
+	}
 }

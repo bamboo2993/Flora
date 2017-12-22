@@ -195,6 +195,7 @@
             <Image Name="labScene01.png" />
             <Image Name="labScene02.png" />
             <Image Name="procedure.png" />
+            <Image Name="skip_click.png" />
           </Folder>
           <Folder Name="GRScene">
             <PlistImageFolder Image="GRScene.png" PListFile="GRScene.plist" Name=".GRScene_PList.Dir">
@@ -331,6 +332,7 @@
           <PlistImageFile Name="chefwalk007.png" Key="chefwalk007.png" />
           <PlistImageFile Name="chefwalk008.png" Key="chefwalk008.png" />
         </PlistImageFolder>
+        <Image Name="001.png" />
         <Project Name="AnimationAction.csd" Type="Scene" />
         <Image Name="bananaa.png" />
         <Project Name="BMScene.csd" Type="Scene" />
@@ -368,6 +370,7 @@
         <Project Name="RunScene.csd" Type="Scene" />
         <Project Name="SceneDiningRoom.csd" Type="Scene" />
         <Image Name="shell.png" />
+        <Image Name="skip_normal.png" />
         <Project Name="SRScene.csd" Type="Scene" />
       </RootFolder>
     </Group>

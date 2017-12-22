@@ -20,6 +20,7 @@
 #include "common\CMix.h"
 
 #include "ActionScene\RunScene\RunScene1.h"
+#include "common\AniScene.h"
 
 class BMScene : public cocos2d::Layer
 {
@@ -123,6 +124,12 @@ private:
 	CMix *_mixB;
 	CMix *_grind;
 
+	//Animation
+	AniScene *_childhoodAni;
+	bool _aniStop;
+	bool _skip;
+	Sprite *_skipSprite;
+	Rect _skipRect;
 
 
 public:
@@ -150,6 +157,8 @@ public:
 	bool onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent); //觸碰開始事件
 	void onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent); //觸碰移動事件
 	void onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent); //觸碰結束事件 
+
+	void keyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event);
 
 
 	// implement the "static create()" method manually

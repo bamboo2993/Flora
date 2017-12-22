@@ -50,7 +50,12 @@ RunScene1::~RunScene1()
 // on "init" you need to initialize your instance
 bool RunScene1::init()
 {
-	
+	_aniStop = false;
+	_skip = false;
+	_picTimeCount = 0;
+	_cutPic = false;
+	_cutPic_2 = false;
+
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
@@ -69,6 +74,8 @@ bool RunScene1::init()
 	//SpriteFrameCache::getInstance()->addSpriteFramesWithFile("boyrunning.plist");
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Animation/ater.plist");
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("SceneKitchenitem.plist");
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("childhoodAni.plist");
+
 	
 	auto rootNode = CSLoader::createNode("RunScene.csb");
 	this->addChild(rootNode);
@@ -89,7 +96,6 @@ bool RunScene1::init()
 	this->_win = (cocos2d::Sprite *)rootNode->getChildByName("congratulation");
 	this->addChild(_win, 2000);
 	_win->setVisible(false);
-
 
 
 	// 音效與音樂 ----------------------------------------------------------------------------------
@@ -146,6 +152,24 @@ bool RunScene1::init()
 	label5->setPosition(ccp(visibleSize.width / 3*2, visibleSize.height / 4 * 3));//放在屏幕的中央
 //	this->addChild(label5, 100);
 
+//Ani
+	_opendoorAnimation_2 = new AniScene();
+	_opendoorAnimation_2->init(Point(visibleSize.width / 2, origin.y + visibleSize.height / 2.0), *this, 5, "2");
+	_pic105 = Sprite::createWithSpriteFrameName("105.png");
+	_pic105->setPosition(Point(visibleSize.width / 2, origin.y + visibleSize.height / 2.0));
+	_pic105->setVisible(true);
+	this->addChild(_pic105,20001);
+	_opendoorAnimation_1 = new AniScene();
+	_opendoorAnimation_1->init(Point(visibleSize.width / 2, origin.y + visibleSize.height / 2.0), *this, 4, "1");
+
+	_skipSprite = Sprite::create("skip_click.png");
+	_skipSprite->setPosition(150, 1280);
+	this->addChild(_skipSprite,20002);
+	size = _skipSprite->getContentSize();
+	pos = _skipSprite->getPosition();
+	_skipRect = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.height, size.width);
+
+	SimpleAudioEngine::getInstance()->playBackgroundMusic("../music/opendoor.mp3", true);
 
 
 	//-------------------------------------------------------------------------------------------------
@@ -256,219 +280,257 @@ void RunScene1::Setbg() {
 
 void RunScene1::doStep(float dt)
 {
+	if (!_aniStop) {
 
-	// 每秒前景往左移動 MOVESPEED 個PIXEL
-	if (_bStart && !_bpause && !_bwin) {
-
-		_t += dt;
-
-		Point pt1 = _fgnode1->getPosition();
-		pt1.x -= dt*MOVESPEED;
-		if (pt1.x <= -1024) {
-			// 將道路移動到 +2048+1024 ，但必須扣除本身超過 -1024 多的部分，所以是 2 * 2048 + pt1.x
-			pt1.x = 2 * 2048 + pt1.x;
-			// 更新前景物件的顯示內容
-			_fg1obj[0]->resetObj();// _fg1obj[1]->resetObj();
-
-
-			_obstacle1[0]->setVis(true);
-
-			bool i = rand() % 2;
-			_obstacle1[1]->setVis(i);
-			_obstacle1[2]->setVis(!i);
-
-
-			_trash[0]->resetObj();
-
-
-		}
-
-		else if (pt1.x > 1024 &&pt1.x <=2000 ) {
-			_trash[0]->setstate(true);
-		}
-
-		_fgnode1->setPosition(pt1);		// 一直
-
-		Point pt2 = _fgnode2->getPosition();
-		pt2.x -= dt*MOVESPEED;
-		if (pt2.x <= -1024) {
-			pt2.x = 2 * 2048 + pt2.x;
-			_fg2obj[0]->resetObj();// _fg2obj[1]->resetObj();
-
-
-			bool i = rand() % 2;
-
-			_obstacle1[3]->setVis(i);
-			_obstacle2[1]->setVis(!i);
-
-			_trash[1]->resetObj();
-
-		}
-		else if (pt2.x <= 2250) {
-			_trash[1]->setstate(true);
-		}
-		_fgnode2->setPosition(pt2);		// 一直
-
-
-		_runner->doStep(dt);			// 一直
-
-
-
-
-
-
-		//_obstacle[0]->doStep(dt);       // 0~10s
-		//_obstacle[1]->doStep(dt);	// 10s 後
-		////if (_t > 10.0f) {
-		////	_obstacle[1]->doStep(dt);	// 10s 後
-		////}
-		//if (_t > 30.0f) {
-		//	_obstacle[2]->doStep(dt);	//15s 後
-		//}
-
-
-		//_obstacle[3]->doStep(dt);
-		//_obstacle[4]->doStep(dt);
-
-
-		_obstacle1[0]->doStep(dt);
-		_obstacle1[1]->doStep(dt);
-		_obstacle1[2]->doStep(dt);
-		_obstacle1[3]->doStep(dt);
-		_obstacle1[4]->doStep(dt);
-
-		_obstacle2[0]->doStep(dt);
-		_obstacle2[1]->doStep(dt);
-		_obstacle2[2]->doStep(dt);
-
-		if (_t >= 20.0f) {
-			if (_trash[0]->getstate())	_trash[0]->doStep(dt);
-			if (_trash[1]->getstate())	_trash[1]->doStep(dt);
-
-		}
-		
-		////設定腳踏車
-		if (_t >= 40.0f && _bikePt.x >= -100) {
-			Size size = _bike->getContentSize();
-			_bikePt = _bike->getPosition();
-			_bikePt.x -= dt*1000;
-			_bike->setPosition(_bikePt);
-			_bikeRect = Rect(_bikePt.x - size.width / 2, _bikePt.y - size.height / 2, size.width, size.height);
-			int a = 1;
-		}
-
-		if (_t >= 60.0f && _runner->_ilife >= 0) {
-			//label000->setString("win!");
-			_win->setVisible(true);
-			_bwin = true;
-		}
-
-
-		if (_runner->_ilife == 2) {
-			_blur[0]->setVisible(true);
-		}
-
-		else if (_runner->_ilife == 1) {
-			_blur[0]->setVisible(false);
-			_blur[1]->setVisible(true);
-		}
-
-		else if (_runner->_ilife == 0) {
-//			label5->setString("gameover!");
-			_blur[1]->setVisible(false);
-			_blur[2]->setVisible(true);
-			_brestart = true;
-			_bStart = false;
-
-		}
-
-
-		//判斷碰撞===========================================================================
-		if (_runner->getstate()) {
-			if (_obstacle1[0]->getVis() && _obstacle1[0]->collision(_runner->getRect())) {
-				_runner->_ilife--;
-				CCLOG("intersect %d\n", 0);
-				//label000->setString("True11!");
+		if (_skip) {
+			_pic105->setVisible(false);
+			if (_opendoorAnimation_2->skip(dt)&&_opendoorAnimation_1->skip(dt)) {
+				_aniStop = true;
+				
+				//SimpleAudioEngine::getInstance()->stopBackgroundMusic();	// 停止背景音樂
+				SimpleAudioEngine::getInstance()->playBackgroundMusic("../music/Tomorrow.mp3", true);
 			}
-
-
-			else if (_obstacle1[1]->getVis() && _obstacle1[1]->collision(_runner->getRect())) {
-				_runner->_ilife--;
-				CCLOG("intersect %d\n", 1);
-				//label000->setString("True12!");
-			}
-			else if (_obstacle1[2]->getVis() && _obstacle1[2]->collision(_runner->getRect())) {
-				_runner->_ilife--;
-				CCLOG("intersect %d\n", 2);
-				//label000->setString("True13!");
-			}
-			else if (_obstacle1[3]->getVis() && _obstacle1[3]->collision(_runner->getRect())) {
-				_runner->_ilife--;
-				CCLOG("intersect %d\n", 2);
-//				label000->setString("True13!");
-			}
-
-			else if (_obstacle1[4]->getVis() && _obstacle1[4]->collision(_runner->getRect())) {
-				_runner->_ilife--;
-				CCLOG("intersect %d\n", 2);
-				//label000->setString("True13!");
-			}
-
-
-			else if (_trash[0]->collision(_runner->getRect())) {
-				_runner->_ilife--;
-				//label000->setString("trash!!!!!!!!!!");
-				CCLOG("+++ %d\n", 1);
-			}
-
-			else if ( _trash[1]->collision(_runner->getRect())) {
-				_runner->_ilife--;
-				//label000->setString("trash!!!!!!!!!!");
-				CCLOG("+++ %d\n", 1);
-			}
-
 		}
-
-		else if (!_runner->getstate()) {
-			if (_obstacle2[0]->getVis() && _obstacle2[0]->collision(_runner->getRect())) {
-				_runner->_ilife--;
-				CCLOG("intersect %d\n", 0);
-//				label000->setString("True11!");
-			}
-
-
-			else if (_obstacle2[1]->getVis() && _obstacle2[1]->collision(_runner->getRect())) {
-				_runner->_ilife--;
-				CCLOG("intersect %d\n", 1);
-//				label000->setString("True12!");
-			}
-			else if (_obstacle2[2]->getVis() && _obstacle2[2]->collision(_runner->getRect())) {
-				_runner->_ilife--;
-				CCLOG("intersect %d\n", 2);
-//				label000->setString("True13!");
-			}
-			
-		}
-		
-
-		else if (_bikeRect.intersectsRect(_runner->getRect()) && !_bcolBike) {
-			_bcolBike = true;
-			_runner->_ilife--;
-			CCLOG("intersect %d\n", 10);
-			//label000->setString("True0000!");
-		}
-
-
-
-
-
 		else {
-			//label000->setString("False!");
-		//	log("eee %d\n");
+			if (!_cutPic) {
+				if (_opendoorAnimation_1->doStep(dt)) {
+					_cutPic = true;
+				}
+			}
+			else {
+				if (!_cutPic_2) {
+					_picTimeCount += dt;
+					if (_picTimeCount > 2.0f) {
+						_pic105->setVisible(false);
+						_cutPic_2 = true;
+					}
+				}
+				else
+				{
+					if (_opendoorAnimation_2->doStep(dt)) {
+					_aniStop = true;
+					_skipSprite->setVisible(false);
+					//SimpleAudioEngine::getInstance()->stopBackgroundMusic();	// 停止背景音樂
+					SimpleAudioEngine::getInstance()->playBackgroundMusic("../music/Tomorrow.mp3", true);
+					}
+				}
+			}
 		}
+	}
+	else
+	{
+	// 每秒前景往左移動 MOVESPEED 個PIXEL
+		if (_bStart && !_bpause && !_bwin) {
+
+			_t += dt;
+
+			Point pt1 = _fgnode1->getPosition();
+			pt1.x -= dt*MOVESPEED;
+			if (pt1.x <= -1024) {
+				// 將道路移動到 +2048+1024 ，但必須扣除本身超過 -1024 多的部分，所以是 2 * 2048 + pt1.x
+				pt1.x = 2 * 2048 + pt1.x;
+				// 更新前景物件的顯示內容
+				_fg1obj[0]->resetObj();// _fg1obj[1]->resetObj();
+
+
+				_obstacle1[0]->setVis(true);
+
+				bool i = rand() % 2;
+				_obstacle1[1]->setVis(i);
+				_obstacle1[2]->setVis(!i);
+
+
+				_trash[0]->resetObj();
+
+
+			}
+
+			else if (pt1.x > 1024 && pt1.x <= 2000) {
+				_trash[0]->setstate(true);
+			}
+
+			_fgnode1->setPosition(pt1);		// 一直
+
+			Point pt2 = _fgnode2->getPosition();
+			pt2.x -= dt*MOVESPEED;
+			if (pt2.x <= -1024) {
+				pt2.x = 2 * 2048 + pt2.x;
+				_fg2obj[0]->resetObj();// _fg2obj[1]->resetObj();
+
+
+				bool i = rand() % 2;
+
+				_obstacle1[3]->setVis(i);
+				_obstacle2[1]->setVis(!i);
+
+				_trash[1]->resetObj();
+
+			}
+			else if (pt2.x <= 2250) {
+				_trash[1]->setstate(true);
+			}
+			_fgnode2->setPosition(pt2);		// 一直
+
+
+			_runner->doStep(dt);			// 一直
 
 
 
+
+
+
+			//_obstacle[0]->doStep(dt);       // 0~10s
+			//_obstacle[1]->doStep(dt);	// 10s 後
+			////if (_t > 10.0f) {
+			////	_obstacle[1]->doStep(dt);	// 10s 後
+			////}
+			//if (_t > 30.0f) {
+			//	_obstacle[2]->doStep(dt);	//15s 後
+			//}
+
+
+			//_obstacle[3]->doStep(dt);
+			//_obstacle[4]->doStep(dt);
+
+
+			_obstacle1[0]->doStep(dt);
+			_obstacle1[1]->doStep(dt);
+			_obstacle1[2]->doStep(dt);
+			_obstacle1[3]->doStep(dt);
+			_obstacle1[4]->doStep(dt);
+
+			_obstacle2[0]->doStep(dt);
+			_obstacle2[1]->doStep(dt);
+			_obstacle2[2]->doStep(dt);
+
+			if (_t >= 20.0f) {
+				if (_trash[0]->getstate())	_trash[0]->doStep(dt);
+				if (_trash[1]->getstate())	_trash[1]->doStep(dt);
+
+			}
+
+			////設定腳踏車
+			if (_t >= 40.0f && _bikePt.x >= -100) {
+				Size size = _bike->getContentSize();
+				_bikePt = _bike->getPosition();
+				_bikePt.x -= dt * 1000;
+				_bike->setPosition(_bikePt);
+				_bikeRect = Rect(_bikePt.x - size.width / 2, _bikePt.y - size.height / 2, size.width, size.height);
+				int a = 1;
+			}
+
+			if (_t >= 60.0f && _runner->_ilife >= 0) {
+				//label000->setString("win!");
+				_win->setVisible(true);
+				_bwin = true;
+			}
+
+
+			if (_runner->_ilife == 2) {
+				_blur[0]->setVisible(true);
+			}
+
+			else if (_runner->_ilife == 1) {
+				_blur[0]->setVisible(false);
+				_blur[1]->setVisible(true);
+			}
+
+			else if (_runner->_ilife == 0) {
+				//			label5->setString("gameover!");
+				_blur[1]->setVisible(false);
+				_blur[2]->setVisible(true);
+				_brestart = true;
+				_bStart = false;
+
+			}
+
+
+			//判斷碰撞===========================================================================
+			if (_runner->getstate()) {
+				if (_obstacle1[0]->getVis() && _obstacle1[0]->collision(_runner->getRect())) {
+					_runner->_ilife--;
+					CCLOG("intersect %d\n", 0);
+					//label000->setString("True11!");
+				}
+
+
+				else if (_obstacle1[1]->getVis() && _obstacle1[1]->collision(_runner->getRect())) {
+					_runner->_ilife--;
+					CCLOG("intersect %d\n", 1);
+					//label000->setString("True12!");
+				}
+				else if (_obstacle1[2]->getVis() && _obstacle1[2]->collision(_runner->getRect())) {
+					_runner->_ilife--;
+					CCLOG("intersect %d\n", 2);
+					//label000->setString("True13!");
+				}
+				else if (_obstacle1[3]->getVis() && _obstacle1[3]->collision(_runner->getRect())) {
+					_runner->_ilife--;
+					CCLOG("intersect %d\n", 2);
+					//				label000->setString("True13!");
+				}
+
+				else if (_obstacle1[4]->getVis() && _obstacle1[4]->collision(_runner->getRect())) {
+					_runner->_ilife--;
+					CCLOG("intersect %d\n", 2);
+					//label000->setString("True13!");
+				}
+
+
+				else if (_trash[0]->collision(_runner->getRect())) {
+					_runner->_ilife--;
+					//label000->setString("trash!!!!!!!!!!");
+					CCLOG("+++ %d\n", 1);
+				}
+
+				else if (_trash[1]->collision(_runner->getRect())) {
+					_runner->_ilife--;
+					//label000->setString("trash!!!!!!!!!!");
+					CCLOG("+++ %d\n", 1);
+				}
+
+			}
+
+			else if (!_runner->getstate()) {
+				if (_obstacle2[0]->getVis() && _obstacle2[0]->collision(_runner->getRect())) {
+					_runner->_ilife--;
+					CCLOG("intersect %d\n", 0);
+					//				label000->setString("True11!");
+				}
+
+
+				else if (_obstacle2[1]->getVis() && _obstacle2[1]->collision(_runner->getRect())) {
+					_runner->_ilife--;
+					CCLOG("intersect %d\n", 1);
+					//				label000->setString("True12!");
+				}
+				else if (_obstacle2[2]->getVis() && _obstacle2[2]->collision(_runner->getRect())) {
+					_runner->_ilife--;
+					CCLOG("intersect %d\n", 2);
+					//				label000->setString("True13!");
+				}
+
+			}
+
+
+			else if (_bikeRect.intersectsRect(_runner->getRect()) && !_bcolBike) {
+				_bcolBike = true;
+				_runner->_ilife--;
+				CCLOG("intersect %d\n", 10);
+				//label000->setString("True0000!");
+			}
+
+
+
+
+
+			else {
+				//label000->setString("False!");
+			//	log("eee %d\n");
+			}
+
+
+		}
 
 
 		
@@ -570,6 +632,14 @@ void  RunScene1::onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //
 void  RunScene1::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸碰結束事件 
 {
 	Point touchLoc = pTouch->getLocation();
+
+	if (!_aniStop) {
+		if (_skipRect.containsPoint(touchLoc)) {
+			_skip = true;
+			log("skip");
+		}
+	}
+
 	if (_bStart && !_bpause && !_bwin) {
 	//???束坐?
 		endX = touchLoc.x;

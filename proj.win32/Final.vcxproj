@@ -152,6 +152,7 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClCompile Include="..\Classes\ActionScene\RunScene\CRunner.cpp" />
     <ClCompile Include="..\Classes\ActionScene\RunScene\RunScene1.cpp" />
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
+    <ClCompile Include="..\Classes\common\AniScene.cpp" />
     <ClCompile Include="..\Classes\common\CBag.cpp" />
     <ClCompile Include="..\Classes\common\CBox.cpp" />
     <ClCompile Include="..\Classes\common\CButton.cpp" />
@@ -182,6 +183,7 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClInclude Include="..\Classes\ActionScene\RunScene\CRunner.h" />
     <ClInclude Include="..\Classes\ActionScene\RunScene\RunScene1.h" />
     <ClInclude Include="..\Classes\AppDelegate.h" />
+    <ClInclude Include="..\Classes\common\AniScene.h" />
     <ClInclude Include="..\Classes\common\CBag.h" />
     <ClInclude Include="..\Classes\common\CBox.h" />
     <ClInclude Include="..\Classes\common\CButton.h" />

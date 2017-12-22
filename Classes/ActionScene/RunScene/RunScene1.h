@@ -11,6 +11,7 @@
 #include "ActionScene\RunScene\CObstacle.h"
 #include "ActionScene\RunScene\CFall.h"
 #include "Classes\common\CButton.h"
+#include "common\AniScene.h"
 
 #include "math.h"//¥Î¨ì??­È
 
@@ -59,6 +60,18 @@ private:
 
 	// button===============================
 	CButton *_pause;
+
+	//Ani
+	AniScene *_opendoorAnimation_1;
+	AniScene *_opendoorAnimation_2;
+	bool _aniStop;
+	bool _skip;
+	Sprite *_skipSprite;
+	Rect _skipRect;
+	bool _cutPic;
+	bool _cutPic_2;
+	Sprite *_pic105;
+	float _picTimeCount;
 
 
 public:
