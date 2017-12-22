@@ -1,56 +1,46 @@
-#ifndef __HELLOWORLD_SCENE_H__
-#define __HELLOWORLD_SCENE_H__
+#ifndef __C2_SCENE_01_SCENE_H__
+#define __C2_SCENE_01_SCENE_H__
 
 #include "cocos2d.h"
+#include "common\CPlayer.h"
+#include "ui/CocosGUI.h"
+#include "cocostudio/CocoStudio.h"
+#include "SimpleAudioEngine.h"
+
 using namespace cocos2d;
 
-class BR_Scene : public cocos2d::Layer
+class C2_Scene_01 : public cocos2d::Layer
 {
 private:
-	Sprite *_bg_front, *_bg_back;
+	Sprite *_bg;
 
 	//boy
-	Node *_boyRoot;
-	Sprite *_boyBody;
-	Sprite *_walkAni[4];
+	CPlayer *_boy;
 
 	//spots
-	Sprite *_spot[5];
-	Rect _spotRect[5];
+	Sprite *_spot[2];
+	Rect _spotRect[2];
 
 	//map
-	bool _toSpot[5];
-	bool _reachSpot[5];
-	bool _reachMainpath;
+	bool _toSpot[2];
 	bool _isWalking;
 
-	//talk
-	Sprite *_talkArea[6];
-	Rect _talkAreaRect[6];
-	Sprite *_dialog[50];
-
-	//bag
-	Sprite *_bagArea;
-	Rect _bagRect;
+	//Area
+	Sprite *_doorArea;
+	Rect _doorRect;
 
 public:
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::Scene* createScene();
 
-	BR_Scene();
+	C2_Scene_01();
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
     virtual bool init();
 	void doStep(float dt);
-	void ClearReachSpot();
-
 
 	//map
-	bool ToMainPath(float dt);
 	bool ToSpot0(float dt);
 	bool ToSpot1(float dt);
-	bool ToSpot2(float dt);
-	bool ToSpot3(float dt); 
-	bool ToSpot4(float dt);
 
 	//touch
 	cocos2d::EventListenerTouchOneByOne *_listener1;
@@ -59,7 +49,7 @@ public:
 	void onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent); 
 
     // implement the "static create()" method manually
-    CREATE_FUNC(BR_Scene);
+    CREATE_FUNC(C2_Scene_01);
 	
 };
 

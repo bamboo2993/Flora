@@ -16,10 +16,10 @@ CPlayer::CPlayer(const std::string body, const std::string aniBody, cocos2d::Lay
 	_player = Sprite::createWithSpriteFrameName(body);
 	_player->setPosition(visibleSize.width / 2.0f, visibleSize.height / 4.0f);
 	parent.addChild(_player);
-	bFirst = 1;
-	_bSide = 0;
+	bStop = true;
+	_isFacingRight = 0;
 
-
+	
 
 	_body = Sprite::createWithSpriteFrameName(aniBody);
 	_player->addChild(_body);
@@ -40,6 +40,33 @@ CPlayer::CPlayer(const std::string body, const std::string aniBody, cocos2d::Lay
 	//_body->setPhysicsBody(physicsBody);
 
 	//
+	for (int i = 0; i < 20; i++) {
+		_reachSpot[i] = false;
+	}
+
+	_myAction = nullptr;
+}
+
+CPlayer::CPlayer(const std::string bodyPic, cocos2d::Layer &parent, Point pos, bool isFacingR)
+{
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Animation/ater_1.plist");
+
+	// Åª¨ú¨¤¦â
+	_player = Sprite::create(bodyPic);
+	_player->setAnchorPoint(Point(0.5, 0));
+	_player->setPosition(pos);
+	parent.addChild(_player);
+	bStop = 1;
+	_isFacingRight = isFacingR;
+	Mirror();
+
+	_rpos = _player->getPosition();
+
+	for (int i = 0; i < 20; i++) {
+		_reachSpot[i] = false;
+	}
 
 	_myAction = nullptr;
 }
@@ -108,13 +135,26 @@ const Vec2 CPlayer::getPosition()
 
 void CPlayer::go(cocos2d::Point pt)
 {
-	if (bFirst) {
+	if (bStop) {
 		auto a = _player->getPosition();
 		pt.y += 300.0f;
 		if (a.y > pt.y)  _player->runAction(_action[0]);
 		else _player->runAction(_action[1]);
 		
-		bFirst = false;
+		bStop = false;
+
+	}
+
+}
+
+
+void CPlayer::go(bool isBack)
+{
+	if (bStop) {
+		if (!isBack)  _player->runAction(_action[0]);
+		else _player->runAction(_action[1]);
+
+		bStop = false;
 
 	}
 
@@ -123,19 +163,28 @@ void CPlayer::go(cocos2d::Point pt)
 void CPlayer::Stop() {
 	_player->stopAction(_action[0]);
 	_player->stopAction(_action[1]);
-	bFirst = true;
+	bStop = true;
 
 }
 
 
 void CPlayer::Mirror() {
-	if (_bSide) {
+	if (_isFacingRight) {
 		_player->setFlipX(true);
 	}
 	else {
 		_player->setFlipX(false);
 	}
 
+}
+
+void CPlayer::Mirror(bool isFacingR) {
+	if (isFacingR) {
+		_player->setFlipX(true);
+	}
+	else {
+		_player->setFlipX(false);
+	}
 }
 
 bool CPlayer::Walk(Point i) {
@@ -169,4 +218,12 @@ void CPlayer::Talk(const std::string picName, bool isRight) {
 
 void CPlayer::StopTalking() {
 	_sentance->removeFromParent();
+}
+
+void CPlayer::SetReachSpot(int n, bool f) {
+	_reachSpot[n] = f;
+}
+
+bool CPlayer::GetReachSpot(int n) {
+	return _reachSpot[n];
 }

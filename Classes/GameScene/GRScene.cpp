@@ -713,11 +713,11 @@ void  GRScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ĳ
 						_player->setPreviousPosition();
 
 						if (_touchLoc.x > _player->_rpos.x) {
-							_player->_bSide = 1;
+							_player->_isFacingRight = 1;
 							_player->Mirror();
 						}
 						else {
-							_player->_bSide = 0;
+							_player->_isFacingRight = 0;
 							_player->Mirror();
 						}
 
@@ -833,11 +833,11 @@ void  GRScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ĳ
 						_player->setPreviousPosition();
 
 						if (_touchLoc.x > _player->_rpos.x) {
-							_player->_bSide = 1;
+							_player->_isFacingRight = 1;
 							_player->Mirror();
 						}
 						else {
-							_player->_bSide = 0;
+							_player->_isFacingRight = 0;
 							_player->Mirror();
 						}
 

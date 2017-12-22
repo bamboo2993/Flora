@@ -1,14 +1,21 @@
 <UserData Version="3.10.0.0">
   <Properties>
+    <Item Key="CocosRecentOperation">
+      <Value ctype="CocosRecentOperation">
+        <LastPublishType Value="Resource" />
+        <IsLastPublish Value="True" />
+        <LastRunType Value="Windows" />
+      </Value>
+    </Item>
     <Item Key="PackageParamsKey">
       <Value ctype="PackageParams">
         <LuaIsEncrypt Value="False" />
         <LuaEncryptKey Value="" />
         <LuaEncryptSign Value="" />
-        <Android_PackageName Value="org.cocos.AnimationAction" />
+        <Android_PackageName Value="org.cocos.Final" />
         <AndroidkeyStore Value="" />
         <AndroidVersion Value="" />
-        <iOS_Target Value="AnimationAction-mobile" />
+        <iOS_Target Value="Final-mobile" />
         <iOS_BundleID Value="" />
         <Platform Value="None" />
         <RunPlatform Value="None" />
@@ -18,26 +25,12 @@
         <EnableHTML5Advanced Value="False" />
       </Value>
     </Item>
-    <Item Key="CocosRecentOperation">
-      <Value ctype="CocosRecentOperation">
-        <LastPublishType Value="Resource" />
-        <IsLastPublish Value="True" />
-        <LastRunType Value="Windows" />
-      </Value>
-    </Item>
     <Item Key="TabsParamsKey">
       <Value ctype="TabsInfo">
         <OpenedDocuments>
-<<<<<<< HEAD
-          <FilePathData Path="BMScene.csd" />
+          <FilePathData Path="C2Scene.csd" />
         </OpenedDocuments>
-        <ActiveDocument Path="BMScene.csd" />
-=======
-          <FilePathData Path="SRScene.csd" />
-          <FilePathData Path="labScene.csd" />
-        </OpenedDocuments>
-        <ActiveDocument Path="SRScene.csd" />
->>>>>>> 3a5672cb38217fd27fd0dca0f5685ecf775bd025
+        <ActiveDocument Path="C2Scene.csd" />
       </Value>
     </Item>
   </Properties>

@@ -257,6 +257,12 @@
             <Image Name="SR_Z04_P03.png" />
             <Image Name="SR_Z04_P04.png" />
           </Folder>
+          <Folder Name="C2Scene">
+            <Image Name="C2_Z1.png" />
+            <Image Name="C2_Z2.png" />
+            <Image Name="C2_Z3.png" />
+            <Image Name="C2_Z3_03.png" />
+          </Folder>
         </Folder>
         <Folder Name="MainScene">
           <Image Name="Mainscene.png" />
@@ -372,6 +378,7 @@
         <Image Name="shell.png" />
         <Image Name="skip_normal.png" />
         <Project Name="SRScene.csd" Type="Scene" />
+        <Project Name="C2Scene.csd" Type="Scene" />
       </RootFolder>
     </Group>
   </SolutionFolder>
