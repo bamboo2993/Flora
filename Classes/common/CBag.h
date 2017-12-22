@@ -9,6 +9,8 @@
 #include "xmlItems.h"
 #include "CLightbox.h"
 
+#include "CFlyEffect.h"
+
 #define ItemNum 23 // max num of item
 
 USING_NS_CC;
@@ -32,6 +34,13 @@ private:
 	int _pageNum; // current page
 	int _pageTot; // total page
 
+
+
+	// fly==============
+	CFlyEffect  *_flyNode;
+	bool _startFly;
+	bool _flyState;
+	int  _itemToAdd;
 
 
 
@@ -68,6 +77,8 @@ public:
 	void ToStateTwo();	
 	void ToStateOne();
 
+	void Fly(Point pos, const char * pic);
+	bool Canfly();
 
 	void SetCurrentScene(const char *scene);
 	bool itemdrag();

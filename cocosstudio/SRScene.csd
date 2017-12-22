@@ -17,7 +17,7 @@
             <FileData Type="Normal" Path="GameScene/SRScene/SR_S01.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="SR_Z01_trigger" CanEdit="False" ActionTag="-1369690411" VisibleForFrame="False" Tag="86" IconVisible="False" LeftMargin="256.8338" RightMargin="1537.1663" TopMargin="1246.5287" BottomMargin="1.4713" ctype="SpriteObjectData">
+          <AbstractNodeData Name="SR_Z01_trigger" ActionTag="-1369690411" VisibleForFrame="False" Tag="86" IconVisible="False" LeftMargin="256.8338" RightMargin="1537.1663" TopMargin="1246.5287" BottomMargin="1.4713" ctype="SpriteObjectData">
             <Size X="254.0000" Y="288.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="383.8338" Y="145.4713" />
@@ -28,10 +28,10 @@
             <FileData Type="PlistSubImage" Path="GR_Z03_01.png" Plist="GameScene/GRScene/GRScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="SR_Z02_trigger" CanEdit="False" ActionTag="-380389478" VisibleForFrame="False" Tag="102" IconVisible="False" LeftMargin="1214.2936" RightMargin="579.7064" TopMargin="742.7764" BottomMargin="505.2236" ctype="SpriteObjectData">
+          <AbstractNodeData Name="SR_Z02_trigger" ActionTag="-380389478" VisibleForFrame="False" Tag="102" IconVisible="False" LeftMargin="1214.2936" RightMargin="579.7064" TopMargin="742.7800" BottomMargin="505.2200" ctype="SpriteObjectData">
             <Size X="254.0000" Y="288.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="1341.2936" Y="649.2236" />
+            <Position X="1341.2936" Y="649.2200" />
             <Scale ScaleX="0.9000" ScaleY="0.6000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.6549" Y="0.4227" />
@@ -39,18 +39,18 @@
             <FileData Type="PlistSubImage" Path="GR_Z03_01.png" Plist="GameScene/GRScene/GRScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="SR_Z03_trigger" CanEdit="False" ActionTag="-1690545150" VisibleForFrame="False" Tag="106" IconVisible="False" LeftMargin="289.8931" RightMargin="1504.1069" TopMargin="356.2538" BottomMargin="891.7462" ctype="SpriteObjectData">
+          <AbstractNodeData Name="SR_Z03_trigger" ActionTag="-1690545150" VisibleForFrame="False" Tag="106" IconVisible="False" LeftMargin="293.6242" RightMargin="1500.3757" TopMargin="389.8201" BottomMargin="858.1800" ctype="SpriteObjectData">
             <Size X="254.0000" Y="288.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="416.8931" Y="1035.7462" />
-            <Scale ScaleX="3.0000" ScaleY="2.0000" />
+            <Position X="420.6242" Y="1002.1800" />
+            <Scale ScaleX="3.0000" ScaleY="1.6374" />
             <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="0.2036" Y="0.6743" />
+            <PrePosition X="0.2054" Y="0.6525" />
             <PreSize X="0.1240" Y="0.1875" />
             <FileData Type="PlistSubImage" Path="GR_Z03_01.png" Plist="GameScene/GRScene/GRScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="SR_Z04_trigger" CanEdit="False" ActionTag="-235072713" VisibleForFrame="False" Tag="173" IconVisible="False" HorizontalEdge="BothEdge" VerticalEdge="TopEdge" LeftMargin="1216.8976" RightMargin="577.1024" TopMargin="379.8340" BottomMargin="868.1660" ctype="SpriteObjectData">
+          <AbstractNodeData Name="SR_Z04_trigger" ActionTag="-235072713" VisibleForFrame="False" Tag="173" IconVisible="False" HorizontalEdge="BothEdge" VerticalEdge="TopEdge" LeftMargin="1216.8976" RightMargin="577.1024" TopMargin="379.8340" BottomMargin="868.1660" ctype="SpriteObjectData">
             <Size X="254.0000" Y="288.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="1343.8976" Y="1012.1660" />

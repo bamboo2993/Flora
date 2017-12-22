@@ -544,16 +544,20 @@ void GRScene::PickObject(float dt) {
 
 		_pTrigger[0].doStep(dt);
 
+		//fly to bag==========
+		if (CBag::getInstance()->Canfly()) {
+			//create the corresponding item in bag
+			if (_pTrigger[0].GetAddToBag() && !_pTrigger[0].GetPicked()) {
+				CBag::getInstance()->AddObj("B_sudoku.png", 1, false, _pTsudokuRect);
+				CBag::getInstance()->Fly(_pTrigger[0].GetPos(), "B_sudoku.png");
 
-		//create the corresponding item in bag
-		if (_pTrigger[0].GetAddToBag() && !_pTrigger[0].GetPicked()) {
 
-			CBag::getInstance()->AddObj("B_sudoku.png", 1, false, _pTsudokuRect);
+				_pTrigger[0].SetAddToBag(false);
+				_pTrigger[0].SetPicked(true); // if the object is picked and added into the bag
 
-			_pTrigger[0].SetAddToBag(false);
-			_pTrigger[0].SetPicked(true); // if the object is picked and added into the bag
-
-			_xmlscene->editItemState("GR_Z01_01", false, _zNode[0], 0, 1);
+				_xmlscene->editItemState("GR_Z01_01", false, _zNode[0], 0, 1);
+			}
+			
 		}
 		
 	}
@@ -569,16 +573,22 @@ void GRScene::PickObject(float dt) {
 		}
 		 _procedure[1]->doStep(dt);
 
-		//create the corresponding item in bag
-		if (_pTrigger[1].GetAddToBag() && !_pTrigger[1].GetPicked()) {
 
-			CBag::getInstance()->AddObj("B_akey.png", 1, false, _pTkeyRect);
+		 //fly to bag==========
+		 if (CBag::getInstance()->Canfly()) {
+			 //create the corresponding item in bag
+			 if (_pTrigger[1].GetAddToBag() && !_pTrigger[1].GetPicked()) {
+				 
+				 CBag::getInstance()->AddObj("B_akey.png", 1, false, _pTkeyRect);
+				 CBag::getInstance()->Fly(_pTrigger[1].GetPos(), "B_akey.png");
+				 _pTrigger[1].SetAddToBag(false);
+				 _pTrigger[1].SetPicked(true); // if the object is picked and added into the bag
 
-			_pTrigger[1].SetAddToBag(false);
-			_pTrigger[1].SetPicked(true); // if the object is picked and added into the bag
+				 _xmlscene->editItemState("GR_Z02_02", false, _zNode[1], 2, 3);
+			 }
+		 }
 
-			_xmlscene->editItemState("GR_Z02_02", false, _zNode[1], 2, 3);
-		}
+		
 		
 
 	}

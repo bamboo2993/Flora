@@ -88,6 +88,8 @@ private:
 	//set object==========================================================
 	CTrigger *_pTrigger; // items that can be taken: ÃÄ¤ô¥H red, green, blue, yellow ±Æ¦C¡B»]ÃH¤ô¡B¬Á¼þ´Î¡B¯óÃÄ
 
+	bool _touchSObj = { false };
+	bool _openSObj = { false };
 
 	cocos2d::Sprite *_detect[3]; // detect zoom node
 	cocos2d::Rect	_detectRect[3];

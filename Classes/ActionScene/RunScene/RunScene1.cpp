@@ -286,7 +286,7 @@ void RunScene1::doStep(float dt)
 			_pic105->setVisible(false);
 			if (_opendoorAnimation_2->skip(dt)&&_opendoorAnimation_1->skip(dt)) {
 				_aniStop = true;
-				
+				_skipSprite->setVisible(false);
 				//SimpleAudioEngine::getInstance()->stopBackgroundMusic();	// °±¤î­I´º­µ¼Ö
 				SimpleAudioEngine::getInstance()->playBackgroundMusic("../music/Tomorrow.mp3", true);
 			}

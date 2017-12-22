@@ -241,7 +241,7 @@ void CLightbox::setPic(const std::string & enlarge){
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	if (_enlarge != nullptr) {
+	if (_enlarge[0] != nullptr) {
       		_enlarge[0]->removeFromParentAndCleanup(true);
 	}
 

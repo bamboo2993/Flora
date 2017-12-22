@@ -37,6 +37,7 @@ public:
 	void SetAddToBag(bool x); //can picked
 
 	bool GetVis();
+	Point GetPos();
 	bool GetTouch();
 	bool GetPicked(); // if  the obj is picked up
 	bool GetAddToBag();

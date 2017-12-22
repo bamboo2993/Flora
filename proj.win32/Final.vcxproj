@@ -157,6 +157,7 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClCompile Include="..\Classes\common\CBox.cpp" />
     <ClCompile Include="..\Classes\common\CButton.cpp" />
     <ClCompile Include="..\Classes\common\CeLock .cpp" />
+    <ClCompile Include="..\Classes\common\CFlyEffect.cpp" />
     <ClCompile Include="..\Classes\common\CItem.cpp" />
     <ClCompile Include="..\Classes\common\CLightbox.cpp" />
     <ClCompile Include="..\Classes\common\CLock.cpp" />
@@ -188,6 +189,7 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClInclude Include="..\Classes\common\CBox.h" />
     <ClInclude Include="..\Classes\common\CButton.h" />
     <ClInclude Include="..\Classes\common\CeLock .h" />
+    <ClInclude Include="..\Classes\common\CFlyEffect.h" />
     <ClInclude Include="..\Classes\common\CItem.h" />
     <ClInclude Include="..\Classes\common\CLightbox.h" />
     <ClInclude Include="..\Classes\common\CLock.h" />

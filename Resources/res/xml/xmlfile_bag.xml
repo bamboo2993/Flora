@@ -2,11 +2,11 @@
 <DataRoot version="1.0">
     <!--this is xml comment-->
     <scene>
-        <item no.="0" arrangement="1" name="B_dropperLOD.png">false</item>
-        <item no.="1" arrangement="2" name="B_DGslidesLOD.png">false</item>
-        <item no.="2" arrangement="3" name="B_BslidesLOD.png">false</item>
-        <item no.="3" arrangement="4" name="B_PslidesLOD.png">false</item>
-        <item no.="4" arrangement="5" name="B_GslidesLOD.png">false</item>
+        <item no.="0" arrangement="1" name="B_lodine.png">false</item>
+        <item no.="1" arrangement="2" name="B_DGslides.png">false</item>
+        <item no.="2" arrangement="3" name="B_Bslides.png">false</item>
+        <item no.="3" arrangement="4" name="B_Pslides.png">false</item>
+        <item no.="4" arrangement="5" name="B_Gslides.png">false</item>
         <item no.="5" arrangement="6" name="B_dropper.png">false</item>
         <item no.="6" arrangement="6" name="B_glassrod.png">false</item>
     </scene>
