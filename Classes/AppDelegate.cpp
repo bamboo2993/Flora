@@ -1,7 +1,7 @@
 //<<<<<<< HEAD
 //#define SceneTransition 30
 //=======
-#define SceneTransition 30
+#define SceneTransition 1
 //>>>>>>> 3a5672cb38217fd27fd0dca0f5685ecf775bd025
 
 

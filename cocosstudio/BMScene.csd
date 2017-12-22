@@ -433,7 +433,7 @@
             <FileData Type="PlistSubImage" Path="bowl.png" Plist="GameScene/BMScene/BMScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="detect_herb" CanEdit="False" ActionTag="-888421954" VisibleForFrame="False" Tag="60" RotationSkewX="-90.2343" RotationSkewY="-90.2238" IconVisible="False" LeftMargin="609.8181" RightMargin="1283.1819" TopMargin="1056.5430" BottomMargin="239.4571" ctype="SpriteObjectData">
+          <AbstractNodeData Name="detect_herb" ActionTag="-888421954" VisibleForFrame="False" Tag="60" RotationSkewX="-90.2343" RotationSkewY="-90.2238" IconVisible="False" LeftMargin="609.8181" RightMargin="1283.1819" TopMargin="1056.5430" BottomMargin="239.4571" ctype="SpriteObjectData">
             <Size X="155.0000" Y="240.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="687.3181" Y="359.4571" />
@@ -455,15 +455,15 @@
             <FileData Type="PlistSubImage" Path="E_yellow.png" Plist="GameScene/BMScene/BMScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="detect_syrup" CanEdit="False" ActionTag="339977320" VisibleForFrame="False" Tag="170" RotationSkewX="90.0000" RotationSkewY="90.0000" IconVisible="False" LeftMargin="1624.1055" RightMargin="264.8945" TopMargin="402.4011" BottomMargin="902.5988" ctype="SpriteObjectData">
-            <Size X="159.0000" Y="231.0000" />
+          <AbstractNodeData Name="detect_syrup" ActionTag="2106398132" VisibleForFrame="False" Tag="70" RotationSkewX="90.0000" RotationSkewY="90.0000" IconVisible="False" LeftMargin="1634.5535" RightMargin="285.4465" TopMargin="410.3105" BottomMargin="922.6895" ctype="SpriteObjectData">
+            <Size X="128.0000" Y="203.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="1703.6055" Y="1018.0988" />
+            <Position X="1698.5535" Y="1024.1895" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="0.8318" Y="0.6628" />
-            <PreSize X="0.0776" Y="0.1504" />
-            <FileData Type="PlistSubImage" Path="E_red.png" Plist="GameScene/BMScene/BMScene.plist" />
+            <PrePosition X="0.8294" Y="0.6668" />
+            <PreSize X="0.0625" Y="0.1322" />
+            <FileData Type="PlistSubImage" Path="E_green.png" Plist="GameScene/BMScene/BMScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
           <AbstractNodeData Name="reset" CanEdit="False" ActionTag="-35585158" VisibleForFrame="False" Tag="69" IconVisible="False" LeftMargin="3.5134" RightMargin="1862.4866" TopMargin="4.0973" BottomMargin="1341.9027" ctype="SpriteObjectData">

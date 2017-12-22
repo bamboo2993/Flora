@@ -12,6 +12,7 @@ public:
 	bool doStep(float dt);
 	bool skip(float dt);
 
+
 private:
 	Sprite *_SpriteCD[10];
 	float _tot;

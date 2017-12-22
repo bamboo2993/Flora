@@ -410,7 +410,7 @@ void RunScene1::doStep(float dt)
 			}
 
 			////³]©w¸}½ñ¨®
-			if (_t >= 40.0f && _bikePt.x >= -100) {
+			if (_t >= 30.0f && _bikePt.x >= -100) {
 				Size size = _bike->getContentSize();
 				_bikePt = _bike->getPosition();
 				_bikePt.x -= dt * 1000;
@@ -419,7 +419,7 @@ void RunScene1::doStep(float dt)
 				int a = 1;
 			}
 
-			if (_t >= 60.0f && _runner->_ilife >= 0) {
+			if (_t >= 40.0f && _runner->_ilife >= 0) {
 				//label000->setString("win!");
 				_win->setVisible(true);
 				_bwin = true;

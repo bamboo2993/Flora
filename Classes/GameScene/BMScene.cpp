@@ -59,6 +59,18 @@ BMScene::BMScene() {
 	_aniStop = false;
 	_skip = false;
 
+	for (size_t i = 0; i < 3; i++) {
+		_touchSObj[i] = false;
+		_openSObj[i] = false;
+
+	}
+
+
+	_btouchNode[0] = false;
+	_btouchNode[1] = false;
+
+	_bopenNode[0] = false;
+	_bopenNode[1] = false;
 }
 BMScene::~BMScene()
 {
@@ -447,103 +459,85 @@ void BMScene::doStep(float dt)
 
 		//walk===================================
 		//////只能在設定範圍走=============================
-		if (_bWalk && _bwithinArea) { //when player walk within walkable region
-			_player->Walk(_TargetLoc);
-
-			if (_player->Walk(_TargetLoc) == false) {
+		
+		if (_touchSObj[0]) {
+			_player->Walk(Vec2(1389.90f, 625.28f));
+			_player->go(Vec2(1389.90f, 625.28f));
+			if (_player->Walk(Vec2(1389.90f, 625.28f)) == false) {
 				_bWalk = 0;
-				//if (_bonObj) _bpickObj = true; //pick up obj
-				_bpickObj = true; //pick up obj
+
+				//pick up obj
+
+				_touchSObj[0] = !_touchSObj[0];
+				_openSObj[0] = !_openSObj[0];
+				//log("show detect");
 			}
-			_player->go(_TargetLoc);
+
+		}
+
+		else if (_touchSObj[1] || _btouchNode[0]) {
+			_player->Walk(Vec2(1703.04f, 625.28f));
+			_player->go(Vec2(1703.04f, 625.28f));
+			if (_player->Walk(Vec2(1703.04f, 625.28f)) == false) {
+				_bWalk = 0;
+
+				//pick up obj
+				if (_btouchNode[0]) {
+
+					_eNode[0]->setVisible(true);
+
+					_bopenNode[0] = !_bopenNode[0];
+					_btouchNode[0] = !_btouchNode[0];
+					_bkBlur->setVisible(true);
+				}
+				else {
+					_touchSObj[1] = !_touchSObj[1];
+					_openSObj[1] = !_openSObj[1];
+				}
+
+
+				//log("show detect");
+			}
 
 		}
 
 
-		else if (_bWalk) { // when touched obj in scene that can be picked up
+		else if (_touchSObj[2]) {
+			_player->Walk(Vec2(1200.05f, 141.24f));
+			_player->go(Vec2(1200.05f, 141.24f));
+			if (_player->Walk(Vec2(1200.05f, 141.24f)) == false) {
+				_bWalk = 0;
 
-			//九宮格 1
-			if (_touchLoc.y > WALK_AREA_1.y && _touchLoc.x < WALK_AREA_1.x) {
-				_player->Walk(Vec2(WALK_AREA_1.x, WALK_AREA_1.y));
-				if (_player->Walk(Vec2(WALK_AREA_1.x, WALK_AREA_1.y)) == false) {
-					_bWalk = 0;
-					//_bpickObj = true;
-				}
-				_player->go(_TargetLoc);
+				//pick up obj
+
+				_touchSObj[2] = !_touchSObj[2];
+				_openSObj[2] = !_openSObj[2];
+				//log("show detect");
 			}
 
-			//九宮格 2
-			else if (_touchLoc.y > WALK_AREA_1.y && _touchLoc.x > WALK_AREA_1.x && _touchLoc.x < WALK_AREA_2.x && _pTrigger[4].GetTouch() || _btouchNode[0]) {
-				_player->Walk(Vec2(_touchLoc.x, WALK_AREA_1.y));
-				if (_player->Walk(Vec2(_touchLoc.x, WALK_AREA_1.y)) == false) {
-					_bWalk = 0;
-					_bpickObj = true;
-				}
-				_player->go(_TargetLoc);
-			}
-
-
-			//九宮格 3
-			else if (_touchLoc.y > WALK_AREA_1.y && _touchLoc.x > WALK_AREA_2.x && _pTrigger[5].GetTouch()) {
-				_player->Walk(Vec2(WALK_AREA_2.x, WALK_AREA_2.y));
-				if (_player->Walk(Vec2(WALK_AREA_2.x, WALK_AREA_2.y)) == false) {
-					_bWalk = 0;
-					_bpickObj = true;
-				}
-				_player->go(_TargetLoc);
-			}
-
-			//九宮格 4
-			else if (_touchLoc.y > WALK_AREA_3.y && _touchLoc.y < WALK_AREA_2.y && _touchLoc.x < WALK_AREA_1.x) {
-				_player->Walk(Vec2(WALK_AREA_1.x, _touchLoc.y));
-				if (_player->Walk(Vec2(WALK_AREA_1.x, _touchLoc.y)) == false) {
-					_bWalk = 0;
-					_bpickObj = true;
-				}
-				_player->go(_TargetLoc);
-			}
-
-			//九宮格 6
-			else if (_touchLoc.y > WALK_AREA_3.y && _touchLoc.y < WALK_AREA_2.y && _touchLoc.x > WALK_AREA_2.x) {
-				_player->Walk(Vec2(WALK_AREA_2.x, _touchLoc.y));
-				if (_player->Walk(Vec2(WALK_AREA_2.x, _touchLoc.y)) == false) {
-					_bWalk = 0;
-					//_bpickObj = true;
-				}
-				_player->go(_TargetLoc);
-			}
-
-			//九宮格 7
-			else if (_touchLoc.y < WALK_AREA_1.y  && _touchLoc.x < WALK_AREA_1.x) {
-				_player->Walk(Vec2(WALK_AREA_4.x, WALK_AREA_4.y));
-				if (_player->Walk(Vec2(WALK_AREA_4.x, WALK_AREA_4.y)) == false) {
-					_bWalk = 0;
-					//_bpickObj = true;
-				}
-				_player->go(_TargetLoc);
-			}
-
-
-			//九宮格 8
-			else if (_touchLoc.y < WALK_AREA_4.y && _touchLoc.x > WALK_AREA_4.x && _touchLoc.x < WALK_AREA_3.x || _btouchNode[1]) {
-				_player->Walk(Vec2(_touchLoc.x, WALK_AREA_4.y));
-				if (_player->Walk(Vec2(_touchLoc.x, WALK_AREA_4.y)) == false) {
-					_bWalk = 0;
-					_bpickObj = true;
-				}
-				_player->go(_TargetLoc);
-			}
-
-			//九宮格 9
-			else if (_touchLoc.y < WALK_AREA_4.y && _touchLoc.x > WALK_AREA_3.x) {
-				_player->Walk(Vec2(WALK_AREA_3.x, WALK_AREA_3.y));
-				if (_player->Walk(Vec2(WALK_AREA_3.x, WALK_AREA_3.y)) == false) {
-					_bWalk = 0;
-					_bpickObj = true;
-				}
-				_player->go(_TargetLoc);
-			}
 		}
+
+
+
+
+
+		else if (_btouchNode[1]) {
+			_player->Walk(Vec2(702.90f, 141.24f));
+			_player->go(Vec2(702.90f, 141.24f));
+			if (_player->Walk(Vec2(702.90f, 141.24f)) == false) {
+				_bWalk = 0;
+
+				//pick up obj
+				_bkBlur->setVisible(true);
+				_eNode[1]->setVisible(true);
+
+				_bopenNode[1] = !_bopenNode[1];
+				_btouchNode[1] = !_btouchNode[1];
+				//log("show detect");
+			}
+
+		}
+		
 		else {
 			_player->Stop();
 		}
@@ -562,116 +556,103 @@ void BMScene::doStep(float dt)
 void BMScene::PickObject(float dt) {
 
 	// pick up obj ==========================
-	if (_bpickObj) { // when item in scene is being touched
-		// check which trigger is being touched
-		//log("_bpickObj = true");
 
+	if (_openSObj[0]) {
 		_pTrigger[4].doStep(dt);
+
+		//fly to bag==========
+		if (CBag::getInstance()->Canfly()) {
+			//create the corresponding item in bag
+			if (_pTrigger[4].GetAddToBag() && !_pTrigger[4].GetPicked()) {
+				CBag::getInstance()->AddObj("B_water.png", 2, true, _pbeakerRect);
+				CBag::getInstance()->Fly(_pTrigger[4].GetPos(), "B_water.png");
+				_pTrigger[4].SetAddToBag(false);
+				_pTrigger[4].SetPicked(true);
+
+
+
+			}
+		}
+	}
+
+	else if (_openSObj[1]) {
 		_pTrigger[5].doStep(dt);
 
-		_procedure->doStep(dt);
-
-
-		
-
-		 //create the corresponding item in bag
-
-		if (_pTrigger[4].GetAddToBag() && !_pTrigger[4].GetPicked()) {
-			CBag::getInstance()->AddObj("B_water.png", 2, true, _pbeakerRect);
-			_pTrigger[4].SetAddToBag(false);
-			_pTrigger[4].SetPicked(true);
-
-		
-
-		}
-
-
-		else if (_pTrigger[5].GetAddToBag() && !_pTrigger[5].GetPicked()) {
+		//fly to bag==========
+		if (_pTrigger[5].GetAddToBag() && !_pTrigger[5].GetPicked()) {
 			CBag::getInstance()->AddObj("B_glassrod.png", 2, true, _pbeakerRect);
+			CBag::getInstance()->Fly(_pTrigger[5].GetPos(), "B_glassrod.png");
 			_pTrigger[5].SetAddToBag(false);
 			_pTrigger[5].SetPicked(true);
 
-			
-		}
-
-
-
-
-		//open node=========
-		if (_btouchNode[0]) {
-			_eNode[0]->setVisible(true);
-			_bkBlur->setVisible(true);
-
-			_bopenNode[0] = !_bopenNode[0];
-			_btouchNode[0] = !_btouchNode[0];
-			//log("show detect");
 
 		}
-		else if (_btouchNode[1]) {
-			_eNode[1]->setVisible(true);
-			_bkBlur->setVisible(true);
-
-			_bopenNode[1] = !_bopenNode[1];
-			_btouchNode[1] = !_btouchNode[1];
-			//log("show detect node2");
-
-		}
-
-		_bpickObj = false;
-
 	}
 
-	if (_bopenNode[0]) {
+	else if (_openSObj[2]) {
+		_procedure->doStep(dt);
+	}
+		
+
+	else if (_bopenNode[0]) {
 
 		_pTrigger[0].doStep(dt);
 		_pTrigger[1].doStep(dt);
 		_pTrigger[2].doStep(dt);
 		_pTrigger[3].doStep(dt);
 
-		//create the corresponding item in bag
-		if (_pTrigger[0].GetAddToBag() && !_pTrigger[0].GetPicked()) {
+		//fly to bag==========
+		if (CBag::getInstance()->Canfly()) {
+			//create the corresponding item in bag
+			if (_pTrigger[0].GetAddToBag() && !_pTrigger[0].GetPicked()) {
 
-			CBag::getInstance()->AddObj("B_red.png", 2, true, _pbeakerRect);
+				CBag::getInstance()->AddObj("B_red.png", 2, true, _pbeakerRect);
+				CBag::getInstance()->Fly(_pTrigger[4].GetPos(), "B_red.png");
+				_pTrigger[0].SetAddToBag(false);
+				_pTrigger[0].SetPicked(true); // if the object is picked and added into the bag
 
-			_pTrigger[0].SetAddToBag(false);
-			_pTrigger[0].SetPicked(true); // if the object is picked and added into the bag
 
-			
-			_syrup[0]->setVisible(false);
-			_xmlscene->editItemState("red", false, _rootNode, 0, 35);
+				_syrup[0]->setVisible(false);
+				_xmlscene->editItemState("red", false, _rootNode, 0, 35);
+			}
+
+			else if (_pTrigger[1].GetAddToBag() && !_pTrigger[1].GetPicked()) {
+				CBag::getInstance()->AddObj("B_green.png", 2, true, _pbeakerRect);
+				CBag::getInstance()->Fly(_pTrigger[4].GetPos(), "B_green.png");
+				_pTrigger[1].SetAddToBag(false);
+				_pTrigger[1].SetPicked(true);
+
+
+				_syrup[1]->setVisible(false);
+				_xmlscene->editItemState("green", false, _rootNode, 0, 35);
+			}
+
+			else if (_pTrigger[2].GetAddToBag() && !_pTrigger[2].GetPicked()) {
+				CBag::getInstance()->AddObj("B_blue.png", 2, true, _pbeakerRect);
+				CBag::getInstance()->Fly(_pTrigger[4].GetPos(), "B_blue.png");
+				_pTrigger[2].SetAddToBag(false);
+				_pTrigger[2].SetPicked(true);
+
+
+				_syrup[2]->setVisible(false);
+				_xmlscene->editItemState("blue", false, _rootNode, 0, 35);
+			}
+
+			else if (_pTrigger[3].GetAddToBag() && !_pTrigger[3].GetPicked()) {
+
+				CBag::getInstance()->AddObj("B_yellow.png", 2, true, _pbeakerRect);
+				CBag::getInstance()->Fly(_pTrigger[4].GetPos(), "B_yellow.png");
+				_pTrigger[3].SetAddToBag(false);
+				_pTrigger[3].SetPicked(true);
+
+
+				_syrup[3]->setVisible(false);
+				_xmlscene->editItemState("yellow", false, _rootNode, 0, 35);
+			}
+
 		}
-
-		else if (_pTrigger[1].GetAddToBag() && !_pTrigger[1].GetPicked()) {
-			CBag::getInstance()->AddObj("B_green.png", 2, true, _pbeakerRect);
-			_pTrigger[1].SetAddToBag(false);
-			_pTrigger[1].SetPicked(true);
 
 		
-			_syrup[1]->setVisible(false);
-			_xmlscene->editItemState("green", false, _rootNode, 0, 35);
-		}
-
-		else if (_pTrigger[2].GetAddToBag() && !_pTrigger[2].GetPicked()) {
-			CBag::getInstance()->AddObj("B_blue.png", 2, true, _pbeakerRect);
-			_pTrigger[2].SetAddToBag(false);
-			_pTrigger[2].SetPicked(true);
-
-			
-			_syrup[2]->setVisible(false);
-			_xmlscene->editItemState("blue", false, _rootNode, 0, 35);
-		}
-
-		else if (_pTrigger[3].GetAddToBag() && !_pTrigger[3].GetPicked()) {
-
-			CBag::getInstance()->AddObj("B_yellow.png", 2, true, _pbeakerRect);
-			_pTrigger[3].SetAddToBag(false);
-			_pTrigger[3].SetPicked(true);
-
-			
-			_syrup[3]->setVisible(false);
-			_xmlscene->editItemState("yellow", false, _rootNode, 0, 35);
-		}
-
 		
 	}
 
@@ -686,44 +667,52 @@ void BMScene::PickObject(float dt) {
 		//log("node is open");
 
 
-		//create the corresponding item in bag
-		if (_pTrigger[6].GetAddToBag() && !_pTrigger[6].GetPicked()) {
-			CBag::getInstance()->AddObj("B_herbR.png", 1, false, _pbowlRect, true);
-			_pTrigger[6].SetAddToBag(false);
-			_pTrigger[6].SetPicked(true);
+		//fly to bag==========
+		if (CBag::getInstance()->Canfly()) {
+			//create the corresponding item in bag
+			if (_pTrigger[6].GetAddToBag() && !_pTrigger[6].GetPicked()) {
+				CBag::getInstance()->AddObj("B_herbR.png", 1, false, _pbowlRect, true);
+				CBag::getInstance()->Fly(_pTrigger[6].GetPos(), "B_herbR.png");
+				_pTrigger[6].SetAddToBag(false);
+				_pTrigger[6].SetPicked(true);
 
-			//sound effect
-			_debranch->playEffect();
+				//sound effect
+				_debranch->playEffect();
+			}
+			else if (_pTrigger[7].GetAddToBag() && !_pTrigger[7].GetPicked()) {
+				CBag::getInstance()->AddObj("B_herbG.png", 1, false, _pbowlRect, true);
+				CBag::getInstance()->Fly(_pTrigger[7].GetPos(), "B_herbG.png");
+				_pTrigger[7].SetAddToBag(false);
+				_pTrigger[7].SetPicked(true);
+
+				//sound effect
+				_debranch->playEffect();
+			}
+			else if (_pTrigger[8].GetAddToBag() && !_pTrigger[8].GetPicked()) {
+				CBag::getInstance()->AddObj("B_herbDG.png", 1, false, _pbowlRect, true);
+				CBag::getInstance()->Fly(_pTrigger[8].GetPos(), "B_herbDG.png");
+				_pTrigger[8].SetAddToBag(false);
+				_pTrigger[8].SetPicked(true);
+
+
+				//sound effect
+				_debranch->playEffect();
+			}
+
+			else if (_pTrigger[9].GetAddToBag() && !_pTrigger[9].GetPicked()) {
+				log("herb");
+				CBag::getInstance()->AddObj("B_herbY.png", 1, false, _pbowlRect, true);
+				CBag::getInstance()->Fly(_pTrigger[9].GetPos(), "B_herbY.png");
+				_pTrigger[9].SetAddToBag(false);
+				_pTrigger[9].SetPicked(true);
+
+				//			xmlTrigger::getInstance()->setTriggerStateXML(CURRENT_SCENE, 9, _pTrigger[9].GetPicked(), _pTrigger[9].GetAddToBag());
+
+				//sound effect
+				_debranch->playEffect();
+			}
 		}
-		else if (_pTrigger[7].GetAddToBag() && !_pTrigger[7].GetPicked()) {
-			CBag::getInstance()->AddObj("B_herbG.png", 1, false, _pbowlRect, true);
-			_pTrigger[7].SetAddToBag(false);
-			_pTrigger[7].SetPicked(true);
-
-			//sound effect
-			_debranch->playEffect();
-		}
-		else if (_pTrigger[8].GetAddToBag() && !_pTrigger[8].GetPicked()) {
-			CBag::getInstance()->AddObj("B_herbDG.png", 1, false,_pbowlRect,  true);
-			_pTrigger[8].SetAddToBag(false);
-			_pTrigger[8].SetPicked(true);
-
-			
-			//sound effect
-			_debranch->playEffect();
-		}
-
-		else if (_pTrigger[9].GetAddToBag() && !_pTrigger[9].GetPicked()) {
-			log("herb");
-			CBag::getInstance()->AddObj("B_herbY.png", 1, false,_pbowlRect,  true);
-			_pTrigger[9].SetAddToBag(false);
-			_pTrigger[9].SetPicked(true);
-
-//			xmlTrigger::getInstance()->setTriggerStateXML(CURRENT_SCENE, 9, _pTrigger[9].GetPicked(), _pTrigger[9].GetAddToBag());
-
-			//sound effect
-			_debranch->playEffect();
-		}
+		
 
 	}
 
@@ -940,7 +929,7 @@ void  BMScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸
 		}
 	}
 
-	if (!_clear) {
+	if (!_clear &&_aniStop) {
 		//swipe gesture
 		float offsetX = _touchLoc.x - _startX;
 		float offsetY = _touchLoc.y - _startY;
@@ -955,44 +944,78 @@ void  BMScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸
 				// [WALK + PICK OBJECT]===================
 				if (offsetX == 0 && offsetY == 0 && _touchLoc.y>227 && !CBag::getInstance()->LightboxState()) { // when screen tapped
 
-					//walk area ====================================
-					if (_touchLoc.x > WALK_AREA_4.x && _touchLoc.x > WALK_AREA_1.x && _touchLoc.x < WALK_AREA_2.x && _touchLoc.x < WALK_AREA_3.x
-						&& _touchLoc.y > WALK_AREA_4.y  && _touchLoc.y > WALK_AREA_3.y  && _touchLoc.y < WALK_AREA_1.y && _touchLoc.y < WALK_AREA_2.y) {
-						// detect if touch pts are in walkable area
-
-						_bwithinArea = true;
-						log("walk!!");
-
-					}
-					else  _bwithinArea = false;
-
 					////player walk =====================================================
 
 					//放大鏡沒開--------------
 					if (!_bopenNode[0] && !_bopenNode[1]) {
 						//沒按重置--------------
 						if (!_resetRect.containsPoint(_touchLoc)) {
-							_bWalk = 1;
-
-							if (_touchLoc.x > _player->_rpos.x) {
-								_player->_bSide = 1;
-								_player->Mirror();
-							}
-							else {
-								_player->_bSide = 0;
-								_player->Mirror();
-							}
-
-							//-------------------------------
-							_TargetLoc = _touchLoc;
-
 
 							//====================================
 							//detect for [water], [glass rod], [experimental procedure]------
-							_pTrigger[4].touchesBegan(_touchLoc);
-							_pTrigger[5].touchesBegan(_touchLoc);
+							if (_pTrigger[4].touchesBegan(_touchLoc)) {
+								_touchSObj[0] = true;
+								_bWalk = 1;
+								_player->setPreviousPosition();
 
-							_procedure->TouchBegan(_touchLoc);
+								if (_touchLoc.x > _player->_rpos.x) {
+									_player->_bSide = 1;
+									_player->Mirror();
+								}
+								else {
+									_player->_bSide = 0;
+									_player->Mirror();
+								}
+
+								//-------------------------------
+								_TargetLoc = _touchLoc;
+
+							}
+
+							else _openSObj[0] = false;
+							
+							if (_pTrigger[5].touchesBegan(_touchLoc)) {
+								_touchSObj[1] = true;
+								_bWalk = 1;
+								_player->setPreviousPosition();
+
+								if (_touchLoc.x > _player->_rpos.x) {
+									_player->_bSide = 1;
+									_player->Mirror();
+								}
+								else {
+									_player->_bSide = 0;
+									_player->Mirror();
+								}
+
+								//-------------------------------
+								_TargetLoc = _touchLoc;
+
+							}
+							
+							else _openSObj[1] = false;
+							
+							if (_procedure->TouchBegan(_touchLoc)) {
+								_touchSObj[2] = true;
+								_bWalk = 1;
+								_player->setPreviousPosition();
+
+								if (_touchLoc.x > _player->_rpos.x) {
+									_player->_bSide = 1;
+									_player->Mirror();
+								}
+								else {
+									_player->_bSide = 0;
+									_player->Mirror();
+								}
+
+								//-------------------------------
+								_TargetLoc = _touchLoc;
+
+							}
+							else _openSObj[2] = false;
+
+							
 						}
 						else {
 							// reset button=========================
@@ -1032,20 +1055,48 @@ void  BMScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸
 					}
 
 
-
+					//0
 					if (!_bopenNode[0] && _detectRect[0].containsPoint(_touchLoc)) {
 
 						_btouchNode[0] = true;
+						_bWalk = 1;
+						_player->setPreviousPosition();
+
+						if (_touchLoc.x > _player->_rpos.x) {
+							_player->_bSide = 1;
+							_player->Mirror();
+						}
+						else {
+							_player->_bSide = 0;
+							_player->Mirror();
+						}
+
+						//-------------------------------
+						_TargetLoc = _touchLoc;
 						log("touched detect");
 					}
 					else if (!_bopenNode[0] && !_detectRect[0].containsPoint(_touchLoc)) {
 						_btouchNode[0] = false;
 					}
 
-
+					//1
 					if (!_bopenNode[1] && _detectRect[1].containsPoint(_touchLoc)) {
 
 						_btouchNode[1] = true;
+						_bWalk = 1;
+						_player->setPreviousPosition();
+
+						if (_touchLoc.x > _player->_rpos.x) {
+							_player->_bSide = 1;
+							_player->Mirror();
+						}
+						else {
+							_player->_bSide = 0;
+							_player->Mirror();
+						}
+
+						//-------------------------------
+						_TargetLoc = _touchLoc;
 						log("touched detect node2");
 					}
 					else if (!_bopenNode[1] && !_detectRect[1].containsPoint(_touchLoc)) {
@@ -1090,7 +1141,7 @@ void  BMScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸
 							if (_mixA->getCompleteStep()) {
 								_xmlscene->editItemState(35, true, _rootNode);
 								_clear = true;
-								_win->setVisible(true);
+								//_win->setVisible(true);
 							}
 
 							else {
@@ -1142,13 +1193,14 @@ void  BMScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸
 						_mixB->Clear();
 					}
 
-
+					// to alcohol lamp
 					else if (_alcoholLampRect.containsPoint(_touchLoc)) {
 						if (_mixB->getCurrentObj() != 26) {
 
 							// show beaker on lamp
 							if (_mixB->getCompleteStep()) {
 								_xmlscene->editItemState(35, true, _rootNode);
+								_clear = true;
 							}
 
 							else {
