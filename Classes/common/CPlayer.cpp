@@ -18,8 +18,7 @@ CPlayer::CPlayer(const std::string body, const std::string aniBody, cocos2d::Lay
 	parent.addChild(_player);
 	bStop = true;
 	_isFacingRight = 0;
-
-	
+	_isTalking = false;
 
 	_body = Sprite::createWithSpriteFrameName(aniBody);
 	_player->addChild(_body);
@@ -212,8 +211,7 @@ bool CPlayer::Walk(Point i) {
 }
 
 void CPlayer::Talk(const std::string picName, bool isRight) {
-	_sentance = Sprite::createWithSpriteFrameName(picName);
-	Vec2 playerPos = _player->getPosition();
+	_sentance = Sprite::create(picName);
 
 	if (isRight) {
 		_sentance->setAnchorPoint(Point(0, 0));
@@ -221,8 +219,8 @@ void CPlayer::Talk(const std::string picName, bool isRight) {
 	else{
 		_sentance->setAnchorPoint(Point(1, 0));
 	}
+	_sentance->setPosition(150, 550.0f);
 	
-	_sentance->setPosition(playerPos.x, playerPos.y + 50.0f);
 	_player->addChild(_sentance);
 }
 
@@ -236,4 +234,12 @@ void CPlayer::SetReachSpot(int n, bool f) {
 
 bool CPlayer::GetReachSpot(int n) {
 	return _reachSpot[n];
+}
+
+void CPlayer::SetIsTalking(bool b) {
+	_isTalking = b;
+}
+
+bool CPlayer::GetIsTalking() {
+	return _isTalking;
 }

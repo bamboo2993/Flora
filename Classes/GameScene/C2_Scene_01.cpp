@@ -131,6 +131,8 @@ void C2_Scene_01::doStep(float dt) {
 			if (ToSpot1(dt)) {
 				_toSpot[1] = false;
 				_isWalking = false;
+				_boy->Talk("dialoge/SR_corner04.png", false);
+				_boy->SetIsTalking(true);
 			}
 		}
 	}
@@ -140,17 +142,23 @@ void C2_Scene_01::doStep(float dt) {
 bool C2_Scene_01::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) {
 	Point touchLoc = pTouch->getLocation();
 	//testing
-	if (!_isWalking) {
-		if (_spotRect[0].containsPoint(touchLoc)) {
-			_toSpot[1] = false;
-			_toSpot[0] = true;
-			log("clicked0");
+	if (!_boy->GetIsTalking()) {
+		if (!_isWalking) {
+			if (_spotRect[0].containsPoint(touchLoc)) {
+				_toSpot[1] = false;
+				_toSpot[0] = true;
+				log("clicked0");
+			}
+			if (_doorRect.containsPoint(touchLoc)) {
+				_toSpot[0] = false;
+				_toSpot[1] = true;
+				log("door");
+			}
 		}
-		if (_doorRect.containsPoint(touchLoc)) {
-			_toSpot[0] = false;
-			_toSpot[1] = true;
-			log("door");
-		}
+	}
+	else { 
+		_boy->SetIsTalking(false);
+		_boy->StopTalking();
 	}
 
 	return false;
@@ -161,7 +169,7 @@ void C2_Scene_01::onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) {
 }
 
 void C2_Scene_01::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) {
-
+	
 }
 
 

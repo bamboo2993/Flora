@@ -30,8 +30,9 @@
         <OpenedDocuments>
           <FilePathData Path="C2Scene.csd" />
           <FilePathData Path="C2Scene02.csd" />
+          <FilePathData Path="C2Scene03.csd" />
         </OpenedDocuments>
-        <ActiveDocument Path="C2Scene.csd" />
+        <ActiveDocument Path="C2Scene03.csd" />
       </Value>
     </Item>
   </Properties>

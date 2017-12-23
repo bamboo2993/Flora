@@ -30,7 +30,7 @@ private:
 
 
 	bool bStop;
-
+	bool _isTalking;
 	bool _reachSpot[20];
 
 	cocos2d::Size _contentSize;
@@ -63,6 +63,8 @@ public:
 	const Vec2 getPosition();
 	void SetReachSpot(int n, bool f);
 	bool GetReachSpot(int n);
+	void SetIsTalking(bool b);
+	bool GetIsTalking();
 
 	bool _isFacingRight;
 

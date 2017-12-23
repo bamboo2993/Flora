@@ -382,6 +382,7 @@
         <Image Name="shell.png" />
         <Image Name="skip_normal.png" />
         <Project Name="SRScene.csd" Type="Scene" />
+        <Project Name="C2Scene03.csd" Type="Scene" />
       </RootFolder>
     </Group>
   </SolutionFolder>
