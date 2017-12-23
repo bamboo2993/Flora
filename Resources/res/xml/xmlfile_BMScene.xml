@@ -2,10 +2,10 @@
 <DataRoot version="1.0">
     <!--this is xml comment-->
     <scene>
-        <item no.="0" name="red" B_name="" state="scene">false</item>
+        <item no.="0" name="red" B_name="" state="scene">true</item>
         <item no.="1" name="green" B_name="" state="scene">true</item>
-        <item no.="2" name="blue" B_name="" state="scene">false</item>
-        <item no.="3" name="yellow" B_name="" state="scene">false</item>
+        <item no.="2" name="blue" B_name="" state="scene">true</item>
+        <item no.="3" name="yellow" B_name="" state="scene">true</item>
         <item no.="4" name="E_red" B_name="" state="node">true</item>
         <item no.="5" name="E_green" B_name="" state="node">true</item>
         <item no.="6" name="E_blue" B_name="" state="node">true</item>
@@ -28,7 +28,7 @@
         <item no.="23" name="beaker_purple" B_name="" state="scene">false</item>
         <item no.="24" name="beaker_brownSh" B_name="" state="scene">false</item>
         <item no.="25" name="beaker_false" B_name="" state="scene">false</item>
-        <item no.="26" name="beaker01" B_name="" state="scene">false</item>
+        <item no.="26" name="beaker01" B_name="" state="scene">true</item>
         <item no.="27" name="beaker_red01" B_name="B_red.png" state="scene">false</item>
         <item no.="28" name="beaker_green01" B_name="B_green.png" state="scene">false</item>
         <item no.="29" name="beaker_blue01" B_name="B_blue.png" state="scene">false</item>
@@ -37,7 +37,7 @@
         <item no.="32" name="beaker_purple01" B_name="" state="scene">false</item>
         <item no.="33" name="beaker_brownSh01" B_name="" state="scene">false</item>
         <item no.="34" name="beaker_false01" B_name="" state="scene">false</item>
-        <item no.="35" name="beaker_brown" B_name="" state="scene">true</item>
+        <item no.="35" name="beaker_brown" B_name="" state="scene">false</item>
         <item no.="36" name="beaker_false02" B_name="" state="scene">false</item>
     </scene>
 </DataRoot>

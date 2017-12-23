@@ -22,10 +22,11 @@
 #include "ActionScene\RunScene\RunScene1.h"
 #include "common\AniScene.h"
 
+
+#define TALK_AREA 7
 class BMScene : public cocos2d::Layer
 {
 private:
-
 
 	// sound effect====================================
 	cocostudio::ComAudio *_pour;
@@ -120,6 +121,11 @@ private:
 	cocos2d::Sprite *_bowl[5];   //¯óÃÄ(¿i¦n)  0:one empty, 1:yellow ¡icorrect¡j, ¡iothers:failed¡j -- 2:garkgreen, 3:green, 4:red
 	cocos2d::Rect	*_pbowlRect;
 
+
+	//talk--------------
+	cocos2d::Rect	_talkRect[TALK_AREA];
+	bool _touchTalk[TALK_AREA];
+	bool _openTalk[TALK_AREA];
 
 	//mix==============================================
 

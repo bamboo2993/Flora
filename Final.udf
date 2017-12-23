@@ -29,8 +29,12 @@
       <Value ctype="TabsInfo">
         <OpenedDocuments>
           <FilePathData Path="BMScene.csd" />
+          <FilePathData Path="SRScene.csd" />
+          <FilePathData Path="GRScene.csd" />
+          <FilePathData Path="labScene.csd" />
+          <FilePathData Path="C2Scene.csd" />
         </OpenedDocuments>
-        <ActiveDocument Path="BMScene.csd" />
+        <ActiveDocument Path="C2Scene.csd" />
       </Value>
     </Item>
   </Properties>

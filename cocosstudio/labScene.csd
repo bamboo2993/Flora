@@ -146,6 +146,39 @@
             <FileData Type="PlistSubImage" Path="GR_Z03_01.png" Plist="GameScene/GRScene/GRScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
+          <AbstractNodeData Name="GR_Z03_01_2" ActionTag="1757310959" Tag="200" IconVisible="False" LeftMargin="859.0620" RightMargin="934.9380" TopMargin="505.1591" BottomMargin="742.8409" ctype="SpriteObjectData">
+            <Size X="254.0000" Y="288.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="986.0620" Y="886.8409" />
+            <Scale ScaleX="1.3316" ScaleY="0.5997" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.4815" Y="0.5774" />
+            <PreSize X="0.1240" Y="0.1875" />
+            <FileData Type="PlistSubImage" Path="GR_Z03_01.png" Plist="GameScene/GRScene/GRScene.plist" />
+            <BlendFunc Src="1" Dst="771" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="GR_Z03_01_2_0" ActionTag="-24214710" Tag="201" IconVisible="False" LeftMargin="1663.6970" RightMargin="130.3030" TopMargin="879.1488" BottomMargin="368.8512" ctype="SpriteObjectData">
+            <Size X="254.0000" Y="288.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="1790.6970" Y="512.8512" />
+            <Scale ScaleX="1.9372" ScaleY="0.9024" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.8744" Y="0.3339" />
+            <PreSize X="0.1240" Y="0.1875" />
+            <FileData Type="PlistSubImage" Path="GR_Z03_01.png" Plist="GameScene/GRScene/GRScene.plist" />
+            <BlendFunc Src="1" Dst="771" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="GR_Z03_01_2_1" ActionTag="-1470160434" Tag="202" IconVisible="False" LeftMargin="833.7795" RightMargin="960.2205" TopMargin="1208.4604" BottomMargin="39.5396" ctype="SpriteObjectData">
+            <Size X="254.0000" Y="288.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="960.7795" Y="183.5396" />
+            <Scale ScaleX="1.6187" ScaleY="1.2762" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.4691" Y="0.1195" />
+            <PreSize X="0.1240" Y="0.1875" />
+            <FileData Type="PlistSubImage" Path="GR_Z03_01.png" Plist="GameScene/GRScene/GRScene.plist" />
+            <BlendFunc Src="1" Dst="771" />
+          </AbstractNodeData>
         </Children>
       </ObjectData>
     </Content>

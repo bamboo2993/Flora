@@ -9,8 +9,6 @@
 #include "cocostudio/CocoStudio.h"
 #include "common\cButton.h"
 
-#include "ActionScene\RunScene\RunScene1.h"
-
 
 class SelectionScene : public cocos2d::Layer
 {

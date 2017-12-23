@@ -13,6 +13,7 @@ using namespace tinyxml2;
 class  CMix {
 
 private:
+	cocos2d::Sprite *_itemSprite;
 	const char *_targetItem1[4];
 	const char *_targetItem2[4];
 	const char *_targetItem3[4];
@@ -99,6 +100,7 @@ public:
 	void reset();
 
 	CMix(cocos2d::Node *currentNode);
+	CMix(const char * pic);
 	~CMix();
 
 

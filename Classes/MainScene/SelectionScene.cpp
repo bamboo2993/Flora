@@ -5,6 +5,7 @@
 
 #include "ActionScene\RunScene\RunScene1.h"
 #include "GameScene\BMScene.h"
+#include "GameScene\SRScene.h"
 
 
 USING_NS_CC;
@@ -136,7 +137,7 @@ void SelectionScene::doStep(float dt)
 		// 設定場景切換的特效
 		//		TransitionFade *pageTurn = TransitionFade::create(1.0F, GameScene::createScene());
 		//		Director::getInstance()->replaceScene(pageTurn);
-		Director::getInstance()->replaceScene(BMScene::createScene());
+		Director::getInstance()->replaceScene(SRScene::createScene());
 //		Director::getInstance()->replaceScene(labScene::createScene());
 		//SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 		

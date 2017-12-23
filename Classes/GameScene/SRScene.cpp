@@ -591,15 +591,6 @@ void  SRScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ĳ
 						_bWalk = 1;
 						_player->setPreviousPosition();
 
-						if (508.25f > _player->_rpos.x) {
-							_player->_bSide = 1;
-							_player->Mirror();
-						}
-						else {
-							_player->_bSide = 0;
-							_player->Mirror();
-						}
-
 						//-------------------------------
 						_TargetLoc = _touchLoc;
 						log("touched detect");
@@ -613,15 +604,6 @@ void  SRScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ĳ
 
 						_bWalk = 1;
 						_player->setPreviousPosition();
-
-						if (1239.22f > _player->_rpos.x) {
-							_player->_bSide = 1;
-							_player->Mirror();
-						}
-						else {
-							_player->_bSide = 0;
-							_player->Mirror();
-						}
 
 						//-------------------------------
 						_TargetLoc = _touchLoc;
@@ -637,15 +619,6 @@ void  SRScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ĳ
 						_bWalk = 1;
 						_player->setPreviousPosition();
 
-						if (594.03f > _player->_rpos.x) {
-							_player->_bSide = 1;
-							_player->Mirror();
-						}
-						else {
-							_player->_bSide = 0;
-							_player->Mirror();
-						}
-
 						//-------------------------------
 						_TargetLoc = _touchLoc;
 						log("touched detect node2");
@@ -660,15 +633,6 @@ void  SRScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ĳ
 
 						_bWalk = 1;
 						_player->setPreviousPosition();
-
-						if (1239.22f > _player->_rpos.x) {
-							_player->_bSide = 1;
-							_player->Mirror();
-						}
-						else {
-							_player->_bSide = 0;
-							_player->Mirror();
-						}
 
 						//-------------------------------
 						_TargetLoc = _touchLoc;
@@ -707,15 +671,6 @@ void  SRScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ĳ
 
 							_bWalk = 1;
 							_player->setPreviousPosition();
-
-							if (_touchLoc.x > _player->_rpos.x) {
-								_player->_bSide = 1;
-								_player->Mirror();
-							}
-							else {
-								_player->_bSide = 0;
-								_player->Mirror();
-							}
 
 							//-------------------------------
 							_TargetLoc = _touchLoc;

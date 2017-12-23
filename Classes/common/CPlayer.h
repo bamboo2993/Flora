@@ -29,14 +29,16 @@ private:
 	cocos2d::CallFunc *_mycallback;
 
 
-	bool bFirst;
+	bool bStop;
 
+	bool _reachSpot[20];
 
 	cocos2d::Size _contentSize;
 
 
 public:
 	CPlayer(const std::string body, const std::string aniBody, cocos2d::Layer &parent);
+	CPlayer(const std::string bodyPic, cocos2d::Layer &parent, Point pos, bool isFacingR);
 	~CPlayer();
 	void setPosition(const cocos2d::Point &pos);
 	void setPosition(const float x, const float y);
@@ -46,6 +48,7 @@ public:
 
 	void setAnimation(const char *plistFile);
 	void go(cocos2d::Point pt);
+	void go(bool isBack);
 	void Update();
 	void Stop();
 	void X_Move(float dt, float x);
@@ -53,10 +56,13 @@ public:
 	void Talk(const std::string picName,bool isRight);
 	void StopTalking();
 	void Mirror();
+	void Mirror(bool isFacingR);
 	bool Walk(Point x);
 	const Vec2 getPosition();
+	void SetReachSpot(int n, bool f);
+	bool GetReachSpot(int n);
 
-	bool _bSide;
+	bool _isFacingRight;
 
 	Point _rpos;
 	Rect _myRect;

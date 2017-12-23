@@ -711,16 +711,6 @@ void  GRScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ĳ
 					if (!_resetRect.containsPoint(_touchLoc)) {
 						_bWalk = 1;
 						_player->setPreviousPosition();
-
-						if (_touchLoc.x > _player->_rpos.x) {
-							_player->_bSide = 1;
-							_player->Mirror();
-						}
-						else {
-							_player->_bSide = 0;
-							_player->Mirror();
-						}
-
 						//-------------------------------
 						_TargetLoc = _touchLoc;
 
@@ -831,15 +821,6 @@ void  GRScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ĳ
 
 						_bWalk = 1;
 						_player->setPreviousPosition();
-
-						if (_touchLoc.x > _player->_rpos.x) {
-							_player->_bSide = 1;
-							_player->Mirror();
-						}
-						else {
-							_player->_bSide = 0;
-							_player->Mirror();
-						}
 
 						//-------------------------------
 						_TargetLoc = _touchLoc;

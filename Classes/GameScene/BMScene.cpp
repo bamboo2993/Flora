@@ -4,11 +4,6 @@
 #define ROOT_NODE   "BMScene.csb"
 #define CURRENT_SCENE   "BMScene.cpp"
 
-#define WALK_AREA_1 Vec2(420.0f,663.0f)
-#define WALK_AREA_2 Vec2(1657.0f,663.0f)
-#define WALK_AREA_3 Vec2(1657.0f,175.0f)
-#define WALK_AREA_4 Vec2(420.0f,175.0f)
-
 #define BAG_OPEN_HEIGHT 150.0f
 #define BAG_CLOSE_HEIGHT 250.0f
 
@@ -62,6 +57,12 @@ BMScene::BMScene() {
 	for (size_t i = 0; i < 3; i++) {
 		_touchSObj[i] = false;
 		_openSObj[i] = false;
+
+	}
+
+	for (size_t i = 0; i < TALK_AREA; i++) {
+		_touchTalk[i] = false;
+		_openTalk[i] = false;
 
 	}
 
@@ -127,11 +128,6 @@ bool BMScene::init()
 	_eNode[1] = (cocos2d::Node*)_rootNode->getChildByName("FileNode_2");
 	addChild(_eNode[1], 300);
 
-	// 破關畫面
-	this->_win = (cocos2d::Sprite *) _rootNode->getChildByName("congratulation");
-	this->addChild(_win, 2000);
-	_win->setVisible(false);
-
 	//skipBtn
 	_skipSprite = (cocos2d::Sprite*)_rootNode->getChildByName("skip");
 	Size size = _skipSprite->getContentSize();
@@ -139,25 +135,13 @@ bool BMScene::init()
 	_skipRect = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.width, size.height);
 	this->addChild(_skipSprite,20002);
 
-	// 音效與音樂 --------------------------------------------------------------------------------
-
-	SimpleAudioEngine::getInstance()->playBackgroundMusic("../music/memories.mp3", true);
-	//SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.2f);  //尚未實作
-
-	////SimpleAudioEngine::getInstance()->stopBackgroundMusic();	// 停止背景音樂
-
-	_pour = (cocostudio::ComAudio *)_rootNode->getChildByName("pour")->getComponent("pour");
-	_powder = (cocostudio::ComAudio *) _rootNode->getChildByName("powder")->getComponent("powder");
-	_mixing = (cocostudio::ComAudio *) _rootNode->getChildByName("mix")->getComponent("mix");
-	_grinding = (cocostudio::ComAudio *) _rootNode->getChildByName("grind")->getComponent("grind");
-	_debranch = (cocostudio::ComAudio *) _rootNode->getChildByName("debranch")->getComponent("debranch");
+	
 
 	// set player==============================================================
 
-	_player = new CPlayer("ater45_001.png", "ater45_001.png", *this);
-	_player->setAnimation("Animation/boyanim.plist");
-
-	//_player->setPosition(Point(950, 320));
+	_player = new CPlayer("GP45_001.png", "GP45_001.png", *this);
+	_player->setAnimation("Animation/GPanim.plist");
+	_player->setPosition(Point(1030, 725));
 	_player->setRect();
 
 
@@ -169,7 +153,9 @@ bool BMScene::init()
 	this->addChild(_procedure, 10000);
 
 
-	_pTrigger = new CTrigger[10];
+
+	//trigger====
+	_pTrigger = new CTrigger[10]; 
 
 	_pbeakerRect = new Rect[2];
 	_pbowlRect = new Rect;
@@ -239,6 +225,19 @@ bool BMScene::init()
 
 	reset();
 
+	// 音效與音樂 --------------------------------------------------------------------------------
+
+	SimpleAudioEngine::getInstance()->playBackgroundMusic("../music/memories.mp3", true);
+	//SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.2f);  //尚未實作
+
+	////SimpleAudioEngine::getInstance()->stopBackgroundMusic();	// 停止背景音樂
+
+	_pour = (cocostudio::ComAudio *)_rootNode->getChildByName("pour")->getComponent("pour");
+	_powder = (cocostudio::ComAudio *) _rootNode->getChildByName("powder")->getComponent("powder");
+	_mixing = (cocostudio::ComAudio *) _rootNode->getChildByName("mix")->getComponent("mix");
+	_grinding = (cocostudio::ComAudio *) _rootNode->getChildByName("grind")->getComponent("grind");
+	_debranch = (cocostudio::ComAudio *) _rootNode->getChildByName("debranch")->getComponent("debranch");
+
 	//-------------------------------------------------------------------------------------------------
 
 	_listener1 = EventListenerTouchOneByOne::create();	//創建一個一對一的事件聆聽器
@@ -296,12 +295,12 @@ void BMScene::SetObject() {
 	_detect[0] = (cocos2d::Sprite*)_rootNode->getChildByName("detect_syrup");
 	Size size = _detect[0]->getContentSize();
 	Point pos = _detect[0]->getPosition();
-	_detectRect[0] = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.height, size.width);
+	_detectRect[0] = Rect(pos.x - size.height / 2, pos.y - size.width / 2, size.height, size.width);
 
 	_detect[1] = (cocos2d::Sprite*)_rootNode->getChildByName("detect_herb");
 	size = _detect[1]->getContentSize();
 	pos = _detect[1]->getPosition();
-	_detectRect[1] = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.height, size.width);
+	_detectRect[1] = Rect(pos.x - size.height / 2, pos.y - size.width / 2, size.height, size.width);
 
 
 	Sprite* a = (cocos2d::Sprite*) _eNode[0]->getChildByName("E_node1");
@@ -322,6 +321,51 @@ void BMScene::SetObject() {
 	size = _trash->getContentSize();
 	pos = _trash->getPosition();
 	_trashRect = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.height, size.width);
+
+
+
+	//set talk area
+	a = (cocos2d::Sprite*)_rootNode->getChildByName("detect_book_0");
+	size = a->getContentSize();
+	pos = a->getPosition();
+	size.height = size.height/2;
+	size.width = size.width*1.3f;
+	_talkRect[0] = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.width, size.height);
+
+	pos.x += 445;
+	_talkRect[1] = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.width, size.height);
+
+	a = (cocos2d::Sprite*)_rootNode->getChildByName("deetect_plant_2");
+	size = a->getContentSize();
+	pos = a->getPosition();
+	size.height = size.height *1.3f;
+	_talkRect[2] = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.width, size.height);
+
+	a = (cocos2d::Sprite*)_rootNode->getChildByName("detect_mouse_3");
+	size = a->getContentSize();
+	pos = a->getPosition();
+	_talkRect[3] = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.width, size.height);
+
+	a = (cocos2d::Sprite*)_rootNode->getChildByName("detect_mouse_4");
+	size = a->getContentSize();
+	pos = a->getPosition();
+	size.height = size.height * 0.6f;
+	size.width = size.width * 0.7f;
+	_talkRect[4] = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.width, size.height);
+
+	a = (cocos2d::Sprite*)_rootNode->getChildByName("detect_shelf_5");
+	size = a->getContentSize();
+	pos = a->getPosition();
+	size.height = size.height * 2;
+	size.width = size.width * 1.7f;
+	_talkRect[5] = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.width, size.height);
+
+	a = (cocos2d::Sprite*)_rootNode->getChildByName("detect_Bboard_6");
+	size = a->getContentSize();
+	pos = a->getPosition();
+	size.height = size.height * 2.1f;
+	size.width = size.width * 0.8f;
+	_talkRect[6] = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.width, size.height);
 
 
 	// reset button===============================================
@@ -432,7 +476,6 @@ void BMScene::SetObject() {
 void BMScene::doStep(float dt)
 {
 	if (!_aniStop) {
-
 		if (_skip) {
 			if (_childhoodAni->skip(dt)) {
 				_aniStop = true;
@@ -446,7 +489,9 @@ void BMScene::doStep(float dt)
 				//SimpleAudioEngine::getInstance()->stopBackgroundMusic();	// 停止背景音樂
 				SimpleAudioEngine::getInstance()->playBackgroundMusic("../music/lab_bgm.mp3", true);
 			}
+
 		}
+		
 	}
 	else
 	{
@@ -770,7 +815,6 @@ void BMScene::reset() {
 	_btouch[3] = false;
 
 	_clear = false;
-	_win->setVisible(false);
 	_ibagState = 0;
 }
 
@@ -950,7 +994,6 @@ void  BMScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸
 					if (!_bopenNode[0] && !_bopenNode[1]) {
 						//沒按重置--------------
 						if (!_resetRect.containsPoint(_touchLoc)) {
-
 							//====================================
 							//detect for [water], [glass rod], [experimental procedure]------
 							if (_pTrigger[4].touchesBegan(_touchLoc)) {
@@ -958,18 +1001,8 @@ void  BMScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸
 								_bWalk = 1;
 								_player->setPreviousPosition();
 
-								if (_touchLoc.x > _player->_rpos.x) {
-									_player->_bSide = 1;
-									_player->Mirror();
-								}
-								else {
-									_player->_bSide = 0;
-									_player->Mirror();
-								}
-
 								//-------------------------------
 								_TargetLoc = _touchLoc;
-
 							}
 
 							else _openSObj[0] = false;
@@ -978,15 +1011,6 @@ void  BMScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸
 								_touchSObj[1] = true;
 								_bWalk = 1;
 								_player->setPreviousPosition();
-
-								if (_touchLoc.x > _player->_rpos.x) {
-									_player->_bSide = 1;
-									_player->Mirror();
-								}
-								else {
-									_player->_bSide = 0;
-									_player->Mirror();
-								}
 
 								//-------------------------------
 								_TargetLoc = _touchLoc;
@@ -999,15 +1023,6 @@ void  BMScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸
 								_touchSObj[2] = true;
 								_bWalk = 1;
 								_player->setPreviousPosition();
-
-								if (_touchLoc.x > _player->_rpos.x) {
-									_player->_bSide = 1;
-									_player->Mirror();
-								}
-								else {
-									_player->_bSide = 0;
-									_player->Mirror();
-								}
 
 								//-------------------------------
 								_TargetLoc = _touchLoc;
@@ -1062,15 +1077,6 @@ void  BMScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸
 						_bWalk = 1;
 						_player->setPreviousPosition();
 
-						if (_touchLoc.x > _player->_rpos.x) {
-							_player->_bSide = 1;
-							_player->Mirror();
-						}
-						else {
-							_player->_bSide = 0;
-							_player->Mirror();
-						}
-
 						//-------------------------------
 						_TargetLoc = _touchLoc;
 						log("touched detect");
@@ -1085,15 +1091,6 @@ void  BMScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸
 						_btouchNode[1] = true;
 						_bWalk = 1;
 						_player->setPreviousPosition();
-
-						if (_touchLoc.x > _player->_rpos.x) {
-							_player->_bSide = 1;
-							_player->Mirror();
-						}
-						else {
-							_player->_bSide = 0;
-							_player->Mirror();
-						}
 
 						//-------------------------------
 						_TargetLoc = _touchLoc;
@@ -1141,7 +1138,6 @@ void  BMScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸
 							if (_mixA->getCompleteStep()) {
 								_xmlscene->editItemState(35, true, _rootNode);
 								_clear = true;
-								//_win->setVisible(true);
 							}
 
 							else {

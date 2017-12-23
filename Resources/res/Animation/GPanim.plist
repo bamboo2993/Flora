@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>animations</key>
+	<dict>
+   <key>45degree</key>
+		<dict>
+			<key>delay</key>
+			<real>0.1</real>
+			<key>frames</key>
+			<array>
+				<string>GP45_001.png</string>
+				<string>GP45_002.png</string>
+				<string>GP45_003.png</string>
+				<string>GP45_004.png</string>
+				<string>GP45_005.png</string>
+				<string>GP45_006.png</string>
+				<string>GP45_007.png</string>
+				<string>GP45_008.png</string>
+			</array>
+		</dict>
+    
+    <key>45degree_back</key>
+		<dict>
+			<key>delay</key>
+			<real>0.1</real>
+			<key>frames</key>
+			<array>
+				<string>GPBack_001.png</string>
+				<string>GPBack_002.png</string>
+				<string>GPBack_003.png</string>
+				<string>GPBack_004.png</string>
+				<string>GPBack_005.png</string>
+				<string>GPBack_006.png</string>
+				<string>GPBack_007.png</string>
+				<string>GPBack_008.png</string>
+			</array>
+		</dict>
+  
+
+	</dict>
+</dict>
+</plist>

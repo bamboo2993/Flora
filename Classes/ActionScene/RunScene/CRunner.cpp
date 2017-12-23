@@ -19,8 +19,7 @@ USING_NS_CC;
 
 CRunner::CRunner(const char *body, cocos2d::Layer &parent)
 {
-	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Animation/ater_2.plist");
-//		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("SceneKitchenitem.plist");
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Animation/ater.plist");
 	// 讀取角色
 	_runner = Sprite::createWithSpriteFrameName(body);
 	_runner->setPosition(0,0); // 預設放在 (0,0) 
