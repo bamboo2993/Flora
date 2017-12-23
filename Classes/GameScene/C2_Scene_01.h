@@ -12,6 +12,7 @@ using namespace cocos2d;
 class C2_Scene_01 : public cocos2d::Layer
 {
 private:
+	
 	Sprite *_bg;
 
 	//boy
@@ -32,6 +33,8 @@ private:
 public:
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::Scene* createScene();
+	static cocos2d::Scene* createScene(int n);
+	int _from;
 
 	C2_Scene_01();
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone

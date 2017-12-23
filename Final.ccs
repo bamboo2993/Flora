@@ -346,6 +346,7 @@
         <Project Name="BMScene.csd" Type="Scene" />
         <Image Name="branch.png" />
         <Project Name="C2Scene.csd" Type="Scene" />
+        <Project Name="C2Scene02.csd" Type="Scene" />
         <Image Name="cheeseCard.png" />
         <Image Name="cola.png" />
         <Image Name="congratulation.png" />
@@ -381,7 +382,6 @@
         <Image Name="shell.png" />
         <Image Name="skip_normal.png" />
         <Project Name="SRScene.csd" Type="Scene" />
-        <Project Name="C2Scene02.csd" Type="Scene" />
       </RootFolder>
     </Group>
   </SolutionFolder>

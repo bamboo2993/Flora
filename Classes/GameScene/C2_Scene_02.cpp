@@ -96,7 +96,6 @@ bool C2_Scene_02::init()
 }
 
 void C2_Scene_02::doStep(float dt) {
-	Point pos = _boy->getPosition();
 	if (_toSpot[0]) {
 		if (!_boy->GetReachSpot(0)) {
 			if (ToSpot0(dt)) {

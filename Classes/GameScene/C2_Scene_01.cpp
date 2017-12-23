@@ -20,13 +20,32 @@ Scene* C2_Scene_01::createScene()
     return scene;
 }
 
+//Scene* C2_Scene_01::createScene(int n)
+//{
+//	// 'scene' is an autorelease object
+//	auto scene = Scene::create();
+//
+//	// 'layer' is an autorelease object
+//	auto layer = C2_Scene_01::create();
+//
+//	// add layer as a child to scene
+//	scene->addChild(layer);
+//
+//	_from = n;
+//
+//	// return the scene
+//	return scene;
+//}
+
 C2_Scene_01::C2_Scene_01() {
 	for (int i = 0; i < 2; i++) {
 		_toSpot[i] = false;
 	}
 	_isWalking = false;
+	_from = 1;
 }
 // on "init" you need to initialize your instance
+
 bool C2_Scene_01::init()
 {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
@@ -49,9 +68,18 @@ bool C2_Scene_01::init()
 	/*_boyRoot = CSLoader::createNode("GameScene/C2_Scene_01/boyWalkAni.csb");
 	_boyRoot->setPosition(650, 120);
 	this->addChild(_boyRoot);*/
-	_boy = new CPlayer("Animation/ATstand01.png", *this,Point(120,60),true);
-	_boy->setAnimation("Animation/boyanim.plist");
-	_boy->SetReachSpot(0, true);
+	if (_from == 0) { // from boyRoom
+		_boy = new CPlayer(false, *this, Point(1000, 315), true);
+		_boy->setAnimation("Animation/boyanim.plist");
+		_boy->SetReachSpot(1, true);
+	}
+	else // from corridor
+	{
+		_boy = new CPlayer(true, *this,Point(120,60),true);
+		_boy->setAnimation("Animation/boyanim.plist");
+		_boy->SetReachSpot(0, true);
+	}
+	
 
 
 
@@ -114,10 +142,12 @@ bool C2_Scene_01::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) {
 	//testing
 	if (!_isWalking) {
 		if (_spotRect[0].containsPoint(touchLoc)) {
+			_toSpot[1] = false;
 			_toSpot[0] = true;
 			log("clicked0");
 		}
 		if (_doorRect.containsPoint(touchLoc)) {
+			_toSpot[0] = false;
 			_toSpot[1] = true;
 			log("door");
 		}
