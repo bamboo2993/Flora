@@ -65,6 +65,7 @@ public:
 	bool GetReachSpot(int n);
 	void SetIsTalking(bool b);
 	bool GetIsTalking();
+	void setZOrder(int n);
 
 	bool _isFacingRight;
 

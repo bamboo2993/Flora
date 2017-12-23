@@ -5,6 +5,8 @@ USING_NS_CC;
 #define SPEED 3
 using namespace cocostudio::timeline;
 
+int C2_Scene_02::_from = 0;
+
 Scene* C2_Scene_02::createScene()
 {
     // 'scene' is an autorelease object
@@ -16,11 +18,13 @@ Scene* C2_Scene_02::createScene()
     // add layer as a child to scene
     scene->addChild(layer);
 
+	
     // return the scene
     return scene;
 }
 
 C2_Scene_02::C2_Scene_02() {
+
 	for (int i = 0; i < 3; i++) {
 		_toSpot[i] = false;
 	}
@@ -46,13 +50,20 @@ bool C2_Scene_02::init()
 	this->addChild(_bg);
 
 	//character setting
-	/*_boyRoot = CSLoader::createNode("GameScene/C2_Scene_02/boyWalkAni.csb");
-	_boyRoot->setPosition(650, 120);
-	this->addChild(_boyRoot);*/
-	_boy = new CPlayer(false, *this,Point(40,380),true);
-	_boy->setAnimation("Animation/boyanim.plist");
-	_boy->SetReachSpot(0, true);
-
+	if (_from == 1) {
+		_boy = new CPlayer(false, *this, Point(40, 380), true);
+		_boy->setAnimation("Animation/boyanim.plist");
+		_boy->SetReachSpot(0, true);
+		_boy->Mirror(true);
+		_boy->Stop(false);
+	}
+	else { // from room
+		_boy = new CPlayer(false, *this, Point(830, 245), true);
+		_boy->setAnimation("Animation/boyanim.plist");
+		_boy->SetReachSpot(2, true);
+		_boy->Mirror(false);
+		_boy->Stop(false);
+	}
 
 
 	//spots

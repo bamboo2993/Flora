@@ -199,6 +199,7 @@
           </Folder>
           <Folder Name="C2Scene">
             <Image Name="C2_Z1.png" />
+            <Image Name="C2_Z1_01.png" />
             <Image Name="C2_Z2.png" />
             <Image Name="C2_Z2_03.png" />
             <Image Name="C2_Z2_06.png" />

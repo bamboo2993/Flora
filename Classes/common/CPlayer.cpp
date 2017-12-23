@@ -129,9 +129,7 @@ cocos2d::Point CPlayer::getPreviousPosition(){
 
 const Vec2 CPlayer::getPosition()
 {
-	log("%1.0f,%1.0f", _player->getPositionX(), _player->getPositionY());
-	return _player->getPosition();
-	
+	return _player->getPosition();	
 }
 
 
@@ -211,7 +209,7 @@ bool CPlayer::Walk(Point i) {
 }
 
 void CPlayer::Talk(const std::string picName, bool isRight) {
-	_sentance = Sprite::create(picName);
+	_sentance->setTexture(picName);
 
 	if (isRight) {
 		_sentance->setAnchorPoint(Point(0, 0));
@@ -229,7 +227,14 @@ void CPlayer::StopTalking() {
 }
 
 void CPlayer::SetReachSpot(int n, bool f) {
+	if (n < 0) {
+		for (int i = 0; i < 20; i++) {
+			_reachSpot[i] = false;
+		}
+	}
+	else
 	_reachSpot[n] = f;
+
 }
 
 bool CPlayer::GetReachSpot(int n) {
@@ -242,4 +247,8 @@ void CPlayer::SetIsTalking(bool b) {
 
 bool CPlayer::GetIsTalking() {
 	return _isTalking;
+}
+
+void CPlayer::setZOrder(int n) {
+	_player->setZOrder(n);
 }

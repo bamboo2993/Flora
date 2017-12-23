@@ -97,6 +97,9 @@
     <ClCompile Include="..\Classes\GameScene\C2_Scene_02.cpp">
       <Filter>src\GameScene</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\GameScene\C2_Scene_03.cpp">
+      <Filter>src\GameScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\common\AniScene.h">
@@ -193,6 +196,9 @@
       <Filter>src\GameScene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GameScene\C2_Scene_02.h">
+      <Filter>src\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameScene\C2_Scene_03.h">
       <Filter>src\GameScene</Filter>
     </ClInclude>
   </ItemGroup>
