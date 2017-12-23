@@ -17,7 +17,6 @@ private:
 
 	cocos2d::Sprite *_player;
 	cocos2d::Sprite *_rest;
-	Sprite* _stand[2];
 
 	cocos2d::Sprite *_sentance;
 
@@ -32,7 +31,7 @@ private:
 
 
 	bool bStop;
-
+	bool _isTalking;
 	bool _reachSpot[20];
 
 	cocos2d::Size _contentSize;
@@ -41,7 +40,6 @@ private:
 public:
 	CPlayer(const char*  front, const char*  back, cocos2d::Layer &parent);
 	CPlayer(bool isBack, cocos2d::Layer &parent, Point pos, bool isFacingR);
-	CPlayer(const std::string body, cocos2d::Layer &parent, Point pos, bool isFacingR);
 
 	~CPlayer();
 	void setPosition(const cocos2d::Point &pos);
@@ -66,6 +64,8 @@ public:
 	const Vec2 getPosition();
 	void SetReachSpot(int n, bool f);
 	bool GetReachSpot(int n);
+	void SetIsTalking(bool b);
+	bool GetIsTalking();
 
 	bool _isFacingRight;
 

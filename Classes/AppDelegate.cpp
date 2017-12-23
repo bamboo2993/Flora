@@ -1,5 +1,5 @@
 
-#define SceneTransition 1
+#define SceneTransition 40
 
 
 #include "AppDelegate.h"

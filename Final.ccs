@@ -349,6 +349,7 @@
         <Project Name="BMScene.csd" Type="Scene" />
         <Image Name="branch.png" />
         <Project Name="C2Scene.csd" Type="Scene" />
+        <Project Name="C2Scene02.csd" Type="Scene" />
         <Image Name="cheeseCard.png" />
         <Image Name="cola.png" />
         <Image Name="congratulation.png" />
@@ -385,9 +386,13 @@
         <Image Name="skip_normal.png" />
         <Project Name="SRScene.csd" Type="Scene" />
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         <Project Name="C2Scene02.csd" Type="Scene" />
 >>>>>>> 3a35396a0234aa71b7338902bd4852fa82a17dab
+=======
+        <Project Name="C2Scene03.csd" Type="Scene" />
+>>>>>>> f0b603f4384f1fb220d7899e62132949f970fed6
       </RootFolder>
     </Group>
   </SolutionFolder>

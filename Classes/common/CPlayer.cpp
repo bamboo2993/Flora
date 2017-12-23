@@ -23,6 +23,10 @@ CPlayer::CPlayer(const char*  front, const char*  back, cocos2d::Layer &parent)
 	_cstand[0] = front;
 	_cstand[1] = back;
 	_contentSize = _player->getContentSize();
+	_isTalking = false;
+
+
+	_contentSize = _player->getContentSize();
 
 	_rpos = _player->getPosition();
 	for (int i = 0; i < 20; i++) {
@@ -38,36 +42,9 @@ CPlayer::CPlayer(bool isBack, cocos2d::Layer &parent, Point pos, bool isFacingR)
 
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Animation/ater_1.plist");
 
-	_stand[0] = Sprite::create("Animation/ATstand01.png");
-	_stand[1] = Sprite::create("Animation/ATstand02.png");
-	
 	// 讀取角色
-	_player = Sprite::create("Animation/ATstand01.png");
-	_player = _stand[isBack];
-	_player->setAnchorPoint(Point(0.5, 0));
-	_player->setPosition(pos);
-	parent.addChild(_player);
-	bStop = 1;
-	_isFacingRight = isFacingR;
-	Mirror();
-
-	_rpos = _player->getPosition();
-
-	for (int i = 0; i < 20; i++) {
-		_reachSpot[i] = false;
-	}
-
-	_myAction = nullptr;
-}
-
-CPlayer::CPlayer(const std::string body, cocos2d::Layer &parent, Point pos, bool isFacingR)
-{
-	Size visibleSize = Director::getInstance()->getVisibleSize();
-
-	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Animation/ater_1.plist");
-
-	// 讀取角色
-	_player = Sprite::create(body);
+	if (isBack) { _player = Sprite::create("Animation/ATstand02.png"); }
+	else { _player = Sprite::create("Animation/ATstand01.png"); }
 	_player->setAnchorPoint(Point(0.5, 0));
 	_player->setPosition(pos);
 	parent.addChild(_player);
@@ -206,7 +183,8 @@ void CPlayer::Stop(bool isBack) {
 	_player->stopAction(_action[0]);
 	_player->stopAction(_action[1]);
 	bStop = true;
-	_player = _stand[isBack];
+	if (isBack)	_player->setTexture("Animation/ATstand02.png");
+	else _player->setTexture("Animation/ATstand01.png");
 }
 
 void CPlayer::Mirror() {
@@ -243,8 +221,7 @@ bool CPlayer::Walk(Point i) {
 }
 
 void CPlayer::Talk(const std::string picName, bool isRight) {
-	_sentance = Sprite::createWithSpriteFrameName(picName);
-	Vec2 playerPos = _player->getPosition();
+	_sentance = Sprite::create(picName);
 
 	if (isRight) {
 		_sentance->setAnchorPoint(Point(0, 0));
@@ -252,8 +229,8 @@ void CPlayer::Talk(const std::string picName, bool isRight) {
 	else{
 		_sentance->setAnchorPoint(Point(1, 0));
 	}
+	_sentance->setPosition(150, 550.0f);
 	
-	_sentance->setPosition(playerPos.x, playerPos.y + 50.0f);
 	_player->addChild(_sentance);
 }
 
@@ -267,4 +244,12 @@ void CPlayer::SetReachSpot(int n, bool f) {
 
 bool CPlayer::GetReachSpot(int n) {
 	return _reachSpot[n];
+}
+
+void CPlayer::SetIsTalking(bool b) {
+	_isTalking = b;
+}
+
+bool CPlayer::GetIsTalking() {
+	return _isTalking;
 }
