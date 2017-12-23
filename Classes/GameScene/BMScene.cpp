@@ -429,7 +429,8 @@ void BMScene::doStep(float dt)
 			}
 		}
 		else {
-			if (_childhoodAni->doStep(dt)) {
+			if (_childhoodAni->doStep(dt)) {	
+				_childhoodAni->setVis(false);
 				_aniStop = true;
 				//SimpleAudioEngine::getInstance()->stopBackgroundMusic();	// °±¤î­I´º­µ¼Ö
 				SimpleAudioEngine::getInstance()->playBackgroundMusic("../music/lab_bgm.mp3", true);

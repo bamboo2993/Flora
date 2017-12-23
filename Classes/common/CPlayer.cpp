@@ -47,14 +47,42 @@ CPlayer::CPlayer(const std::string body, const std::string aniBody, cocos2d::Lay
 	_myAction = nullptr;
 }
 
-CPlayer::CPlayer(const std::string bodyPic, cocos2d::Layer &parent, Point pos, bool isFacingR)
+CPlayer::CPlayer(bool isBack, cocos2d::Layer &parent, Point pos, bool isFacingR)
+{
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Animation/ater_1.plist");
+
+	_stand[0] = Sprite::create("Animation/ATstand01.png");
+	_stand[1] = Sprite::create("Animation/ATstand02.png");
+	
+	// 讀取角色
+	_player = Sprite::create("Animation/ATstand01.png");
+	_player = _stand[isBack];
+	_player->setAnchorPoint(Point(0.5, 0));
+	_player->setPosition(pos);
+	parent.addChild(_player);
+	bStop = 1;
+	_isFacingRight = isFacingR;
+	Mirror();
+
+	_rpos = _player->getPosition();
+
+	for (int i = 0; i < 20; i++) {
+		_reachSpot[i] = false;
+	}
+
+	_myAction = nullptr;
+}
+
+CPlayer::CPlayer(const std::string body, cocos2d::Layer &parent, Point pos, bool isFacingR)
 {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Animation/ater_1.plist");
 
 	// 讀取角色
-	_player = Sprite::create(bodyPic);
+	_player = Sprite::create(body);
 	_player->setAnchorPoint(Point(0.5, 0));
 	_player->setPosition(pos);
 	parent.addChild(_player);
@@ -129,7 +157,9 @@ cocos2d::Point CPlayer::getPreviousPosition(){
 
 const Vec2 CPlayer::getPosition()
 {
+	log("%1.0f,%1.0f", _player->getPositionX(), _player->getPositionY());
 	return _player->getPosition();
+	
 }
 
 
@@ -167,6 +197,12 @@ void CPlayer::Stop() {
 
 }
 
+void CPlayer::Stop(bool isBack) {
+	_player->stopAction(_action[0]);
+	_player->stopAction(_action[1]);
+	bStop = true;
+	_player = _stand[isBack];
+}
 
 void CPlayer::Mirror() {
 	if (_isFacingRight) {

@@ -16,6 +16,7 @@ private:
 	cocos2d::Sprite *_player;
 	cocos2d::Sprite *_body;
 	cocos2d::Sprite *_rest;
+	Sprite* _stand[2];
 
 	cocos2d::Sprite *_sentance;
 
@@ -38,7 +39,9 @@ private:
 
 public:
 	CPlayer(const std::string body, const std::string aniBody, cocos2d::Layer &parent);
-	CPlayer(const std::string bodyPic, cocos2d::Layer &parent, Point pos, bool isFacingR);
+	CPlayer(bool isBack, cocos2d::Layer &parent, Point pos, bool isFacingR);
+	CPlayer(const std::string body, cocos2d::Layer &parent, Point pos, bool isFacingR);
+
 	~CPlayer();
 	void setPosition(const cocos2d::Point &pos);
 	void setPosition(const float x, const float y);
@@ -51,6 +54,7 @@ public:
 	void go(bool isBack);
 	void Update();
 	void Stop();
+	void Stop(bool isBack);
 	void X_Move(float dt, float x);
 	void Y_Move(float dt, float y);
 	void Talk(const std::string picName,bool isRight);

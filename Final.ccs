@@ -197,6 +197,14 @@
             <Image Name="procedure.png" />
             <Image Name="skip_click.png" />
           </Folder>
+          <Folder Name="C2Scene">
+            <Image Name="C2_Z1.png" />
+            <Image Name="C2_Z2.png" />
+            <Image Name="C2_Z2_03.png" />
+            <Image Name="C2_Z2_06.png" />
+            <Image Name="C2_Z3.png" />
+            <Image Name="C2_Z3_03.png" />
+          </Folder>
           <Folder Name="GRScene">
             <PlistImageFolder Image="GRScene.png" PListFile="GRScene.plist" Name=".GRScene_PList.Dir">
               <PlistImageFile Name="GR_S01_01.png" Key="GR_S01_01.png" />
@@ -256,12 +264,6 @@
             <Image Name="SR_Z04_P02.png" />
             <Image Name="SR_Z04_P03.png" />
             <Image Name="SR_Z04_P04.png" />
-          </Folder>
-          <Folder Name="C2Scene">
-            <Image Name="C2_Z1.png" />
-            <Image Name="C2_Z2.png" />
-            <Image Name="C2_Z3.png" />
-            <Image Name="C2_Z3_03.png" />
           </Folder>
         </Folder>
         <Folder Name="MainScene">
@@ -343,6 +345,7 @@
         <Image Name="bananaa.png" />
         <Project Name="BMScene.csd" Type="Scene" />
         <Image Name="branch.png" />
+        <Project Name="C2Scene.csd" Type="Scene" />
         <Image Name="cheeseCard.png" />
         <Image Name="cola.png" />
         <Image Name="congratulation.png" />
@@ -378,7 +381,7 @@
         <Image Name="shell.png" />
         <Image Name="skip_normal.png" />
         <Project Name="SRScene.csd" Type="Scene" />
-        <Project Name="C2Scene.csd" Type="Scene" />
+        <Project Name="C2Scene02.csd" Type="Scene" />
       </RootFolder>
     </Group>
   </SolutionFolder>

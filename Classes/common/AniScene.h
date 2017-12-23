@@ -11,6 +11,7 @@ public:
 	void init(Point &pt, Layer &parent, int num, char *picname);
 	bool doStep(float dt);
 	bool skip(float dt);
+	void setVis(bool b);
 
 private:
 	Sprite *_SpriteCD[10];
