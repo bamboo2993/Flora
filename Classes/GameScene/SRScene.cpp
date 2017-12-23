@@ -137,7 +137,7 @@ bool SRScene::init()
 
 	// set player==============================================================
 
-	_player = new CPlayer("ater45_001.png", "ater45_001.png", *this);
+	_player = new CPlayer("aterStand01.png", "aterStand02.png", *this);
 	_player->setAnimation("Animation/boyanim.plist");
 
 	_player->setPosition(Point(1384.09f, 343.64f));

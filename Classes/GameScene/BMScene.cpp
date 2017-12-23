@@ -139,7 +139,7 @@ bool BMScene::init()
 
 	// set player==============================================================
 
-	_player = new CPlayer("GP45_001.png", "GP45_001.png", *this);
+	_player = new CPlayer("GP_stand01.png", "GP_stand02.png", *this);
 	_player->setAnimation("Animation/GPanim.plist");
 	_player->setPosition(Point(1030, 725));
 	_player->setRect();
@@ -484,7 +484,8 @@ void BMScene::doStep(float dt)
 			}
 		}
 		else {
-			if (_childhoodAni->doStep(dt)) {
+			if (_childhoodAni->doStep(dt)) {	
+				_childhoodAni->setVis(false);
 				_aniStop = true;
 				//SimpleAudioEngine::getInstance()->stopBackgroundMusic();	// °±¤î­I´º­µ¼Ö
 				SimpleAudioEngine::getInstance()->playBackgroundMusic("../music/lab_bgm.mp3", true);

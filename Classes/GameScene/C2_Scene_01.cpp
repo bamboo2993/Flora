@@ -49,7 +49,7 @@ bool C2_Scene_01::init()
 	/*_boyRoot = CSLoader::createNode("GameScene/C2_Scene_01/boyWalkAni.csb");
 	_boyRoot->setPosition(650, 120);
 	this->addChild(_boyRoot);*/
-	_boy = new CPlayer("Animation/ATstand02.png", *this,Point(120,60),true);
+	_boy = new CPlayer("Animation/ATstand01.png", *this,Point(120,60),true);
 	_boy->setAnimation("Animation/boyanim.plist");
 	_boy->SetReachSpot(0, true);
 
@@ -89,7 +89,6 @@ bool C2_Scene_01::init()
 }
 
 void C2_Scene_01::doStep(float dt) {
-	Point pos = _boy->getPosition();
 	if (_toSpot[0]) {
 		if (!_boy->GetReachSpot(0)) {
 			if (ToSpot0(dt)) {
@@ -137,11 +136,11 @@ void C2_Scene_01::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) {
 
 
 bool C2_Scene_01::ToSpot0(float dt) {
-	Point pos = _boy->getPosition();
+	Vec2 pos = _boy->getPosition();
 	if (_spotRect[0].containsPoint(pos)) {
 		_boy->SetReachSpot(1, false);
 		_boy->SetReachSpot(0, true);
-		_boy->Stop();
+		_boy->Stop(false);
 		return true;
 	}
 	else { 
@@ -154,12 +153,12 @@ bool C2_Scene_01::ToSpot0(float dt) {
 }
 
 bool C2_Scene_01::ToSpot1(float dt) {
-	Point pos = _boy->getPosition();
+	Vec2 pos = _boy->getPosition();
 	if (_spotRect[1].containsPoint(pos)) {
 		_boy->SetReachSpot(0, false);
 		_boy->SetReachSpot(1, true);
 		_boy->Mirror(false);
-		_boy->Stop();
+		_boy->Stop(true);
 		return true;
 	}
 	else {

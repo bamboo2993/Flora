@@ -87,3 +87,9 @@ bool AniScene::skip(float dt) {
 		return true; }
 	else return false;
 }
+
+void AniScene::setVis(bool b) {
+	for (int i = 0; i < picnum; i++) {
+		_SpriteCD[i]->setVisible(b);
+	}
+}
