@@ -45,7 +45,6 @@ SRScene::SRScene() {
 	_bWalk = false; //detect if player is walking
 
 	//判斷 walk
-	_bwithinArea = false;
 
 	_bpickObj = false;
 	
@@ -122,18 +121,6 @@ bool SRScene::init()
 	_zNode[3] = (cocos2d::Node*)_rootNode->getChildByName("Node_SR_Z04");
 	addChild(_zNode[3], 300);
 	
-	// 音效與音樂 --------------------------------------------------------------------------------
-
-	//SimpleAudioEngine::getInstance()->playBackgroundMusic("../music/GR_bgm.mp3", true);
-	//SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.2f);  //尚未實作
-
-	////SimpleAudioEngine::getInstance()->stopBackgroundMusic();	// 停止背景音樂
-
-	//_pour = (cocostudio::ComAudio *)_rootNode->getChildByName("pour")->getComponent("pour");
-//	_powder = (cocostudio::ComAudio *) _rootNode->getChildByName("powder")->getComponent("powder");
-//	_mixing = (cocostudio::ComAudio *) _rootNode->getChildByName("mix")->getComponent("mix");
-//	_grinding = (cocostudio::ComAudio *) _rootNode->getChildByName("grind")->getComponent("grind");
-//	_debranch = (cocostudio::ComAudio *) _rootNode->getChildByName("debranch")->getComponent("debranch");
 
 	// set player==============================================================
 
@@ -196,6 +183,18 @@ bool SRScene::init()
 	this->addChild(CBag::getInstance(), 1000);
 
 
+	// 音效與音樂 --------------------------------------------------------------------------------
+
+	//SimpleAudioEngine::getInstance()->playBackgroundMusic("../music/GR_bgm.mp3", true);
+	//SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.2f);  //尚未實作
+
+	////SimpleAudioEngine::getInstance()->stopBackgroundMusic();	// 停止背景音樂
+
+	//_pour = (cocostudio::ComAudio *)_rootNode->getChildByName("pour")->getComponent("pour");
+	//	_powder = (cocostudio::ComAudio *) _rootNode->getChildByName("powder")->getComponent("powder");
+	//	_mixing = (cocostudio::ComAudio *) _rootNode->getChildByName("mix")->getComponent("mix");
+	//	_grinding = (cocostudio::ComAudio *) _rootNode->getChildByName("grind")->getComponent("grind");
+	//	_debranch = (cocostudio::ComAudio *) _rootNode->getChildByName("debranch")->getComponent("debranch");
 
 	//-------------------------------------------------------------------------------------------------
 
@@ -215,17 +214,6 @@ bool SRScene::init()
 
 void SRScene::SetObject() {
 	//set objects
-
-	//_pTrigger[0].create();
-	//_pTrigger[0].Init("GR_Z01_01", _rootNode, true, 1, _zNode[0]); //sudoku trigger
-
-	//_pTrigger[1].create();
-	//_pTrigger[1].Init("GR_Z02_02", _rootNode, true, 1, _zNode[1]); //key trigger
-
-	//
-	//this->addChild(_pTrigger);
-
-
 
 
 	_detect[0] = (cocos2d::Sprite*)_rootNode->getChildByName("SR_Z01_trigger");
@@ -256,6 +244,8 @@ void SRScene::SetObject() {
 	_detectRect[3] = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.width, size.height);
 
 
+
+
 	// reset button===============================================
 	_reset = (cocos2d::Sprite*)_rootNode->getChildByName("reset");
 	size = _reset->getContentSize();
@@ -281,6 +271,32 @@ void SRScene::SetObject() {
 	pos = a->getPosition();
 	_closeRect = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.width, size.height);
 
+	//set talk area===============================
+	a = (cocos2d::Sprite*)_rootNode->getChildByName("talk_cormer_0");
+	size = a->getContentSize();
+	pos = a->getPosition();
+	size.width = size.width*2.53f;
+	_talkRect[0] = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.width, size.height);
+
+	a = (cocos2d::Sprite*)_rootNode->getChildByName("talk_cormer_1");
+	pos = a->getPosition();
+	_talkRect[1] = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.width, size.height);
+
+
+	a = (cocos2d::Sprite*)_rootNode->getChildByName("talk_sofa_2");
+	pos = a->getPosition();
+	size = a->getContentSize();
+	size.width = size.width*1.5f;
+	size.height = size.height *1.3f;
+	_talkRect[2] = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.width, size.height);
+
+
+	a = (cocos2d::Sprite*)_rootNode->getChildByName("talk_self_3");
+	size = a->getContentSize();
+	pos = a->getPosition();
+	size.width = size.width*5.0f;
+	size.height = size.height *2.0f;
+	_talkRect[3] = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.width, size.height);
 
 
 }
@@ -348,7 +364,58 @@ void SRScene::doStep(float dt){
 	}
 
 	
+
+	else if (_touchTalk[0] || _touchTalk[3]) {
+		_player->Walk(Vec2(945.27f, 435.06f));
+		_player->go(Vec2(945.27f, 435.06f));
+		if (_player->Walk(Vec2(945.27f, 435.06f)) == false) {
+			_bWalk = 0;
+
+			//pick up obj
+			if (_touchTalk[0]) {
+				_touchTalk[0] = !_touchTalk[0];
+				_openTalk[0] = !_openTalk[0];
+			}
+			else {
+				_touchTalk[3] = !_touchTalk[3];
+				_openTalk[3] = !_openTalk[3];
+			}
+
+			//log("show detect");
+		}
+
+	}
 	
+	else if (_touchTalk[1]) {
+		_player->Walk(Vec2(1340.73f, 303.25f));
+		_player->go(Vec2(1340.73f, 303.25f));
+		if (_player->Walk(Vec2(1340.73f, 303.25f)) == false) {
+			_bWalk = 0;
+
+			//pick up obj
+			_touchTalk[1] = !_touchTalk[1];
+			_openTalk[1] = !_openTalk[1];
+
+			//log("show detect");
+		}
+
+	}
+
+	else if (_touchTalk[2]) {
+		_player->Walk(Vec2(1480.58f, 118.30f));
+		_player->go(Vec2(1480.58f, 118.30f));
+		if (_player->Walk(Vec2(1480.58f, 118.30f)) == false) {
+			_bWalk = 0;
+
+			//pick up obj
+
+			_touchTalk[2] = !_touchTalk[2];
+			_openTalk[2] = !_openTalk[2];
+			//log("show detect");
+		}
+
+	}
+
 	else {
 		_player->Stop();
 	}
@@ -362,17 +429,51 @@ void SRScene::doStep(float dt){
 
 void SRScene::PickObject(float dt) {	
 	if (_bopenNode[0]) {
+		_player->SetFront(true);
 		_procedure[0]->doStep(dt);
 	}
 
 	else if (_bopenNode[1]) {
+		_player->Mirror(true);
 		_procedure[1]->doStep(dt);	
+
 	}
 	else if (_bopenNode[3]) {
+		_player->Mirror(true);
 		if (_btogger[1]) _procedure[2]->doStep(dt);
 	}
 
-	
+	else if (_openTalk[0] || _openTalk[1]) {
+		_player->Mirror(true);
+		const char* x;
+		if (_talkContent==0) x = "dialoge/SR/SR_corner01.png";
+		else if(_talkContent == 1)x = "dialoge/SR/SR_corner02.png";
+		else if (_talkContent == 2)x = "dialoge/SR/SR_corner03.png";
+		else if (_talkContent == 3)x = "dialoge/SR/SR_corner04.png";
+		_player->Talk(x, false);
+		if(_talkContent ==1) _player->Talk(x, true);
+		_player->SetIsTalking(true);
+		_openTalk[0] = false;
+		_openTalk[1] = false;
+	}
+
+	else if (_openTalk[2]) {
+		const char* x;
+		if (_talkContent) x = "dialoge/SR/SR_sofa01.png";
+		else x = "dialoge/SR/SR_sofa02.png";
+		_player->Talk(x, false);
+		_player->SetIsTalking(true);
+		_openTalk[2] = false;
+	}
+	else if (_openTalk[3]) {
+		const char* x;
+		if (_talkContent == 0) x = "dialoge/SR/SR_shelf01.png";
+		else if (_talkContent == 1) x = "dialoge/SR/SR_shelf02.png";
+		else if (_talkContent == 2) x = "dialoge/SR/SR_shelf03.png";
+		_player->Talk(x, true);
+		_player->SetIsTalking(true);
+		_openTalk[3] = false;
+	}
 
 }
 
@@ -382,7 +483,6 @@ void SRScene::reset() {
 
 	// reset scene===============================
 	_bWalk = false; //detect if player is walking
-	_bwithinArea = false;//判斷 walk
 
 	_bpickObj = false;
 	
@@ -429,17 +529,20 @@ bool SRScene::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)//觸碰
 	_startX = _touchLoc.x;
 	_startY = _touchLoc.y;
 
+	if (!_player->GetIsTalking()) {
+		if (_ibagState) { //when bag is open
+						  //use items in bag===========================================
+			CBag::getInstance()->touchesBegan(_touchLoc);
 
-	if (_ibagState) { //when bag is open
-		//use items in bag===========================================
-		CBag::getInstance()->touchesBegan(_touchLoc);
+		}
 
+		if (_btogger[0]) {
+			//lock==================
+			_lock->TouchBegan(_touchLoc);
+		}
 	}
 
-	if (_btogger[0]) {
-		//lock==================
-		_lock->TouchBegan(_touchLoc);
-	}
+	
 
 
 
@@ -452,15 +555,19 @@ void  SRScene::onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸
 
 	_touchLoc = pTouch->getLocation();
 
-	//use items in bag===========================================
-	if (_ibagState) { //when bag is open
-		CBag::getInstance()->touchesMoved(_touchLoc);
+
+	if (!_player->GetIsTalking()) {
+		//use items in bag===========================================
+		if (_ibagState) { //when bag is open
+			CBag::getInstance()->touchesMoved(_touchLoc);
+		}
+
+		if (_btogger[0]) {
+			//lock==================
+			_lock->TouchMoved(_touchLoc);
+		}
 	}
 	
-	if (_btogger[0]) {
-		//lock==================
-		_lock->TouchMoved(_touchLoc);
-	}
 }
 
 void  SRScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸碰結束事件 
@@ -472,196 +579,161 @@ void  SRScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸
 	float offsetX = _touchLoc.x - _startX;
 	float offsetY = _touchLoc.y - _startY;
 
-	if (_ibagState != 2) {
+	if (!_player->GetIsTalking()) {
+		if (_ibagState != 2) {
 
-		// [WALK + PICK OBJECT]===================
-		if (offsetX == 0 && offsetY == 0 && !CBag::getInstance()->LightboxState()) { // when screen tapped
-			_TargetLoc = _touchLoc;
-			if (_touchLoc.y > 227) {
-				
-				////player walk =====================================================
+			// [WALK + PICK OBJECT]===================
+			if (offsetX == 0 && offsetY == 0 && !CBag::getInstance()->LightboxState()) { // when screen tapped
+				_TargetLoc = _touchLoc;
+				if (_touchLoc.y > 227) {
 
-				//放大鏡沒開 --------------
-				if (!_bopenNode[0] && !_bopenNode[1] && !_bopenNode[2] && !_bopenNode[3]) {
-					//沒按重置-------------
-					if (_resetRect.containsPoint(_touchLoc)) {
-						
-						reset();
-					}
-					
-				}
+					////player walk =====================================================
 
+					//放大鏡沒開 --------------
+					if (!_bopenNode[0] && !_bopenNode[1] && !_bopenNode[2] && !_bopenNode[3]) {
+						//沒按重置-------------
+						if (_resetRect.containsPoint(_touchLoc)) {
 
-
-
-				//znode[0]開---------------------
-				if (_bopenNode[0]) {
-					_bwithinArea = false;
-
-					if (!_procedure[0]->GetOpen()) {
-						if (_closeRect.containsPoint(_touchLoc)) {
-							_bopenNode[0] = !_bopenNode[0];
-							_zNode[0]->setVisible(false);
-							log("close detect");
+							reset();
 						}
-					}
-					
-					_procedure[0]->TouchBegan(_touchLoc);
-
-				}
-				//znode[1]開---------------------
-				else if (_bopenNode[1]) {
-					_bwithinArea = false;
-					
-					if (!_procedure[1]->GetOpen()) {
-						if (_closeRect.containsPoint(_touchLoc)) {
-							_bopenNode[1] = !_bopenNode[1];
-							_zNode[1]->setVisible(false);
-							log("close detect");
-						}
-					}
-
-					_procedure[1]->TouchBegan(_touchLoc);
-					
-				}
-				//znode[2]開---------------------
-				else if (_bopenNode[2] && !_lock->GetState()) {
-					_bwithinArea = false;
-					if(_btogger[0]) _lock->TouchEnded(_touchLoc);
-					else {
-						if (_toggerRect[0].containsPoint(_touchLoc)){
-							_btogger[0] = true;
-							_zNode[2]->getChildByName("SR_Z03_01")->setVisible(!_btogger[0]);
-							_zNode[2]->getChildByName("SR_Z03_02")->setVisible(_btogger[0]);
-						}
-					}
-
-					if (_closeRect.containsPoint(_touchLoc)) {
-						_bopenNode[2] = !_bopenNode[2];
-						_zNode[2]->setVisible(false);
-
-						_btogger[0] = false;
-						_zNode[2]->getChildByName("SR_Z03_01")->setVisible(!_btogger[0]);
-						_zNode[2]->getChildByName("SR_Z03_02")->setVisible(_btogger[0]);
-						log("close detect");
-					}
-				}
+						else {
+							if (_talkRect[0].containsPoint(_touchLoc)) {
+								_touchTalk[0] = true;
+								_bWalk = 1;
+								_player->setPreviousPosition();
+								_talkContent = rand() % 4;
+							}
+							else {
+								_openTalk[0] = false;
+								_touchTalk[0] = false;
+							}
 
 
-				else if (_lock->GetState()) {
-					_lock->TouchEnded(_touchLoc);
+							if (_talkRect[1].containsPoint(_touchLoc)) {
+								_touchTalk[1] = true;
+								_bWalk = 1;
+								_player->setPreviousPosition();
+								_talkContent = rand() % 4;
+							}
+							else {
+								_openTalk[1] = false;
+								_touchTalk[1] = false;
+							}
 
-				}
 
-				//znode[3]開---------------------
-				else if (_bopenNode[3]) {
-					_bwithinArea = false;
-					/*_pTrigger[1].touchesBegan(_touchLoc);*/
-					//_procedure[1]->TouchBegan(_touchLoc);
+							if (_talkRect[2].containsPoint(_touchLoc)) {
+								_touchTalk[2] = true;
+								_bWalk = 1;
+								_player->setPreviousPosition();
+								_talkContent = rand() % 2;
 
-					if (!_procedure[2]->GetOpen()) {
-						if (_toggerRect[1].containsPoint(_touchLoc)) {
-							if (!_btogger[1]) {
-								_btogger[1] = true;
-								_zNode[3]->getChildByName("SR_Z04_01")->setVisible(!_btogger[1]);
-								_zNode[3]->getChildByName("SR_Z04_02")->setVisible(_btogger[1]);
+							}
+							else {
+								_openTalk[2] = false;
+								_touchTalk[2] = false;
+							}
+
+
+							if (_talkRect[3].containsPoint(_touchLoc)) {
+								_touchTalk[3] = true;
+								_bWalk = 1;
+								_player->setPreviousPosition();
+								_talkContent = rand() % 3;
+							}
+							else {
+								_openTalk[3] = false;
+								_touchTalk[3] = false;
 							}
 						}
 
-						else if (_closeRect.containsPoint(_touchLoc)) {
-							_bopenNode[3] = !_bopenNode[3];
-							_zNode[3]->setVisible(false);
-
-							_btogger[1] = false;
-							_zNode[3]->getChildByName("SR_Z04_01")->setVisible(!_btogger[1]);
-							_zNode[3]->getChildByName("SR_Z04_02")->setVisible(_btogger[1]);
-
-							log("close detect");
-						}
 					}
 
-					if (_btogger[1]) _procedure[2]->TouchBegan(_touchLoc); // click book 2 [light box] ===============
-				}
 
-				if (!_bWalk) {
-					//0
-					if (!_bopenNode[0] && _detectRect[0].containsPoint(_touchLoc)) {
-						_btouchNode[0] = true;
 
-						_bWalk = 1;
-						_player->setPreviousPosition();
 
-						//-------------------------------
-						_TargetLoc = _touchLoc;
-						log("touched detect");
-					}
-					else if (!_bopenNode[0] && !_detectRect[0].containsPoint(_touchLoc)) {
-						_btouchNode[0] = false;
-					}
-					//1
-					if (!_bopenNode[1] && _detectRect[1].containsPoint(_touchLoc)) {
-						_btouchNode[1] = true;
-
-						_bWalk = 1;
-						_player->setPreviousPosition();
-
-						//-------------------------------
-						_TargetLoc = _touchLoc;
-						log("touched detect node2");
-					}
-					else if (!_bopenNode[1] && !_detectRect[1].containsPoint(_touchLoc)) {
-						_btouchNode[1] = false;
-					}
-					//2
-					if (!_bopenNode[2] && _detectRect[2].containsPoint(_touchLoc)) {
-						_btouchNode[2] = true;
-
-						_bWalk = 1;
-						_player->setPreviousPosition();
-
-						//-------------------------------
-						_TargetLoc = _touchLoc;
-						log("touched detect node2");
-					}
-					else if (!_bopenNode[2] && !_detectRect[2].containsPoint(_touchLoc)) {
-						_btouchNode[2] = false;
-					}
-
-					//3
-					if (!_bopenNode[3] && _detectRect[3].containsPoint(_touchLoc)) {
-						_btouchNode[3] = true;
-
-						_bWalk = 1;
-						_player->setPreviousPosition();
-
-						//-------------------------------
-						_TargetLoc = _touchLoc;
-						log("touched detect node2");
-					}
-					else if (!_bopenNode[3] && !_detectRect[3].containsPoint(_touchLoc)) {
-						_btouchNode[3] = false;
-					}
-				}
-				
-
-			}
-			else {
-				if (!_ibagState) {
-					
-					////player walk =====================================================
-
-					
 					//znode[0]開---------------------
 					if (_bopenNode[0]) {
-						_bwithinArea = false;
-						//_pTrigger[0].touchesBegan(_touchLoc);
 
-						if (_closeRect.containsPoint(_touchLoc)) {
-							_bopenNode[0] = !_bopenNode[0];
-							_zNode[0]->setVisible(false);
-							log("close detect");
+						if (!_procedure[0]->GetOpen()) {
+							if (_closeRect.containsPoint(_touchLoc)) {
+								_bopenNode[0] = !_bopenNode[0];
+								_zNode[0]->setVisible(false);
+								log("close detect");
+							}
 						}
 
+						_procedure[0]->TouchBegan(_touchLoc);
+
+					}
+					//znode[1]開---------------------
+					else if (_bopenNode[1]) {
+
+						if (!_procedure[1]->GetOpen()) {
+							if (_closeRect.containsPoint(_touchLoc)) {
+								_bopenNode[1] = !_bopenNode[1];
+								_zNode[1]->setVisible(false);
+								log("close detect");
+							}
+						}
+
+						_procedure[1]->TouchBegan(_touchLoc);
+
+					}
+					//znode[2]開---------------------
+					else if (_bopenNode[2] && !_lock->GetState()) {
+						if (_btogger[0]) _lock->TouchEnded(_touchLoc);
+						else {
+							if (_toggerRect[0].containsPoint(_touchLoc)) {
+								_btogger[0] = true;
+								_zNode[2]->getChildByName("SR_Z03_01")->setVisible(!_btogger[0]);
+								_zNode[2]->getChildByName("SR_Z03_02")->setVisible(_btogger[0]);
+							}
+						}
+
+						if (_closeRect.containsPoint(_touchLoc)) {
+							_bopenNode[2] = !_bopenNode[2];
+							_zNode[2]->setVisible(false);
+
+							_btogger[0] = false;
+							_zNode[2]->getChildByName("SR_Z03_01")->setVisible(!_btogger[0]);
+							_zNode[2]->getChildByName("SR_Z03_02")->setVisible(_btogger[0]);
+							log("close detect");
+						}
+					}
+
+
+					else if (_lock->GetState()) {
+						_lock->TouchEnded(_touchLoc);
+
+					}
+
+					//znode[3]開---------------------
+					else if (_bopenNode[3]) {
+						/*_pTrigger[1].touchesBegan(_touchLoc);*/
+						//_procedure[1]->TouchBegan(_touchLoc);
+
+						if (!_procedure[2]->GetOpen()) {
+							if (_toggerRect[1].containsPoint(_touchLoc)) {
+								if (!_btogger[1]) {
+									_btogger[1] = true;
+									_zNode[3]->getChildByName("SR_Z04_01")->setVisible(!_btogger[1]);
+									_zNode[3]->getChildByName("SR_Z04_02")->setVisible(_btogger[1]);
+								}
+							}
+
+							else if (_closeRect.containsPoint(_touchLoc)) {
+								_bopenNode[3] = !_bopenNode[3];
+								_zNode[3]->setVisible(false);
+
+								_btogger[1] = false;
+								_zNode[3]->getChildByName("SR_Z04_01")->setVisible(!_btogger[1]);
+								_zNode[3]->getChildByName("SR_Z04_02")->setVisible(_btogger[1]);
+
+								log("close detect");
+							}
+						}
+
+						if (_btogger[1]) _procedure[2]->TouchBegan(_touchLoc); // click book 2 [light box] ===============
 					}
 
 					if (!_bWalk) {
@@ -679,106 +751,203 @@ void  SRScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸
 						else if (!_bopenNode[0] && !_detectRect[0].containsPoint(_touchLoc)) {
 							_btouchNode[0] = false;
 						}
+						//1
+						if (!_bopenNode[1] && _detectRect[1].containsPoint(_touchLoc)) {
+							_btouchNode[1] = true;
+
+							_bWalk = 1;
+							_player->setPreviousPosition();
+
+							//-------------------------------
+							_TargetLoc = _touchLoc;
+							log("touched detect node2");
+						}
+						else if (!_bopenNode[1] && !_detectRect[1].containsPoint(_touchLoc)) {
+							_btouchNode[1] = false;
+						}
+						//2
+						if (!_bopenNode[2] && _detectRect[2].containsPoint(_touchLoc)) {
+							_btouchNode[2] = true;
+
+							_bWalk = 1;
+							_player->setPreviousPosition();
+
+							//-------------------------------
+							_TargetLoc = _touchLoc;
+							log("touched detect node2");
+						}
+						else if (!_bopenNode[2] && !_detectRect[2].containsPoint(_touchLoc)) {
+							_btouchNode[2] = false;
+						}
+
+						//3
+						if (!_bopenNode[3] && _detectRect[3].containsPoint(_touchLoc)) {
+							_btouchNode[3] = true;
+
+							_bWalk = 1;
+							_player->setPreviousPosition();
+
+							//-------------------------------
+							_TargetLoc = _touchLoc;
+							log("touched detect node2");
+						}
+						else if (!_bopenNode[3] && !_detectRect[3].containsPoint(_touchLoc)) {
+							_btouchNode[3] = false;
+						}
 					}
-					
 
 
 				}
+				else {
+					if (!_ibagState) {
+
+						if (_talkRect[3].containsPoint(_touchLoc)) {
+							_touchTalk[3] = true;
+							_bWalk = 1;
+							_player->setPreviousPosition();
+							_talkContent = rand() % 3;
+						}
+						else {
+							_openTalk[3] = false;
+							_touchTalk[3] = false;
+						}
+						////player walk =====================================================
+
+
+						//znode[0]開---------------------
+						if (_bopenNode[0]) {
+							//_pTrigger[0].touchesBegan(_touchLoc);
+
+							if (_closeRect.containsPoint(_touchLoc)) {
+								_bopenNode[0] = !_bopenNode[0];
+								_zNode[0]->setVisible(false);
+								log("close detect");
+							}
+
+						}
+
+						if (!_bWalk) {
+							//0
+							if (!_bopenNode[0] && _detectRect[0].containsPoint(_touchLoc)) {
+								_btouchNode[0] = true;
+
+								_bWalk = 1;
+								_player->setPreviousPosition();
+
+								//-------------------------------
+								_TargetLoc = _touchLoc;
+								log("touched detect");
+							}
+							else if (!_bopenNode[0] && !_detectRect[0].containsPoint(_touchLoc)) {
+								_btouchNode[0] = false;
+							}
+						}
+
+
+
+					}
+				}
+
 			}
-			
+
+
 		}
 
 
-	}
+		//=====================================================================
+		// open/close/swipe bag-------
+		if (!CBag::getInstance()->itemdrag() && !CBag::getInstance()->LightboxState()) {
+			if (!_ibagState && _startY < BAG_OPEN_HEIGHT) { // when touched y< set height
 
-	
-	//=====================================================================
-	// open/close/swipe bag-------
-	if (!CBag::getInstance()->itemdrag() && !CBag::getInstance()->LightboxState()) {
-		if (!_ibagState && _startY < BAG_OPEN_HEIGHT) { // when touched y< set height
-
-														// bag oppened set bag and item position----------------------
-			if (fabs(offsetX) < fabs(offsetY) && offsetY > 0) {
-				CBag::getInstance()->setPosition(172, 115);
-				_ibagState = 1;
-				log("bag open state:1");
-
-			}
-		}
-
-		else if (_ibagState == 2) {
-
-			if (fabs(offsetX) < fabs(offsetY)) { // close bag
-				if (offsetY < 0) { //down
-					CBag::getInstance()->ToStateOne();
+															// bag oppened set bag and item position----------------------
+				if (fabs(offsetX) < fabs(offsetY) && offsetY > 0) {
+					CBag::getInstance()->setPosition(172, 115);
 					_ibagState = 1;
 					log("bag open state:1");
 
 				}
 			}
-		}
 
+			else if (_ibagState == 2) {
 
-		else if (_ibagState == 1 && _startY <= BAG_CLOSE_HEIGHT) {
-			//if (_bbagOn && _startY <= BAG_CLOSE_HEIGHT) {
+				if (fabs(offsetX) < fabs(offsetY)) { // close bag
+					if (offsetY < 0) { //down
+						CBag::getInstance()->ToStateOne();
+						_ibagState = 1;
+						log("bag open state:1");
 
-			// bag oppened set bag and item position----------------------
-			if (fabs(offsetX) < fabs(offsetY) && offsetY > 0) {
-				CBag::getInstance()->ToStateTwo();
-				_ibagState = 2;
-				log("bag open state:2");
-
-			}
-
-			else if (fabs(offsetX) < fabs(offsetY)) { // close bag
-				if (offsetY < 0) { //down
-					CBag::getInstance()->setPosition(172, -115);
-					_ibagState = 0;
-					log("bag close");
-
-
+					}
 				}
 			}
 
 
+			else if (_ibagState == 1 && _startY <= BAG_CLOSE_HEIGHT) {
+				//if (_bbagOn && _startY <= BAG_CLOSE_HEIGHT) {
 
+				// bag oppened set bag and item position----------------------
+				if (fabs(offsetX) < fabs(offsetY) && offsetY > 0) {
+					CBag::getInstance()->ToStateTwo();
+					_ibagState = 2;
+					log("bag open state:2");
+
+				}
+
+				else if (fabs(offsetX) < fabs(offsetY)) { // close bag
+					if (offsetY < 0) { //down
+						CBag::getInstance()->setPosition(172, -115);
+						_ibagState = 0;
+						log("bag close");
+
+
+					}
+				}
+
+
+
+			}
 		}
-	}
 
 
 
-	//use items in bag===========================================
-	if (_ibagState) { //when bag is open
-		int i;
-		i = CBag::getInstance()->touchesEnded(_touchLoc, _ibagState, CURRENT_SCENE, _pTrigger);
+		//use items in bag===========================================
+		if (_ibagState) { //when bag is open
+			int i;
+			i = CBag::getInstance()->touchesEnded(_touchLoc, _ibagState, CURRENT_SCENE, _pTrigger);
 
-		//to detect item used and its effect-------
-		/*if (i >= 0) {
+			//to detect item used and its effect-------
+			/*if (i >= 0) {
 			// mix mix
 
 			// add sound
 
 			if (!strcmp(xmlBag::getInstance()->getItemName(i), "B_sudoku.png")) {
-				// add debranch
-				//_grinding->playEffect();
-				_xmlscene->editItemState("GR_Z03_01", true, _zNode[2], 0, 4);
-				_xmlscene->editItemState("GR_S01_01", true, _rootNode, 0, 4);
-				_bsolve[1] = true;
+			// add debranch
+			//_grinding->playEffect();
+			_xmlscene->editItemState("GR_Z03_01", true, _zNode[2], 0, 4);
+			_xmlscene->editItemState("GR_S01_01", true, _rootNode, 0, 4);
+			_bsolve[1] = true;
 
 			}
 
 			else if (!strcmp(xmlBag::getInstance()->getItemName(i), "B_key.png")) {
-				// add debranch
-				//_grinding->playEffect();
-				_xmlscene->editItemState("GR_Z02_01", true, _zNode[1], 2, 3);
-				_bsolve[0] = true;
+			// add debranch
+			//_grinding->playEffect();
+			_xmlscene->editItemState("GR_Z02_01", true, _zNode[1], 2, 3);
+			_bsolve[0] = true;
 
 			}
-			
 
 
-		}*/
+
+			}*/
+		}
+
+
+
 	}
-
+	else {
+		_player->SetIsTalking(false);
+		_player->StopTalking();
+	}
 
 }

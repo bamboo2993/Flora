@@ -34,6 +34,10 @@ CPlayer::CPlayer(const char*  front, const char*  back, cocos2d::Layer &parent)
 	}
 
 	_myAction = nullptr;
+	_sentance = Sprite::create("dialoge/BM/BM_flower01.png");
+	_sentance->setPosition(150, 550.0f);
+	_sentance->setVisible(false);
+	_player->addChild(_sentance);
 }
 
 CPlayer::CPlayer(bool isBack, cocos2d::Layer &parent, Point pos, bool isFacingR)
@@ -130,7 +134,7 @@ void CPlayer::go(cocos2d::Point pt)
 	if (pt.x > _rpos.x) {
 		Mirror(true);
 	}
-	else {
+	else if(pt.x < _rpos.x) {
 		Mirror(false);
 	}
 
@@ -221,7 +225,9 @@ bool CPlayer::Walk(Point i) {
 }
 
 void CPlayer::Talk(const std::string picName, bool isRight) {
-	_sentance = Sprite::create(picName);
+	//_sentance = Sprite::create(picName);
+	_sentance->setTexture(picName);
+	_sentance->setVisible(true);
 
 	if (isRight) {
 		_sentance->setAnchorPoint(Point(0, 0));
@@ -231,11 +237,12 @@ void CPlayer::Talk(const std::string picName, bool isRight) {
 	}
 	_sentance->setPosition(150, 550.0f);
 	
-	_player->addChild(_sentance);
+//	_player->addChild(_sentance);
 }
 
 void CPlayer::StopTalking() {
-	_sentance->removeFromParent();
+	//_sentance->removeFromParent();
+	_sentance->setVisible(false);
 }
 
 void CPlayer::SetReachSpot(int n, bool f) {
@@ -252,4 +259,15 @@ void CPlayer::SetIsTalking(bool b) {
 
 bool CPlayer::GetIsTalking() {
 	return _isTalking;
+}
+
+
+void CPlayer::SetFront(bool b) {
+	_bfront = b;
+	if (_bfront) {
+		_player->setSpriteFrame(_cstand[0]);
+	}
+	else {
+		_player->setSpriteFrame(_cstand[1]);
+	}
 }

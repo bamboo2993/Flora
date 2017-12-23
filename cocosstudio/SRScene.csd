@@ -167,18 +167,18 @@
             <PreSize X="0.0000" Y="0.0000" />
             <FileData Type="Normal" Path="Node_SR_Z04.csd" Plist="" />
           </AbstractNodeData>
-          <AbstractNodeData Name="GR_S01_01_1" ActionTag="933799815" Tag="128" IconVisible="False" LeftMargin="712.2458" RightMargin="1254.7542" TopMargin="108.2139" BottomMargin="1341.7861" ctype="SpriteObjectData">
+          <AbstractNodeData Name="talk_self_3" ActionTag="933799815" VisibleForFrame="False" Tag="128" IconVisible="False" LeftMargin="685.7106" RightMargin="1281.2894" TopMargin="114.1464" BottomMargin="1335.8536" ctype="SpriteObjectData">
             <Size X="81.0000" Y="86.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="752.7458" Y="1384.7861" />
+            <Position X="726.2106" Y="1378.8536" />
             <Scale ScaleX="5.0000" ScaleY="2.0000" />
             <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="0.3676" Y="0.9016" />
+            <PrePosition X="0.3546" Y="0.8977" />
             <PreSize X="0.0396" Y="0.0560" />
             <FileData Type="PlistSubImage" Path="GR_S01_01.png" Plist="GameScene/GRScene/GRScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="GR_Z03_01_2" ActionTag="1599903865" Tag="129" IconVisible="False" LeftMargin="1712.3928" RightMargin="81.6072" TopMargin="1041.0828" BottomMargin="206.9172" ctype="SpriteObjectData">
+          <AbstractNodeData Name="talk_sofa_2" ActionTag="1599903865" VisibleForFrame="False" Tag="129" IconVisible="False" LeftMargin="1712.3928" RightMargin="81.6072" TopMargin="1041.0828" BottomMargin="206.9172" ctype="SpriteObjectData">
             <Size X="254.0000" Y="288.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="1839.3928" Y="350.9172" />
@@ -189,35 +189,24 @@
             <FileData Type="PlistSubImage" Path="GR_Z03_01.png" Plist="GameScene/GRScene/GRScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="SR_cormer" ActionTag="1666963725" Tag="130" IconVisible="False" LeftMargin="1077.7216" RightMargin="889.2784" TopMargin="482.8174" BottomMargin="967.1826" ctype="SpriteObjectData">
+          <AbstractNodeData Name="talk_cormer_1" ActionTag="1224233237" VisibleForFrame="False" Tag="131" IconVisible="False" LeftMargin="1552.5873" RightMargin="414.4127" TopMargin="737.1169" BottomMargin="712.8831" ctype="SpriteObjectData">
             <Size X="81.0000" Y="86.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="1118.2216" Y="1010.1826" />
-            <Scale ScaleX="2.2242" ScaleY="1.0108" />
+            <Position X="1593.0873" Y="755.8831" />
+            <Scale ScaleX="2.5243" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="0.5460" Y="0.6577" />
+            <PrePosition X="0.7779" Y="0.4921" />
             <PreSize X="0.0396" Y="0.0560" />
             <FileData Type="PlistSubImage" Path="GR_S01_01.png" Plist="GameScene/GRScene/GRScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="SR_cormer_0" ActionTag="1224233237" Tag="131" IconVisible="False" LeftMargin="1552.5870" RightMargin="414.4130" TopMargin="729.8080" BottomMargin="720.1920" ctype="SpriteObjectData">
+          <AbstractNodeData Name="talk_cormer_0" ActionTag="-1091103366" VisibleForFrame="False" Tag="200" IconVisible="False" LeftMargin="1077.7871" RightMargin="889.2129" TopMargin="486.4518" BottomMargin="963.5482" ctype="SpriteObjectData">
             <Size X="81.0000" Y="86.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="1593.0870" Y="763.1920" />
-            <Scale ScaleX="2.5243" ScaleY="1.0108" />
+            <Position X="1118.2871" Y="1006.5482" />
+            <Scale ScaleX="2.5243" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="0.7779" Y="0.4969" />
-            <PreSize X="0.0396" Y="0.0560" />
-            <FileData Type="PlistSubImage" Path="GR_S01_01.png" Plist="GameScene/GRScene/GRScene.plist" />
-            <BlendFunc Src="1" Dst="771" />
-          </AbstractNodeData>
-          <AbstractNodeData Name="SR_cormer_0_0" ActionTag="-2142709819" Tag="132" IconVisible="False" LeftMargin="1790.4620" RightMargin="176.5380" TopMargin="524.0862" BottomMargin="925.9138" ctype="SpriteObjectData">
-            <Size X="81.0000" Y="86.0000" />
-            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="1830.9620" Y="968.9138" />
-            <Scale ScaleX="2.5243" ScaleY="1.0108" />
-            <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="0.8940" Y="0.6308" />
+            <PrePosition X="0.5460" Y="0.6553" />
             <PreSize X="0.0396" Y="0.0560" />
             <FileData Type="PlistSubImage" Path="GR_S01_01.png" Plist="GameScene/GRScene/GRScene.plist" />
             <BlendFunc Src="1" Dst="771" />

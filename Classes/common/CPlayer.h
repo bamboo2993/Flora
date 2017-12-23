@@ -67,6 +67,8 @@ public:
 	void SetIsTalking(bool b);
 	bool GetIsTalking();
 
+	void SetFront(bool b);
+
 	bool _isFacingRight;
 
 	Point _rpos;

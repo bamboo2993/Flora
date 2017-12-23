@@ -146,7 +146,7 @@
             <FileData Type="PlistSubImage" Path="GR_Z03_01.png" Plist="GameScene/GRScene/GRScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="GR_Z03_01_2" ActionTag="1757310959" Tag="200" IconVisible="False" LeftMargin="859.0620" RightMargin="934.9380" TopMargin="505.1591" BottomMargin="742.8409" ctype="SpriteObjectData">
+          <AbstractNodeData Name="talk_computer_0" ActionTag="1757310959" VisibleForFrame="False" Tag="200" IconVisible="False" LeftMargin="859.0620" RightMargin="934.9380" TopMargin="505.1592" BottomMargin="742.8409" ctype="SpriteObjectData">
             <Size X="254.0000" Y="288.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="986.0620" Y="886.8409" />
@@ -157,7 +157,7 @@
             <FileData Type="PlistSubImage" Path="GR_Z03_01.png" Plist="GameScene/GRScene/GRScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="GR_Z03_01_2_0" ActionTag="-24214710" Tag="201" IconVisible="False" LeftMargin="1663.6970" RightMargin="130.3030" TopMargin="879.1488" BottomMargin="368.8512" ctype="SpriteObjectData">
+          <AbstractNodeData Name="talk_plants_1" ActionTag="-24214710" VisibleForFrame="False" Tag="201" IconVisible="False" LeftMargin="1663.6970" RightMargin="130.3030" TopMargin="879.1488" BottomMargin="368.8512" ctype="SpriteObjectData">
             <Size X="254.0000" Y="288.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="1790.6970" Y="512.8512" />
@@ -168,7 +168,7 @@
             <FileData Type="PlistSubImage" Path="GR_Z03_01.png" Plist="GameScene/GRScene/GRScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="GR_Z03_01_2_1" ActionTag="-1470160434" Tag="202" IconVisible="False" LeftMargin="833.7795" RightMargin="960.2205" TopMargin="1208.4604" BottomMargin="39.5396" ctype="SpriteObjectData">
+          <AbstractNodeData Name="talk_table_2" ActionTag="-1470160434" VisibleForFrame="False" Tag="202" IconVisible="False" LeftMargin="833.7795" RightMargin="960.2205" TopMargin="1208.4604" BottomMargin="39.5396" ctype="SpriteObjectData">
             <Size X="254.0000" Y="288.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="960.7795" Y="183.5396" />

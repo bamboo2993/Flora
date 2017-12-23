@@ -19,6 +19,9 @@
 
 #include "common\CLock.h"
 
+
+#define TALK_AREA 4
+
 class SRScene : public cocos2d::Layer
 {
 private:
@@ -70,7 +73,6 @@ private:
 
 	//§PÂ_ walk------------------
 	bool _bWalk = false; //detect if player is walking
-	bool _bwithinArea; // detect if touch_pts are in walkable area
 
 	//§PÂ_ ª««~----------------
 	bool _bpickObj; //detect if player arrive near object being picked
@@ -97,6 +99,14 @@ private:
 	bool _bsolve[2]; //state if the quiz is being solved
 	bool _btogger[2]; // 1- certificate togger, 2- book togger
 	cocos2d::Rect	_toggerRect[2]; //key togger rect area
+
+
+	//talk--------------
+	cocos2d::Rect	_talkRect[TALK_AREA];
+	bool _touchTalk[TALK_AREA];
+	bool _openTalk[TALK_AREA];
+
+	int _talkContent = 0;
 
 public:
 	SRScene();

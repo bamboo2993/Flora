@@ -582,7 +582,7 @@
             <FileData Type="Normal" Path="GameScene/BMScene/skip_click.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="detect_book_0" CanEdit="False" ActionTag="478307683" VisibleForFrame="False" Tag="70" IconVisible="False" LeftMargin="1184.4906" RightMargin="609.5094" TopMargin="238.9983" BottomMargin="1009.0017" ctype="SpriteObjectData">
+          <AbstractNodeData Name="detect_book_0" ActionTag="478307683" VisibleForFrame="False" Tag="70" IconVisible="False" LeftMargin="1184.4906" RightMargin="609.5094" TopMargin="238.9983" BottomMargin="1009.0017" ctype="SpriteObjectData">
             <Size X="254.0000" Y="288.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="1311.4906" Y="1153.0017" />
@@ -593,7 +593,7 @@
             <FileData Type="PlistSubImage" Path="GR_Z03_01.png" Plist="GameScene/GRScene/GRScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="detect_book_1" CanEdit="False" ActionTag="-1583748611" VisibleForFrame="False" Tag="69" IconVisible="False" LeftMargin="1629.4731" RightMargin="164.5269" TopMargin="236.4600" BottomMargin="1011.5400" ctype="SpriteObjectData">
+          <AbstractNodeData Name="detect_book_1" ActionTag="-1583748611" VisibleForFrame="False" Tag="69" IconVisible="False" LeftMargin="1629.4731" RightMargin="164.5269" TopMargin="236.4600" BottomMargin="1011.5400" ctype="SpriteObjectData">
             <Size X="254.0000" Y="288.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="1756.4731" Y="1155.5400" />
@@ -604,7 +604,7 @@
             <FileData Type="PlistSubImage" Path="GR_Z03_01.png" Plist="GameScene/GRScene/GRScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="deetect_plant_2" CanEdit="False" ActionTag="-218628147" VisibleForFrame="False" Tag="72" IconVisible="False" LeftMargin="1778.6490" RightMargin="15.3510" TopMargin="743.6614" BottomMargin="504.3386" ctype="SpriteObjectData">
+          <AbstractNodeData Name="deetect_plant_2" ActionTag="-218628147" VisibleForFrame="False" Tag="72" IconVisible="False" LeftMargin="1778.6490" RightMargin="15.3510" TopMargin="743.6614" BottomMargin="504.3386" ctype="SpriteObjectData">
             <Size X="254.0000" Y="288.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="1905.6490" Y="648.3386" />
@@ -615,7 +615,7 @@
             <FileData Type="PlistSubImage" Path="GR_Z03_01.png" Plist="GameScene/GRScene/GRScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="detect_mouse_3" CanEdit="False" ActionTag="944522466" VisibleForFrame="False" Tag="73" IconVisible="False" LeftMargin="1774.9183" RightMargin="19.0817" TopMargin="1086.7673" BottomMargin="161.2326" ctype="SpriteObjectData">
+          <AbstractNodeData Name="detect_mouse_3" ActionTag="944522466" VisibleForFrame="False" Tag="73" IconVisible="False" LeftMargin="1774.9183" RightMargin="19.0817" TopMargin="1086.7673" BottomMargin="161.2326" ctype="SpriteObjectData">
             <Size X="254.0000" Y="288.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="1901.9183" Y="305.2326" />
@@ -626,7 +626,7 @@
             <FileData Type="PlistSubImage" Path="GR_Z03_01.png" Plist="GameScene/GRScene/GRScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="detect_mouse_4" CanEdit="False" ActionTag="-207250222" VisibleForFrame="False" Tag="74" IconVisible="False" LeftMargin="561.6743" RightMargin="1232.3257" TopMargin="1286.9670" BottomMargin="-38.9670" ctype="SpriteObjectData">
+          <AbstractNodeData Name="detect_mouse_4" ActionTag="-207250222" VisibleForFrame="False" Tag="74" IconVisible="False" LeftMargin="561.6743" RightMargin="1232.3257" TopMargin="1286.9670" BottomMargin="-38.9670" ctype="SpriteObjectData">
             <Size X="254.0000" Y="288.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="688.6743" Y="105.0330" />
@@ -637,7 +637,7 @@
             <FileData Type="PlistSubImage" Path="GR_Z03_01.png" Plist="GameScene/GRScene/GRScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="detect_shelf_5" CanEdit="False" ActionTag="1468577997" VisibleForFrame="False" Tag="68" IconVisible="False" LeftMargin="137.7077" RightMargin="1656.2922" TopMargin="1094.2256" BottomMargin="153.7744" ctype="SpriteObjectData">
+          <AbstractNodeData Name="detect_shelf_5" ActionTag="1468577997" VisibleForFrame="False" Tag="68" IconVisible="False" LeftMargin="137.7077" RightMargin="1656.2922" TopMargin="1094.2256" BottomMargin="153.7744" ctype="SpriteObjectData">
             <Size X="254.0000" Y="288.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="264.7077" Y="297.7744" />
@@ -648,24 +648,13 @@
             <FileData Type="PlistSubImage" Path="GR_Z03_01.png" Plist="GameScene/GRScene/GRScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="detect_Bboard_6" CanEdit="False" ActionTag="-58674224" VisibleForFrame="False" Tag="71" IconVisible="False" LeftMargin="81.7635" RightMargin="1712.2366" TopMargin="463.9561" BottomMargin="784.0439" ctype="SpriteObjectData">
+          <AbstractNodeData Name="detect_Bboard_6" ActionTag="-58674224" VisibleForFrame="False" Tag="71" IconVisible="False" LeftMargin="81.7635" RightMargin="1712.2366" TopMargin="463.9561" BottomMargin="784.0439" ctype="SpriteObjectData">
             <Size X="254.0000" Y="288.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="208.7635" Y="928.0439" />
             <Scale ScaleX="0.8000" ScaleY="2.1000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.1019" Y="0.6042" />
-            <PreSize X="0.1240" Y="0.1875" />
-            <FileData Type="PlistSubImage" Path="GR_Z03_01.png" Plist="GameScene/GRScene/GRScene.plist" />
-            <BlendFunc Src="1" Dst="771" />
-          </AbstractNodeData>
-          <AbstractNodeData Name="table" ActionTag="113282125" VisibleForFrame="False" Tag="75" IconVisible="False" LeftMargin="1347.4010" RightMargin="446.5990" TopMargin="1103.0330" BottomMargin="144.9671" ctype="SpriteObjectData">
-            <Size X="254.0000" Y="288.0000" />
-            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="1474.4010" Y="288.9671" />
-            <Scale ScaleX="2.0000" ScaleY="0.4000" />
-            <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="0.7199" Y="0.1881" />
             <PreSize X="0.1240" Y="0.1875" />
             <FileData Type="PlistSubImage" Path="GR_Z03_01.png" Plist="GameScene/GRScene/GRScene.plist" />
             <BlendFunc Src="1" Dst="771" />

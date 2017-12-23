@@ -75,7 +75,6 @@ private:
 
 	//§PÂ_ walk------------------
 	bool _bWalk = false; //detect if player is walking
-	bool _bwithinArea; // detect if touch_pts are in walkable area
 
 	//§PÂ_ ª««~----------------
 	bool _bpickObj; //detect if player arrive near object being picked
@@ -127,6 +126,7 @@ private:
 	bool _touchTalk[TALK_AREA];
 	bool _openTalk[TALK_AREA];
 
+	int _talkContent = 0;
 	//mix==============================================
 
 	CMix *_mixA;

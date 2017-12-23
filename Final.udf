@@ -28,15 +28,13 @@
     <Item Key="TabsParamsKey">
       <Value ctype="TabsInfo">
         <OpenedDocuments>
-          <FilePathData Path="BMScene.csd" />
-          <FilePathData Path="SRScene.csd" />
-          <FilePathData Path="GRScene.csd" />
-          <FilePathData Path="labScene.csd" />
           <FilePathData Path="C2Scene.csd" />
           <FilePathData Path="C2Scene02.csd" />
           <FilePathData Path="C2Scene03.csd" />
+          <FilePathData Path="SRScene.csd" />
+          <FilePathData Path="labScene.csd" />
         </OpenedDocuments>
-        <ActiveDocument Path="C2Scene03.csd" />
+        <ActiveDocument Path="labScene.csd" />
       </Value>
     </Item>
   </Properties>

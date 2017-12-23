@@ -38,7 +38,6 @@ BMScene::BMScene() {
 	_bWalk = false; //detect if player is walking
 
 	//判斷 walk
-	_bwithinArea = false;
 
 	_bpickObj = false;
 	
@@ -506,25 +505,32 @@ void BMScene::doStep(float dt)
 		//walk===================================
 		//////只能在設定範圍走=============================
 		
-		if (_touchSObj[0]) {
-			_player->Walk(Vec2(1389.90f, 625.28f));
-			_player->go(Vec2(1389.90f, 625.28f));
-			if (_player->Walk(Vec2(1389.90f, 625.28f)) == false) {
+		if (_touchSObj[0] || _touchTalk[0]) {
+			_player->Walk(Vec2(1317.35f, 580.0f));
+			_player->go(Vec2(1317.35f, 580.0f));
+			if (_player->Walk(Vec2(1317.35f, 580.0f)) == false) {
 				_bWalk = 0;
 
 				//pick up obj
+				if (_touchSObj[0]) {
+					_touchSObj[0] = !_touchSObj[0];
+					_openSObj[0] = !_openSObj[0];
+				}
+				else {
+					_touchTalk[0] = !_touchTalk[0];
+					_openTalk[0] = !_openTalk[0];
+				}
 
-				_touchSObj[0] = !_touchSObj[0];
-				_openSObj[0] = !_openSObj[0];
+				
 				//log("show detect");
 			}
 
 		}
 
-		else if (_touchSObj[1] || _btouchNode[0]) {
-			_player->Walk(Vec2(1703.04f, 625.28f));
-			_player->go(Vec2(1703.04f, 625.28f));
-			if (_player->Walk(Vec2(1703.04f, 625.28f)) == false) {
+		else if (_touchSObj[1] || _btouchNode[0] || _touchTalk[1]) {
+			_player->Walk(Vec2(1703.04f, 580.0f));
+			_player->go(Vec2(1703.04f, 580.0f));
+			if (_player->Walk(Vec2(1703.04f, 580.0f)) == false) {
 				_bWalk = 0;
 
 				//pick up obj
@@ -535,6 +541,10 @@ void BMScene::doStep(float dt)
 					_bopenNode[0] = !_bopenNode[0];
 					_btouchNode[0] = !_btouchNode[0];
 					_bkBlur->setVisible(true);
+				}
+				else if (_touchTalk[1]) {
+					_touchTalk[1] = !_touchTalk[1];
+					_openTalk[1] = !_openTalk[1];
 				}
 				else {
 					_touchSObj[1] = !_touchSObj[1];
@@ -567,23 +577,91 @@ void BMScene::doStep(float dt)
 
 
 
-		else if (_btouchNode[1]) {
+		else if (_btouchNode[1] || _touchTalk[4]) {
 			_player->Walk(Vec2(702.90f, 141.24f));
 			_player->go(Vec2(702.90f, 141.24f));
 			if (_player->Walk(Vec2(702.90f, 141.24f)) == false) {
 				_bWalk = 0;
 
-				//pick up obj
-				_bkBlur->setVisible(true);
-				_eNode[1]->setVisible(true);
+				if (_btouchNode[1]) {
+					//pick up obj
+					_bkBlur->setVisible(true);
+					_eNode[1]->setVisible(true);
 
-				_bopenNode[1] = !_bopenNode[1];
-				_btouchNode[1] = !_btouchNode[1];
+					_bopenNode[1] = !_bopenNode[1];
+					_btouchNode[1] = !_btouchNode[1];
+				}
+
+				else {
+					_touchTalk[4] = !_touchTalk[4];
+					_openTalk[4] = !_openTalk[4];
+				}
+				
 				//log("show detect");
 			}
 
 		}
 		
+		else if (_touchTalk[2]) {
+			_player->Walk(Vec2(1703.04f, _talkRect[2].getMinY()));
+			_player->go(Vec2(1703.04f, _talkRect[2].getMinY()));
+			if (_player->Walk(Vec2(1703.04f, _talkRect[2].getMinY())) == false) {
+				_bWalk = 0;
+
+				//pick up obj
+
+				_touchTalk[2] = !_touchTalk[2];
+				_openTalk[2] = !_openTalk[2];
+				//log("show detect");
+			}
+
+		}
+
+		else if (_touchTalk[3]) {
+			_player->Walk(Vec2(1703.04f, _talkRect[3].getMinY()));
+			_player->go(Vec2(1703.04f, _talkRect[3].getMinY()));
+			if (_player->Walk(Vec2(1703.04f, _talkRect[3].getMinY())) == false) {
+				_bWalk = 0;
+
+				//pick up obj
+
+				_touchTalk[3] = !_touchTalk[3];
+				_openTalk[3] = !_openTalk[3];
+				//log("show detect");
+			}
+
+		}
+		else if (_touchTalk[5]) {
+			_player->Walk(Vec2(_talkRect[5].getMaxX(), _talkRect[3].getMinY()));
+			_player->go(Vec2(_talkRect[5].getMaxX(), _talkRect[3].getMinY()));
+			if (_player->Walk(Vec2(_talkRect[5].getMaxX(), _talkRect[3].getMinY())) == false) {
+				_bWalk = 0;
+
+				//pick up obj
+
+				_touchTalk[5] = !_touchTalk[5];
+				_openTalk[5] = !_openTalk[5];
+				//log("show detect");
+			}
+
+		}
+
+		else if (_touchTalk[6]) {
+			_player->Walk(Vec2(_talkRect[5].getMaxX(), _talkRect[5].getMidY()));
+			_player->go(Vec2(_talkRect[5].getMaxX(), _talkRect[5].getMidY()));
+			if (_player->Walk(Vec2(_talkRect[5].getMaxX(), _talkRect[5].getMidY())) == false) {
+				_bWalk = 0;
+
+				//pick up obj
+
+				_touchTalk[6] = !_touchTalk[6];
+				_openTalk[6] = !_openTalk[6];
+				//log("show detect");
+			}
+
+		}
+
+
 		else {
 			_player->Stop();
 		}
@@ -619,6 +697,7 @@ void BMScene::PickObject(float dt) {
 
 			}
 		}
+		_openSObj[0] = false;
 	}
 
 	else if (_openSObj[1]) {
@@ -633,10 +712,12 @@ void BMScene::PickObject(float dt) {
 
 
 		}
+		_openSObj[1] = false;
 	}
 
 	else if (_openSObj[2]) {
 		_procedure->doStep(dt);
+		_openSObj[2] = false;
 	}
 		
 
@@ -762,6 +843,68 @@ void BMScene::PickObject(float dt) {
 
 	}
 
+	else if (_openTalk[0]) {
+		_player->Talk("dialoge/BM/BM_bookcase01.png", true);
+		_player->SetIsTalking(true);
+		_openTalk[0] = false;
+	}
+
+	else if (_openTalk[1]) {
+		_player->Talk("dialoge/BM/BM_bookcase01.png", false);
+		_player->SetIsTalking(true);
+		_openTalk[1] = false;
+	}
+
+	else if (_openTalk[2]) {
+		_player->Mirror(true);
+		const char* x;
+		if (_talkContent) x = "dialoge/BM/BM_flower01.png";
+		else x = "dialoge/BM/BM_flower02.png";
+		_player->Talk(x, false);
+		_player->SetIsTalking(true);
+		_openTalk[2] = false;
+	}
+
+	else if (_openTalk[3]) {
+		_player->Mirror(true);
+		_player->SetFront(true);
+		const char* x;
+		if (_talkContent) x = "dialoge/BM/BM_mice02.png";
+		else x = "dialoge/BM/BM_mice01.png";
+		_player->Talk(x, false);
+		_player->SetIsTalking(true);
+		_openTalk[3] = false;
+	}
+
+	else if (_openTalk[4]) {
+		_player->SetFront(true);
+		const char* x;
+		if (_talkContent) x = "dialoge/BM/BM_mice02.png";
+		else x = "dialoge/BM/BM_mice01.png";
+		_player->Talk(x, true);
+		_player->SetIsTalking(true);
+		_openTalk[4] = false;
+	}
+
+	else if (_openTalk[5]) {
+		_player->SetFront(true);
+		_player->Mirror(false);
+		_player->Talk("dialoge/BM/BM_bookcase01.png", true);
+		_player->SetIsTalking(true);
+		_openTalk[5] = false;
+	}
+
+	else if (_openTalk[6]) {
+		_player->Mirror(false);
+		const char* x;
+		if (_talkContent==0) x = "dialoge/BM/BM_blackboard01.png";
+		else if (_talkContent ==1) x = "dialoge/BM/BM_blackboard02.png";
+		else if (_talkContent == 2) x = "dialoge/BM/BM_blackboard03.png";
+		_player->Talk(x, true);
+		_player->SetIsTalking(true);
+
+		_openTalk[6] = false;
+	}
 
 
 }
@@ -778,7 +921,6 @@ void BMScene::reset() {
 	_bWalk = false; //detect if player is walking
 
 	//判斷 walk
-	_bwithinArea = false;
 	
 
 	_bpickObj = false;
@@ -833,7 +975,7 @@ bool BMScene::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)//觸碰
 
 
 
-	if (!_procedure->GetOpen() && !_clear) {
+	if (!_procedure->GetOpen() && !_clear && !_player->GetIsTalking()) {
 		//swipe gesture
 		_startX = _touchLoc.x;
 		_startY = _touchLoc.y;
@@ -908,7 +1050,7 @@ void  BMScene::onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸
 
 	_touchLoc = pTouch->getLocation();
 
-	if (!_procedure->GetOpen() && !_clear) {
+	if (!_procedure->GetOpen() && !_clear && !_player->GetIsTalking()) {
 		//use items in bag===========================================
 		if (_ibagState) { //when bag is open
 			CBag::getInstance()->touchesMoved(_touchLoc);
@@ -974,133 +1116,223 @@ void  BMScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸
 		}
 	}
 
-	if (!_clear &&_aniStop) {
+	else if (!_clear &&_aniStop) {
 		//swipe gesture
 		float offsetX = _touchLoc.x - _startX;
 		float offsetY = _touchLoc.y - _startY;
 
 
 
-		if (!_procedure->GetOpen()) {
-			
+		if (!_procedure->GetOpen() && !_player->GetIsTalking()) {
+
 
 			if (_ibagState != 2) {
 
 				// [WALK + PICK OBJECT]===================
-				if (offsetX == 0 && offsetY == 0 && _touchLoc.y>227 && !CBag::getInstance()->LightboxState()) { // when screen tapped
+				if (offsetX == 0 && offsetY == 0 && !CBag::getInstance()->LightboxState()) { // when screen tapped
+					if (_touchLoc.y > 227) {
 
-					////player walk =====================================================
+						////player walk =====================================================
 
-					//放大鏡沒開--------------
-					if (!_bopenNode[0] && !_bopenNode[1]) {
-						//沒按重置--------------
-						if (!_resetRect.containsPoint(_touchLoc)) {
-							//====================================
-							//detect for [water], [glass rod], [experimental procedure]------
-							if (_pTrigger[4].touchesBegan(_touchLoc)) {
-								_touchSObj[0] = true;
-								_bWalk = 1;
-								_player->setPreviousPosition();
+						//放大鏡沒開--------------
+						if (!_bopenNode[0] && !_bopenNode[1]) {
+							//沒按重置--------------
+							if (!_resetRect.containsPoint(_touchLoc)) {
+								//====================================
+								//detect for [water], [glass rod], [experimental procedure]------
+								if (_pTrigger[4].touchesBegan(_touchLoc)) {
+									_touchSObj[0] = true;
+									_bWalk = 1;
+									_player->setPreviousPosition();
 
-								//-------------------------------
-								_TargetLoc = _touchLoc;
+								}
+
+								else {
+									_openSObj[0] = false;
+									_touchSObj[0] = false;
+
+								}
+
+								if (_pTrigger[5].touchesBegan(_touchLoc)) {
+									_touchSObj[1] = true;
+									_bWalk = 1;
+									_player->setPreviousPosition();
+
+
+								}
+
+								else {
+									_openSObj[1] = false;
+									_touchSObj[1] = false;
+								}
+
+								if (_procedure->TouchBegan(_touchLoc)) {
+									_touchSObj[2] = true;
+									_bWalk = 1;
+									_player->setPreviousPosition();
+
+								}
+								else {
+									_openSObj[2] = false;
+									_touchSObj[2] = false;
+								}
+
+								if (_talkRect[0].containsPoint(_touchLoc)) {
+									_touchTalk[0] = true;
+									_bWalk = 1;
+									_player->setPreviousPosition();
+
+								}
+								else {
+									_openTalk[0] = false;
+									_touchTalk[0] = false;
+								}
+
+
+								if (_talkRect[1].containsPoint(_touchLoc)) {
+									_touchTalk[1] = true;
+									_bWalk = 1;
+									_player->setPreviousPosition();
+
+								}
+								else {
+									_openTalk[1] = false;
+									_touchTalk[1] = false;
+								}
+
+
+								if (_talkRect[2].containsPoint(_touchLoc)) {
+									_touchTalk[2] = true;
+									_bWalk = 1;
+									_player->setPreviousPosition();
+									_talkContent = rand() % 2;
+
+								}
+								else {
+									_openTalk[2] = false;
+									_touchTalk[2] = false;
+								}
+
+
+								if (_talkRect[3].containsPoint(_touchLoc)) {
+									_touchTalk[3] = true;
+									_bWalk = 1;
+									_player->setPreviousPosition();
+									_talkContent = rand() % 2;
+								}
+								else {
+									_openTalk[3] = false;
+									_touchTalk[3] = false;
+								}
+
+
+								if (_talkRect[5].containsPoint(_touchLoc)) {
+									_touchTalk[5] = true;
+									_bWalk = 1;
+									_player->setPreviousPosition();
+
+								}
+								else {
+									_openTalk[5] = false;
+									_touchTalk[5] = false;
+								}
+
+								if (_talkRect[6].containsPoint(_touchLoc)) {
+									_touchTalk[6] = true;
+									_bWalk = 1;
+									_player->setPreviousPosition();
+									_talkContent = rand() % 3;
+								}
+								else {
+									_openTalk[6] = false;
+									_touchTalk[6] = false;
+								}
+
+
+							}
+							else {
+								// reset button=========================
+								//reset();
 							}
 
-							else _openSObj[0] = false;
-							
-							if (_pTrigger[5].touchesBegan(_touchLoc)) {
-								_touchSObj[1] = true;
-								_bWalk = 1;
-								_player->setPreviousPosition();
+						}
 
-								//-------------------------------
-								_TargetLoc = _touchLoc;
+						//放大鏡[0]開---------------------
+						if (_bopenNode[0]) {
+							_pTrigger[0].touchesBegan(_touchLoc);
+							_pTrigger[1].touchesBegan(_touchLoc);
+							_pTrigger[2].touchesBegan(_touchLoc);
+							_pTrigger[3].touchesBegan(_touchLoc);
 
+							if (!_offRect[0].containsPoint(_touchLoc)) {
+								_bopenNode[0] = !_bopenNode[0];
+								_eNode[0]->setVisible(false);
+								_bkBlur->setVisible(false);
+								log("close detect");
 							}
-							
-							else _openSObj[1] = false;
-							
-							if (_procedure->TouchBegan(_touchLoc)) {
-								_touchSObj[2] = true;
-								_bWalk = 1;
-								_player->setPreviousPosition();
+						}
+						//放大鏡[1]開---------------------
+						else if (_bopenNode[1]) {
+							_pTrigger[6].touchesBegan(_touchLoc);
+							_pTrigger[7].touchesBegan(_touchLoc);
+							_pTrigger[8].touchesBegan(_touchLoc);
+							_pTrigger[9].touchesBegan(_touchLoc);
 
-								//-------------------------------
-								_TargetLoc = _touchLoc;
-
+							if (!_offRect[1].containsPoint(_touchLoc)) {
+								_bopenNode[1] = !_bopenNode[1];
+								_eNode[1]->setVisible(false);
+								_bkBlur->setVisible(false);
+								log("close detect");
 							}
-							else _openSObj[2] = false;
 
-							
-						}
-						else {
-							// reset button=========================
-							//reset();
 						}
 
-					}
 
-					//放大鏡[0]開---------------------
-					if (_bopenNode[0]) {
-						_pTrigger[0].touchesBegan(_touchLoc);
-						_pTrigger[1].touchesBegan(_touchLoc);
-						_pTrigger[2].touchesBegan(_touchLoc);
-						_pTrigger[3].touchesBegan(_touchLoc);
+						//0
+						if (!_bopenNode[0] && _detectRect[0].containsPoint(_touchLoc)) {
 
-						if (!_offRect[0].containsPoint(_touchLoc)) {
-							_bopenNode[0] = !_bopenNode[0];
-							_eNode[0]->setVisible(false);
-							_bkBlur->setVisible(false);
-							log("close detect");
+							_btouchNode[0] = true;
+							_bWalk = 1;
+							_player->setPreviousPosition();
+
+							log("touched detect");
 						}
-					}
-					//放大鏡[1]開---------------------
-					else if (_bopenNode[1]) {
-						_pTrigger[6].touchesBegan(_touchLoc);
-						_pTrigger[7].touchesBegan(_touchLoc);
-						_pTrigger[8].touchesBegan(_touchLoc);
-						_pTrigger[9].touchesBegan(_touchLoc);
-
-						if (!_offRect[1].containsPoint(_touchLoc)) {
-							_bopenNode[1] = !_bopenNode[1];
-							_eNode[1]->setVisible(false);
-							_bkBlur->setVisible(false);
-							log("close detect");
+						else if (!_bopenNode[0] && !_detectRect[0].containsPoint(_touchLoc)) {
+							_btouchNode[0] = false;
 						}
 
+						//1
+						if (!_bopenNode[1] && _detectRect[1].containsPoint(_touchLoc)) {
+
+							_btouchNode[1] = true;
+							_bWalk = 1;
+							_player->setPreviousPosition();
+
+							log("touched detect node2");
+						}
+						else if (!_bopenNode[1] && !_detectRect[1].containsPoint(_touchLoc)) {
+							_btouchNode[1] = false;
+						}
 					}
 
-
-					//0
-					if (!_bopenNode[0] && _detectRect[0].containsPoint(_touchLoc)) {
-
-						_btouchNode[0] = true;
-						_bWalk = 1;
-						_player->setPreviousPosition();
-
-						//-------------------------------
-						_TargetLoc = _touchLoc;
-						log("touched detect");
+					else {
+						if (!_ibagState) {
+							//放大鏡沒開--------------
+							if (!_bopenNode[0] && !_bopenNode[1]) {
+								if (_talkRect[4].containsPoint(_touchLoc)) {
+									_touchTalk[4] = true;
+									_bWalk = 1;
+									_player->setPreviousPosition();
+									_talkContent = rand() % 2;
+								}
+								else {
+									_openTalk[4] = false;
+									_touchTalk[4] = false;
+								}
+							}
+						}
 					}
-					else if (!_bopenNode[0] && !_detectRect[0].containsPoint(_touchLoc)) {
-						_btouchNode[0] = false;
-					}
 
-					//1
-					if (!_bopenNode[1] && _detectRect[1].containsPoint(_touchLoc)) {
-
-						_btouchNode[1] = true;
-						_bWalk = 1;
-						_player->setPreviousPosition();
-
-						//-------------------------------
-						_TargetLoc = _touchLoc;
-						log("touched detect node2");
-					}
-					else if (!_bopenNode[1] && !_detectRect[1].containsPoint(_touchLoc)) {
-						_btouchNode[1] = false;
-					}
-					
 				}
 
 				// drag beakerA=====================================================
@@ -1349,7 +1581,7 @@ void  BMScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸
 				}
 			}
 
-			
+
 
 			//use items in bag===========================================
 			if (_ibagState) { //when bag is open
@@ -1412,11 +1644,18 @@ void  BMScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸
 				//else _useItem = false;
 			}
 
+
+		}
+		else {
+			_procedure->TouchBegan(_touchLoc);
+			if (_player->GetIsTalking()) {
+				_player->SetIsTalking(false);
+				_player->StopTalking();
+				log("close talk");
+			}
 			
 		}
-		else _procedure->TouchBegan(_touchLoc);
 	}
-	
 }
 
 void BMScene::keyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event) {
