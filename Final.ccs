@@ -197,6 +197,18 @@
             <Image Name="procedure.png" />
             <Image Name="skip_click.png" />
           </Folder>
+          <Folder Name="BR_Scene">
+            <Image Name="BR_S1.png" />
+            <Image Name="BR_S2.png" />
+            <Image Name="BR_Z.png" />
+            <Image Name="setRect_03.png" />
+            <Image Name="setRect_06.png" />
+            <Image Name="setRect_09.png" />
+            <Image Name="setRect_12.png" />
+            <Image Name="setRect_17.png" />
+            <Image Name="setRect_21.png" />
+            <Image Name="setRect_25.png" />
+          </Folder>
           <Folder Name="C2Scene">
             <Image Name="C2_Z1.png" />
             <Image Name="C2_Z1_01.png" />
@@ -345,6 +357,7 @@
         <Project Name="AnimationAction.csd" Type="Scene" />
         <Image Name="bananaa.png" />
         <Project Name="BMScene.csd" Type="Scene" />
+        <Project Name="BR_Scene.csd" Type="Scene" />
         <Image Name="branch.png" />
         <Project Name="C2Scene.csd" Type="Scene" />
         <Project Name="C2Scene02.csd" Type="Scene" />

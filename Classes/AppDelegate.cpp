@@ -1,7 +1,7 @@
 //<<<<<<< HEAD
 //#define SceneTransition 30
 //=======
-#define SceneTransition 42
+#define SceneTransition 20
 //>>>>>>> 3a5672cb38217fd27fd0dca0f5685ecf775bd025
 
 
@@ -15,6 +15,9 @@
 
 #elif SceneTransition == 10
 #include "MainScene\MainScene.h"
+
+#elif SceneTransition == 20
+#include "GameScene\BR_Scene.h"
 
 #elif SceneTransition == 50
 #include "MainScene\lockUsage.h"
@@ -106,6 +109,10 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
 #elif SceneTransition == 10
 	auto scene = MainScene::createScene();
+	director->runWithScene(scene);
+
+#elif SceneTransition == 20
+	auto scene = BR_Scene::createScene();
 	director->runWithScene(scene);
 
 #elif SceneTransition == 30

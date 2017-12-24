@@ -52,24 +52,35 @@ bool C2_Scene_03::init()
 	_bgfront = (cocos2d::Sprite*)rootNode->getChildByName("bg_front");
 	_bgfront->setPosition(1460, 827);
 	this->addChild(_bgfront, 2);
-	if (_from == 1){
+	if (_from == 1){ // from C2_1
 		_boy = new CPlayer(false, *this, Point(925, 490), false);
 		_boy->setAnimation("Animation/boyanim.plist");
 		_boy->SetReachSpot(5, true);
 	}
-	else if (_from == 2)
+	else if (_from == 2) // from C2_2
 	{
 		_boy = new CPlayer(true, *this, Point(1900, 35), false);
 		_boy->setAnimation("Animation/boyanim.plist");
 		_boy->SetReachSpot(3, true);
 	}
-	else
+	else if(_from == 0) // from C1
 	{
 		_boy = new CPlayer(false, *this, Point(50, 330), true);
 		_boy->setAnimation("Animation/boyanim.plist");
 		_boy->SetReachSpot(0, true);
 	}
-	
+	else if (_from == 5) // from boyRoom
+	{
+		_boy = new CPlayer(false, *this, Point(690, 409), true);
+		_boy->setAnimation("Animation/boyanim.plist");
+		_boy->SetReachSpot(4, true);
+	}
+	else
+	{
+		_boy = new CPlayer(false, *this, Point(1170, 143.5), false);
+		_boy->setAnimation("Animation/boyanim.plist");
+		_boy->SetReachSpot(2, true);
+	}
 
 
 	//spots
@@ -272,8 +283,7 @@ bool C2_Scene_03::ToSpot1_45(float dt) {
 	if (_spotRect[1].containsPoint(pos)) {
 		_boy->SetReachSpot(-1, false);
 		_boy->SetReachSpot(1, true);
-		_boy->Mirror(true);
-		_boy->Stop(true);
+		_boy->Stop();
 		return true;
 	}
 	else // from 4 5
@@ -292,8 +302,7 @@ bool C2_Scene_03::ToSpot1_023(float dt) {
 	if (_spotRect[1].containsPoint(pos)) {
 		_boy->SetReachSpot(-1, false);
 		_boy->SetReachSpot(1, true);
-		_boy->Mirror(true);
-		_boy->Stop(false);
+		_boy->Stop();
 		return true;
 	}
 	else // from 0 2 3

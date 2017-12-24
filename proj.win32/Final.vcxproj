@@ -169,6 +169,7 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClCompile Include="..\Classes\common\xmlScene.cpp" />
     <ClCompile Include="..\Classes\common\xmlTrigger.cpp" />
     <ClCompile Include="..\Classes\GameScene\BMScene.cpp" />
+    <ClCompile Include="..\Classes\GameScene\BR_Scene.cpp" />
     <ClCompile Include="..\Classes\GameScene\C2_Scene_01.cpp" />
     <ClCompile Include="..\Classes\GameScene\C2_Scene_02.cpp" />
     <ClCompile Include="..\Classes\GameScene\C2_Scene_03.cpp" />
@@ -204,6 +205,7 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClInclude Include="..\Classes\common\xmlScene.h" />
     <ClInclude Include="..\Classes\common\xmlTrigger.h" />
     <ClInclude Include="..\Classes\GameScene\BMScene.h" />
+    <ClInclude Include="..\Classes\GameScene\BR_Scene.h" />
     <ClInclude Include="..\Classes\GameScene\C2_Scene_01.h" />
     <ClInclude Include="..\Classes\GameScene\C2_Scene_02.h" />
     <ClInclude Include="..\Classes\GameScene\C2_Scene_03.h" />

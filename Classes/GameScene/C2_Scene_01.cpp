@@ -23,23 +23,6 @@ Scene* C2_Scene_01::createScene()
     return scene;
 }
 
-//Scene* C2_Scene_01::createScene(int n)
-//{
-//	// 'scene' is an autorelease object
-//	auto scene = Scene::create();
-//
-//	// 'layer' is an autorelease object
-//	auto layer = C2_Scene_01::create();
-//
-//	// add layer as a child to scene
-//	scene->addChild(layer);
-//
-//	_from = n;
-//
-//	// return the scene
-//	return scene;
-//}
-
 C2_Scene_01::C2_Scene_01() {
 	for (int i = 0; i < 2; i++) {
 		_toSpot[i] = false;
