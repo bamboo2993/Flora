@@ -1,9 +1,12 @@
 #include "C2_Scene_02.h"
+#include "C2_Scene_03.h"
 
 
 USING_NS_CC;
 #define SPEED 3
 using namespace cocostudio::timeline;
+
+int C2_Scene_02::_from = 0;
 
 Scene* C2_Scene_02::createScene()
 {
@@ -16,11 +19,13 @@ Scene* C2_Scene_02::createScene()
     // add layer as a child to scene
     scene->addChild(layer);
 
+	
     // return the scene
     return scene;
 }
 
 C2_Scene_02::C2_Scene_02() {
+
 	for (int i = 0; i < 3; i++) {
 		_toSpot[i] = false;
 	}
@@ -46,13 +51,16 @@ bool C2_Scene_02::init()
 	this->addChild(_bg);
 
 	//character setting
-	/*_boyRoot = CSLoader::createNode("GameScene/C2_Scene_02/boyWalkAni.csb");
-	_boyRoot->setPosition(650, 120);
-	this->addChild(_boyRoot);*/
-	_boy = new CPlayer(false, *this,Point(40,380),true);
-	_boy->setAnimation("Animation/boyanim.plist");
-	_boy->SetReachSpot(0, true);
-
+	if (_from == 1) {
+		_boy = new CPlayer(false, *this, Point(40, 380), true);
+		_boy->setAnimation("Animation/boyanim.plist");
+		_boy->SetReachSpot(0, true);
+	}
+	else { // from room
+		_boy = new CPlayer(false, *this, Point(830, 245), true);
+		_boy->setAnimation("Animation/boyanim.plist");
+		_boy->SetReachSpot(2, true);
+	}
 
 
 	//spots
@@ -101,8 +109,17 @@ void C2_Scene_02::doStep(float dt) {
 			if (ToSpot0(dt)) {
 				_isWalking = false;
 				_toSpot[0] = false;
+				this->unschedule(schedule_selector(C2_Scene_02::doStep));
+				C2_Scene_03::_from = 2;
+				Director::getInstance()->replaceScene(C2_Scene_03::createScene());
 			}
-		}	
+		}
+		else
+		{
+			this->unschedule(schedule_selector(C2_Scene_02::doStep));
+			C2_Scene_03::_from = 2;
+			Director::getInstance()->replaceScene(C2_Scene_03::createScene());
+		}
 	}
 	
 	if (_toSpot[2]) {

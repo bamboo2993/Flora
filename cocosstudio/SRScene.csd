@@ -211,6 +211,17 @@
             <FileData Type="PlistSubImage" Path="GR_S01_01.png" Plist="GameScene/GRScene/GRScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
+          <AbstractNodeData Name="go_out" ActionTag="602022254" VisibleForFrame="False" Tag="80" IconVisible="False" LeftMargin="1340.0052" RightMargin="453.9948" TopMargin="1323.5868" BottomMargin="-75.5868" ctype="SpriteObjectData">
+            <Size X="254.0000" Y="288.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="1467.0052" Y="68.4132" />
+            <Scale ScaleX="1.7083" ScaleY="0.4530" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.7163" Y="0.0445" />
+            <PreSize X="0.1240" Y="0.1875" />
+            <FileData Type="PlistSubImage" Path="GR_Z03_01.png" Plist="GameScene/GRScene/GRScene.plist" />
+            <BlendFunc Src="1" Dst="771" />
+          </AbstractNodeData>
         </Children>
       </ObjectData>
     </Content>

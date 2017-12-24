@@ -49,7 +49,7 @@ CPlayer::CPlayer(bool isBack, cocos2d::Layer &parent, Point pos, bool isFacingR)
 	// Åª¨ú¨¤¦â
 	if (isBack) { _player = Sprite::create("Animation/ATstand02.png"); }
 	else { _player = Sprite::create("Animation/ATstand01.png"); }
-	_player->setAnchorPoint(Point(0.5, 0));
+	_player->setAnchorPoint(Point(0.5, 0.1));
 	_player->setPosition(pos);
 	parent.addChild(_player);
 	bStop = 1;
@@ -123,9 +123,7 @@ cocos2d::Point CPlayer::getPreviousPosition(){
 
 const Vec2 CPlayer::getPosition()
 {
-	log("%1.0f,%1.0f", _player->getPositionX(), _player->getPositionY());
-	return _player->getPosition();
-	
+	return _player->getPosition();	
 }
 
 
@@ -175,13 +173,15 @@ void CPlayer::Stop() {
 	_player->stopAction(_action[1]);
 	bStop = true;
 
-	if (_bfront) {
-		_player->setSpriteFrame(_cstand[0]);
-	}
-	else {
-		_player->setSpriteFrame(_cstand[1]);
-	}
+	//if (_bfront) {
+	//	_player->setSpriteFrame(_cstand[0]);
+	//}
+	//else {
+	//	_player->setSpriteFrame(_cstand[1]);
+	//}
 }
+
+
 
 void CPlayer::Stop(bool isBack) {
 	_player->stopAction(_action[0]);
@@ -246,7 +246,14 @@ void CPlayer::StopTalking() {
 }
 
 void CPlayer::SetReachSpot(int n, bool f) {
+	if (n < 0) {
+		for (int i = 0; i < 20; i++) {
+			_reachSpot[i] = false;
+		}
+	}
+	else
 	_reachSpot[n] = f;
+
 }
 
 bool CPlayer::GetReachSpot(int n) {
@@ -262,6 +269,7 @@ bool CPlayer::GetIsTalking() {
 }
 
 
+
 void CPlayer::SetFront(bool b) {
 	_bfront = b;
 	if (_bfront) {
@@ -270,4 +278,7 @@ void CPlayer::SetFront(bool b) {
 	else {
 		_player->setSpriteFrame(_cstand[1]);
 	}
+}
+void CPlayer::setZOrder(int n) {
+	_player->setZOrder(n);
 }

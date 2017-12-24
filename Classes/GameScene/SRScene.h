@@ -108,6 +108,11 @@ private:
 
 	int _talkContent = 0;
 
+	// go out=================
+	cocos2d::Rect	_outRect;
+	bool _touchOut;
+	bool _openOut;
+
 public:
 	SRScene();
 	~SRScene();

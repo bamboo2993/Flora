@@ -1,6 +1,8 @@
 #include "SRScene.h"
 #include "cocostudio/CocoStudio.h"
 
+#include "C2_Scene_01.h"
+
 #define ROOT_NODE   "SRScene.csb"
 #define CURRENT_SCENE   "SRScene.cpp"
 
@@ -58,6 +60,17 @@ SRScene::SRScene() {
 
 	_btogger[0] = false;
 	_btogger[1] = false;
+
+	_touchOut = false;
+	_openOut = false;
+
+	
+	for (size_t i = 0; i < TALK_AREA; i++){
+		_touchTalk[i] = false;
+		_openTalk[i] = false;
+	}
+
+
 
 
 }
@@ -299,6 +312,14 @@ void SRScene::SetObject() {
 	_talkRect[3] = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.width, size.height);
 
 
+	//set talk area===============================
+	a = (cocos2d::Sprite*)_rootNode->getChildByName("go_out");
+	size = a->getContentSize();
+	pos = a->getPosition();
+	size.width = size.width*1.71f;
+	size.height = size.height *0.453f;
+	_outRect = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.width, size.height);
+
 }
 
 
@@ -416,6 +437,23 @@ void SRScene::doStep(float dt){
 
 	}
 
+
+
+	else if (_touchOut) {
+		_player->Walk(Vec2(1497.33f, -146.23f));
+		_player->go(Vec2(1497.33f, -146.23f));
+		if (_player->Walk(Vec2(1497.33f, -146.23f)) == false) {
+			_bWalk = 0;
+
+			//pick up obj
+			_touchOut = !_touchOut;
+			_openOut = !_openOut;
+
+			//log("show detect");
+		}
+
+	}
+
 	else {
 		_player->Stop();
 	}
@@ -440,6 +478,7 @@ void SRScene::PickObject(float dt) {
 	}
 	else if (_bopenNode[3]) {
 		_player->Mirror(true);
+		_player->SetFront(false);
 		if (_btogger[1]) _procedure[2]->doStep(dt);
 	}
 
@@ -475,6 +514,15 @@ void SRScene::PickObject(float dt) {
 		_openTalk[3] = false;
 	}
 
+
+	else if (_openOut) {
+		log("to corridor");
+		_openOut = !_openOut;
+		// to corridor================================
+		this->unschedule(schedule_selector(SRScene::doStep));
+		C2_Scene_01::_from = 0;
+		Director::getInstance()->replaceScene(C2_Scene_01::createScene());
+	}
 }
 
 
@@ -508,6 +556,9 @@ void SRScene::reset() {
 
 	_bsolve[0] = false;
 	_bsolve[1] = false;
+
+	_touchOut = false;
+	_openOut = false;
 
 }
 
@@ -644,6 +695,9 @@ void  SRScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ĳ
 								_openTalk[3] = false;
 								_touchTalk[3] = false;
 							}
+
+
+
 						}
 
 					}
@@ -811,6 +865,17 @@ void  SRScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ĳ
 							_openTalk[3] = false;
 							_touchTalk[3] = false;
 						}
+
+						if (_outRect.containsPoint(_touchLoc)) {
+							_touchOut = true;
+							_bWalk = 1;
+							_player->setPreviousPosition();
+						}
+						else {
+							_openTalk[3] = false;
+							_touchTalk[3] = false;
+						}
+
 						////player walk =====================================================
 
 
@@ -841,6 +906,9 @@ void  SRScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ĳ
 							else if (!_bopenNode[0] && !_detectRect[0].containsPoint(_touchLoc)) {
 								_btouchNode[0] = false;
 							}
+						
+						
+						
 						}
 
 

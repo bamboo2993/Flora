@@ -7,6 +7,17 @@
         <LastRunType Value="Windows" />
       </Value>
     </Item>
+    <Item Key="TabsParamsKey">
+      <Value ctype="TabsInfo">
+        <OpenedDocuments>
+          <FilePathData Path="C2Scene.csd" />
+          <FilePathData Path="C2Scene02.csd" />
+          <FilePathData Path="C2Scene03.csd" />
+          <FilePathData Path="SRScene.csd" />
+        </OpenedDocuments>
+        <ActiveDocument Path="SRScene.csd" />
+      </Value>
+    </Item>
     <Item Key="PackageParamsKey">
       <Value ctype="PackageParams">
         <LuaIsEncrypt Value="False" />
@@ -23,18 +34,6 @@
         <IsDebugKeystore Value="True" />
         <EnableSourceMap Value="False" />
         <EnableHTML5Advanced Value="False" />
-      </Value>
-    </Item>
-    <Item Key="TabsParamsKey">
-      <Value ctype="TabsInfo">
-        <OpenedDocuments>
-          <FilePathData Path="C2Scene.csd" />
-          <FilePathData Path="C2Scene02.csd" />
-          <FilePathData Path="C2Scene03.csd" />
-          <FilePathData Path="SRScene.csd" />
-          <FilePathData Path="labScene.csd" />
-        </OpenedDocuments>
-        <ActiveDocument Path="labScene.csd" />
       </Value>
     </Item>
   </Properties>
