@@ -55,7 +55,7 @@ CPlayer::CPlayer(bool isBack, cocos2d::Layer &parent, Point pos, bool isFacingR)
 	// Åª¨ú¨¤¦â
 	if (isBack) { _player = Sprite::create("Animation/ATstand02.png"); }
 	else { _player = Sprite::create("Animation/ATstand01.png"); }
-	_player->setAnchorPoint(Point(0.5, 0));
+	_player->setAnchorPoint(Point(0.5, 0.1));
 	_player->setPosition(pos);
 	parent.addChild(_player);
 	bStop = 1;

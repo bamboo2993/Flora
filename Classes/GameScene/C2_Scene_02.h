@@ -12,9 +12,6 @@ using namespace cocos2d;
 class C2_Scene_02 : public cocos2d::Layer
 {
 private:
-
-
-
 	Sprite *_bg;
 
 	//boy

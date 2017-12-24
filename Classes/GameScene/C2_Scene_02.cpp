@@ -1,4 +1,5 @@
 #include "C2_Scene_02.h"
+#include "C2_Scene_03.h"
 
 
 USING_NS_CC;
@@ -54,15 +55,11 @@ bool C2_Scene_02::init()
 		_boy = new CPlayer(false, *this, Point(40, 380), true);
 		_boy->setAnimation("Animation/boyanim.plist");
 		_boy->SetReachSpot(0, true);
-		_boy->Mirror(true);
-		_boy->Stop(false);
 	}
 	else { // from room
 		_boy = new CPlayer(false, *this, Point(830, 245), true);
 		_boy->setAnimation("Animation/boyanim.plist");
 		_boy->SetReachSpot(2, true);
-		_boy->Mirror(false);
-		_boy->Stop(false);
 	}
 
 
@@ -112,8 +109,17 @@ void C2_Scene_02::doStep(float dt) {
 			if (ToSpot0(dt)) {
 				_isWalking = false;
 				_toSpot[0] = false;
+				this->unschedule(schedule_selector(C2_Scene_02::doStep));
+				C2_Scene_03::_from = 2;
+				Director::getInstance()->replaceScene(C2_Scene_03::createScene());
 			}
-		}	
+		}
+		else
+		{
+			this->unschedule(schedule_selector(C2_Scene_02::doStep));
+			C2_Scene_03::_from = 2;
+			Director::getInstance()->replaceScene(C2_Scene_03::createScene());
+		}
 	}
 	
 	if (_toSpot[2]) {

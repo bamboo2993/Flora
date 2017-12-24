@@ -7,6 +7,8 @@ USING_NS_CC;
 #define SPEED 2
 using namespace cocostudio::timeline;
 
+int C2_Scene_03::_from = 0;
+
 Scene* C2_Scene_03::createScene()
 {
     // 'scene' is an autorelease object
@@ -50,13 +52,24 @@ bool C2_Scene_03::init()
 	_bgfront = (cocos2d::Sprite*)rootNode->getChildByName("bg_front");
 	_bgfront->setPosition(1460, 827);
 	this->addChild(_bgfront, 2);
-	//_boy = new CPlayer(true, *this,Point(1900,35),false);
-	//_boy->setAnimation("Animation/boyanim.plist");
-	//_boy->SetReachSpot(3, true);
-	_boy = new CPlayer(false, *this, Point(925, 490), false);
-	_boy->setAnimation("Animation/boyanim.plist");
-	_boy->SetReachSpot(5, true);
-
+	if (_from == 1){
+		_boy = new CPlayer(false, *this, Point(925, 490), false);
+		_boy->setAnimation("Animation/boyanim.plist");
+		_boy->SetReachSpot(5, true);
+	}
+	else if (_from == 2)
+	{
+		_boy = new CPlayer(true, *this, Point(1900, 35), false);
+		_boy->setAnimation("Animation/boyanim.plist");
+		_boy->SetReachSpot(3, true);
+	}
+	else
+	{
+		_boy = new CPlayer(false, *this, Point(50, 330), true);
+		_boy->setAnimation("Animation/boyanim.plist");
+		_boy->SetReachSpot(0, true);
+	}
+	
 
 
 	//spots
@@ -127,9 +140,14 @@ void C2_Scene_03::doStep(float dt) {
 				_isWalking = false;
 				this->unschedule(schedule_selector(C2_Scene_03::doStep));
 				C2_Scene_02::_from = 1;
-				Director::getInstance()->replaceScene(C2_Scene_02::createScene());
-				
+				Director::getInstance()->replaceScene(C2_Scene_02::createScene());	
 			}
+		}
+		else
+		{
+			this->unschedule(schedule_selector(C2_Scene_03::doStep));
+			C2_Scene_02::_from = 1;
+			Director::getInstance()->replaceScene(C2_Scene_02::createScene());
 		}
 	}
 	if (_toSpot[4]) {
@@ -145,7 +163,16 @@ void C2_Scene_03::doStep(float dt) {
 			if (ToSpot5(dt)) {
 				_toSpot[5] = false;
 				_isWalking = false;
+				this->unschedule(schedule_selector(C2_Scene_03::doStep));
+				C2_Scene_01::_from = 3;
+				Director::getInstance()->replaceScene(C2_Scene_01::createScene());
 			}
+		}
+		else
+		{
+			this->unschedule(schedule_selector(C2_Scene_03::doStep));
+			C2_Scene_01::_from = 3;
+			Director::getInstance()->replaceScene(C2_Scene_01::createScene());
 		}
 	}
 }

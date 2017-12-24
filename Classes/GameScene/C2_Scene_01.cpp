@@ -1,9 +1,12 @@
 #include "C2_Scene_01.h"
-
+#include "C2_Scene_03.h"
+#include "GameScene\SRScene.h"
 
 USING_NS_CC;
 #define SPEED 3
 using namespace cocostudio::timeline;
+
+int C2_Scene_01::_from = 0;
 
 Scene* C2_Scene_01::createScene()
 {
@@ -65,9 +68,7 @@ bool C2_Scene_01::init()
 	this->addChild(_bg);
 
 	//character setting
-	/*_boyRoot = CSLoader::createNode("GameScene/C2_Scene_01/boyWalkAni.csb");
-	_boyRoot->setPosition(650, 120);
-	this->addChild(_boyRoot);*/
+
 	if (_from == 0) { // from boyRoom
 		_boy = new CPlayer(false, *this, Point(1000, 315), true);
 		_boy->setAnimation("Animation/boyanim.plist");
@@ -122,8 +123,17 @@ void C2_Scene_01::doStep(float dt) {
 			if (ToSpot0(dt)) {
 				_isWalking = false;
 				_toSpot[0] = false;
+				this->unschedule(schedule_selector(C2_Scene_01::doStep));
+				C2_Scene_03::_from = 1;
+				Director::getInstance()->replaceScene(C2_Scene_03::createScene());
 			}
-		}	
+		}
+		else
+		{
+			this->unschedule(schedule_selector(C2_Scene_01::doStep));
+			C2_Scene_03::_from = 1;
+			Director::getInstance()->replaceScene(C2_Scene_03::createScene());
+		}
 	}
 	
 	if (_toSpot[1]) {
@@ -131,8 +141,8 @@ void C2_Scene_01::doStep(float dt) {
 			if (ToSpot1(dt)) {
 				_toSpot[1] = false;
 				_isWalking = false;
-				_boy->Talk("dialoge/SR_corner04.png", false);
-				_boy->SetIsTalking(true);
+				this->unschedule(schedule_selector(C2_Scene_01::doStep));
+				Director::getInstance()->replaceScene(SRScene::createScene());
 			}
 		}
 	}
@@ -142,7 +152,7 @@ void C2_Scene_01::doStep(float dt) {
 bool C2_Scene_01::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) {
 	Point touchLoc = pTouch->getLocation();
 	//testing
-	if (!_boy->GetIsTalking()) {
+//	if (!_boy->GetIsTalking()) {
 		if (!_isWalking) {
 			if (_spotRect[0].containsPoint(touchLoc)) {
 				_toSpot[1] = false;
@@ -155,11 +165,11 @@ bool C2_Scene_01::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) {
 				log("door");
 			}
 		}
-	}
-	else { 
-		_boy->SetIsTalking(false);
-		_boy->StopTalking();
-	}
+//	}
+//	else { 
+//		_boy->SetIsTalking(false);
+//		_boy->StopTalking();
+//	}
 
 	return false;
 }
