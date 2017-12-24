@@ -363,7 +363,6 @@ bool C2_Scene_03::ToSpot4(float dt) {
 			_boy->Mirror(false);
 			_boy->go(false);
 			_boy->setPosition(Vec2(pos.x - 360.0f*SPEED*dt, pos.y - 150.0f*SPEED*dt));
-			return false;
 		}
 		else if (_boy->GetReachSpot(0) || _boy->GetReachSpot(2) || _boy->GetReachSpot(3)) { // ToSpot1
 			ToSpot1_023(dt);
@@ -373,7 +372,6 @@ bool C2_Scene_03::ToSpot4(float dt) {
 			_boy->Mirror(true);
 			_boy->go(true);
 			_boy->setPosition(Vec2(pos.x + 360.0f*SPEED*dt, pos.y + 150.0f*SPEED*dt));
-			return false;
 		}
 		return false;
 	}
@@ -403,7 +401,6 @@ bool C2_Scene_03::ToSpot5(float dt) {
 			_boy->Mirror(true);
 			_boy->go(true);
 			_boy->setPosition(Vec2(pos.x + 360.0f*SPEED*dt, pos.y + 150.0f*SPEED*dt));
-			return false;
 		}
 		return false;
 	}

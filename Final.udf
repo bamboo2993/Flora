@@ -33,8 +33,10 @@
           <FilePathData Path="C2Scene03.csd" />
           <FilePathData Path="GRScene.csd" />
           <FilePathData Path="BR_Scene.csd" />
+          <FilePathData Path="Node_GR_Z01.csd" />
+          <FilePathData Path="Node_GR_Z02.csd" />
         </OpenedDocuments>
-        <ActiveDocument Path="BR_Scene.csd" />
+        <ActiveDocument Path="Node_GR_Z02.csd" />
       </Value>
     </Item>
   </Properties>

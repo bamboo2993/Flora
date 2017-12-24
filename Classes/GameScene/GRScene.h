@@ -96,6 +96,11 @@ private:
 
 	bool _bsolve[2]; //state if the quiz is being solved
 
+	//spots
+	Sprite *_spot[3];
+	Rect _spotRect[3];
+	bool _toSpot[3];
+	bool _isWalking;
 
 public:
 	GRScene();
@@ -114,6 +119,10 @@ public:
 
 	void reset();
 
+	void ClearToSpot();
+	bool ToSpot0(float dt);
+	bool ToSpot1(float dt);
+	bool ToSpot2(float dt);
 
 
 	//Ä²¸I

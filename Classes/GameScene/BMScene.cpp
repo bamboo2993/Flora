@@ -553,10 +553,11 @@ void BMScene::doStep(float dt)
 		//// pick up obj ==========================
 		PickObject(dt);
 
-		if (_clear) {
+		/*if (_clear) {
 			this->unschedule(schedule_selector(BMScene::doStep));
+			SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 			Director::getInstance()->replaceScene(RunScene1::createScene());
-		}
+		}*/
 	}
 }
 
@@ -1374,5 +1375,8 @@ void  BMScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ĳ
 void BMScene::keyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event) {
 	if (keyCode == EventKeyboard::KeyCode::KEY_A) {
 		_clear = true;
+		this->unschedule(schedule_selector(BMScene::doStep));
+		SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+		Director::getInstance()->replaceScene(RunScene1::createScene());
 	}
 }

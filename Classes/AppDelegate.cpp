@@ -1,8 +1,6 @@
-//<<<<<<< HEAD
-//#define SceneTransition 30
-//=======
+
 #define SceneTransition 20
-//>>>>>>> 3a5672cb38217fd27fd0dca0f5685ecf775bd025
+
 
 
 #include "AppDelegate.h"

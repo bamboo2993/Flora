@@ -28,6 +28,7 @@ BR_Scene::BR_Scene() {
 		_toSpot[i] = false;
 	}
 	_isWalking = false;
+
 }
 // on "init" you need to initialize your instance
 bool BR_Scene::init()
@@ -88,11 +89,10 @@ bool BR_Scene::init()
 	}
 
 	//bag
-	_bagArea = (cocos2d::Sprite*)rootNode->getChildByName("bagTrigger");
-	size = _bagArea->getContentSize();
-	pos = _bagArea->getPosition();
-	_bagRect = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.width, size.height);
-
+	_newspaper = CLightbox::create();
+	_newspaper->init(rootNode, "bagTrigger", "GameScene/BR_Scene/BR_P.png");
+	_newspaper->setVisible(false);
+	this->addChild(_newspaper, 25);
 
 	//touch
 	_listener1 = EventListenerTouchOneByOne::create();	
@@ -137,7 +137,8 @@ void BR_Scene::doStep(float dt) {
 			if (ToSpot2(dt)) {
 				_isWalking = false;
 				_toSpot[2] = false;
-				//talk		
+				//talk
+				_newspaper->doStep(dt);
 			}
 		}
 		else
@@ -181,28 +182,37 @@ void BR_Scene::doStep(float dt) {
 bool BR_Scene::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) {
 	Point touchLoc = pTouch->getLocation();
 	//testing
-	if (!_isWalking) {
-		ClearToSpot();
-		if (_talkAreaRect[0].containsPoint(touchLoc)) {
-			_toSpot[2] = true;
-			log("2");
-		}
-		else if (_talkAreaRect[2].containsPoint(touchLoc) || _talkAreaRect[1].containsPoint(touchLoc)) {
-			_toSpot[0] = true;
-			log("0");
-		}
-		else if (_talkAreaRect[4].containsPoint(touchLoc)) {
-			_toSpot[4] = true;
-			log("4");
-		}
-		else if (_talkAreaRect[3].containsPoint(touchLoc)) {
-			_toSpot[1] = true;
-			log("1");
-		}
-		else if (_spotRect[5].containsPoint(touchLoc)) {
-			_toSpot[5] = true;
-			log("5");
-		}
+	if (!_newspaper->GetOpen()) {
+		if (!_isWalking) {
+			ClearToSpot();
+			if (_talkAreaRect[0].containsPoint(touchLoc)) {
+				_toSpot[2] = true;
+				log("2");
+			}
+			else if (_talkAreaRect[2].containsPoint(touchLoc) || _talkAreaRect[1].containsPoint(touchLoc)) {
+				_toSpot[0] = true;
+				log("0");
+			}
+			else if (_talkAreaRect[4].containsPoint(touchLoc)) {
+				_toSpot[4] = true;
+				log("4");
+			}
+			else if (_talkAreaRect[3].containsPoint(touchLoc)) {
+				_toSpot[1] = true;
+				log("1");
+			}
+			else if (_spotRect[5].containsPoint(touchLoc)) {
+				_toSpot[5] = true;
+				log("5");
+			}
+			else if (_newspaper->TouchBegan(touchLoc)) {
+				_toSpot[2] = true;
+			}
+		}	
+	}
+	else
+	{
+		_newspaper->TouchBegan(touchLoc);
 	}
 	return false;
 }
@@ -215,126 +225,6 @@ void BR_Scene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) {
 
 }
 
-//bool BR_Scene::ToMainPath(float dt) {
-//	Point pos = _boy->getPosition();
-//	float m = -185.0f / 506.0f;
-//	float value = pos.x*m - 480 * m + 445;
-//	if (!_reachSpot[1] && !_reachSpot[3]) {
-//		if (pos.y > value) { // right
-//			if (_spotRect[1].containsPoint(pos)) {
-//				ClearReachSpot();
-//				_reachSpot[1] = true;
-//				_reachMainpath = true;
-//				return true;
-//			} 
-//			else if (_spotRect[3].containsPoint(pos)) {
-//				ClearReachSpot();
-//				_reachSpot[3] = true;
-//				_reachMainpath = true;
-//				return true;
-//			}
-//			else {
-//				_isWalking = true;
-//				_boy->setPosition(Vec2(pos.x - 12.0f*SPEEDRIGHT*dt, pos.y -5.0f*SPEEDRIGHT*dt));
-//				return false;
-//			}
-//		}
-//		else //left
-//		{
-//			if (_spotRect[3].containsPoint(pos)) {
-//				ClearReachSpot();
-//				_reachSpot[3] = true;
-//				_reachMainpath = true;
-//				return true;
-//			}
-//			else {
-//				_isWalking = true;
-//				_boy->setPosition(Vec2(pos.x + 12.0f*SPEEDRIGHT*dt, pos.y + 5.0f*SPEEDRIGHT*dt));
-//				return false;
-//			}
-//		}
-//	}
-//	else {
-//		_reachMainpath = true;
-//		return true;
-//	}
-//	return true;
-//}
-//
-//bool BR_Scene::ToSpot0(float dt) {
-//	Point pos = _boy->getPosition();
-//	if (_spotRect[0].containsPoint(pos)) {
-//		ClearReachSpot();
-//		_reachSpot[0] = true;
-//		_reachMainpath = false;
-//		return true;
-//	}
-//	else { 
-//		_isWalking = true;
-//		_boy->setPosition(Vec2(pos.x + 12.0f*SPEEDRIGHT*dt, pos.y + 5.0f*SPEEDRIGHT*dt));
-//		return false;
-//	}
-//}
-//
-//bool BR_Scene::ToSpot1(float dt) {
-//	Point pos = _boy->getPosition();
-//	if (_spotRect[1].containsPoint(pos)) {
-//		ClearReachSpot();
-//		_reachSpot[1] = true;
-//		_reachMainpath = true;
-//		return true;
-//	}
-//	else {
-//		_isWalking = true;
-//		_boy->setPosition(Vec2(pos.x - 506.0f*SPEEDLEFT*dt, pos.y + 185.0f*SPEEDLEFT*dt));
-//		return false;
-//	}
-//}
-//
-//bool BR_Scene::ToSpot2(float dt) {
-//	Point pos = _boy->getPosition();
-//	if (_spotRect[2].containsPoint(pos)) {
-//		ClearReachSpot();
-//		_reachSpot[2] = true;
-//		_reachMainpath = false;
-//		return true;
-//	}
-//	else {
-//		_isWalking = true;
-//		_boy->setPosition(Vec2(pos.x + 12.0f*SPEEDRIGHT*dt, pos.y + 5.0f*SPEEDRIGHT*dt));
-//		return false;
-//	}
-//}
-//
-//bool BR_Scene::ToSpot4(float dt) {
-//	Point pos = _boy->getPosition();
-//	if (_spotRect[4].containsPoint(pos)) {
-//		ClearReachSpot();
-//		_reachSpot[4] = true;
-//		_reachMainpath = false;
-//		return true;
-//	}
-//	else {
-//		_isWalking = true;
-//		_boy->setPosition(Vec2(pos.x - 12.0f*SPEEDRIGHT*dt, pos.y - 5.0f*SPEEDRIGHT*dt));
-//		return false;
-//	}
-//}
-//
-//bool BR_Scene::ToSpot3(float dt) {	 // from 1 to 3
-//	Point pos = _boy->getPosition();
-//	if (_spotRect[3].containsPoint(pos)) {
-//		ClearReachSpot();
-//		_reachSpot[3] = true;
-//		_reachMainpath = true;
-//		return true;
-//	}
-//	else {
-//		_isWalking = true;
-//		_boy->setPosition(Vec2(pos.x + 506.0f*SPEEDLEFT*dt, pos.y - 185.0f*SPEEDLEFT*dt));
-//		return false;
-//	}
-//}
 bool BR_Scene::ToSpot4(float dt) {
 	Point pos = _boy->getPosition();
 	if (_spotRect[4].containsPoint(pos)) {
@@ -534,32 +424,6 @@ bool BR_Scene::GoSpot3(float dt, int n) {
 		}
 	}
 }
-
-//bool BR_Scene::GoSpot1(float dt, int n) {
-//	Point pos = _boy->getPosition();
-//	if (_spotRect[1].containsPoint(pos)) {
-//		_boy->SetReachSpot(-1, false);
-//		_boy->SetReachSpot(1, true);
-//		return true;
-//	}
-//	else {
-//		if (n == 0) {
-//			_isWalking = true;
-//			_boy->Mirror(false);
-//			_boy->go(false);
-//			_boy->setPosition(Vec2(pos.x - 240 * SPEED*dt, pos.y - 100.0f*SPEED*dt));
-//			return false;
-//		}
-//		else // from 3 5
-//		{
-//			_isWalking = true;
-//			_boy->Mirror(false);
-//			_boy->go(true);
-//			_boy->setPosition(Vec2(pos.x - 260.0f*SPEED*dt, pos.y + 100.0f*SPEED*dt));
-//			return false;
-//		}
-//	}
-//}
 
 void BR_Scene::ClearToSpot() {
 	for (int i = 0; i < 6; i++) {
