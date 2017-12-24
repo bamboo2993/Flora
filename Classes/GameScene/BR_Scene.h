@@ -3,6 +3,7 @@
 
 #include "cocos2d.h"
 #include "common\CPlayer.h"
+#include "common\CLightbox.h"
 
 using namespace cocos2d;
 
@@ -28,8 +29,7 @@ private:
 	Sprite *_dialog[50];
 
 	//bag
-	Sprite *_bagArea;
-	Rect _bagRect;
+	CLightbox *_newspaper;
 
 public:
     // there's no 'id' in cpp, so we recommend returning the class instance pointer

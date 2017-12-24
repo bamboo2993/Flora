@@ -127,6 +127,12 @@ void C2_Scene_01::doStep(float dt) {
 				Director::getInstance()->replaceScene(SRScene::createScene());
 			}
 		}
+		else
+		{
+			this->unschedule(schedule_selector(C2_Scene_01::doStep));
+			Director::getInstance()->replaceScene(SRScene::createScene());
+
+		}
 	}
 	
 }

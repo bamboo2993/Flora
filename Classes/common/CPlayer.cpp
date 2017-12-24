@@ -269,6 +269,9 @@ bool CPlayer::GetIsTalking() {
 }
 
 
+void CPlayer::setZOrder(int n) {
+	_player->setZOrder(n);
+}
 
 void CPlayer::SetFront(bool b) {
 	_bfront = b;
@@ -278,7 +281,4 @@ void CPlayer::SetFront(bool b) {
 	else {
 		_player->setSpriteFrame(_cstand[1]);
 	}
-}
-void CPlayer::setZOrder(int n) {
-	_player->setZOrder(n);
 }

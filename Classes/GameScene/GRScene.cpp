@@ -18,6 +18,8 @@
 
 #define BACKGROUND_FRONT "GR_S02"
 
+#define SPEED 2
+
 USING_NS_CC;
 
 using namespace cocostudio::timeline;
@@ -59,6 +61,10 @@ GRScene::GRScene() {
 	}
 	_ibagState = 0;
 	
+	for (int i = 0; i < 3; i++) {
+		_toSpot[i] = false;
+	}
+	_isWalking = false;
 
 }
 GRScene::~GRScene()
@@ -135,12 +141,23 @@ bool GRScene::init()
 
 	// set player==============================================================
 
-	_player = new CPlayer("aterStand01.png", "aterStand02.png", *this);
+
+	_player = new CPlayer(true, *this, Point(435,95), true);
+
 	_player->setAnimation("Animation/boyanim.plist");
-
-	_player->setPosition(Point(334, 361));
-	_player->setRect();
-
+	_player->SetReachSpot(0, true);
+	
+	//_player->setRect();
+	
+	//spots
+	char tmp[30];
+	for (int i = 0; i < 3; i++) {
+		sprintf(tmp, "spot_%d", i);
+		_spot[i] = (cocos2d::Sprite*)_rootNode->getChildByName(tmp);
+		Size size = _spot[i]->getContentSize();
+		Point pos = _spot[i]->getPosition();
+		_spotRect[i] = Rect(pos.x - size.width*1.5f / 2, pos.y - size.height*1.5f / 2, size.width*1.5f, size.height*1.5f);
+	}
 
 
 
@@ -270,7 +287,7 @@ void GRScene::doStep(float dt){
 	
 	//walk===================================
 	//////只能在設定範圍走=============================
-	if (_bWalk && _bwithinArea) { //when player walk within walkable region
+	/*if (_bWalk && _bwithinArea) { //when player walk within walkable region
 		
 		if (_player->getPosition().x >= LINE_X-3) {
 			if (_TargetLoc.x >= LINE_X) {
@@ -491,7 +508,33 @@ void GRScene::doStep(float dt){
 
 	else {
 		_player->Stop();
+	}*/
+
+	if (_toSpot[0]) {
+		if (!_player->GetReachSpot(0)) {
+			if (ToSpot0(dt)) {
+				_isWalking = false;
+				_toSpot[0] = false;
+			}
+		}
 	}
+	if (_toSpot[1]) {
+		if (!_player->GetReachSpot(1)) {
+			if (ToSpot1(dt)) {
+				_isWalking = false;
+				_toSpot[1] = false;
+			}
+		}
+	}
+	if (_toSpot[2]) {
+		if (!_player->GetReachSpot(0)) {
+			if (ToSpot2(dt)) {
+				_isWalking = false;
+				_toSpot[2] = false;
+			}
+		}
+	}
+
 
 	//// pick up obj ==========================
 	PickObject(dt);
@@ -694,14 +737,7 @@ void  GRScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸
 		if (offsetX == 0 && offsetY == 0 && !CBag::getInstance()->LightboxState()) { // when screen tapped
 			if (_touchLoc.y > 227) {
 				//walk area ====================================
-				if (WALK_AREA_1.containsPoint(_touchLoc) || WALK_AREA_2.containsPoint(_touchLoc) || WALK_AREA_3.containsPoint(_touchLoc) ||
-					WALK_AREA_4.containsPoint(_touchLoc) || WALK_AREA_5.containsPoint(_touchLoc)) {
-					// detect if touch pts are in walkable area
-					_bwithinArea = true;
-					log("walk!!");
-
-				}
-				else  _bwithinArea = false;
+			
 
 				////player walk =====================================================
 
@@ -720,6 +756,7 @@ void  GRScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸
 					else {
 						// reset button=========================
 						reset();
+						//talk
 					}
 
 				}
@@ -779,6 +816,7 @@ void  GRScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸
 				//0
 				if (!_bopenNode[0] && _detectRect[0].containsPoint(_touchLoc)) {
 					_btouchNode[0] = true;
+
 					log("touched detect");
 				}
 				else if (!_bopenNode[0] && !_detectRect[0].containsPoint(_touchLoc)) {
@@ -804,15 +842,7 @@ void  GRScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸
 			else {
 				if (_ibagState == 0) {
 
-					//walk area ====================================
-					if (WALK_AREA_1.containsPoint(_touchLoc) || WALK_AREA_2.containsPoint(_touchLoc) || WALK_AREA_3.containsPoint(_touchLoc) ||
-						WALK_AREA_4.containsPoint(_touchLoc) || WALK_AREA_5.containsPoint(_touchLoc)) {
-						// detect if touch pts are in walkable area
-						_bwithinArea = true;
-						log("walk!!");
-
-					}
-					else  _bwithinArea = false;
+					
 
 					////player walk =====================================================
 
@@ -930,4 +960,82 @@ void  GRScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸
 		}
 	}
 
+}
+void GRScene::ClearToSpot() {
+	for (int i = 0; i < 6; i++) {
+		_toSpot[i] = false;
+	}
+}
+
+bool GRScene::ToSpot0(float dt) {
+	Point pos = _player->getPosition();
+	if (_spotRect[0].containsPoint(pos)) {
+		_player->SetReachSpot(-1, false);
+		_player->SetReachSpot(0, true);
+		_player->Mirror(false);
+		_player->Stop(false);
+		return true;
+	}
+	else {
+		if (_player->GetReachSpot(2)) { // ToSpot1
+				ToSpot1(dt);
+			}
+			else {
+				_isWalking = true;
+				_player->Mirror(false);
+				_player->go(false);
+				_player->setPosition(Vec2(pos.x - 58.0f*SPEED*dt, pos.y - 53.0f*SPEED*dt));
+			}
+			return false;
+		}
+	
+}
+
+bool GRScene::ToSpot1(float dt) {
+	Point pos = _player->getPosition();
+	if (_spotRect[1].containsPoint(pos)) {
+		_player->SetReachSpot(-1, false);
+		_player->SetReachSpot(1, true);
+		_player->Mirror(false);
+		_player->Stop(true);
+		return true;
+	}
+	else {
+		if (_player->GetReachSpot(2)) { // from 2
+			_isWalking = true;
+			_player->Mirror(false);
+			_player->go(false);
+			_player->setPosition(Vec2(pos.x - 97.0f*SPEED*dt, pos.y + 11.0f*SPEED*dt));
+		}
+		else { // from 0
+			_isWalking = true;
+			_player->Mirror(true);
+			_player->go(true);
+			_player->setPosition(Vec2(pos.x + 58.0f*SPEED*dt, pos.y + 53.0f*SPEED*dt));
+		}
+		return false;
+	}
+}
+
+bool GRScene::ToSpot2(float dt) {
+	Point pos = _player->getPosition();
+	if (_spotRect[2].containsPoint(pos)) {
+		_player->SetReachSpot(-1, false);
+		_player->SetReachSpot(2, true);
+		_player->Mirror(true);
+		_player->Stop(true);
+		return true;
+	}
+	else {
+		if (_player->GetReachSpot(0)) { // from 0
+			ToSpot1(dt);
+		}
+		else { // from 1
+			_isWalking = true;
+			_player->Mirror(true);
+			_player->go(false);
+			_player->setPosition(Vec2(pos.x + 97.0f*SPEED*dt, pos.y - 11.0f*SPEED*dt));
+		}
+		return false;
+	}
 }
