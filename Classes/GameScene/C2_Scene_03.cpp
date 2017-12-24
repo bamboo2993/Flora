@@ -75,7 +75,7 @@ bool C2_Scene_03::init()
 		_boy->setAnimation("Animation/boyanim.plist");
 		_boy->SetReachSpot(4, true);
 	}
-	else
+	else // from GR
 	{
 		_boy = new CPlayer(false, *this, Point(1170, 143.5), false);
 		_boy->setAnimation("Animation/boyanim.plist");
@@ -137,50 +137,35 @@ void C2_Scene_03::doStep(float dt) {
 	}
 	
 	if (_toSpot[2]) {
-		if (!_boy->GetReachSpot(2)) {
+	//	if (!_boy->GetReachSpot(2)) {
 			if (ToSpot2(dt)) {
 				_toSpot[2] = false;
 				_isWalking = false;
+				this->unschedule(schedule_selector(C2_Scene_03::doStep));
+				Director::getInstance()->replaceScene(GRScene::createScene());
 			}
-		}
+	//	}
 	}
 	if (_toSpot[3]) {
-		if (!_boy->GetReachSpot(3)) {
-			if (ToSpot3(dt)) {
-				_toSpot[3] = false;
-				_isWalking = false;
-				this->unschedule(schedule_selector(C2_Scene_03::doStep));
-				C2_Scene_02::_from = 1;
-				Director::getInstance()->replaceScene(C2_Scene_02::createScene());	
-			}
-		}
-		else
-		{
+		if (ToSpot3(dt)) {
+			_toSpot[3] = false;
+			_isWalking = false;
 			this->unschedule(schedule_selector(C2_Scene_03::doStep));
 			C2_Scene_02::_from = 1;
-			Director::getInstance()->replaceScene(C2_Scene_02::createScene());
+			Director::getInstance()->replaceScene(C2_Scene_02::createScene());	
 		}
+	
 	}
 	if (_toSpot[4]) {
-		if (!_boy->GetReachSpot(4)) {
-			if (ToSpot4(dt)) {
-				_toSpot[4] = false;
-				_isWalking = false;
-			}
+		if (ToSpot4(dt)) {
+			_toSpot[4] = false;
+			_isWalking = false;
 		}
 	}
 	if (_toSpot[5]) {
-		if (!_boy->GetReachSpot(5)) {
-			if (ToSpot5(dt)) {
-				_toSpot[5] = false;
-				_isWalking = false;
-				this->unschedule(schedule_selector(C2_Scene_03::doStep));
-				C2_Scene_01::_from = 3;
-				Director::getInstance()->replaceScene(C2_Scene_01::createScene());
-			}
-		}
-		else
-		{
+		if (ToSpot5(dt)) {
+			_toSpot[5] = false;
+			_isWalking = false;
 			this->unschedule(schedule_selector(C2_Scene_03::doStep));
 			C2_Scene_01::_from = 3;
 			Director::getInstance()->replaceScene(C2_Scene_01::createScene());

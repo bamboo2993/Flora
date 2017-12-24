@@ -57,12 +57,17 @@ CPlayer::CPlayer(bool isBack, cocos2d::Layer &parent, Point pos, bool isFacingR)
 	Mirror();
 
 	_rpos = _player->getPosition();
+	_isTalking = false;
 
 	for (int i = 0; i < 20; i++) {
 		_reachSpot[i] = false;
 	}
 
 	_myAction = nullptr;
+	_sentance = Sprite::create("dialoge/BM/BM_flower01.png");
+	_sentance->setPosition(150, 550.0f);
+	_sentance->setVisible(false);
+	_player->addChild(_sentance);
 }
 
 CPlayer::~CPlayer()

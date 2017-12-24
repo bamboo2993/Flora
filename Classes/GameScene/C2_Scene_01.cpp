@@ -159,7 +159,7 @@ bool C2_Scene_01::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) {
 //		_boy->StopTalking();
 //	}
 
-	return false;
+	return true;
 }
 
 void C2_Scene_01::onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) {

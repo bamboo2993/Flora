@@ -370,6 +370,7 @@
         <Project Name="E_labScene_Node1.csd" Type="Node" />
         <Project Name="E_labScene_Node2.csd" Type="Node" />
         <Project Name="fgnode.csd" Type="Node" />
+        <Image Name="go back2.png" />
         <Image Name="GR_Z02_P01.png" />
         <Image Name="GR_Z02_P02.png" />
         <Image Name="GR_Z02_P03.png" />

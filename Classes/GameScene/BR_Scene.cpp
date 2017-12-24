@@ -70,12 +70,16 @@ bool BR_Scene::init()
 		_spot[i] = (cocos2d::Sprite*)rootNode->getChildByName(tmp);
 		Size size = _spot[i]->getContentSize();
 		Point pos = _spot[i]->getPosition();
-		_spotRect[i] = Rect(pos.x-size.width*1.5/2, pos.y-size.height*1.5/2, size.width*1.5f, size.height*1.5f);
+		_spotRect[i] = Rect(pos.x-size.width*2.5/2, pos.y-size.height*2.5/2, size.width*2.5f, size.height*2.5f);
 	}
+	Size size = _spot[3]->getContentSize();
+	Point pos = _spot[3]->getPosition();
+	_spotRect[3] = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.width*2.5f, size.height*1.5f);
+
 
 	_spot[5] = (cocos2d::Sprite*)rootNode->getChildByName("spot_5");
-	Size size = _spot[5]->getContentSize();
-	Point pos = _spot[5]->getPosition();
+	size = _spot[5]->getContentSize();
+	pos = _spot[5]->getPosition();
 	_spotRect[5] = Rect(pos.x - size.width*22 / 2, pos.y - size.height*3.8 / 2, size.width*22, size.height*3.8f);
 
 
@@ -106,14 +110,16 @@ bool BR_Scene::init()
 }
 
 void BR_Scene::doStep(float dt) {
+	if (_boy->getPosition().x < 550)
+		log("%f,%f", _boy->getPosition().x, _boy->getPosition().y);
 	if (_toSpot[0]) {
-		if (!_boy->GetReachSpot(0)) {
+	//	if (!_boy->GetReachSpot(0)) {
 			if (ToSpot0(dt)) {
 				_isWalking = false;
 				_toSpot[0] = false;
 				//talk		
 			}
-		}
+	//	}
 		else
 		{
 		//talk
@@ -218,11 +224,13 @@ bool BR_Scene::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) {
 }
 
 void BR_Scene::onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) {
-
+	Point touchLoc = pTouch->getLocation();
+	log("moved");
 }
 
 void BR_Scene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) {
-
+	Point touchLoc = pTouch->getLocation();
+	log("end");
 }
 
 bool BR_Scene::ToSpot4(float dt) {
@@ -272,7 +280,7 @@ bool BR_Scene::ToSpot1(float dt) {
 		}
 		else if (_boy->GetReachSpot(0)) {
 			_isWalking = true;
-			_boy->Mirror(true);
+			_boy->Mirror(false);
 			_boy->go(false);
 			_boy->setPosition(Vec2(pos.x - 240.0f*SPEED*dt, pos.y - 100.0f*SPEED*dt));
 		}

@@ -31,7 +31,12 @@ private:
 	cocostudio::ComAudio *_grinding;
 	cocostudio::ComAudio *_debranch;
 
+	//talk
+	Rect _talkAreaRect[3];
+	Sprite *_dialog[50];
 
+
+	Rect _exitRect;
 
 	//set up========================================
 

@@ -87,47 +87,47 @@
             <FileData Type="Default" Path="Default/Sprite.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="talkArea_0" ActionTag="1075460947" VisibleForFrame="False" Tag="17" IconVisible="False" LeftMargin="1534.0591" RightMargin="467.9409" TopMargin="866.9628" BottomMargin="623.0372" ctype="SpriteObjectData">
+          <AbstractNodeData Name="talkArea_0" ActionTag="1075460947" VisibleForFrame="False" Tag="17" IconVisible="False" LeftMargin="1250.0591" RightMargin="183.9409" TopMargin="810.9628" BottomMargin="567.0372" ctype="SpriteObjectData">
             <Size X="614.0000" Y="158.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="1557.0591" Y="646.0372" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.7603" Y="0.4206" />
-            <PreSize X="0.0225" Y="0.0299" />
+            <PreSize X="0.2998" Y="0.1029" />
             <FileData Type="Normal" Path="GameScene/BR_Scene/setRect_17.png" Plist="" />
             <BlendFunc Src="770" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="talkArea_1" ActionTag="-1762395188" VisibleForFrame="False" Tag="18" IconVisible="False" LeftMargin="726.4484" RightMargin="839.5516" TopMargin="389.3066" BottomMargin="663.6934" ctype="SpriteObjectData">
+          <AbstractNodeData Name="talkArea_1" ActionTag="-1762395188" VisibleForFrame="False" Tag="18" IconVisible="False" LeftMargin="726.4484" RightMargin="839.5515" TopMargin="389.3066" BottomMargin="663.6934" ctype="SpriteObjectData">
             <Size X="482.0000" Y="483.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="967.4484" Y="905.1934" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.4724" Y="0.5893" />
-            <PreSize X="0.0225" Y="0.0299" />
+            <PreSize X="0.2354" Y="0.3145" />
             <FileData Type="Normal" Path="GameScene/BR_Scene/setRect_06.png" Plist="" />
             <BlendFunc Src="770" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="talkArea_2" ActionTag="1523742229" Alpha="0" Tag="19" IconVisible="False" LeftMargin="605.3006" RightMargin="1396.6995" TopMargin="352.1279" BottomMargin="1137.8721" ctype="SpriteObjectData">
+          <AbstractNodeData Name="talkArea_2" ActionTag="1523742229" Alpha="0" Tag="19" IconVisible="False" LeftMargin="533.3006" RightMargin="1324.6995" TopMargin="232.1279" BottomMargin="1017.8721" ctype="SpriteObjectData">
             <Size X="190.0000" Y="286.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="628.3006" Y="1160.8721" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.3068" Y="0.7558" />
-            <PreSize X="0.0225" Y="0.0299" />
+            <PreSize X="0.0928" Y="0.1862" />
             <FileData Type="Normal" Path="GameScene/BR_Scene/setRect_03.png" Plist="" />
             <BlendFunc Src="770" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="talkArea_3" ActionTag="324364194" Alpha="0" Tag="20" IconVisible="False" LeftMargin="333.9087" RightMargin="1668.0913" TopMargin="690.9091" BottomMargin="799.0909" ctype="SpriteObjectData">
+          <AbstractNodeData Name="talkArea_3" ActionTag="324364194" Alpha="0" Tag="20" IconVisible="False" LeftMargin="193.9087" RightMargin="1528.0913" TopMargin="376.9092" BottomMargin="485.0909" ctype="SpriteObjectData">
             <Size X="326.0000" Y="674.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="356.9087" Y="822.0909" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.1743" Y="0.5352" />
-            <PreSize X="0.0225" Y="0.0299" />
+            <PreSize X="0.1592" Y="0.4388" />
             <FileData Type="Normal" Path="GameScene/BR_Scene/setRect_09.png" Plist="" />
             <BlendFunc Src="770" Dst="771" />
           </AbstractNodeData>
@@ -138,18 +138,18 @@
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.1888" Y="0.1871" />
-            <PreSize X="0.0225" Y="0.0299" />
+            <PreSize X="0.0859" Y="0.1361" />
             <FileData Type="Normal" Path="GameScene/BR_Scene/setRect_25.png" Plist="" />
             <BlendFunc Src="770" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="bagTrigger" ActionTag="-2098121875" VisibleForFrame="False" Tag="22" IconVisible="False" LeftMargin="1279.3163" RightMargin="722.6837" TopMargin="1057.5203" BottomMargin="432.4797" ctype="SpriteObjectData">
+          <AbstractNodeData Name="bagTrigger" ActionTag="-2098121875" VisibleForFrame="False" Tag="22" IconVisible="False" LeftMargin="1207.3163" RightMargin="650.6837" TopMargin="988.5203" BottomMargin="363.4797" ctype="SpriteObjectData">
             <Size X="190.0000" Y="184.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="1302.3163" Y="455.4797" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.6359" Y="0.2965" />
-            <PreSize X="0.0225" Y="0.0299" />
+            <PreSize X="0.0928" Y="0.1198" />
             <FileData Type="Normal" Path="GameScene/BR_Scene/setRect_21.png" Plist="" />
             <BlendFunc Src="770" Dst="771" />
           </AbstractNodeData>

@@ -606,7 +606,6 @@ void  SRScene::onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ĳ
 
 	_touchLoc = pTouch->getLocation();
 
-
 	if (!_player->GetIsTalking()) {
 		//use items in bag===========================================
 		if (_ibagState) { //when bag is open

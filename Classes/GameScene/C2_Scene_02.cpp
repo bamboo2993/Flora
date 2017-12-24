@@ -147,15 +147,15 @@ bool C2_Scene_02::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) {
 		}
 	}
 
-	return false;
+	return true;
 }
 
 void C2_Scene_02::onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) {
-
+	
 }
 
 void C2_Scene_02::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) {
-
+	
 }
 
 
