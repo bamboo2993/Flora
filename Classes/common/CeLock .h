@@ -36,7 +36,12 @@ private:
 	bool _check; //check if the number now is equal to the password set
 
 
+	bool _openState;
 
+	//for error============
+	bool _error;
+	cocos2d::Sprite *_Error;
+	float _tot;
 
 public:
 	CeLock();
@@ -50,6 +55,8 @@ public:
 	void SetEnterArea(cocos2d::Point BLpoint, float w, float h);
 	void SetNumAppear(float x, float y);
 	void SetPassword(int num,int ans); // set atmost 5 digit
+	void doStep(float dt);
+	void SetReached(bool x);
 	void close();
 	void reset();
 

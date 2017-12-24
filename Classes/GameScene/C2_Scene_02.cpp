@@ -1,6 +1,8 @@
 #include "C2_Scene_02.h"
 #include "C2_Scene_03.h"
 
+#include "labScene.h"
+
 
 USING_NS_CC;
 #define SPEED 3
@@ -91,16 +93,26 @@ bool C2_Scene_02::init()
 	pos = _paintArea->getPosition();
 	_paintRect = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.width, size.height);
 
+	//add lock=============
+	_elock = new CeLock();
+	_elock->init("GameScene/lab_door.png");
+	this->addChild(_elock);
+	_elock->SetArea(_doorRect);
+	_elock->SetExitArea(cocos2d::Point(72.0f, 1463.0f), 144.0f, 144.0f);
+	_elock->SetKeyArea(Point(896.8f, 692.6f), 287, 254);
+	_elock->SetEnterArea(Point(896.8f, 617.6f), 287, 72);
+	_elock->SetNumAppear(1149.0f + 40.0f, 1032.0f);
+	_elock->SetPassword(5, 17341);
 
-	//touch
-	_listener1 = EventListenerTouchOneByOne::create();	
-	_listener1->onTouchBegan = CC_CALLBACK_2(C2_Scene_02::onTouchBegan, this);
-	_listener1->onTouchMoved = CC_CALLBACK_2(C2_Scene_02::onTouchMoved, this);
-	_listener1->onTouchEnded = CC_CALLBACK_2(C2_Scene_02::onTouchEnded, this);
+	_listener1 = EventListenerTouchOneByOne::create();	//創建一個一對一的事件聆聽器
+	_listener1->onTouchBegan = CC_CALLBACK_2(C2_Scene_02::onTouchBegan, this);		//加入觸碰開始事件
+	_listener1->onTouchMoved = CC_CALLBACK_2(C2_Scene_02::onTouchMoved, this);		//加入觸碰移動事件
+	_listener1->onTouchEnded = CC_CALLBACK_2(C2_Scene_02::onTouchEnded, this);		//加入觸碰離開事件
 
-	this->_eventDispatcher->addEventListenerWithSceneGraphPriority(_listener1, this);
+	this->_eventDispatcher->addEventListenerWithSceneGraphPriority(_listener1, this);	//加入剛創建的事件聆聽器
 	this->schedule(CC_SCHEDULE_SELECTOR(C2_Scene_02::doStep));
-    return true;
+	return true;
+
 }
 
 void C2_Scene_02::doStep(float dt) {
@@ -123,39 +135,51 @@ void C2_Scene_02::doStep(float dt) {
 	}
 	
 	if (_toSpot[2]) {
-		if (!_boy->GetReachSpot(2)) {
+	//	if (!_boy->GetReachSpot(2)) {
 			if (ToSpot2(dt)) {
 				_toSpot[2] = false;
 				_isWalking = false;
+				_elock->SetReached(true);
+
 			}
-		}
+	//	}
 	}
-	
+
+
+	_elock->doStep(dt);
 }
 
 bool C2_Scene_02::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) {
 	Point touchLoc = pTouch->getLocation();
-	//testing
-	if (!_isWalking) {
-		if (_spotRect[0].containsPoint(touchLoc)) {
-			_toSpot[0] = true;
-			log("clicked0");
-		}
-		if (_doorRect.containsPoint(touchLoc)) {
-			_toSpot[2] = true;
-			log("door");
+	if (!_elock->GetState()) {
+		//testing
+		if (!_isWalking) {
+			if (_spotRect[0].containsPoint(touchLoc)) {
+				_toSpot[0] = true;
+				log("clicked0");
+			}
+			if (_doorRect.containsPoint(touchLoc)) {
+				_toSpot[2] = true;
+				log("door");
+			}
 		}
 	}
+	_elock->TouchBegan(touchLoc);
 
-	return false;
+	return true;
 }
 
 void C2_Scene_02::onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) {
-
+	Point touchLoc = pTouch->getLocation();
+	_elock->TouchMoved(touchLoc);
 }
 
 void C2_Scene_02::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) {
-
+	Point touchLoc = pTouch->getLocation();
+	if (_elock->TouchEnded(touchLoc)) {
+		this->unschedule(schedule_selector(C2_Scene_02::doStep));;
+		Director::getInstance()->replaceScene(labScene::createScene());
+	}
 }
 
 

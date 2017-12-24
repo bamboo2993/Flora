@@ -468,11 +468,13 @@ void SRScene::doStep(float dt){
 void SRScene::PickObject(float dt) {	
 	if (_bopenNode[0]) {
 		_player->SetFront(true);
+		_player->Mirror(false);
 		_procedure[0]->doStep(dt);
 	}
 
 	else if (_bopenNode[1]) {
 		_player->Mirror(true);
+		_player->SetFront(false);
 		_procedure[1]->doStep(dt);	
 
 	}
@@ -484,6 +486,7 @@ void SRScene::PickObject(float dt) {
 
 	else if (_openTalk[0] || _openTalk[1]) {
 		_player->Mirror(true);
+		_player->SetFront(false);
 		const char* x;
 		if (_talkContent==0) x = "dialoge/SR/SR_corner01.png";
 		else if(_talkContent == 1)x = "dialoge/SR/SR_corner02.png";
@@ -497,6 +500,8 @@ void SRScene::PickObject(float dt) {
 	}
 
 	else if (_openTalk[2]) {
+		_player->Mirror(true);
+		_player->SetFront(true);	
 		const char* x;
 		if (_talkContent) x = "dialoge/SR/SR_sofa01.png";
 		else x = "dialoge/SR/SR_sofa02.png";
@@ -505,6 +510,8 @@ void SRScene::PickObject(float dt) {
 		_openTalk[2] = false;
 	}
 	else if (_openTalk[3]) {
+		_player->Mirror(false);
+		_player->SetFront(false);
 		const char* x;
 		if (_talkContent == 0) x = "dialoge/SR/SR_shelf01.png";
 		else if (_talkContent == 1) x = "dialoge/SR/SR_shelf02.png";
@@ -766,6 +773,7 @@ void  SRScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ĳ
 						/*_pTrigger[1].touchesBegan(_touchLoc);*/
 						//_procedure[1]->TouchBegan(_touchLoc);
 
+
 						if (!_procedure[2]->GetOpen()) {
 							if (_toggerRect[1].containsPoint(_touchLoc)) {
 								if (!_btogger[1]) {
@@ -776,6 +784,8 @@ void  SRScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ĳ
 							}
 
 							else if (_closeRect.containsPoint(_touchLoc)) {
+								_player->Mirror(true);
+								_player->SetFront(false);
 								_bopenNode[3] = !_bopenNode[3];
 								_zNode[3]->setVisible(false);
 

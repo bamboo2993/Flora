@@ -56,6 +56,11 @@ labScene::labScene() {
 		_btouch[i] = false;
 	}
 	_ibagState = 0;
+
+	for (size_t i = 0; i < TALK_AREA; i++) {
+		_touchTalk[i] = false;
+		_openTalk[i] = false;
+	}
 	
 
 }

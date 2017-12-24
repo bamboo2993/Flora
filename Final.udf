@@ -7,17 +7,6 @@
         <LastRunType Value="Windows" />
       </Value>
     </Item>
-    <Item Key="TabsParamsKey">
-      <Value ctype="TabsInfo">
-        <OpenedDocuments>
-          <FilePathData Path="C2Scene.csd" />
-          <FilePathData Path="C2Scene02.csd" />
-          <FilePathData Path="C2Scene03.csd" />
-          <FilePathData Path="SRScene.csd" />
-        </OpenedDocuments>
-        <ActiveDocument Path="SRScene.csd" />
-      </Value>
-    </Item>
     <Item Key="PackageParamsKey">
       <Value ctype="PackageParams">
         <LuaIsEncrypt Value="False" />
@@ -36,29 +25,20 @@
         <EnableHTML5Advanced Value="False" />
       </Value>
     </Item>
-<<<<<<< HEAD
-=======
     <Item Key="TabsParamsKey">
       <Value ctype="TabsInfo">
         <OpenedDocuments>
-          <FilePathData Path="C2Scene.csd" />
-          <FilePathData Path="C2Scene02.csd" />
-          <FilePathData Path="C2Scene03.csd" />
-<<<<<<< HEAD
-          <FilePathData Path="GRScene.csd" />
-          <FilePathData Path="BR_Scene.csd" />
-          <FilePathData Path="Node_GR_Z01.csd" />
-          <FilePathData Path="Node_GR_Z02.csd" />
-        </OpenedDocuments>
-        <ActiveDocument Path="Node_GR_Z02.csd" />
-=======
+          <FilePathData Path="Node_SR_Z04.csd" />
+          <FilePathData Path="Node_SR_Z03.csd" />
           <FilePathData Path="SRScene.csd" />
-          <FilePathData Path="labScene.csd" />
+          <FilePathData Path="C2Scene02.csd" />
+          <FilePathData Path="C2Scene.csd" />
+          <FilePathData Path="C2Scene03.csd" />
+          <FilePathData Path="Node_lab_Z03.csd" />
+          <FilePathData Path="Node_lock_SR.csd" />
         </OpenedDocuments>
-        <ActiveDocument Path="labScene.csd" />
->>>>>>> e541b51e4508529890683e24ae7fa34976992456
+        <ActiveDocument Path="Node_lock_SR.csd" />
       </Value>
     </Item>
->>>>>>> 1848bcf107e65f098d9f1af73b4031f087908f3e
   </Properties>
 </UserData>

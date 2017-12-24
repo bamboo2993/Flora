@@ -105,7 +105,7 @@
             <FileData Type="PlistSubImage" Path="arrow_up.png" Plist="GameScene/BMScene/BMScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="101" ActionTag="2036841101" VisibleForFrame="False" Tag="69" IconVisible="False" LeftMargin="794.9943" RightMargin="-898.9943" TopMargin="-733.6900" BottomMargin="613.6900" ctype="SpriteObjectData">
+          <AbstractNodeData Name="101" ActionTag="2036841101" VisibleForFrame="False" Tag="69" IconVisible="False" LeftMargin="823.9943" RightMargin="-869.9943" TopMargin="-696.6900" BottomMargin="650.6900" ctype="SpriteObjectData">
             <Size X="104.0000" Y="120.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="846.9943" Y="673.6900" />
@@ -116,7 +116,7 @@
             <FileData Type="PlistSubImage" Path="SR_L_01.png" Plist="common/lock.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="102" ActionTag="254037133" VisibleForFrame="False" Tag="70" IconVisible="False" LeftMargin="918.2610" RightMargin="-1022.2610" TopMargin="-733.6900" BottomMargin="613.6900" ctype="SpriteObjectData">
+          <AbstractNodeData Name="102" ActionTag="254037133" VisibleForFrame="False" Tag="70" IconVisible="False" LeftMargin="947.2610" RightMargin="-993.2610" TopMargin="-696.6900" BottomMargin="650.6900" ctype="SpriteObjectData">
             <Size X="104.0000" Y="120.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="970.2610" Y="673.6900" />
@@ -127,7 +127,7 @@
             <FileData Type="PlistSubImage" Path="SR_L_01.png" Plist="common/lock.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="103" ActionTag="-1981661701" VisibleForFrame="False" Tag="71" IconVisible="False" LeftMargin="1044.0330" RightMargin="-1148.0330" TopMargin="-733.6900" BottomMargin="613.6900" ctype="SpriteObjectData">
+          <AbstractNodeData Name="103" ActionTag="-1981661701" VisibleForFrame="False" Tag="71" IconVisible="False" LeftMargin="1073.0330" RightMargin="-1119.0330" TopMargin="-696.6900" BottomMargin="650.6900" ctype="SpriteObjectData">
             <Size X="104.0000" Y="120.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="1096.0330" Y="673.6900" />
@@ -138,7 +138,7 @@
             <FileData Type="PlistSubImage" Path="SR_L_01.png" Plist="common/lock.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="104" ActionTag="823735424" VisibleForFrame="False" Tag="72" IconVisible="False" LeftMargin="1168.4729" RightMargin="-1272.4729" TopMargin="-733.6900" BottomMargin="613.6900" ctype="SpriteObjectData">
+          <AbstractNodeData Name="104" ActionTag="823735424" VisibleForFrame="False" Tag="72" IconVisible="False" LeftMargin="1197.4729" RightMargin="-1243.4729" TopMargin="-696.6900" BottomMargin="650.6900" ctype="SpriteObjectData">
             <Size X="104.0000" Y="120.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="1220.4729" Y="673.6900" />
