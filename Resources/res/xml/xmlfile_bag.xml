@@ -2,11 +2,19 @@
 <DataRoot version="1.0">
     <!--this is xml comment-->
     <scene>
-        <item no.="0" arrangement="1" name="B_red.png">false</item>
+        <item no.="0" arrangement="1" name="B_lodine.png">false</item>
         <item no.="1" arrangement="2" name="B_glassrod.png">false</item>
-        <item no.="2" arrangement="3" name="B_Bslides.png">false</item>
-        <item no.="3" arrangement="4" name="B_Pslides.png">false</item>
-        <item no.="4" arrangement="5" name="B_Gslides.png">false</item>
+        <item no.="2" arrangement="8" name="B_Pslides.png">false</item>
+        <item no.="3" arrangement="9" name="B_Gslides.png">false</item>
+        <item no.="4" arrangement="10" name="B_lodine.png">false</item>
+        <item no.="5" arrangement="6" name="B_herbDG.png">false</item>
+        <item no.="6" arrangement="7" name="B_herbR.png">false</item>
+=======
+        <item no.="0" arrangement="1" name="B_lodine.png">false</item>
+        <item no.="1" arrangement="2" name="B_glassrod.png">false</item>
+        <item no.="2" arrangement="8" name="B_Pslides.png">false</item>
+        <item no.="3" arrangement="9" name="B_Gslides.png">false</item>
+        <item no.="4" arrangement="10" name="B_lodine.png">false</item>
         <item no.="5" arrangement="6" name="B_dropper.png">false</item>
         <item no.="6" arrangement="6" name="B_glassrod.png">false</item>
     </scene>

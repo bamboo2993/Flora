@@ -218,7 +218,7 @@ bool CLightbox::TouchBegan(const cocos2d::Point pt) {
 	}
 
 	
-
+	return false;
 
 }
 

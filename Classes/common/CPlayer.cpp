@@ -6,44 +6,38 @@
 USING_NS_CC;
 
 
-CPlayer::CPlayer(const std::string body, const std::string aniBody, cocos2d::Layer &parent)
+CPlayer::CPlayer(const char*  front, const char*  back, cocos2d::Layer &parent)
 {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
-	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Animation/ater_1.plist");
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Animation/ater.plist");
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Animation/robin.plist");
 
 	// Åª¨ú¨¤¦â
-	_player = Sprite::createWithSpriteFrameName(body);
+	_player = Sprite::createWithSpriteFrameName(front);
 	_player->setPosition(visibleSize.width / 2.0f, visibleSize.height / 4.0f);
 	parent.addChild(_player);
 	bStop = true;
 	_isFacingRight = 0;
+
+	_cstand[0] = front;
+	_cstand[1] = back;
+	_contentSize = _player->getContentSize();
 	_isTalking = false;
 
-	_body = Sprite::createWithSpriteFrameName(aniBody);
-	_player->addChild(_body);
 
-	_body->setVisible(false);
-	_contentSize = _body->getContentSize();
+	_contentSize = _player->getContentSize();
 
 	_rpos = _player->getPosition();
-
-
-	//_body->setScaleY(0.15f);
-	//Size size = _body->getContentSize();
-	//
-	//_body->setPosition(size.width/2, size.height/2*0.15f);
-	////size.height /= 3;
-	//auto physicsBody = PhysicsBody::createBox(size);
-	//physicsBody->setRotationEnable(false);
-	//_body->setPhysicsBody(physicsBody);
-
-	//
 	for (int i = 0; i < 20; i++) {
 		_reachSpot[i] = false;
 	}
 
 	_myAction = nullptr;
+	_sentance = Sprite::create("dialoge/BM/BM_flower01.png");
+	_sentance->setPosition(150, 550.0f);
+	_sentance->setVisible(false);
+	_player->addChild(_sentance);
 }
 
 CPlayer::CPlayer(bool isBack, cocos2d::Layer &parent, Point pos, bool isFacingR)
@@ -134,12 +128,25 @@ const Vec2 CPlayer::getPosition()
 
 
 void CPlayer::go(cocos2d::Point pt)
-{
+{	
+	if (pt.x > _rpos.x) {
+		Mirror(true);
+	}
+	else if(pt.x < _rpos.x) {
+		Mirror(false);
+	}
+
 	if (bStop) {
 		auto a = _player->getPosition();
 		pt.y += 300.0f;
-		if (a.y > pt.y)  _player->runAction(_action[0]);
-		else _player->runAction(_action[1]);
+		if (a.y > pt.y) {
+			_player->runAction(_action[0]);
+			_bfront = true;
+		}
+		else {
+			_player->runAction(_action[1]);
+			_bfront = false;
+		}
 		
 		bStop = false;
 
@@ -161,10 +168,17 @@ void CPlayer::go(bool isBack)
 }
 
 void CPlayer::Stop() {
+
 	_player->stopAction(_action[0]);
 	_player->stopAction(_action[1]);
 	bStop = true;
 
+	if (_bfront) {
+		_player->setSpriteFrame(_cstand[0]);
+	}
+	else {
+		_player->setSpriteFrame(_cstand[1]);
+	}
 }
 
 void CPlayer::Stop(bool isBack) {
@@ -209,7 +223,9 @@ bool CPlayer::Walk(Point i) {
 }
 
 void CPlayer::Talk(const std::string picName, bool isRight) {
+
 	_sentance->setTexture(picName);
+	_sentance->setVisible(true);
 
 	if (isRight) {
 		_sentance->setAnchorPoint(Point(0, 0));
@@ -219,11 +235,12 @@ void CPlayer::Talk(const std::string picName, bool isRight) {
 	}
 	_sentance->setPosition(150, 550.0f);
 	
-	_player->addChild(_sentance);
+//	_player->addChild(_sentance);
 }
 
 void CPlayer::StopTalking() {
-	_sentance->removeFromParent();
+	//_sentance->removeFromParent();
+	_sentance->setVisible(false);
 }
 
 void CPlayer::SetReachSpot(int n, bool f) {
@@ -249,6 +266,17 @@ bool CPlayer::GetIsTalking() {
 	return _isTalking;
 }
 
+
 void CPlayer::setZOrder(int n) {
 	_player->setZOrder(n);
+}
+
+void CPlayer::SetFront(bool b) {
+	_bfront = b;
+	if (_bfront) {
+		_player->setSpriteFrame(_cstand[0]);
+	}
+	else {
+		_player->setSpriteFrame(_cstand[1]);
+	}
 }

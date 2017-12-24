@@ -83,7 +83,7 @@
             <FileData Type="PlistSubImage" Path="water.png" Plist="GameScene/BMScene/BMScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="labScene02" ActionTag="1831720683" VisibleForFrame="False" Tag="49" IconVisible="False" LeftMargin="2.9667" RightMargin="-2.9668" TopMargin="1.4236" BottomMargin="-1.4235" ctype="SpriteObjectData">
+          <AbstractNodeData Name="labScene02" ActionTag="1831720683" Tag="49" IconVisible="False" LeftMargin="2.9667" RightMargin="-2.9668" TopMargin="1.4236" BottomMargin="-1.4235" ctype="SpriteObjectData">
             <Size X="2048.0000" Y="1536.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="1026.9667" Y="766.5765" />
@@ -433,7 +433,7 @@
             <FileData Type="PlistSubImage" Path="bowl.png" Plist="GameScene/BMScene/BMScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="detect_herb" CanEdit="False" ActionTag="-888421954" VisibleForFrame="False" Tag="60" RotationSkewX="-90.2343" RotationSkewY="-90.2238" IconVisible="False" LeftMargin="609.8181" RightMargin="1283.1819" TopMargin="1056.5430" BottomMargin="239.4571" ctype="SpriteObjectData">
+          <AbstractNodeData Name="detect_herb" ActionTag="-888421954" VisibleForFrame="False" Tag="60" RotationSkewX="-90.2343" RotationSkewY="-90.2238" IconVisible="False" LeftMargin="609.8181" RightMargin="1283.1819" TopMargin="1056.5430" BottomMargin="239.4571" ctype="SpriteObjectData">
             <Size X="155.0000" Y="240.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="687.3181" Y="359.4571" />
@@ -455,15 +455,15 @@
             <FileData Type="PlistSubImage" Path="E_yellow.png" Plist="GameScene/BMScene/BMScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="detect_syrup" CanEdit="False" ActionTag="339977320" VisibleForFrame="False" Tag="170" RotationSkewX="90.0000" RotationSkewY="90.0000" IconVisible="False" LeftMargin="1624.1055" RightMargin="264.8945" TopMargin="402.4011" BottomMargin="902.5988" ctype="SpriteObjectData">
-            <Size X="159.0000" Y="231.0000" />
+          <AbstractNodeData Name="detect_syrup" ActionTag="2106398132" VisibleForFrame="False" Tag="70" RotationSkewX="90.0000" RotationSkewY="90.0000" IconVisible="False" LeftMargin="1634.5535" RightMargin="285.4465" TopMargin="410.3105" BottomMargin="922.6895" ctype="SpriteObjectData">
+            <Size X="128.0000" Y="203.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="1703.6055" Y="1018.0988" />
+            <Position X="1698.5535" Y="1024.1895" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="0.8318" Y="0.6628" />
-            <PreSize X="0.0776" Y="0.1504" />
-            <FileData Type="PlistSubImage" Path="E_red.png" Plist="GameScene/BMScene/BMScene.plist" />
+            <PrePosition X="0.8294" Y="0.6668" />
+            <PreSize X="0.0625" Y="0.1322" />
+            <FileData Type="PlistSubImage" Path="E_green.png" Plist="GameScene/BMScene/BMScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
           <AbstractNodeData Name="reset" CanEdit="False" ActionTag="-35585158" VisibleForFrame="False" Tag="69" IconVisible="False" LeftMargin="3.5134" RightMargin="1862.4866" TopMargin="4.0973" BottomMargin="1341.9027" ctype="SpriteObjectData">
@@ -527,17 +527,6 @@
             <PreSize X="0.0000" Y="0.0000" />
             <FileData Type="Normal" Path="music/debranch.mp3" Plist="" />
           </AbstractNodeData>
-          <AbstractNodeData Name="congratulation" ActionTag="-1284002999" VisibleForFrame="False" Tag="94" IconVisible="False" ctype="SpriteObjectData">
-            <Size X="2048.0000" Y="1536.0000" />
-            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="1024.0000" Y="768.0000" />
-            <Scale ScaleX="1.0000" ScaleY="1.0000" />
-            <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="0.5000" Y="0.5000" />
-            <PreSize X="1.0000" Y="1.0000" />
-            <FileData Type="Normal" Path="congratulation.png" Plist="" />
-            <BlendFunc Src="1" Dst="771" />
-          </AbstractNodeData>
           <AbstractNodeData Name="bag" ActionTag="1950416549" VisibleForFrame="False" Tag="70" IconVisible="False" LeftMargin="1000.9998" RightMargin="1001.0002" TopMargin="1398.0000" BottomMargin="92.0000" ctype="SpriteObjectData">
             <Size X="46.0000" Y="46.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
@@ -591,6 +580,83 @@
             <PrePosition X="0.0732" Y="0.8333" />
             <PreSize X="0.1006" Y="0.0671" />
             <FileData Type="Normal" Path="GameScene/BMScene/skip_click.png" Plist="" />
+            <BlendFunc Src="1" Dst="771" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="detect_book_0" ActionTag="478307683" VisibleForFrame="False" Tag="70" IconVisible="False" LeftMargin="1184.4906" RightMargin="609.5094" TopMargin="238.9983" BottomMargin="1009.0017" ctype="SpriteObjectData">
+            <Size X="254.0000" Y="288.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="1311.4906" Y="1153.0017" />
+            <Scale ScaleX="1.3000" ScaleY="0.5000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.6404" Y="0.7507" />
+            <PreSize X="0.1240" Y="0.1875" />
+            <FileData Type="PlistSubImage" Path="GR_Z03_01.png" Plist="GameScene/GRScene/GRScene.plist" />
+            <BlendFunc Src="1" Dst="771" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="detect_book_1" ActionTag="-1583748611" VisibleForFrame="False" Tag="69" IconVisible="False" LeftMargin="1629.4731" RightMargin="164.5269" TopMargin="236.4600" BottomMargin="1011.5400" ctype="SpriteObjectData">
+            <Size X="254.0000" Y="288.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="1756.4731" Y="1155.5400" />
+            <Scale ScaleX="1.3000" ScaleY="0.5000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.8577" Y="0.7523" />
+            <PreSize X="0.1240" Y="0.1875" />
+            <FileData Type="PlistSubImage" Path="GR_Z03_01.png" Plist="GameScene/GRScene/GRScene.plist" />
+            <BlendFunc Src="1" Dst="771" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="deetect_plant_2" ActionTag="-218628147" VisibleForFrame="False" Tag="72" IconVisible="False" LeftMargin="1778.6490" RightMargin="15.3510" TopMargin="743.6614" BottomMargin="504.3386" ctype="SpriteObjectData">
+            <Size X="254.0000" Y="288.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="1905.6490" Y="648.3386" />
+            <Scale ScaleX="1.0000" ScaleY="1.3000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.9305" Y="0.4221" />
+            <PreSize X="0.1240" Y="0.1875" />
+            <FileData Type="PlistSubImage" Path="GR_Z03_01.png" Plist="GameScene/GRScene/GRScene.plist" />
+            <BlendFunc Src="1" Dst="771" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="detect_mouse_3" ActionTag="944522466" VisibleForFrame="False" Tag="73" IconVisible="False" LeftMargin="1774.9183" RightMargin="19.0817" TopMargin="1086.7673" BottomMargin="161.2326" ctype="SpriteObjectData">
+            <Size X="254.0000" Y="288.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="1901.9183" Y="305.2326" />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.9287" Y="0.1987" />
+            <PreSize X="0.1240" Y="0.1875" />
+            <FileData Type="PlistSubImage" Path="GR_Z03_01.png" Plist="GameScene/GRScene/GRScene.plist" />
+            <BlendFunc Src="1" Dst="771" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="detect_mouse_4" ActionTag="-207250222" VisibleForFrame="False" Tag="74" IconVisible="False" LeftMargin="561.6743" RightMargin="1232.3257" TopMargin="1286.9670" BottomMargin="-38.9670" ctype="SpriteObjectData">
+            <Size X="254.0000" Y="288.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="688.6743" Y="105.0330" />
+            <Scale ScaleX="0.7000" ScaleY="0.6000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.3363" Y="0.0684" />
+            <PreSize X="0.1240" Y="0.1875" />
+            <FileData Type="PlistSubImage" Path="GR_Z03_01.png" Plist="GameScene/GRScene/GRScene.plist" />
+            <BlendFunc Src="1" Dst="771" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="detect_shelf_5" ActionTag="1468577997" VisibleForFrame="False" Tag="68" IconVisible="False" LeftMargin="137.7077" RightMargin="1656.2922" TopMargin="1094.2256" BottomMargin="153.7744" ctype="SpriteObjectData">
+            <Size X="254.0000" Y="288.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="264.7077" Y="297.7744" />
+            <Scale ScaleX="1.7000" ScaleY="2.0000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.1293" Y="0.1939" />
+            <PreSize X="0.1240" Y="0.1875" />
+            <FileData Type="PlistSubImage" Path="GR_Z03_01.png" Plist="GameScene/GRScene/GRScene.plist" />
+            <BlendFunc Src="1" Dst="771" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="detect_Bboard_6" ActionTag="-58674224" VisibleForFrame="False" Tag="71" IconVisible="False" LeftMargin="81.7635" RightMargin="1712.2366" TopMargin="463.9561" BottomMargin="784.0439" ctype="SpriteObjectData">
+            <Size X="254.0000" Y="288.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="208.7635" Y="928.0439" />
+            <Scale ScaleX="0.8000" ScaleY="2.1000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.1019" Y="0.6042" />
+            <PreSize X="0.1240" Y="0.1875" />
+            <FileData Type="PlistSubImage" Path="GR_Z03_01.png" Plist="GameScene/GRScene/GRScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
         </Children>

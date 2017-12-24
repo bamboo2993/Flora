@@ -28,7 +28,6 @@ C2_Scene_01::C2_Scene_01() {
 		_toSpot[i] = false;
 	}
 	_isWalking = false;
-	_from = 1;
 }
 // on "init" you need to initialize your instance
 
@@ -52,7 +51,7 @@ bool C2_Scene_01::init()
 
 	//character setting
 
-	if (_from == 0) { // from boyRoom
+	if (_from == 0) { // from SR
 		_boy = new CPlayer(false, *this, Point(1000, 315), true);
 		_boy->setAnimation("Animation/boyanim.plist");
 		_boy->SetReachSpot(1, true);
@@ -127,6 +126,12 @@ void C2_Scene_01::doStep(float dt) {
 				this->unschedule(schedule_selector(C2_Scene_01::doStep));
 				Director::getInstance()->replaceScene(SRScene::createScene());
 			}
+		}
+		else
+		{
+			this->unschedule(schedule_selector(C2_Scene_01::doStep));
+			Director::getInstance()->replaceScene(SRScene::createScene());
+
 		}
 	}
 	

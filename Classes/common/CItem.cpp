@@ -23,6 +23,7 @@ CItem::CItem() {
 	_targetNum = 0;
 	//_bRetake = false;
 	_bTouch = false;
+	_isdrag = false;
 }
 
 CItem::~CItem() {

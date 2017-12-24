@@ -7,7 +7,7 @@
             <key>ater45_001.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{280,1334},{280,658}}</string>
+                <string>{{840,1982},{280,658}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -20,7 +20,7 @@
             <key>ater45_002.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{821,667},{280,658}}</string>
+                <string>{{1623,1315},{280,658}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -33,7 +33,7 @@
             <key>ater45_003.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{541,667},{280,658}}</string>
+                <string>{{1063,1315},{280,658}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -46,7 +46,7 @@
             <key>ater45_004.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1101,667},{280,658}}</string>
+                <string>{{783,1315},{280,658}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -59,7 +59,7 @@
             <key>ater45_005.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1381,667},{280,658}}</string>
+                <string>{{1343,1315},{280,658}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -72,7 +72,7 @@
             <key>ater45_006.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{0,1334},{280,658}}</string>
+                <string>{{280,1982},{280,658}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -85,7 +85,7 @@
             <key>ater45_007.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{261,667},{280,658}}</string>
+                <string>{{0,1982},{280,658}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -98,7 +98,7 @@
             <key>ater45_008.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1661,667},{280,658}}</string>
+                <string>{{1120,1982},{280,658}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -111,7 +111,7 @@
             <key>aterBack_001.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1566,0},{261,667}}</string>
+                <string>{{0,1315},{261,667}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -124,7 +124,7 @@
             <key>aterBack_002.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{261,0},{261,667}}</string>
+                <string>{{1565,648},{261,667}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -137,7 +137,7 @@
             <key>aterBack_003.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{0,0},{261,667}}</string>
+                <string>{{261,1315},{261,667}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -150,7 +150,7 @@
             <key>aterBack_004.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{522,0},{261,667}}</string>
+                <string>{{522,1315},{261,667}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -163,7 +163,7 @@
             <key>aterBack_005.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1305,0},{261,667}}</string>
+                <string>{{1043,648},{261,667}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -176,7 +176,7 @@
             <key>aterBack_006.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{783,0},{261,667}}</string>
+                <string>{{1304,648},{261,667}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -189,7 +189,7 @@
             <key>aterBack_007.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1044,0},{261,667}}</string>
+                <string>{{260,648},{261,667}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -202,7 +202,7 @@
             <key>aterBack_008.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{0,667},{261,667}}</string>
+                <string>{{521,648},{261,667}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -211,6 +211,136 @@
                 <string>{{0,0},{261,667}}</string>
                 <key>sourceSize</key>
                 <string>{261,667}</string>
+            </dict>
+            <key>aterStand01.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{560,1982},{280,658}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{280,658}}</string>
+                <key>sourceSize</key>
+                <string>{280,658}</string>
+            </dict>
+            <key>aterStand02.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{782,648},{261,667}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{261,667}}</string>
+                <key>sourceSize</key>
+                <string>{261,667}</string>
+            </dict>
+            <key>ater_001.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{0,0},{260,648}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{260,648}}</string>
+                <key>sourceSize</key>
+                <string>{260,648}</string>
+            </dict>
+            <key>ater_002.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{780,0},{260,648}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{260,648}}</string>
+                <key>sourceSize</key>
+                <string>{260,648}</string>
+            </dict>
+            <key>ater_003.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{260,0},{260,648}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{260,648}}</string>
+                <key>sourceSize</key>
+                <string>{260,648}</string>
+            </dict>
+            <key>ater_004.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{520,0},{260,648}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{260,648}}</string>
+                <key>sourceSize</key>
+                <string>{260,648}</string>
+            </dict>
+            <key>ater_005.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1300,0},{260,648}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{260,648}}</string>
+                <key>sourceSize</key>
+                <string>{260,648}</string>
+            </dict>
+            <key>ater_006.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{0,648},{260,648}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{260,648}}</string>
+                <key>sourceSize</key>
+                <string>{260,648}</string>
+            </dict>
+            <key>ater_007.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1560,0},{260,648}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{260,648}}</string>
+                <key>sourceSize</key>
+                <string>{260,648}</string>
+            </dict>
+            <key>ater_008.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1040,0},{260,648}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{260,648}}</string>
+                <key>sourceSize</key>
+                <string>{260,648}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -222,13 +352,13 @@
             <key>premultiplyAlpha</key>
             <false/>
             <key>realTextureFileName</key>
-            <string>ater_1.png</string>
+            <string>ater.png</string>
             <key>size</key>
-            <string>{2048,2048}</string>
+            <string>{2048,4096}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:984ad8af709ae13fa4a19e7f64935ec9:29c9fad0c1f1ba36de345dc00f4b207f:72d5263c21e15bf64282101962100caa$</string>
+            <string>$TexturePacker:SmartUpdate:8305ddaff3bd1caa63e98bf704a067c2:abd583c10a8944eef50f984895ad7611:0f6e24689cb17c2d0cf8ec1b890b6a97$</string>
             <key>textureFileName</key>
-            <string>ater_1.png</string>
+            <string>ater.png</string>
         </dict>
     </dict>
 </plist>

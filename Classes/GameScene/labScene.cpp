@@ -162,12 +162,13 @@ bool labScene::init()
 
 	// set player==============================================================
 
-	_player = new CPlayer("ater45_001.png", "ater45_001.png", *this);
+	_player = new CPlayer("aterStand01.png", "aterStand02.png", *this);
 	_player->setAnimation("Animation/boyanim.plist");
 
 	_player->setPosition(Point(239.82f, 357.38f));
 	_player->setRect();
-
+	_player->SetFront(false);
+	_player->Mirror(true);
 
 
 
@@ -299,6 +300,35 @@ void labScene::SetObject() {
 
 
 
+	//set talk area===============================
+	a = (cocos2d::Sprite*)_rootNode->getChildByName("talk_computer_0");
+	size = a->getContentSize();
+	pos = a->getPosition();
+	size.width = size.width*1.33f;
+	size.height = size.height *0.6f;
+	_talkRect[0] = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.width, size.height);
+
+	a = (cocos2d::Sprite*)_rootNode->getChildByName("talk_plants_1");
+	pos = a->getPosition();
+	size.width = size.width*1.94f;
+	size.height = size.height *0.9f;
+	_talkRect[1] = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.width, size.height);
+
+
+	a = (cocos2d::Sprite*)_rootNode->getChildByName("talk_table_2");
+	pos = a->getPosition();
+	size = a->getContentSize();
+	size.width = size.width*1.62f;
+	size.height = size.height *1.28f;
+	_talkRect[2] = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.width, size.height);
+
+
+
+
+
+
+
+
 }
 
 
@@ -306,7 +336,7 @@ void labScene::doStep(float dt){
 	
 	//walk===================================
 	//open node=========
-	if (_btouchNode[0] || _touchSObj) {
+	if (_btouchNode[0] || _touchSObj || _touchTalk[0]) {
 		_player->Walk(Vec2(908.58f, 368.85f));
 		_player->go(Vec2(908.58f, 368.85f));
 
@@ -323,6 +353,10 @@ void labScene::doStep(float dt){
 				_bopenNode[0] = !_bopenNode[0];
 				_btouchNode[0] = !_btouchNode[0];
 			}
+			else if (_touchTalk[0]) {
+				_touchTalk[0] = !_touchTalk[0];
+				_openTalk[0] = !_openTalk[0];
+			}
 			else {
 				_touchSObj = !_touchSObj;
 				_openSObj = !_openSObj;
@@ -334,6 +368,39 @@ void labScene::doStep(float dt){
 
 	}
 
+	else if (_touchTalk[1]) {
+		_player->Walk(Vec2(1501.90f, 177.98f));
+		_player->go(Vec2(1501.90f, 177.98f));
+		if (_player->Walk(Vec2(1501.90f, 177.98f)) == false) {
+			_bWalk = 0;
+
+			//pick up obj
+
+			_touchTalk[1] = !_touchTalk[1];
+			_openTalk[1] = !_openTalk[1];
+
+
+
+			//log("show detect");
+		}
+
+	}
+
+	else if (_touchTalk[2]) {
+		_player->Walk(Vec2(1183.30f, 143.35f));
+		_player->go(Vec2(1183.30f, 143.35f));
+		if (_player->Walk(Vec2(1183.30f, 143.35f)) == false) {
+			_bWalk = 0;
+
+			//pick up obj
+
+			_touchTalk[2] = !_touchTalk[2];
+			_openTalk[2] = !_openTalk[2];
+
+			//log("show detect");
+		}
+
+	}
 
 
 	else {
@@ -352,6 +419,8 @@ void labScene::PickObject(float dt) {
 	
 
 	if (_openSObj) {
+		_player->Mirror(false);
+		_player->SetFront(false);
 		_pTrigger[0].doStep(dt);
 
 		//fly to bag==========
@@ -366,10 +435,12 @@ void labScene::PickObject(float dt) {
 
 			}
 		}
+		_openSObj = false;
 	}
 
 	else if (_bopenNode[0]) {
-
+		_player->Mirror(false);
+		_player->SetFront(false);
 		_pTrigger[1].doStep(dt);
 		_pTrigger[2].doStep(dt);
 		_pTrigger[3].doStep(dt);
@@ -442,7 +513,38 @@ void labScene::PickObject(float dt) {
 		
 	}
 
+	else if (_openTalk[0]) {
+		_player->SetFront(false);
+		_player->Mirror(true);
+		const char* x;
+		if (_talkContent) x = "dialoge/lab/L2_computer01.png";
+		else x = "dialoge/lab/L2_computer02.png";
+		_player->Talk(x, true);
+		_player->SetIsTalking(true);
+		_openTalk[0] = false;
+	}
 
+	else if (_openTalk[1]) {
+		_player->Mirror(true);
+		_player->SetFront(true);
+		const char* x;
+		if (_talkContent) x = "dialoge/lab/L2_plants01.png";
+		else x = "dialoge/lab/L2_plants02.png";
+		_player->Talk(x, false);
+		_player->SetIsTalking(true);
+		_openTalk[1] = false;
+	}
+
+	else if (_openTalk[2]) {
+		_player->SetFront(true);
+		_player->Mirror(false);
+		const char* x;
+		if (_talkContent) x = "dialoge/lab/L2_table01.png";
+		else x = "dialoge/lab/L2_table02.png";
+		_player->Talk(x, true);
+		_player->SetIsTalking(true);
+		_openTalk[2] = false;
+	}
 /*
 	else if (_bopenNode[1]) {
 		_pTrigger[1].doStep(dt);
@@ -477,7 +579,6 @@ void labScene::reset() {
 
 	// reset scene===============================
 	_bWalk = false; //detect if player is walking
-	_bwithinArea = false;//§PÂ_ walk
 
 	_bpickObj = false;
 	
@@ -529,13 +630,13 @@ bool labScene::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)//Ä²¸
 	_startX = _touchLoc.x;
 	_startY = _touchLoc.y;
 
+	if (!_player->GetIsTalking()) {
+		if (_ibagState) { //when bag is open
+			//use items in bag===========================================
+			CBag::getInstance()->touchesBegan(_touchLoc);
 
-	if (_ibagState) { //when bag is open
-		//use items in bag===========================================
-		CBag::getInstance()->touchesBegan(_touchLoc);
-
+		}
 	}
-
 	
 
 	return true;
@@ -546,11 +647,13 @@ void  labScene::onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ä
 {
 
 	_touchLoc = pTouch->getLocation();
-
-	//use items in bag===========================================
-	if (_ibagState) { //when bag is open
-		CBag::getInstance()->touchesMoved(_touchLoc);
+	if (!_player->GetIsTalking()) {
+		//use items in bag===========================================
+		if (_ibagState) { //when bag is open
+			CBag::getInstance()->touchesMoved(_touchLoc);
+		}
 	}
+	
 	
 	
 }
@@ -564,24 +667,134 @@ void  labScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ä
 	float offsetX = _touchLoc.x - _startX;
 	float offsetY = _touchLoc.y - _startY;
 
-	if (_ibagState != 2) {
+	if (!_player->GetIsTalking()) {
+		if (_ibagState != 2) {
 
-		// [WALK + PICK OBJECT]===================
-		if (offsetX == 0 && offsetY == 0 && !CBag::getInstance()->LightboxState()  && !_bmicroscope) { // when screen tapped
-			if (_touchLoc.y > 227) {
-				
-				////player walk =====================================================
+			// [WALK + PICK OBJECT]===================
+			if (offsetX == 0 && offsetY == 0 && !CBag::getInstance()->LightboxState() && !_bmicroscope) { // when screen tapped
+				if (_touchLoc.y > 227) {
 
-				//©ñ¤jÃè¨S¶} --------------
-				if (!_bopenNode[0] && !_bopenNode[1] && !_bopenNode[2]) {
-					//¨S«ö­«¸m-------------
-					if (!_resetRect.containsPoint(_touchLoc)) {
+					////player walk =====================================================
+
+					//©ñ¤jÃè¨S¶} --------------
+					if (!_bopenNode[0] && !_bopenNode[1] && !_bopenNode[2]) {
+						//¨S«ö­«¸m-------------
+						if (!_resetRect.containsPoint(_touchLoc)) {
 
 
-						//====================================
-						//detect for [iodine]------
-						if (_pTrigger[0].touchesBegan(_touchLoc)) {
-							_touchSObj = true;
+							//====================================
+							//detect for [iodine]------
+							if (_pTrigger[0].touchesBegan(_touchLoc)) {
+								_touchSObj = true;
+								_bWalk = 1;
+								_player->setPreviousPosition();
+
+								if (_touchLoc.x > _player->_rpos.x) {
+									_player->_isFacingRight = 1;
+									_player->Mirror();
+								}
+								else {
+									_player->_isFacingRight = 0;
+									_player->Mirror();
+								}
+
+								//-------------------------------
+								_TargetLoc = _touchLoc;
+							}
+
+							if (_talkRect[0].containsPoint(_touchLoc)) {
+								_touchTalk[0] = true;
+								_bWalk = 1;
+								_player->setPreviousPosition();
+								_talkContent = rand() % 2;
+							}
+							else {
+								_openTalk[0] = false;
+								_touchTalk[0] = false;
+							}
+
+
+							if (_talkRect[1].containsPoint(_touchLoc)) {
+								_touchTalk[1] = true;
+								_bWalk = 1;
+								_player->setPreviousPosition();
+								_talkContent = rand() % 2;
+							}
+							else {
+								_openTalk[1] = false;
+								_touchTalk[1] = false;
+							}
+
+
+							if (_talkRect[2].containsPoint(_touchLoc)) {
+								_touchTalk[2] = true;
+								_bWalk = 1;
+								_player->setPreviousPosition();
+								_talkContent = rand() % 2;
+
+							}
+							else {
+								_openTalk[2] = false;
+								_touchTalk[2] = false;
+							}
+
+						}
+						else {
+							// reset button=========================
+							reset();
+						}
+
+
+
+					}
+
+
+
+
+					//znode[0]¶}---------------------
+					if (_bopenNode[0]) {
+						_pTrigger[1].touchesBegan(_touchLoc);
+						_pTrigger[2].touchesBegan(_touchLoc);
+						_pTrigger[3].touchesBegan(_touchLoc);
+						_pTrigger[4].touchesBegan(_touchLoc);
+						_pTrigger[5].touchesBegan(_touchLoc);
+
+						if (_closeRect.containsPoint(_touchLoc)) {
+							_bopenNode[0] = !_bopenNode[0];
+							_zNode[0]->setVisible(false);
+							log("close detect");
+						}
+
+					}
+					//znode[1]¶}---------------------
+					else if (_bopenNode[1]) {
+						/*_pTrigger[1].touchesBegan(_touchLoc);
+
+						if(_bsolve[0]) _procedure[0]->TouchBegan(_touchLoc);
+						_procedure[1]->TouchBegan(_touchLoc);*/
+
+						if (_closeRect.containsPoint(_touchLoc)) {
+							_bopenNode[1] = !_bopenNode[1];
+							_zNode[1]->setVisible(false);
+							log("close detect");
+						}
+					}
+					//znode[2]¶}---------------------
+					else if (_bopenNode[2]) {
+						//if (_bsolve[1])_procedure[2]->TouchBegan(_touchLoc);
+
+						if (_closeRect.containsPoint(_touchLoc)) {
+							_bopenNode[2] = !_bopenNode[2];
+							_zNode[2]->setVisible(false);
+							log("close detect");
+						}
+					}
+
+					if (!_bWalk) {
+						//0
+						if (!_bopenNode[0] && _detectRect[0].containsPoint(_touchLoc)) {
+							_btouchNode[0] = true;
+
 							_bWalk = 1;
 							_player->setPreviousPosition();
 
@@ -596,293 +809,213 @@ void  labScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ä
 
 							//-------------------------------
 							_TargetLoc = _touchLoc;
+
+							log("touched detect");
 						}
-					
-						
-					}
-					else {
-						// reset button=========================
-						reset();
-					}
-
-
-
-				}
-
-
-
-
-				//znode[0]¶}---------------------
-				if (_bopenNode[0]) {
-					_bwithinArea = false;
-					_pTrigger[1].touchesBegan(_touchLoc);
-					_pTrigger[2].touchesBegan(_touchLoc);
-					_pTrigger[3].touchesBegan(_touchLoc);
-					_pTrigger[4].touchesBegan(_touchLoc);
-					_pTrigger[5].touchesBegan(_touchLoc);
-
-					if (_closeRect.containsPoint(_touchLoc)) {
-						_bopenNode[0] = !_bopenNode[0];
-						_zNode[0]->setVisible(false);
-						log("close detect");
-					}
-
-				}
-				//znode[1]¶}---------------------
-				else if (_bopenNode[1]) {
-					_bwithinArea = false;
-					/*_pTrigger[1].touchesBegan(_touchLoc);
-
-					if(_bsolve[0]) _procedure[0]->TouchBegan(_touchLoc);
-					_procedure[1]->TouchBegan(_touchLoc);*/
-
-					if (_closeRect.containsPoint(_touchLoc)) {
-						_bopenNode[1] = !_bopenNode[1];
-						_zNode[1]->setVisible(false);
-						log("close detect");
-					}
-				}
-				//znode[2]¶}---------------------
-				else if (_bopenNode[2]) {
-					_bwithinArea = false;
-					//if (_bsolve[1])_procedure[2]->TouchBegan(_touchLoc);
-
-					if (_closeRect.containsPoint(_touchLoc)) {
-						_bopenNode[2] = !_bopenNode[2];
-						_zNode[2]->setVisible(false);
-						log("close detect");
-					}
-				}
-
-				if (!_bWalk) {
-					//0
-					if (!_bopenNode[0] && _detectRect[0].containsPoint(_touchLoc)) {
-						_btouchNode[0] = true;
-
-						_bWalk = 1;
-						_player->setPreviousPosition();
-
-						if (_touchLoc.x > _player->_rpos.x) {
-							_player->_isFacingRight = 1;
-							_player->Mirror();
+						else if (!_bopenNode[0] && !_detectRect[0].containsPoint(_touchLoc)) {
+							_btouchNode[0] = false;
 						}
-						else {
-							_player->_isFacingRight = 0;
-							_player->Mirror();
+						////1
+						//if (!_bopenNode[1] && _detectRect[1].containsPoint(_touchLoc)) {
+						//	_btouchNode[1] = true;
+						//	log("touched detect node2");
+						//}
+						//else if (!_bopenNode[1] && !_detectRect[1].containsPoint(_touchLoc)) {
+						//	_btouchNode[1] = false;
+						//}
+						////2
+						//if (!_bopenNode[2] && _detectRect[2].containsPoint(_touchLoc)) {
+						//	_btouchNode[2] = true;
+						//	log("touched detect node2");
+						//}
+						//else if (!_bopenNode[2] && !_detectRect[2].containsPoint(_touchLoc)) {
+						//	_btouchNode[2] = false;
+						//}
+					}
+
+
+
+
+				}
+				else {
+					if (!_ibagState) {
+						//walk area ====================================
+
+						////player walk =====================================================
+
+						//©ñ¤jÃè¨S¶} --------------
+						if (!_bopenNode[0] && !_bopenNode[1] && !_bopenNode[2]) {
+							//¨S«ö­«¸m-------------
+
+							_bWalk = 1;
+							_player->setPreviousPosition();
+
+							if (_touchLoc.x > _player->_rpos.x) {
+								_player->_isFacingRight = 1;
+								_player->Mirror();
+							}
+							else {
+								_player->_isFacingRight = 0;
+								_player->Mirror();
+							}
+
+							//-------------------------------
+							_TargetLoc = _touchLoc;
+
+							//====================================
+
 						}
 
-						//-------------------------------
-						_TargetLoc = _touchLoc;
+						//znode[0]¶}---------------------
+						if (_bopenNode[0]) {
+							_pTrigger[1].touchesBegan(_touchLoc);
+							_pTrigger[2].touchesBegan(_touchLoc);
+							_pTrigger[3].touchesBegan(_touchLoc);
+							_pTrigger[4].touchesBegan(_touchLoc);
+							_pTrigger[5].touchesBegan(_touchLoc);
 
-						log("touched detect");
+							if (_closeRect.containsPoint(_touchLoc)) {
+								_bopenNode[0] = !_bopenNode[0];
+								_zNode[0]->setVisible(false);
+								log("close detect");
+							}
+
+						}
+
 					}
-					else if (!_bopenNode[0] && !_detectRect[0].containsPoint(_touchLoc)) {
-						_btouchNode[0] = false;
-					}
-					////1
-					//if (!_bopenNode[1] && _detectRect[1].containsPoint(_touchLoc)) {
-					//	_btouchNode[1] = true;
-					//	log("touched detect node2");
-					//}
-					//else if (!_bopenNode[1] && !_detectRect[1].containsPoint(_touchLoc)) {
-					//	_btouchNode[1] = false;
-					//}
-					////2
-					//if (!_bopenNode[2] && _detectRect[2].containsPoint(_touchLoc)) {
-					//	_btouchNode[2] = true;
-					//	log("touched detect node2");
-					//}
-					//else if (!_bopenNode[2] && !_detectRect[2].containsPoint(_touchLoc)) {
-					//	_btouchNode[2] = false;
-					//}
 				}
-				
-
-
 
 			}
-			else {
-				if (!_ibagState) {
-					//walk area ====================================
-					if (WALK_AREA_1.containsPoint(_touchLoc) || WALK_AREA_2.containsPoint(_touchLoc) || WALK_AREA_3.containsPoint(_touchLoc) ||
-						WALK_AREA_4.containsPoint(_touchLoc)) {
-						// detect if touch pts are in walkable area
-						_bwithinArea = true;
-						log("walk!!");
 
-					}
-					else  _bwithinArea = false;
-
-					////player walk =====================================================
-
-					//©ñ¤jÃè¨S¶} --------------
-					if (!_bopenNode[0] && !_bopenNode[1] && !_bopenNode[2]) {
-						//¨S«ö­«¸m-------------
-
-						_bWalk = 1;
-						_player->setPreviousPosition();
-
-						if (_touchLoc.x > _player->_rpos.x) {
-							_player->_isFacingRight = 1;
-							_player->Mirror();
-						}
-						else {
-							_player->_isFacingRight = 0;
-							_player->Mirror();
-						}
-
-						//-------------------------------
-						_TargetLoc = _touchLoc;
-
-						//====================================
-
+			else if (_bmicroscope && !CBag::getInstance()->LightboxState()) {
+				if (_closeRect.containsPoint(_touchLoc)) {
+					_bmicroscope = !_bmicroscope;
+					for (size_t i = 0; i < 5; i++) {
+						_microscope[i]->setVisible(false);
 					}
 
-					//znode[0]¶}---------------------
-					if (_bopenNode[0]) {
-						_bwithinArea = false;
-						_pTrigger[1].touchesBegan(_touchLoc);
-						_pTrigger[2].touchesBegan(_touchLoc);
-						_pTrigger[3].touchesBegan(_touchLoc);
-						_pTrigger[4].touchesBegan(_touchLoc);
-						_pTrigger[5].touchesBegan(_touchLoc);
-
-						if (_closeRect.containsPoint(_touchLoc)) {
-							_bopenNode[0] = !_bopenNode[0];
-							_zNode[0]->setVisible(false);
-							log("close detect");
-						}
-
-					}
-
+					log("close detect");
 				}
-			}
-			
-		}
-
-		else if (_bmicroscope && !CBag::getInstance()->LightboxState()) {
-			if (_closeRect.containsPoint(_touchLoc)) {
-				_bmicroscope = !_bmicroscope;
-				for (size_t i = 0; i < 5; i++) {
-					_microscope[i]->setVisible(false);
-				}
-
-				log("close detect");
-			}
-		}
-	}
-
-	
-	//=====================================================================
-	// open/close/swipe bag-------
-	if (!CBag::getInstance()->itemdrag() && !CBag::getInstance()->LightboxState()) {
-		if (!_ibagState && _startY < BAG_OPEN_HEIGHT) { // when touched y< set height
-
-														// bag oppened set bag and item position----------------------
-			if (fabs(offsetX) < fabs(offsetY) && offsetY > 0) {
-				CBag::getInstance()->setPosition(172, 115);
-				_ibagState = 1;
-				log("bag open state:1");
-
 			}
 		}
 
-		else if (_ibagState == 2) {
 
-			if (fabs(offsetX) < fabs(offsetY)) { // close bag
-				if (offsetY < 0) { //down
-					CBag::getInstance()->ToStateOne();
+		//=====================================================================
+		// open/close/swipe bag-------
+		if (!CBag::getInstance()->itemdrag() && !CBag::getInstance()->LightboxState()) {
+			if (!_ibagState && _startY < BAG_OPEN_HEIGHT) { // when touched y< set height
+
+															// bag oppened set bag and item position----------------------
+				if (fabs(offsetX) < fabs(offsetY) && offsetY > 0) {
+					CBag::getInstance()->setPosition(172, 115);
 					_ibagState = 1;
 					log("bag open state:1");
 
 				}
 			}
-		}
 
+			else if (_ibagState == 2) {
 
-		else if (_ibagState == 1 && _startY <= BAG_CLOSE_HEIGHT) {
-			//if (_bbagOn && _startY <= BAG_CLOSE_HEIGHT) {
+				if (fabs(offsetX) < fabs(offsetY)) { // close bag
+					if (offsetY < 0) { //down
+						CBag::getInstance()->ToStateOne();
+						_ibagState = 1;
+						log("bag open state:1");
 
-			// bag oppened set bag and item position----------------------
-			if (fabs(offsetX) < fabs(offsetY) && offsetY > 0) {
-				CBag::getInstance()->ToStateTwo();
-				_ibagState = 2;
-				log("bag open state:2");
-
-			}
-
-			else if (fabs(offsetX) < fabs(offsetY)) { // close bag
-				if (offsetY < 0) { //down
-					CBag::getInstance()->setPosition(172, -115);
-					_ibagState = 0;
-					log("bag close");
-
-
+					}
 				}
 			}
 
 
+			else if (_ibagState == 1 && _startY <= BAG_CLOSE_HEIGHT) {
+				//if (_bbagOn && _startY <= BAG_CLOSE_HEIGHT) {
 
+				// bag oppened set bag and item position----------------------
+				if (fabs(offsetX) < fabs(offsetY) && offsetY > 0) {
+					CBag::getInstance()->ToStateTwo();
+					_ibagState = 2;
+					log("bag open state:2");
+
+				}
+
+				else if (fabs(offsetX) < fabs(offsetY)) { // close bag
+					if (offsetY < 0) { //down
+						CBag::getInstance()->setPosition(172, -115);
+						_ibagState = 0;
+						log("bag close");
+
+
+					}
+				}
+
+
+
+			}
+		}
+
+
+
+		//use items in bag===========================================
+		if (_ibagState) { //when bag is open
+			int i;
+			i = CBag::getInstance()->touchesEnded(_touchLoc, _ibagState, CURRENT_SCENE, _pTrigger);
+
+			//to detect item used and its effect-------
+			if (i >= 0) {
+				// mix mix
+
+				// add sound
+
+				if (!strcmp(xmlBag::getInstance()->getItemName(i), "B_Bslides.png") || !strcmp(xmlBag::getInstance()->getItemName(i), "B_DGslides.png") || !strcmp(xmlBag::getInstance()->getItemName(i), "B_Gslides.png") || !strcmp(xmlBag::getInstance()->getItemName(i), "B_Pslides.png")) {
+					// add debranch
+					//_grinding->playEffect();
+					_microscope[0]->setVisible(true);
+
+					_bmicroscope = true;
+
+				}
+
+				else if (!strcmp(xmlBag::getInstance()->getItemName(i), "B_BslidesLOD.png")) {
+					// add debranch
+					//_grinding->playEffect();
+					_microscope[4]->setVisible(true);
+					_bmicroscope = true;
+
+				}
+
+				else if (!strcmp(xmlBag::getInstance()->getItemName(i), "B_DGslidesLOD.png")) {
+					// add debranch
+					//_grinding->playEffect();
+					_microscope[2]->setVisible(true);
+					_bmicroscope = true;
+
+				}
+
+				else if (!strcmp(xmlBag::getInstance()->getItemName(i), "B_GslidesLOD.png")) {
+					// add debranch
+					//_grinding->playEffect();
+					_microscope[3]->setVisible(true);
+					_bmicroscope = true;
+
+				}
+
+				else if (!strcmp(xmlBag::getInstance()->getItemName(i), "B_PslidesLOD.png")) {
+					// add debranch
+					//_grinding->playEffect();
+					_microscope[1]->setVisible(true);
+					_bmicroscope = true;
+
+				}
+
+
+
+			}
 		}
 	}
 
-
-
-	//use items in bag===========================================
-	if (_ibagState) { //when bag is open
-		int i;
-		i = CBag::getInstance()->touchesEnded(_touchLoc, _ibagState, CURRENT_SCENE, _pTrigger);
-
-		//to detect item used and its effect-------
-		if (i >= 0) {
-			// mix mix
-
-			// add sound
-
-			if (!strcmp(xmlBag::getInstance()->getItemName(i), "B_Bslides.png") || !strcmp(xmlBag::getInstance()->getItemName(i), "B_DGslides.png") || !strcmp(xmlBag::getInstance()->getItemName(i), "B_Gslides.png") || !strcmp(xmlBag::getInstance()->getItemName(i), "B_Pslides.png") ) {
-				// add debranch
-				//_grinding->playEffect();
-				_microscope[0]->setVisible(true);
-
-				_bmicroscope = true;
-
-			}
-
-			else if (!strcmp(xmlBag::getInstance()->getItemName(i), "B_BslidesLOD.png")) {
-				// add debranch
-				//_grinding->playEffect();
-				_microscope[4]->setVisible(true);
-				_bmicroscope = true;
-
-			}
-
-			else if (!strcmp(xmlBag::getInstance()->getItemName(i), "B_DGslidesLOD.png")) {
-				// add debranch
-				//_grinding->playEffect();
-				_microscope[2]->setVisible(true);
-				_bmicroscope = true;
-
-			}
-
-			else if (!strcmp(xmlBag::getInstance()->getItemName(i), "B_GslidesLOD.png")) {
-				// add debranch
-				//_grinding->playEffect();
-				_microscope[3]->setVisible(true);
-				_bmicroscope = true;
-
-			}
-
-			else if (!strcmp(xmlBag::getInstance()->getItemName(i), "B_PslidesLOD.png")) {
-				// add debranch
-				//_grinding->playEffect();
-				_microscope[1]->setVisible(true);
-				_bmicroscope = true;
-
-			}
-			
-
-
-		}
+	else {
+		_player->SetIsTalking(false);
+		_player->StopTalking();
 	}
 
 }

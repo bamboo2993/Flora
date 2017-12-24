@@ -13,6 +13,7 @@ public:
 	bool skip(float dt);
 	void setVis(bool b);
 
+
 private:
 	Sprite *_SpriteCD[10];
 	float _tot;

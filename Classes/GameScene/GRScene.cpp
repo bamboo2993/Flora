@@ -141,7 +141,9 @@ bool GRScene::init()
 
 	// set player==============================================================
 
+
 	_player = new CPlayer(true, *this, Point(435,95), true);
+
 	_player->setAnimation("Animation/boyanim.plist");
 	_player->SetReachSpot(0, true);
 	
@@ -745,16 +747,6 @@ void  GRScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ĳ
 					if (!_resetRect.containsPoint(_touchLoc)) {
 						_bWalk = 1;
 						_player->setPreviousPosition();
-
-						if (_touchLoc.x > _player->_rpos.x) {
-							_player->_isFacingRight = 1;
-							_player->Mirror();
-						}
-						else {
-							_player->_isFacingRight = 0;
-							_player->Mirror();
-						}
-
 						//-------------------------------
 						_TargetLoc = _touchLoc;
 
@@ -859,15 +851,6 @@ void  GRScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ĳ
 
 						_bWalk = 1;
 						_player->setPreviousPosition();
-
-						if (_touchLoc.x > _player->_rpos.x) {
-							_player->_isFacingRight = 1;
-							_player->Mirror();
-						}
-						else {
-							_player->_isFacingRight = 0;
-							_player->Mirror();
-						}
 
 						//-------------------------------
 						_TargetLoc = _touchLoc;

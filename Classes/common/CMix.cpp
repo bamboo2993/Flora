@@ -60,6 +60,60 @@ CMix::CMix(cocos2d::Node *currentNode) {
 	_currentSteps = 0;
 }
 
+CMix::CMix(const char* pic) {
+	_itemSprite = Sprite::createWithSpriteFrameName(pic);
+
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("BMScene.plist");
+
+	_ioriginalItem = 0;
+	//_itargetNum = 0;
+	_count = 0;
+	ir[0] = 0;
+	ir[1] = 0;
+	ir[2] = 0;
+	ir[3] = 0;
+	ir[4] = 0;
+	_bstate = false;
+
+
+
+	for (size_t i = 0; i < 4; i++) {
+		_targetItem1[i] = nullptr;
+		_targetItem2[i] = nullptr;
+		_targetItem3[i] = nullptr;
+		_targetItem4[i] = nullptr;
+		_targetItem5[i] = nullptr;
+
+
+	}
+
+	for (size_t i = 0; i < 2; i++) {
+		_result1[i] = 0;
+		_result2[i] = 0;
+		_result3[i] = 0;
+		_result4[i] = 0;
+		_result5[i] = 0;
+
+
+	}
+
+	for (size_t i = 0; i < 7; i++) {
+		_mixItem[i] = nullptr;
+	}
+
+
+	_itargetNum[0] = 0;
+	_itargetNum[1] = 0;
+	_itargetNum[2] = 0;
+	_itargetNum[3] = 0;
+	_itargetNum[4] = 0;
+
+	_step = 0;
+	_currentShown = -1;
+	_currentSteps = 0;
+}
+
+
 CMix::~CMix() {
 
 
@@ -267,8 +321,10 @@ void CMix::doStep(float dt) {
 
 					if (_count == 1) {
 						if (! (!strcmp(_mixItem[0], "B_water.png") || !strcmp(_mixItem[0], "B_glassrod.png"))) {
-							_xmlscene->editItemState(_ioriginalItem, false, _Node);
-							_xmlscene->editItemState(_mixItem[0], true, _Node, _ioriginalItem, _ifailureItem);
+							//_xmlscene->editItemState(_ioriginalItem, false, _Node);
+							//_xmlscene->editItemState(_mixItem[0], true, _Node, _ioriginalItem, _ifailureItem);
+
+							//_itemSprite->setSpriteFrame(pic);
 							_currentSteps = 1;
 							_currentShown = _xmlscene->getItemNumXML(_mixItem[0],1);
 						}

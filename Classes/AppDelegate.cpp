@@ -1,5 +1,6 @@
 
-#define SceneTransition 20
+#define SceneTransition 40
+
 
 
 

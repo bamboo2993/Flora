@@ -17,7 +17,7 @@
             <FileData Type="Normal" Path="GameScene/C2Scene/C2_Z3.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="doorRect" ActionTag="-1946997910" Tag="3" IconVisible="False" LeftMargin="779.0723" RightMargin="940.9277" TopMargin="476.6884" BottomMargin="413.3116" ctype="SpriteObjectData">
+          <AbstractNodeData Name="doorRect" ActionTag="-1946997910" VisibleForFrame="False" Tag="3" IconVisible="False" LeftMargin="779.0723" RightMargin="940.9277" TopMargin="476.6885" BottomMargin="413.3116" ctype="SpriteObjectData">
             <Size X="328.0000" Y="646.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="943.0723" Y="736.3116" />

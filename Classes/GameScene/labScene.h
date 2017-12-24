@@ -19,6 +19,9 @@
 
 #include "common\CMix.h"
 
+
+#define TALK_AREA 3
+
 class labScene : public cocos2d::Layer
 {
 private:
@@ -99,6 +102,13 @@ private:
 
 	bool _bsolve[2]; //state if the quiz is being solved
 	bool _bmicroscope;
+
+	//talk--------------
+	cocos2d::Rect	_talkRect[TALK_AREA];
+	bool _touchTalk[TALK_AREA];
+	bool _openTalk[TALK_AREA];
+
+	int _talkContent = 0;
 
 public:
 	labScene();

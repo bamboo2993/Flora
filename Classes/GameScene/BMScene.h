@@ -22,10 +22,11 @@
 #include "ActionScene\RunScene\RunScene1.h"
 #include "common\AniScene.h"
 
+
+#define TALK_AREA 7
 class BMScene : public cocos2d::Layer
 {
 private:
-
 
 	// sound effect====================================
 	cocostudio::ComAudio *_pour;
@@ -74,16 +75,18 @@ private:
 
 	//§PÂ_ walk------------------
 	bool _bWalk = false; //detect if player is walking
-	bool _bwithinArea; // detect if touch_pts are in walkable area
 
 	//§PÂ_ ª««~----------------
 	bool _bpickObj; //detect if player arrive near object being picked
-	bool _btouchNode[2] = { false };//for E_node
-	bool _bopenNode[2] = { false };//for E_node
+	bool _btouchNode[2];//for E_node
+	bool _bopenNode[2];//for E_node
 	bool _btouch[5]; // for item in scene
 
 	bool _bbOnFire[2]; // if beaker A/B is on flame
 
+
+	bool _touchSObj[3];
+	bool _openSObj[3];
 	// set lightbox==============================
 	CLightbox *_procedure;
 
@@ -118,6 +121,12 @@ private:
 	cocos2d::Rect	*_pbowlRect;
 
 
+	//talk--------------
+	cocos2d::Rect	_talkRect[TALK_AREA];
+	bool _touchTalk[TALK_AREA];
+	bool _openTalk[TALK_AREA];
+
+	int _talkContent = 0;
 	//mix==============================================
 
 	CMix *_mixA;

@@ -168,6 +168,50 @@
             <FileData Type="PlistSubImage" Path="trashcan.png" Plist="GameScene/BMScene/BMScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
+          <AbstractNodeData Name="GR_Z03_01_1" ActionTag="1715746746" Tag="167" IconVisible="False" LeftMargin="915.6897" RightMargin="878.3103" TopMargin="30.6931" BottomMargin="1217.3069" ctype="SpriteObjectData">
+            <Size X="254.0000" Y="288.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="1042.6897" Y="1361.3069" />
+            <Scale ScaleX="2.3684" ScaleY="1.1341" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.5091" Y="0.8863" />
+            <PreSize X="0.1240" Y="0.1875" />
+            <FileData Type="PlistSubImage" Path="GR_Z03_01.png" Plist="GameScene/GRScene/GRScene.plist" />
+            <BlendFunc Src="1" Dst="771" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="GR_bed" ActionTag="2083667670" Tag="168" IconVisible="False" LeftMargin="578.0854" RightMargin="1215.9146" TopMargin="571.7228" BottomMargin="676.2772" ctype="SpriteObjectData">
+            <Size X="254.0000" Y="288.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="705.0854" Y="820.2772" />
+            <Scale ScaleX="2.2164" ScaleY="1.2682" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.3443" Y="0.5340" />
+            <PreSize X="0.1240" Y="0.1875" />
+            <FileData Type="PlistSubImage" Path="GR_Z03_01.png" Plist="GameScene/GRScene/GRScene.plist" />
+            <BlendFunc Src="1" Dst="771" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="GR_hanger" ActionTag="1548861241" Tag="169" IconVisible="False" LeftMargin="177.7573" RightMargin="1616.2427" TopMargin="543.1554" BottomMargin="704.8446" ctype="SpriteObjectData">
+            <Size X="254.0000" Y="288.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="304.7573" Y="848.8446" />
+            <Scale ScaleX="0.7719" ScaleY="2.3074" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.1488" Y="0.5526" />
+            <PreSize X="0.1240" Y="0.1875" />
+            <FileData Type="PlistSubImage" Path="GR_Z03_01.png" Plist="GameScene/GRScene/GRScene.plist" />
+            <BlendFunc Src="1" Dst="771" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="GR_bed_0" ActionTag="751156657" Tag="170" IconVisible="False" LeftMargin="1225.2524" RightMargin="568.7476" TopMargin="1136.8843" BottomMargin="111.1157" ctype="SpriteObjectData">
+            <Size X="254.0000" Y="288.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="1352.2524" Y="255.1157" />
+            <Scale ScaleX="5.4473" ScaleY="1.7710" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.6603" Y="0.1661" />
+            <PreSize X="0.1240" Y="0.1875" />
+            <FileData Type="PlistSubImage" Path="GR_Z03_01.png" Plist="GameScene/GRScene/GRScene.plist" />
+            <BlendFunc Src="1" Dst="771" />
+          </AbstractNodeData>
         </Children>
       </ObjectData>
     </Content>

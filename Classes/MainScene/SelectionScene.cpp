@@ -5,6 +5,7 @@
 
 #include "ActionScene\RunScene\RunScene1.h"
 #include "GameScene\BMScene.h"
+#include "GameScene\SRScene.h"
 
 
 USING_NS_CC;
@@ -130,25 +131,28 @@ void SelectionScene::doStep(float dt)
 
 	if (_bToScene[0]) { // 切換到 SecondScene
 							// 先將這個 SCENE 的 Update(這裡使用 OnFrameMove, 從 schedule update 中移出)
+		log("aaa");
 		this->unschedule(schedule_selector(SelectionScene::doStep));
 		//		SpriteFrameCache::getInstance()->removeSpriteFramesFromFile("mainscene.plist");
 		// 設定場景切換的特效
 		//		TransitionFade *pageTurn = TransitionFade::create(1.0F, GameScene::createScene());
 		//		Director::getInstance()->replaceScene(pageTurn);
-		Director::getInstance()->replaceScene(BMScene::createScene());
+		Director::getInstance()->replaceScene(SRScene::createScene());
 //		Director::getInstance()->replaceScene(labScene::createScene());
 		//SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+		
 	}
 
 
 	if (_bToScene[1]) { // 切換到 SecondScene
 						// 先將這個 SCENE 的 Update(這裡使用 OnFrameMove, 從 schedule update 中移出)
+		log("bbb");
 		this->unschedule(schedule_selector(SelectionScene::doStep));
 		//		SpriteFrameCache::getInstance()->removeSpriteFramesFromFile("mainscene.plist");
 		// 設定場景切換的特效
 		//		TransitionFade *pageTurn = TransitionFade::create(1.0F, GameScene::createScene());
 		//		Director::getInstance()->replaceScene(pageTurn);
-
+		
 		Director::getInstance()->replaceScene(BMScene::createScene());
 		//Director::getInstance()->replaceScene(labScene::createScene());
 		//SimpleAudioEngine::getInstance()->stopBackgroundMusic();
@@ -157,6 +161,7 @@ void SelectionScene::doStep(float dt)
 
 	if (_bToScene[2]) { // 切換到 SecondScene
 						// 先將這個 SCENE 的 Update(這裡使用 OnFrameMove, 從 schedule update 中移出)
+		log("ccc");
 		this->unschedule(schedule_selector(SelectionScene::doStep));
 		//		SpriteFrameCache::getInstance()->removeSpriteFramesFromFile("mainscene.plist");
 		// 設定場景切換的特效
@@ -165,6 +170,7 @@ void SelectionScene::doStep(float dt)
 		Director::getInstance()->replaceScene(BMScene::createScene());
 ///		Director::getInstance()->replaceScene(labScene::createScene());
 		//SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+		
 	}
 }
 
@@ -172,14 +178,20 @@ bool SelectionScene::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent
 {
 	Point touchLoc = pTouch->getLocation();
 	if (_selectRect[0].containsPoint(touchLoc)) {
+		log("a");
 		_bToScene[0] = true;
+
 
 	}
 	else if (_selectRect[1].containsPoint(touchLoc)) {
+		log("b");
 		_bToScene[1] = true;
+
 	}
 	else if (_selectRect[2].containsPoint(touchLoc)) {
+		log("c");
 		_bToScene[2] = true;
+
 	}
 
 

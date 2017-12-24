@@ -11,10 +11,11 @@ USING_NS_CC;
 class CPlayer
 {
 private:
+	const char* _cstand[2];
 	cocos2d::Point _previousPos;
+	bool _bfront;
 
 	cocos2d::Sprite *_player;
-	cocos2d::Sprite *_body;
 	cocos2d::Sprite *_rest;
 
 	cocos2d::Sprite *_sentance;
@@ -37,7 +38,7 @@ private:
 
 
 public:
-	CPlayer(const std::string body, const std::string aniBody, cocos2d::Layer &parent);
+	CPlayer(const char*  front, const char*  back, cocos2d::Layer &parent);
 	CPlayer(bool isBack, cocos2d::Layer &parent, Point pos, bool isFacingR);
 
 	~CPlayer();
@@ -66,6 +67,8 @@ public:
 	void SetIsTalking(bool b);
 	bool GetIsTalking();
 	void setZOrder(int n);
+
+	void SetFront(bool b);
 
 	bool _isFacingRight;
 
