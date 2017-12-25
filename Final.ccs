@@ -105,6 +105,7 @@
             <PlistImageFile Name="bag.png" Key="bag.png" />
           </PlistImageFolder>
           <PlistImageFolder Image="lock.png" PListFile="lock.plist" Name=".lock_PList.Dir">
+            <PlistImageFile Name="elock_ERROR.png" Key="elock_ERROR.png" />
             <PlistImageFile Name="elock00.png" Key="elock00.png" />
             <PlistImageFile Name="elock01.png" Key="elock01.png" />
             <PlistImageFile Name="elock02.png" Key="elock02.png" />
@@ -133,6 +134,7 @@
           <Image Name="BB_akey.png" />
           <Image Name="BB_sudoku.png" />
           <Image Name="go back.png" />
+          <Image Name="go back2.png" />
         </Folder>
         <Folder Name="fonts">
           <TTF Name="arial.ttf" />
@@ -370,7 +372,6 @@
         <Project Name="E_labScene_Node1.csd" Type="Node" />
         <Project Name="E_labScene_Node2.csd" Type="Node" />
         <Project Name="fgnode.csd" Type="Node" />
-        <Image Name="go back2.png" />
         <Image Name="GR_Z02_P01.png" />
         <Image Name="GR_Z02_P02.png" />
         <Image Name="GR_Z02_P03.png" />
@@ -381,6 +382,7 @@
         <Project Name="kitchenScene.csd" Type="Scene" />
         <Project Name="labScene.csd" Type="Scene" />
         <Project Name="MainScene.csd" Type="Scene" />
+        <Project Name="Node_BR_Z01.csd" Type="Node" />
         <Project Name="Node_GR_Z01.csd" Type="Node" />
         <Project Name="Node_GR_Z02.csd" Type="Node" />
         <Project Name="Node_GR_Z03.csd" Type="Node" />

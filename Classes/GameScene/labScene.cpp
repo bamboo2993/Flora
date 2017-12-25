@@ -1,6 +1,8 @@
 #include "labScene.h"
 #include "cocostudio/CocoStudio.h"
 
+#include "C2_Scene_02.h"
+
 #define ROOT_NODE   "labScene.csb"
 #define CURRENT_SCENE   "labScene.cpp"
 
@@ -56,7 +58,13 @@ labScene::labScene() {
 		_btouch[i] = false;
 	}
 	_ibagState = 0;
-	
+
+	for (size_t i = 0; i < TALK_AREA; i++) {
+		_touchTalk[i] = false;
+		_openTalk[i] = false;
+	}
+	_touchOut = false;
+	_openOut = false;
 
 }
 labScene::~labScene()
@@ -64,7 +72,7 @@ labScene::~labScene()
 	xmlTrigger::getInstance()->updateTriggerXML(CURRENT_SCENE, _pTrigger);
 	xmlBag::getInstance()->sortItems();
 
-	CBag::getInstance()->destroyInstance();
+	//CBag::getInstance()->destroyInstance();
 	xmlItem::getInstance()->destroyInstance();
 	xmlTrigger::getInstance()->destroyInstance();
 	xmlBag::getInstance()->destroyInstance();
@@ -93,6 +101,8 @@ bool labScene::init()
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("labScene.plist");
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("common/bagItem.plist");
 	// ------------------------------------------------------------------------------------------------- 
+
+	SimpleAudioEngine::getInstance()->playBackgroundMusic("../music/Snitch.mp3", true);
 
 
 	////¥H Sprite §@¬°­I´º ========================================================================
@@ -204,7 +214,7 @@ bool labScene::init()
 	//set bag =================================================================
 
 
-	CBag::getInstance()->Init(Point(172, -115), _pTrigger);
+	//CBag::getInstance()->Init(Point(172, -115), _pTrigger);
 	this->addChild(CBag::getInstance(), 1000);
 
 
@@ -325,7 +335,13 @@ void labScene::SetObject() {
 
 
 
-
+	//set talk area===============================
+	a = (cocos2d::Sprite*)_rootNode->getChildByName("exit");
+	size = a->getContentSize();
+	pos = a->getPosition();
+	size.width = size.width*2.0f;
+	size.height = size.height *0.8f;
+	_outRect = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.width, size.height);
 
 
 
@@ -401,8 +417,20 @@ void labScene::doStep(float dt){
 		}
 
 	}
+	
+	else if (_touchOut) {
+		_player->Walk(Vec2(-9.19f, 45.06f));
+		_player->go(Vec2(-9.19f, 45.06f));
+		if (_player->Walk(Vec2(-9.19f, 45.06f)) == false) {
+			_bWalk = 0;
 
+			//pick up obj
+			_touchOut = !_touchOut;
+			_openOut = !_openOut;
 
+			//log("show detect");
+		}
+	}
 	else {
 		_player->Stop();
 	}
@@ -411,6 +439,8 @@ void labScene::doStep(float dt){
 	PickObject(dt);
 
 	
+	CBag::getInstance()->doStep(dt);
+
 }
 
 void labScene::PickObject(float dt) {
@@ -421,10 +451,11 @@ void labScene::PickObject(float dt) {
 	if (_openSObj) {
 		_player->Mirror(false);
 		_player->SetFront(false);
-		_pTrigger[0].doStep(dt);
+		
 
 		//fly to bag==========
 		if (CBag::getInstance()->Canfly()) {
+			_pTrigger[0].doStep(dt);
 			//create the corresponding item in bag
 			if (_pTrigger[0].GetAddToBag() && !_pTrigger[0].GetPicked()) {
 
@@ -441,15 +472,17 @@ void labScene::PickObject(float dt) {
 	else if (_bopenNode[0]) {
 		_player->Mirror(false);
 		_player->SetFront(false);
-		_pTrigger[1].doStep(dt);
-		_pTrigger[2].doStep(dt);
-		_pTrigger[3].doStep(dt);
-		_pTrigger[4].doStep(dt);
-		_pTrigger[5].doStep(dt);
+		
 
 
 		//fly to bag==========
 		if (CBag::getInstance()->Canfly()) {
+			_pTrigger[1].doStep(dt);
+			_pTrigger[2].doStep(dt);
+			_pTrigger[3].doStep(dt);
+			_pTrigger[4].doStep(dt);
+			_pTrigger[5].doStep(dt);
+
 			//create the corresponding item in bag
 			if (_pTrigger[1].GetAddToBag() && !_pTrigger[1].GetPicked()) {
 
@@ -545,6 +578,16 @@ void labScene::PickObject(float dt) {
 		_player->SetIsTalking(true);
 		_openTalk[2] = false;
 	}
+	else if (_openOut) {
+		log("to corridor");
+		_openOut = !_openOut;
+		// to corridor================================
+		this->unschedule(schedule_selector(labScene::doStep));
+		C2_Scene_02::_from = 0;
+		Director::getInstance()->replaceScene(C2_Scene_02::createScene());
+	}
+	
+
 /*
 	else if (_bopenNode[1]) {
 		_pTrigger[1].doStep(dt);
@@ -609,7 +652,8 @@ void labScene::reset() {
 	_bmicroscope = false;
 	//_bsolve[0] = false;
 	//_bsolve[1] = false;
-
+	_touchOut = false;
+	_openOut = false;
 }
 
 
@@ -847,23 +891,19 @@ void  labScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //Ä
 						if (!_bopenNode[0] && !_bopenNode[1] && !_bopenNode[2]) {
 							//¨S«ö­«¸m-------------
 
-							_bWalk = 1;
-							_player->setPreviousPosition();
-
-							if (_touchLoc.x > _player->_rpos.x) {
-								_player->_isFacingRight = 1;
-								_player->Mirror();
-							}
-							else {
-								_player->_isFacingRight = 0;
-								_player->Mirror();
-							}
-
-							//-------------------------------
-							_TargetLoc = _touchLoc;
+							
 
 							//====================================
 
+							if (_outRect.containsPoint(_touchLoc)) {
+								_touchOut = true;
+								_bWalk = 1;
+								_player->setPreviousPosition();
+							}
+							else {
+								_openOut = false;
+								_touchOut = false;
+							}
 						}
 
 						//znode[0]¶}---------------------

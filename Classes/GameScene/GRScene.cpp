@@ -73,7 +73,7 @@ GRScene::~GRScene()
 	xmlTrigger::getInstance()->updateTriggerXML(CURRENT_SCENE, _pTrigger);
 	xmlBag::getInstance()->sortItems();
 
-	CBag::getInstance()->destroyInstance();
+	//CBag::getInstance()->destroyInstance();
 	xmlItem::getInstance()->destroyInstance();
 	xmlTrigger::getInstance()->destroyInstance();
 	xmlBag::getInstance()->destroyInstance();
@@ -102,6 +102,7 @@ bool GRScene::init()
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("GRScene.plist");
 	// ------------------------------------------------------------------------------------------------- 
 
+	SimpleAudioEngine::getInstance()->playBackgroundMusic("../music/Sneaky.mp3", true);
 
 	////¥H Sprite §@¬°­I´º ========================================================================
 
@@ -216,7 +217,7 @@ bool GRScene::init()
 	//set bag =================================================================
 
 
-	CBag::getInstance()->Init(Point(172, -115), _pTrigger);
+	//CBag::getInstance()->Init(Point(172, -115), _pTrigger);
 	this->addChild(CBag::getInstance(), 1000);
 
 
@@ -360,6 +361,7 @@ void GRScene::doStep(float dt){
 	//// pick up obj ==========================
 	PickObject(dt);
 
+	CBag::getInstance()->doStep(dt);
 	
 }
 

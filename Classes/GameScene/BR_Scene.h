@@ -1,9 +1,13 @@
-#ifndef __HELLOWORLD_SCENE_H__
-#define __HELLOWORLD_SCENE_H__
+#ifndef __BR_SCENE_H__
+#define __BR_SCENE_H__
 
 #include "cocos2d.h"
 #include "common\CPlayer.h"
 #include "common\CLightbox.h"
+#include "SimpleAudioEngine.h"
+
+#include "common\CTrigger.h"
+#include "common\CBag.h"
 
 using namespace cocos2d;
 
@@ -28,8 +32,28 @@ private:
 	Rect _talkAreaRect[5];
 	Sprite *_dialog[50];
 
+
+	CTrigger *_pTrigger; // items that can be taken: ÃÄ¤ô¥H red, green, blue, yellow ±Æ¦C¡B»]ÃH¤ô¡B¬Á¼þ´Î¡B¯óÃÄ
+	//bag=============================================
+	int _ibagState;
+
+	//Ä²±±-----------
+	cocos2d::Point _touchLoc;
+	cocos2d::Point _itempos;
+	float _startX, _startY;
+
 	//bag
 	CLightbox *_newspaper;
+
+	cocos2d::Node *_zNode; // zoomin node
+	bool _btouchNode;//for z_node
+	bool _bopenNode;//for z_node
+	cocos2d::Rect	_detectRect;
+
+
+	cocos2d::Rect	_resetRect; // reset button
+	cocos2d::Sprite *_close;
+	cocos2d::Rect	_closeRect; // area to close node (znode)
 
 public:
     // there's no 'id' in cpp, so we recommend returning the class instance pointer

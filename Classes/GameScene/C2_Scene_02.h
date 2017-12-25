@@ -7,6 +7,9 @@
 #include "cocostudio/CocoStudio.h"
 #include "SimpleAudioEngine.h"
 
+
+#include "common\CeLock .h"
+
 using namespace cocos2d;
 
 class C2_Scene_02 : public cocos2d::Layer
@@ -29,6 +32,17 @@ private:
 	Sprite *_doorArea, *_paintArea;
 	Rect _doorRect, _paintRect;
 
+	//lock
+	CeLock *_elock;
+
+
+	//bag=============================================
+	int _ibagState;
+
+	//觸控-----------
+	cocos2d::Point _touchLoc;
+	cocos2d::Point _itempos;
+	float _startX, _startY;
 public:
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::Scene* createScene();
@@ -46,11 +60,11 @@ public:
 	bool ToSpot0(float dt);
 	bool ToSpot2(float dt);
 
-	//touch
+	//觸碰
 	cocos2d::EventListenerTouchOneByOne *_listener1;
-	bool onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent); 
-	void onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent); 
-	void onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent); 
+	bool onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent); //觸碰開始事件
+	void onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent); //觸碰移動事件
+	void onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent); //觸碰結束事件 
 
     // implement the "static create()" method manually
     CREATE_FUNC(C2_Scene_02);

@@ -571,17 +571,6 @@
             <FileData Type="Default" Path="Default/Sprite.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="skip" ActionTag="75726674" Tag="68" IconVisible="False" LeftMargin="47.0000" RightMargin="1795.0000" TopMargin="204.5000" BottomMargin="1228.5000" ctype="SpriteObjectData">
-            <Size X="206.0000" Y="103.0000" />
-            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="150.0000" Y="1280.0000" />
-            <Scale ScaleX="1.0000" ScaleY="1.0000" />
-            <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="0.0732" Y="0.8333" />
-            <PreSize X="0.1006" Y="0.0671" />
-            <FileData Type="Normal" Path="GameScene/BMScene/skip_click.png" Plist="" />
-            <BlendFunc Src="1" Dst="771" />
-          </AbstractNodeData>
           <AbstractNodeData Name="detect_book_0" ActionTag="478307683" VisibleForFrame="False" Tag="70" IconVisible="False" LeftMargin="1184.4906" RightMargin="609.5094" TopMargin="238.9983" BottomMargin="1009.0017" ctype="SpriteObjectData">
             <Size X="254.0000" Y="288.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
@@ -657,6 +646,28 @@
             <PrePosition X="0.1019" Y="0.6042" />
             <PreSize X="0.1240" Y="0.1875" />
             <FileData Type="PlistSubImage" Path="GR_Z03_01.png" Plist="GameScene/GRScene/GRScene.plist" />
+            <BlendFunc Src="1" Dst="771" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="Sprite_1" ActionTag="-842417175" VisibleForFrame="False" Tag="441" IconVisible="False" ctype="SpriteObjectData">
+            <Size X="2048.0000" Y="1536.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="1024.0000" Y="768.0000" />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.5000" Y="0.5000" />
+            <PreSize X="1.0000" Y="1.0000" />
+            <FileData Type="Normal" Path="001.png" Plist="" />
+            <BlendFunc Src="1" Dst="771" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="skip" ActionTag="75726674" Tag="68" IconVisible="False" LeftMargin="1830.0000" RightMargin="12.0000" TopMargin="1420.7200" BottomMargin="12.2800" ctype="SpriteObjectData">
+            <Size X="206.0000" Y="103.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="1933.0000" Y="63.7800" />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.9438" Y="0.0415" />
+            <PreSize X="0.1006" Y="0.0671" />
+            <FileData Type="Normal" Path="GameScene/BMScene/skip_click.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
         </Children>

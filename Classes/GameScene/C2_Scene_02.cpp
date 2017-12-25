@@ -1,6 +1,12 @@
 #include "C2_Scene_02.h"
 #include "C2_Scene_03.h"
 
+#include "labScene.h"
+
+#define BAG_OPEN_HEIGHT 150.0f
+#define BAG_CLOSE_HEIGHT 250.0f
+
+#define CURRENT_SCENE   "C2_Scene_02.cpp"
 
 USING_NS_CC;
 #define SPEED 3
@@ -30,6 +36,7 @@ C2_Scene_02::C2_Scene_02() {
 		_toSpot[i] = false;
 	}
 	_isWalking = false;
+	_ibagState = 0;
 }
 
 C2_Scene_02::~C2_Scene_02() {
@@ -99,16 +106,29 @@ bool C2_Scene_02::init()
 	pos = _paintArea->getPosition();
 	_paintRect = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.width, size.height);
 
+	//add lock=============
+	_elock = new CeLock(true);
+	_elock->init("GameScene/lab_door.png");
+	this->addChild(_elock);
+	_elock->SetArea(_doorRect);
+	//_elock->SetExitArea(cocos2d::Point(108.49f, 1426.32f), 144.0f, 144.0f);
+	_elock->SetKeyArea(Point(896.8f, 692.6f), 287, 254);
+	_elock->SetEnterArea(Point(896.8f, 617.6f), 287, 72);
+	_elock->SetNumAppear(1149.0f + 40.0f, 1032.0f);
+	_elock->SetPassword(5, 17341);
 
-	//touch
-	_listener1 = EventListenerTouchOneByOne::create();	
-	_listener1->onTouchBegan = CC_CALLBACK_2(C2_Scene_02::onTouchBegan, this);
-	_listener1->onTouchMoved = CC_CALLBACK_2(C2_Scene_02::onTouchMoved, this);
-	_listener1->onTouchEnded = CC_CALLBACK_2(C2_Scene_02::onTouchEnded, this);
+	this->addChild(CBag::getInstance(), 1000);
 
-	this->_eventDispatcher->addEventListenerWithSceneGraphPriority(_listener1, this);
+
+	_listener1 = EventListenerTouchOneByOne::create();	//創建一個一對一的事件聆聽器
+	_listener1->onTouchBegan = CC_CALLBACK_2(C2_Scene_02::onTouchBegan, this);		//加入觸碰開始事件
+	_listener1->onTouchMoved = CC_CALLBACK_2(C2_Scene_02::onTouchMoved, this);		//加入觸碰移動事件
+	_listener1->onTouchEnded = CC_CALLBACK_2(C2_Scene_02::onTouchEnded, this);		//加入觸碰離開事件
+
+	this->_eventDispatcher->addEventListenerWithSceneGraphPriority(_listener1, this);	//加入剛創建的事件聆聽器
 	this->schedule(CC_SCHEDULE_SELECTOR(C2_Scene_02::doStep));
-    return true;
+	return true;
+
 }
 
 void C2_Scene_02::doStep(float dt) {
@@ -131,39 +151,197 @@ void C2_Scene_02::doStep(float dt) {
 	}
 	
 	if (_toSpot[2]) {
-		if (!_boy->GetReachSpot(2)) {
+	//	if (!_boy->GetReachSpot(2)) {
 			if (ToSpot2(dt)) {
 				_toSpot[2] = false;
 				_isWalking = false;
+				_elock->SetReached(true);
+
 			}
-		}
+	//	}
 	}
-	
+
+
+	_elock->doStep(dt);
 }
 
 bool C2_Scene_02::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) {
-	Point touchLoc = pTouch->getLocation();
-	//testing
-	if (!_isWalking) {
-		if (_spotRect[0].containsPoint(touchLoc)) {
-			_toSpot[0] = true;
-			log("clicked0");
+	_touchLoc = pTouch->getLocation();
+	//swipe gesture
+	_startX = _touchLoc.x;
+	_startY = _touchLoc.y;
+
+	if (!_boy->GetIsTalking()) {
+		if (_ibagState) { //when bag is open
+						  //use items in bag===========================================
+			CBag::getInstance()->touchesBegan(_touchLoc);
+
 		}
-		if (_doorRect.containsPoint(touchLoc)) {
-			_toSpot[2] = true;
-			log("door");
-		}
+		_elock->TouchBegan(_touchLoc);
 	}
 
 	return true;
 }
 
 void C2_Scene_02::onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) {
-	
+	_touchLoc = pTouch->getLocation();
+	if (!_boy->GetIsTalking()) {
+		//use items in bag===========================================
+		if (_ibagState) { //when bag is open
+			CBag::getInstance()->touchesMoved(_touchLoc);
+		}
+		_elock->TouchMoved(_touchLoc);
+	}
+
+
+
 }
 
 void C2_Scene_02::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) {
+	Point touchLoc = pTouch->getLocation();
 	
+
+
+	_touchLoc = pTouch->getLocation();
+
+
+	//swipe gesture
+	float offsetX = _touchLoc.x - _startX;
+	float offsetY = _touchLoc.y - _startY;
+
+	if (!_boy->GetIsTalking()) {
+		//=====================================================================
+		if (_ibagState != 2) {
+
+			// [WALK + PICK OBJECT]===================
+			if (offsetX == 0 && offsetY == 0 && !CBag::getInstance()->LightboxState()) {
+				if (_touchLoc.y > 227) {
+					if (!_elock->GetState()) {
+						//testing
+						if (!_isWalking) {
+							if (_spotRect[0].containsPoint(_touchLoc)) {
+								_toSpot[0] = true;
+								log("clicked0");
+							}
+							if (_doorRect.containsPoint(_touchLoc)) {
+								_toSpot[2] = true;
+								log("door");
+							}
+						}
+					}
+
+
+
+				}
+
+				else {
+					if (!_ibagState) {
+						if (!_elock->GetState()) {
+							//testing
+							if (!_isWalking) {
+								if (_spotRect[0].containsPoint(_touchLoc)) {
+									_toSpot[0] = true;
+									log("clicked0");
+								}
+								if (_doorRect.containsPoint(_touchLoc)) {
+									_toSpot[2] = true;
+									log("door");
+								}
+							}
+						}
+
+
+					}
+				}
+
+
+				if (_elock->TouchEnded(touchLoc)) {
+					this->unschedule(schedule_selector(C2_Scene_02::doStep));;
+					Director::getInstance()->replaceScene(labScene::createScene());
+				}
+
+
+
+			}
+
+		}
+
+		// open/close/swipe bag-------
+		if (!CBag::getInstance()->itemdrag() && !CBag::getInstance()->LightboxState()) {
+
+
+
+			if (!_ibagState && _startY < BAG_OPEN_HEIGHT) { // when touched y< set height
+
+															// bag oppened set bag and item position----------------------
+				if (fabs(offsetX) < fabs(offsetY) && offsetY > 0) {
+					CBag::getInstance()->setPosition(172, 115);
+					_ibagState = 1;
+					log("bag open state:1");
+
+				}
+			}
+
+			else if (_ibagState == 2) {
+
+				if (fabs(offsetX) < fabs(offsetY)) { // close bag
+					if (offsetY < 0) { //down
+						CBag::getInstance()->ToStateOne();
+						_ibagState = 1;
+						log("bag open state:1");
+
+					}
+				}
+			}
+
+
+			else if (_ibagState == 1 && _startY <= BAG_CLOSE_HEIGHT) {
+				//if (_bbagOn && _startY <= BAG_CLOSE_HEIGHT) {
+
+				// bag oppened set bag and item position----------------------
+				if (fabs(offsetX) < fabs(offsetY) && offsetY > 0) {
+					CBag::getInstance()->ToStateTwo();
+					_ibagState = 2;
+					log("bag open state:2");
+
+				}
+
+				else if (fabs(offsetX) < fabs(offsetY)) { // close bag
+					if (offsetY < 0) { //down
+						CBag::getInstance()->setPosition(172, -115);
+						_ibagState = 0;
+						log("bag close");
+
+
+					}
+				}
+
+
+
+			}
+		}
+
+
+
+		//use items in bag===========================================
+		if (_ibagState) { //when bag is open
+			int i;
+			i = CBag::getInstance()->touchesEnded(_touchLoc, _ibagState, CURRENT_SCENE);
+
+			//to detect item used and its effect-------
+			if (i >= 0) {
+				// mix mix
+
+				// add sound
+
+
+
+
+
+			}
+		}
+	
+}
 }
 
 

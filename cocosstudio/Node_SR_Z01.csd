@@ -17,10 +17,10 @@
             <FileData Type="Normal" Path="GameScene/SRScene/SR_Z01.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="close" ActionTag="41874087" Tag="148" IconVisible="False" LeftMargin="2.5061" RightMargin="-145.5061" TopMargin="-1532.3735" BottomMargin="1388.3735" ctype="SpriteObjectData">
+          <AbstractNodeData Name="close" ActionTag="41874087" Tag="148" IconVisible="False" LeftMargin="36.9900" RightMargin="-179.9900" TopMargin="-1498.3199" BottomMargin="1354.3199" ctype="SpriteObjectData">
             <Size X="143.0000" Y="144.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="74.0061" Y="1460.3735" />
+            <Position X="108.4900" Y="1426.3199" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />

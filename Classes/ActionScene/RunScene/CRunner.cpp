@@ -3,10 +3,10 @@
 
 #include "cocostudio/CocoStudio.h"
 
-#define ORIGIN_POSITION Vec2(320, 600)
+#define ORIGIN_POSITION Vec2(320, 650)
 #define FAST_POSITION 500
 #define SLOW_POSITION 220
-#define UP_POSITION 600
+#define UP_POSITION 650
 #define DOWN_POSITION 480
 
 
@@ -166,10 +166,15 @@ void CRunner::setPosition(const float x, const float y)
 }
 
 
+cocos2d::Point CRunner::getPosition()
+{
+	return _runnerpt;
+}
 void CRunner::setRect() {
 	_runnerSize = _runner->getContentSize();//抓大小
 	_runnerpt = _runner->getPosition();//抓節點
 	runnerRect = Rect(_runnerpt.x - _runnerSize.width / 2, _runnerpt.y - _runnerSize.height / 2, _runnerSize.width, _runnerSize.height);
+	baseRect = Rect(_runnerpt.x - _runnerSize.width / 2, _runnerpt.y - _runnerSize.height / 2, _runnerSize.width-20.0f, 80.0f);
 }
 
 
@@ -178,7 +183,10 @@ cocos2d::Rect CRunner::getRect() {
 
 }
 
+cocos2d::Rect CRunner::getbaseRect() {
+	return baseRect;
 
+}
 
 void CRunner::setGo() {
 	_bgo = true;
@@ -196,14 +204,14 @@ void CRunner::doStep(float dt) {
 
 	if (_bfast){
 		if (instancepos.x < FAST_POSITION) {
-			_runner->setPositionX(_runner->getPositionX() + 5);
+			_runner->setPositionX(_runner->getPositionX() + 10);
 		}
 		else _bfast = false;
 	}
 
 	else if (_bslow) {
 		if (instancepos.x > SLOW_POSITION) {
-			_runner->setPositionX(_runner->getPositionX() - 5);
+			_runner->setPositionX(_runner->getPositionX() - 10);
 		}
 		else _bslow = false;
 
@@ -211,7 +219,7 @@ void CRunner::doStep(float dt) {
 
 	else if (_bup) {
 		if (instancepos.y < UP_POSITION) {
-			_runner->setPositionY(_runner->getPositionY() + 5);
+			_runner->setPositionY(_runner->getPositionY() + 10);
 			state = true;
 		}
 		else _bup = false;
@@ -220,7 +228,7 @@ void CRunner::doStep(float dt) {
 
 	else if (_bdown) {
 		if (instancepos.y > DOWN_POSITION) {
-			_runner->setPositionY(_runner->getPositionY() - 5);
+			_runner->setPositionY(_runner->getPositionY() - 10);
 			state = false;
 		}
 		else _bdown = false;

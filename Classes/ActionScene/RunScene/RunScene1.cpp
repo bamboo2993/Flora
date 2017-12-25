@@ -4,6 +4,8 @@
 //#include <unordered_map>
 //#include "ActionScene\RunScene\CObject.h"
 
+#include "GameScene\BR_Scene.h"
+
 USING_NS_CC;
 
 #define MOVESPEED 250
@@ -69,9 +71,6 @@ bool RunScene1::init()
 	// 讀入儲存多張圖片的 plist 檔----------------------------------------------------
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("runscene.plist");
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("runscene02.plist");
-	//SpriteFrameCache::getInstance()->addSpriteFramesWithFile("boyjumping.plist");
-	//SpriteFrameCache::getInstance()->addSpriteFramesWithFile("boysquating.plist");
-	//SpriteFrameCache::getInstance()->addSpriteFramesWithFile("boyrunning.plist");
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Animation/ater.plist");
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("SceneKitchenitem.plist");
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("childhoodAni.plist");
@@ -93,9 +92,7 @@ bool RunScene1::init()
 	_blur[2]->setVisible(false);
 
 
-	this->_win = (cocos2d::Sprite *)rootNode->getChildByName("congratulation");
-	this->addChild(_win, 2000);
-	_win->setVisible(false);
+	
 
 
 	// 音效與音樂 ----------------------------------------------------------------------------------
@@ -122,7 +119,7 @@ bool RunScene1::init()
 	// runner setup ----------------------------------------------------------------------------
 	_runner = new CRunner("ater_001.png", *this);
 	_runner->setAnimation("Animation/boyanim.plist");
-	_runner->setPosition(320, 600);
+	_runner->setPosition(320, 650);
 
 
 	Setbg(); //設定背景 + 障礙物
@@ -139,18 +136,6 @@ bool RunScene1::init()
 	_trash[1] = new CFall(_fgnode2, *this);
 //	_trash[0]->setPosition(900, 700);
 	
-	//test touch========================
-	label = LabelTTF::create("Please Touch!", "Arial", 24);//?定相?文本的位置  
-	label->setPosition(ccp(visibleSize.width / 2, visibleSize.height / 2));//放在屏幕的中央
-//	this->addChild(label,100);
-
-	label000 = LabelTTF::create("Intersect?", "Arial", 48);//?定相?文本的位置  
-	label000->setPosition(ccp(visibleSize.width / 2, visibleSize.height / 4*3));//放在屏幕的中央
-//	this->addChild(label000,100);
-
-	label5 = LabelTTF::create("Life 3", "Arial", 48);//?定相?文本的位置  
-	label5->setPosition(ccp(visibleSize.width / 3*2, visibleSize.height / 4 * 3));//放在屏幕的中央
-//	this->addChild(label5, 100);
 
 //Ani
 	_opendoorAnimation_2 = new AniScene();
@@ -163,16 +148,22 @@ bool RunScene1::init()
 	_opendoorAnimation_1->init(Point(visibleSize.width / 2, origin.y + visibleSize.height / 2.0), *this, 4, "1");
 
 	_skipSprite = Sprite::create("skip_click.png");
-	_skipSprite->setPosition(150, 1280);
+	_skipSprite->setPosition(1933.00f, 63.78f);
 	this->addChild(_skipSprite,20002);
 	size = _skipSprite->getContentSize();
 	pos = _skipSprite->getPosition();
-	_skipRect = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.height, size.width);
+	_skipRect = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.width, size.height );
 
 	SimpleAudioEngine::getInstance()->playBackgroundMusic("../music/opendoor.mp3", true);
 
 
 	//-------------------------------------------------------------------------------------------------
+	restart();
+
+	//key
+	auto keyboardListener = EventListenerKeyboard::create();
+	keyboardListener->onKeyPressed = CC_CALLBACK_2(RunScene1::keyPressed, this);
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(keyboardListener, this);
 
 	_listener1 = EventListenerTouchOneByOne::create();	//創建一個一對一的事件聆聽器
 	_listener1->onTouchBegan = CC_CALLBACK_2(RunScene1::onTouchBegan, this);		//加入觸碰開始事件
@@ -407,14 +398,14 @@ void RunScene1::doStep(float dt)
 			_obstacle2[1]->doStep(dt);
 			_obstacle2[2]->doStep(dt);
 
-			if (_t >= 20.0f) {
+			if (_t >= 10.0f) {
 				if (_trash[0]->getstate())	_trash[0]->doStep(dt);
 				if (_trash[1]->getstate())	_trash[1]->doStep(dt);
 
 			}
 
 			////設定腳踏車
-			if (_t >= 30.0f && _bikePt.x >= -100) {
+			if (_t >= 25.0f && _bikePt.x >= -100) {
 				Size size = _bike->getContentSize();
 				_bikePt = _bike->getPosition();
 				_bikePt.x -= dt * 1000;
@@ -423,10 +414,11 @@ void RunScene1::doStep(float dt)
 				int a = 1;
 			}
 
-			if (_t >= 40.0f && _runner->_ilife >= 0) {
+			if (_t >= 35.0f && _runner->_ilife >= 0) {
 				//label000->setString("win!");
-				_win->setVisible(true);
-				_bwin = true;
+				 _bwin = true;
+				 _runPt = _runner->getPosition();
+
 			}
 
 
@@ -451,30 +443,30 @@ void RunScene1::doStep(float dt)
 
 			//判斷碰撞===========================================================================
 			if (_runner->getstate()) {
-				if (_obstacle1[0]->getVis() && _obstacle1[0]->collision(_runner->getRect())) {
+				if (_obstacle1[0]->getVis() && _obstacle1[0]->collision(_runner->getbaseRect())) {
 					_runner->_ilife--;
 					CCLOG("intersect %d\n", 0);
 					//label000->setString("True11!");
 				}
 
 
-				else if (_obstacle1[1]->getVis() && _obstacle1[1]->collision(_runner->getRect())) {
+				else if (_obstacle1[1]->getVis() && _obstacle1[1]->collision(_runner->getbaseRect())) {
 					_runner->_ilife--;
 					CCLOG("intersect %d\n", 1);
 					//label000->setString("True12!");
 				}
-				else if (_obstacle1[2]->getVis() && _obstacle1[2]->collision(_runner->getRect())) {
+				else if (_obstacle1[2]->getVis() && _obstacle1[2]->collision(_runner->getbaseRect())) {
 					_runner->_ilife--;
 					CCLOG("intersect %d\n", 2);
 					//label000->setString("True13!");
 				}
-				else if (_obstacle1[3]->getVis() && _obstacle1[3]->collision(_runner->getRect())) {
+				else if (_obstacle1[3]->getVis() && _obstacle1[3]->collision(_runner->getbaseRect())) {
 					_runner->_ilife--;
 					CCLOG("intersect %d\n", 2);
 					//				label000->setString("True13!");
 				}
 
-				else if (_obstacle1[4]->getVis() && _obstacle1[4]->collision(_runner->getRect())) {
+				else if (_obstacle1[4]->getVis() && _obstacle1[4]->collision(_runner->getbaseRect())) {
 					_runner->_ilife--;
 					CCLOG("intersect %d\n", 2);
 					//label000->setString("True13!");
@@ -536,7 +528,18 @@ void RunScene1::doStep(float dt)
 
 		}
 
+		if (_bwin) {
+			
+			_runPt.x += 30;
+			_runner->setPosition(_runPt);
+			if (_runPt.x > 2048) {
+				this->unschedule(schedule_selector(RunScene1::doStep));
+				SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+				Director::getInstance()->replaceScene(BR_Scene::createScene());
+			}
 
+
+		}
 		
 	}
 
@@ -591,8 +594,6 @@ void RunScene1::restart() {
 
 	_obstacle1[0]->setVis(false);
 	_obstacle1[1]->setVis(false);
-
-	_win->setVisible(false);
 }
 
 
@@ -600,25 +601,29 @@ void RunScene1::restart() {
 bool RunScene1::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)//觸碰開始事件
 {
 	Point touchLoc = pTouch->getLocation();
-	if (_brestart) {
-		restart();
-		_brestart = !_brestart;
-		return true;
+	if (_aniStop) {
+		if (_brestart) {
+			restart();
+			_brestart = !_brestart;
+			return true;
 
-	}
-	if (_pause->touchesBegin(touchLoc)) _bpause = !_bpause;
-	if (!_bStart && !_brestart && !_bwin) {
-		_bStart = true;
-		_runner->setGo();
-		//label000->setString("START!");
-		return true;
+		}
+		if (_pause->touchesBegin(touchLoc)) _bpause = !_bpause;
+		if (!_bStart && !_brestart && !_bwin) {
+			_bStart = true;
+			_runner->setGo();
+			//label000->setString("START!");
+			return true;
+		}
+
+		//???始坐?
+		if (_bStart && !_bpause) {
+			startX = touchLoc.x;
+			startY = touchLoc.y;
+		}
 	}
 
-	//???始坐?
-	if (_bStart && !_bpause) {
-		startX = touchLoc.x;
-		startY = touchLoc.y;
-	}
+	
 
 
 
@@ -643,45 +648,58 @@ void  RunScene1::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //
 			log("skip");
 		}
 	}
-
-	if (_bStart && !_bpause && !_bwin) {
-	//???束坐?
-		endX = touchLoc.x;
-		endY = touchLoc.y;
-		//求?始与?束坐?之差
-		float offsetX = endX - startX;
-		float offsetY = endY - startY;
-		if (fabs(offsetX)>fabs(offsetY)) {//根据X方向与Y方向的偏移量大小的判?
-			if (offsetX>0) {
-				//label->setString("Right!");
-				_runner->_bfast = true;
+	else {
+		if (_bStart && !_bpause && !_bwin) {
+			//???束坐?
+			endX = touchLoc.x;
+			endY = touchLoc.y;
+			//求?始与?束坐?之差
+			float offsetX = endX - startX;
+			float offsetY = endY - startY;
+			if (fabs(offsetX)>fabs(offsetY)) {//根据X方向与Y方向的偏移量大小的判?
+				if (offsetX>0) {
+					//label->setString("Right!");
+					_runner->_bfast = true;
+				}
+				else {
+					//label->setString("Left!");
+					_runner->_bslow = true;
+				}
 			}
 			else {
-				//label->setString("Left!");
-				_runner->_bslow = true;
+				if (offsetY>0) {
+					//label->setString("Up!");
+					//_runner->_bjump = true;
+					_runner->_bup = true;
+				}
+				else {
+					//label->setString("Down!");
+					//_runner->_bsquat = true;
+					_runner->_bdown = true;
+				}
 			}
-		}
-		else {
-			if (offsetY>0) {
-				//label->setString("Up!");
-				//_runner->_bjump = true;
-				_runner->_bup = true;
-			}
-			else {
-				//label->setString("Down!");
-				//_runner->_bsquat = true;
-				_runner->_bdown = true;
-			}
+
 		}
 
-	}
+		else if (_bpause && !_bwin) {
+			if (_resetRect[0].containsPoint(touchLoc)) restart();
+		}
+		else if (_bwin) if (_resetRect[1].containsPoint(touchLoc)) restart();
 
-	else if (_bpause && !_bwin) {
-		if (_resetRect[0].containsPoint(touchLoc)) restart();
+		_pause->touchesEnded(touchLoc);
 	}
-	else if(_bwin) if (_resetRect[1].containsPoint(touchLoc)) restart();
-
-	_pause->touchesEnded(touchLoc);
 
 	
+
+	
+}
+
+
+
+void RunScene1::keyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event) {
+	if (keyCode == EventKeyboard::KeyCode::KEY_A) {
+		this->unschedule(schedule_selector(RunScene1::doStep));
+		SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+		Director::getInstance()->replaceScene(BR_Scene::createScene());
+	}
 }

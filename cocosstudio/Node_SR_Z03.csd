@@ -39,10 +39,10 @@
             <FileData Type="PlistSubImage" Path="SR_Z03_02.png" Plist="GameScene/SRScene/SRScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="close" ActionTag="431360166" Tag="138" IconVisible="False" LeftMargin="5.2823" RightMargin="-148.2823" TopMargin="-1532.3374" BottomMargin="1388.3374" ctype="SpriteObjectData">
+          <AbstractNodeData Name="close" ActionTag="431360166" Tag="138" IconVisible="False" LeftMargin="36.9900" RightMargin="-179.9900" TopMargin="-1498.3199" BottomMargin="1354.3199" ctype="SpriteObjectData">
             <Size X="143.0000" Y="144.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="76.7823" Y="1460.3374" />
+            <Position X="108.4900" Y="1426.3199" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />

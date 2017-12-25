@@ -11,6 +11,8 @@ USING_NS_CC;
 class CPlayer
 {
 private:
+	int type;
+
 	const char* _cstand[2];
 	cocos2d::Point _previousPos;
 	bool _bfront;

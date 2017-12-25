@@ -127,36 +127,25 @@
             <FileData Type="PlistSubImage" Path="boy_run_03.png" Plist="ActionScene/RunScene/boyrunning.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="reset" ActionTag="-590605788" VisibleForFrame="False" Tag="17" IconVisible="False" LeftMargin="1865.7593" RightMargin="0.2407" TopMargin="-0.8641" BottomMargin="1346.8641" ctype="SpriteObjectData">
-            <Size X="182.0000" Y="190.0000" />
+          <AbstractNodeData Name="reset" ActionTag="-590605788" VisibleForFrame="False" Tag="17" IconVisible="False" LeftMargin="1933.7593" RightMargin="68.2407" TopMargin="71.1359" BottomMargin="1418.8641" ctype="SpriteObjectData">
+            <Size X="46.0000" Y="46.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="1956.7593" Y="1441.8641" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.9554" Y="0.9387" />
-            <PreSize X="0.0889" Y="0.1237" />
+            <PreSize X="0.0225" Y="0.0299" />
             <FileData Type="Default" Path="Default/Sprite.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="congratulation" ActionTag="-1810312797" VisibleForFrame="False" Tag="24" IconVisible="False" ctype="SpriteObjectData">
-            <Size X="2048.0000" Y="1536.0000" />
-            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="1024.0000" Y="768.0000" />
-            <Scale ScaleX="1.0000" ScaleY="1.0000" />
-            <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="0.5000" Y="0.5000" />
-            <PreSize X="1.0000" Y="1.0000" />
-            <FileData Type="Normal" Path="congratulation.png" Plist="" />
-            <BlendFunc Src="1" Dst="771" />
-          </AbstractNodeData>
-          <AbstractNodeData Name="replay" ActionTag="-1422074797" VisibleForFrame="False" Tag="28" IconVisible="False" LeftMargin="917.8169" RightMargin="948.1831" TopMargin="1021.8960" BottomMargin="324.1040" ctype="SpriteObjectData">
-            <Size X="182.0000" Y="190.0000" />
+          <AbstractNodeData Name="replay" ActionTag="-1422074797" VisibleForFrame="False" Tag="28" IconVisible="False" LeftMargin="985.8169" RightMargin="1016.1831" TopMargin="1093.8960" BottomMargin="396.1040" ctype="SpriteObjectData">
+            <Size X="46.0000" Y="46.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="1008.8169" Y="419.1040" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.4926" Y="0.2729" />
-            <PreSize X="0.0889" Y="0.1237" />
+            <PreSize X="0.0225" Y="0.0299" />
             <FileData Type="Default" Path="Default/Sprite.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>

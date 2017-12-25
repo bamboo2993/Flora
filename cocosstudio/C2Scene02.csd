@@ -13,7 +13,7 @@
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.5000" Y="0.5000" />
-            <PreSize X="0.0225" Y="0.0299" />
+            <PreSize X="1.0000" Y="1.0000" />
             <FileData Type="Normal" Path="GameScene/C2Scene/C2_Z2.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
@@ -45,18 +45,18 @@
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.4784" Y="0.4540" />
-            <PreSize X="0.0225" Y="0.0299" />
+            <PreSize X="0.1938" Y="0.4707" />
             <FileData Type="Normal" Path="GameScene/C2Scene/C2_Z2_03.png" Plist="" />
             <BlendFunc Src="770" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="paintArea" ActionTag="-1448244459" Tag="11" IconVisible="False" LeftMargin="418.5992" RightMargin="1327.4008" TopMargin="499.7166" BottomMargin="788.2834" ctype="SpriteObjectData">
+          <AbstractNodeData Name="paintArea" ActionTag="-1448244459" Tag="11" IconVisible="False" LeftMargin="418.5992" RightMargin="1327.4009" TopMargin="499.7166" BottomMargin="788.2834" ctype="SpriteObjectData">
             <Size X="302.0000" Y="248.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="569.5992" Y="912.2834" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.2781" Y="0.5939" />
-            <PreSize X="0.0225" Y="0.0299" />
+            <PreSize X="0.1475" Y="0.1615" />
             <FileData Type="Normal" Path="GameScene/C2Scene/C2_Z2_06.png" Plist="" />
             <BlendFunc Src="770" Dst="771" />
           </AbstractNodeData>

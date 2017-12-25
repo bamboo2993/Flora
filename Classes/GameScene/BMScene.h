@@ -11,7 +11,6 @@
 #include "common\CPlayer.h"
 
 #include "common\CTrigger.h"
-#include "common\CItem.h"
 #include "common\CLightbox.h"
 
 #include "common\xmlTrigger.h"

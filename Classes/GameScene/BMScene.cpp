@@ -74,13 +74,13 @@ BMScene::BMScene() {
 }
 BMScene::~BMScene()
 {
-	xmlTrigger::getInstance()->updateTriggerXML(CURRENT_SCENE, _pTrigger);
+	//xmlTrigger::getInstance()->updateTriggerXML(CURRENT_SCENE, _pTrigger);
 	xmlBag::getInstance()->sortItems();
 
 	CBag::getInstance()->destroyInstance();
 	xmlItem::getInstance()->destroyInstance();
 	xmlTrigger::getInstance()->destroyInstance();
-	xmlBag::getInstance()->destroyInstance();
+	//xmlBag::getInstance()->destroyInstance();
 
 //	this->removeAllChildren();
 	SpriteFrameCache::getInstance()->removeUnusedSpriteFrames();
@@ -506,7 +506,7 @@ void BMScene::doStep(float dt)
 		//////只能在設定範圍走=============================
 		
 		if (_touchSObj[0] || _touchTalk[0]) {
-			_player->Walk(Vec2(1317.35f, 580.0f));
+			//_player->Walk(Vec2(1317.35f, 580.0f));
 			_player->go(Vec2(1317.35f, 580.0f));
 			if (_player->Walk(Vec2(1317.35f, 580.0f)) == false) {
 				_bWalk = 0;
@@ -528,7 +528,7 @@ void BMScene::doStep(float dt)
 		}
 
 		else if (_touchSObj[1] || _btouchNode[0] || _touchTalk[1]) {
-			_player->Walk(Vec2(1703.04f, 580.0f));
+			//_player->Walk(Vec2(1703.04f, 580.0f));
 			_player->go(Vec2(1703.04f, 580.0f));
 			if (_player->Walk(Vec2(1703.04f, 580.0f)) == false) {
 				_bWalk = 0;
@@ -559,7 +559,7 @@ void BMScene::doStep(float dt)
 
 
 		else if (_touchSObj[2]) {
-			_player->Walk(Vec2(1200.05f, 141.24f));
+		//	_player->Walk(Vec2(1200.05f, 141.24f));
 			_player->go(Vec2(1200.05f, 141.24f));
 			if (_player->Walk(Vec2(1200.05f, 141.24f)) == false) {
 				_bWalk = 0;
@@ -578,7 +578,7 @@ void BMScene::doStep(float dt)
 
 
 		else if (_btouchNode[1] || _touchTalk[4]) {
-			_player->Walk(Vec2(702.90f, 141.24f));
+		//	_player->Walk(Vec2(702.90f, 141.24f));
 			_player->go(Vec2(702.90f, 141.24f));
 			if (_player->Walk(Vec2(702.90f, 141.24f)) == false) {
 				_bWalk = 0;
@@ -603,7 +603,7 @@ void BMScene::doStep(float dt)
 		}
 		
 		else if (_touchTalk[2]) {
-			_player->Walk(Vec2(1703.04f, _talkRect[2].getMinY()));
+	//		_player->Walk(Vec2(1703.04f, _talkRect[2].getMinY()));
 			_player->go(Vec2(1703.04f, _talkRect[2].getMinY()));
 			if (_player->Walk(Vec2(1703.04f, _talkRect[2].getMinY())) == false) {
 				_bWalk = 0;
@@ -618,7 +618,7 @@ void BMScene::doStep(float dt)
 		}
 
 		else if (_touchTalk[3]) {
-			_player->Walk(Vec2(1703.04f, _talkRect[3].getMinY()));
+		//	_player->Walk(Vec2(1703.04f, _talkRect[3].getMinY()));
 			_player->go(Vec2(1703.04f, _talkRect[3].getMinY()));
 			if (_player->Walk(Vec2(1703.04f, _talkRect[3].getMinY())) == false) {
 				_bWalk = 0;
@@ -632,7 +632,7 @@ void BMScene::doStep(float dt)
 
 		}
 		else if (_touchTalk[5]) {
-			_player->Walk(Vec2(_talkRect[5].getMaxX(), _talkRect[3].getMinY()));
+		//	_player->Walk(Vec2(_talkRect[5].getMaxX(), _talkRect[3].getMinY()));
 			_player->go(Vec2(_talkRect[5].getMaxX(), _talkRect[3].getMinY()));
 			if (_player->Walk(Vec2(_talkRect[5].getMaxX(), _talkRect[3].getMinY())) == false) {
 				_bWalk = 0;
@@ -647,7 +647,7 @@ void BMScene::doStep(float dt)
 		}
 
 		else if (_touchTalk[6]) {
-			_player->Walk(Vec2(_talkRect[5].getMaxX(), _talkRect[5].getMidY()));
+		//	_player->Walk(Vec2(_talkRect[5].getMaxX(), _talkRect[5].getMidY()));
 			_player->go(Vec2(_talkRect[5].getMaxX(), _talkRect[5].getMidY()));
 			if (_player->Walk(Vec2(_talkRect[5].getMaxX(), _talkRect[5].getMidY())) == false) {
 				_bWalk = 0;
@@ -670,11 +670,12 @@ void BMScene::doStep(float dt)
 		//// pick up obj ==========================
 		PickObject(dt);
 
-		/*if (_clear) {
+		if (_clear) {
+			CBag::getInstance()->reset();
 			this->unschedule(schedule_selector(BMScene::doStep));
 			SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 			Director::getInstance()->replaceScene(RunScene1::createScene());
-		}*/
+		}
 	}
 }
 
@@ -683,10 +684,11 @@ void BMScene::PickObject(float dt) {
 	// pick up obj ==========================
 
 	if (_openSObj[0]) {
-		_pTrigger[4].doStep(dt);
+		
 
 		//fly to bag==========
 		if (CBag::getInstance()->Canfly()) {
+			_pTrigger[4].doStep(dt);
 			//create the corresponding item in bag
 			if (_pTrigger[4].GetAddToBag() && !_pTrigger[4].GetPicked()) {
 				CBag::getInstance()->AddObj("B_water.png", 2, true, _pbeakerRect);
@@ -702,17 +704,21 @@ void BMScene::PickObject(float dt) {
 	}
 
 	else if (_openSObj[1]) {
-		_pTrigger[5].doStep(dt);
+		
+		if (CBag::getInstance()->Canfly()) {
+			_pTrigger[5].doStep(dt);
+			if (_pTrigger[5].GetAddToBag() && !_pTrigger[5].GetPicked()) {
 
-		//fly to bag==========
-		if (_pTrigger[5].GetAddToBag() && !_pTrigger[5].GetPicked()) {
-			CBag::getInstance()->AddObj("B_glassrod.png", 2, true, _pbeakerRect);
-			CBag::getInstance()->Fly(_pTrigger[5].GetPos(), "B_glassrod.png");
-			_pTrigger[5].SetAddToBag(false);
-			_pTrigger[5].SetPicked(true);
+				CBag::getInstance()->AddObj("B_glassrod.png", 2, true, _pbeakerRect);
+				CBag::getInstance()->Fly(_pTrigger[5].GetPos(), "B_glassrod.png");
+				_pTrigger[5].SetAddToBag(false);
+				_pTrigger[5].SetPicked(true);
 
 
+			}
 		}
+		//fly to bag==========
+		
 		_openSObj[1] = false;
 	}
 
@@ -724,18 +730,23 @@ void BMScene::PickObject(float dt) {
 
 	else if (_bopenNode[0]) {
 
-		_pTrigger[0].doStep(dt);
-		_pTrigger[1].doStep(dt);
-		_pTrigger[2].doStep(dt);
-		_pTrigger[3].doStep(dt);
+		
+		
+
+
 
 		//fly to bag==========
 		if (CBag::getInstance()->Canfly()) {
+			_pTrigger[0].doStep(dt);
+			_pTrigger[1].doStep(dt);
+			_pTrigger[2].doStep(dt);
+			_pTrigger[3].doStep(dt);
+
 			//create the corresponding item in bag
 			if (_pTrigger[0].GetAddToBag() && !_pTrigger[0].GetPicked()) {
 
 				CBag::getInstance()->AddObj("B_red.png", 2, true, _pbeakerRect);
-				CBag::getInstance()->Fly(_pTrigger[4].GetPos(), "B_red.png");
+				CBag::getInstance()->Fly(_pTrigger[0].GetPos(), "B_red.png");
 				_pTrigger[0].SetAddToBag(false);
 				_pTrigger[0].SetPicked(true); // if the object is picked and added into the bag
 
@@ -745,8 +756,9 @@ void BMScene::PickObject(float dt) {
 			}
 
 			else if (_pTrigger[1].GetAddToBag() && !_pTrigger[1].GetPicked()) {
+
 				CBag::getInstance()->AddObj("B_green.png", 2, true, _pbeakerRect);
-				CBag::getInstance()->Fly(_pTrigger[4].GetPos(), "B_green.png");
+				CBag::getInstance()->Fly(_pTrigger[1].GetPos(), "B_green.png");
 				_pTrigger[1].SetAddToBag(false);
 				_pTrigger[1].SetPicked(true);
 
@@ -756,8 +768,9 @@ void BMScene::PickObject(float dt) {
 			}
 
 			else if (_pTrigger[2].GetAddToBag() && !_pTrigger[2].GetPicked()) {
+				
 				CBag::getInstance()->AddObj("B_blue.png", 2, true, _pbeakerRect);
-				CBag::getInstance()->Fly(_pTrigger[4].GetPos(), "B_blue.png");
+				CBag::getInstance()->Fly(_pTrigger[2].GetPos(), "B_blue.png");
 				_pTrigger[2].SetAddToBag(false);
 				_pTrigger[2].SetPicked(true);
 
@@ -767,9 +780,9 @@ void BMScene::PickObject(float dt) {
 			}
 
 			else if (_pTrigger[3].GetAddToBag() && !_pTrigger[3].GetPicked()) {
-
+				
 				CBag::getInstance()->AddObj("B_yellow.png", 2, true, _pbeakerRect);
-				CBag::getInstance()->Fly(_pTrigger[4].GetPos(), "B_yellow.png");
+				CBag::getInstance()->Fly(_pTrigger[3].GetPos(), "B_yellow.png");
 				_pTrigger[3].SetAddToBag(false);
 				_pTrigger[3].SetPicked(true);
 
@@ -788,17 +801,23 @@ void BMScene::PickObject(float dt) {
 
 	else if (_bopenNode[1]) {
 		
-		_pTrigger[6].doStep(dt);
-		_pTrigger[7].doStep(dt);
-		_pTrigger[8].doStep(dt);
-		_pTrigger[9].doStep(dt);
+
+		
+		
+		
 		//log("node is open");
 
 
 		//fly to bag==========
 		if (CBag::getInstance()->Canfly()) {
+			_pTrigger[6].doStep(dt);
+			_pTrigger[7].doStep(dt);
+			_pTrigger[8].doStep(dt);
+			_pTrigger[9].doStep(dt);
+
 			//create the corresponding item in bag
 			if (_pTrigger[6].GetAddToBag() && !_pTrigger[6].GetPicked()) {
+				
 				CBag::getInstance()->AddObj("B_herbR.png", 1, false, _pbowlRect, true);
 				CBag::getInstance()->Fly(_pTrigger[6].GetPos(), "B_herbR.png");
 				_pTrigger[6].SetAddToBag(false);
@@ -808,6 +827,7 @@ void BMScene::PickObject(float dt) {
 				_debranch->playEffect();
 			}
 			else if (_pTrigger[7].GetAddToBag() && !_pTrigger[7].GetPicked()) {
+				
 				CBag::getInstance()->AddObj("B_herbG.png", 1, false, _pbowlRect, true);
 				CBag::getInstance()->Fly(_pTrigger[7].GetPos(), "B_herbG.png");
 				_pTrigger[7].SetAddToBag(false);
@@ -817,6 +837,7 @@ void BMScene::PickObject(float dt) {
 				_debranch->playEffect();
 			}
 			else if (_pTrigger[8].GetAddToBag() && !_pTrigger[8].GetPicked()) {
+				
 				CBag::getInstance()->AddObj("B_herbDG.png", 1, false, _pbowlRect, true);
 				CBag::getInstance()->Fly(_pTrigger[8].GetPos(), "B_herbDG.png");
 				_pTrigger[8].SetAddToBag(false);
@@ -828,6 +849,7 @@ void BMScene::PickObject(float dt) {
 			}
 
 			else if (_pTrigger[9].GetAddToBag() && !_pTrigger[9].GetPicked()) {
+				
 				log("herb");
 				CBag::getInstance()->AddObj("B_herbY.png", 1, false, _pbowlRect, true);
 				CBag::getInstance()->Fly(_pTrigger[9].GetPos(), "B_herbY.png");

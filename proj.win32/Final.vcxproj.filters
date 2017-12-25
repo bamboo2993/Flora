@@ -168,9 +168,6 @@
     <ClInclude Include="..\Classes\MainScene\lockUsage.h">
       <Filter>src\MainScene</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\MainScene\MainScene.h">
-      <Filter>src\MainScene</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\MainScene\SelectionScene.h">
       <Filter>src\MainScene</Filter>
     </ClInclude>
@@ -205,6 +202,9 @@
       <Filter>src\GameScene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GameScene\BR_Scene.h">
+      <Filter>src\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MainScene\MainScene.h">
       <Filter>src\GameScene</Filter>
     </ClInclude>
   </ItemGroup>

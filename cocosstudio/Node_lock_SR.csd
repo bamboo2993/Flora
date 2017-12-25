@@ -149,15 +149,15 @@
             <FileData Type="PlistSubImage" Path="SR_L_01.png" Plist="common/lock.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="close" ActionTag="1117106527" Tag="326" IconVisible="False" LeftMargin="2.8423" RightMargin="-145.8423" TopMargin="-1534.3455" BottomMargin="1390.3455" ctype="SpriteObjectData">
+          <AbstractNodeData Name="close" ActionTag="1117106527" Tag="326" IconVisible="False" LeftMargin="36.9900" RightMargin="-179.9900" TopMargin="-1498.3199" BottomMargin="1354.3199" ctype="SpriteObjectData">
             <Size X="143.0000" Y="144.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="74.3423" Y="1462.3455" />
+            <Position X="108.4900" Y="1426.3199" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />
             <PreSize X="0.0000" Y="0.0000" />
-            <FileData Type="Normal" Path="common/go back.png" Plist="" />
+            <FileData Type="Normal" Path="common/go back2.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
         </Children>

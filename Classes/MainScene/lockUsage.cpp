@@ -78,7 +78,7 @@ bool lockUsage::init()
 	//_lock->SetPassword(1, 1, 1);
 
 
-	_elock = new CeLock();
+	_elock = new CeLock(2);
 	_elock->init("GameScene/lab_door.png");
 	this->addChild(_elock);
 	_elock->SetArea(_lockAreaRect);

@@ -1,20 +1,33 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <DataRoot version="1.0">
     <!--this is xml comment-->
     <scene>
-        <item no.="0" arrangement="1" name="B_lodine.png">false</item>
-        <item no.="1" arrangement="2" name="B_DGslides.png">false</item>
-        <item no.="2" arrangement="3" name="B_Bslides.png">false</item>
-        <item no.="3" arrangement="9" name="B_Gslides.png">false</item>
-        <item no.="4" arrangement="10" name="B_lodine.png">false</item>
-        <item no.="5" arrangement="6" name="B_herbDG.png">false</item>
-        <item no.="6" arrangement="7" name="B_herbR.png">false</item>
-        <item no.="0" arrangement="1" name="B_lodine.png">false</item>
-        <item no.="1" arrangement="2" name="B_DGslides.png">false</item>
-        <item no.="2" arrangement="3" name="B_Bslides.png">false</item>
-        <item no.="3" arrangement="9" name="B_Gslides.png">false</item>
-        <item no.="4" arrangement="10" name="B_lodine.png">false</item>
-        <item no.="5" arrangement="6" name="B_dropper.png">false</item>
-        <item no.="6" arrangement="6" name="B_glassrod.png">false</item>
+        <item no.="0" arrangement="1" name="B_akey.png">false</item>
+        <item no.="1" arrangement="2" name="B_Bslides.png">false</item>
+        <item no.="2" arrangement="1" name="B_red.png">false</item>
+        <item no.="3" arrangement="4" name="B_green.png">false</item>
+        <item no.="4" arrangement="1" name="B_red.png">false</item>
+        <item no.="5" arrangement="4" name="B_herbY.png">false</item>
+        <item no.="6" arrangement="3" name="B_herbG.png">false</item>
+        <item no.="7" arrangement="3" name="B_herbG.png">false</item>
+        <item no.="8" arrangement="3" name="B_herbG.png">false</item>
+        <item no.="9" arrangement="3" name="B_herbG.png">false</item>
+        <item no.="10" arrangement="3" name="B_herbG.png">false</item>
+        <item no.="11" arrangement="3" name="B_herbG.png">false</item>
+        <item no.="12" arrangement="3" name="B_herbG.png">false</item>
+        <item no.="13" arrangement="3" name="B_herbG.png">false</item>
+        <item no.="14" arrangement="3" name="B_herbG.png">false</item>
+        <item no.="15" arrangement="3" name="B_herbG.png">false</item>
+        <item no.="16" arrangement="3" name="B_herbG.png">false</item>
+        <item no.="17" arrangement="3" name="B_herbG.png">false</item>
+        <item no.="18" arrangement="3" name="B_herbG.png">false</item>
+        <item no.="19" arrangement="3" name="B_herbG.png">false</item>
+        <item no.="20" arrangement="3" name="B_herbG.png">false</item>
+        <item no.="21" arrangement="3" name="B_herbG.png">false</item>
+        <item no.="22" arrangement="3" name="B_herbG.png">false</item>
     </scene>
+    <player>
+        <position/>
+        <current_scene/>
+    </player>
 </DataRoot>

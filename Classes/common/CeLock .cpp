@@ -6,8 +6,8 @@ using namespace cocos2d;
 
 
 
-CeLock::CeLock() {
-
+CeLock::CeLock(bool black) {
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("common/lock.plist");
 	_ansNum = NULL; //number of character for password
 	_ans[0] = NULL;// the correct password
 	_ans[1] = NULL;// the correct password
@@ -31,6 +31,22 @@ CeLock::CeLock() {
 	for (int i = 0; i < 12; i++) {
 		_buttonState[i] = false;
 	}
+
+	_error = false;
+	_openState = false;
+	_Error= Sprite::createWithSpriteFrameName("elock_ERROR.png");
+	
+	_Error->setVisible(false);
+	this->addChild(_Error, 1);
+
+	if(black) _exit = Sprite::create("common/go back2.png");  // 使用 create 函式,給予檔名即可
+	else _exit = Sprite::create("common/go back.png");  // 使用 create 函式,給予檔名即可
+
+	_exit->setPosition(108.49f, 1426.32f);
+	Size size = _exit->getContentSize();
+	Point pos = _exit->getPosition();
+	this->addChild(_exit, 1);
+	_exitRect = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.width, size.height);
 }
 
 
@@ -54,10 +70,6 @@ bool CeLock::init(const char* bgImage) {
 
 
 	this->setVisible(false);
-
-
-
-
 	return true;
 }
 
@@ -110,6 +122,7 @@ void CeLock::SetEnterArea(cocos2d::Point BLpoint, float w, float h) {
 void CeLock::SetNumAppear(float x, float y){
 	_posX = x;
 	_posY = y;
+	_Error->setPosition(1024+20, _posY);
 }
 
 void CeLock::SetPassword(int num, int ans){
@@ -121,6 +134,42 @@ void CeLock::SetPassword(int num, int ans){
 	}
 
 }
+
+void CeLock::doStep(float dt) {
+	
+	if (_openState) {
+		this->setVisible(true);
+		_state = true;
+		_openState = false;
+	}
+
+	if (_error) {
+		_tot += dt;
+		close();
+		_state = true;
+		_Error->setVisible(true);
+		// blink====================
+		if (_tot>0.5f){
+			_tot -= 0.5f;
+			_Error->setVisible(false);
+			_error = false;
+
+		}
+		else {
+			float t = cosf(_tot * 360 * 3.1415926 / 180.0f);
+			_Error->setOpacity(255 * t);
+		}
+		
+
+	}
+
+
+}
+void CeLock::SetReached(bool x) {
+	_openState = x;
+}
+
+
 
 void CeLock::close() {
 	_typedNum.clear();
@@ -213,54 +262,58 @@ bool CeLock::GetState()
 bool CeLock::TouchBegan(const cocos2d::Point pt) {
 
 
-	if (_state) {
-		if (_typedNum.size() < MAX_LOCK_LETTERS) {
-			if (_buttonRect[0].containsPoint(pt)) {
-				_buttonState[0] = true;
-			}
-			else if (_buttonRect[1].containsPoint(pt)) {
-				_buttonState[1] = true;
-			}
-			else if (_buttonRect[2].containsPoint(pt)) {
-				_buttonState[2] = true;
-			}
-			else if (_buttonRect[3].containsPoint(pt)) {
-				_buttonState[3] = true;
-			}
-			else if (_buttonRect[4].containsPoint(pt)) {
-				_buttonState[4] = true;
-			}
-			else if (_buttonRect[5].containsPoint(pt)) {
-				_buttonState[5] = true;
-			}
-			else if (_buttonRect[6].containsPoint(pt)) {
-				_buttonState[6] = true;
-			}
-			else if (_buttonRect[7].containsPoint(pt)) {
-				_buttonState[7] = true;
-			}
-			else if (_buttonRect[8].containsPoint(pt)) {
-				_buttonState[8] = true;
-			}
-			else if (_buttonRect[9].containsPoint(pt)) {
-				_buttonState[9] = true;
-			}
-		}
-		
-		if (_buttonRect[10].containsPoint(pt)) {
-			if (_typedNum.size() > 0) {
-				_buttonState[10] = true;
-			}
-		}
-		
+	if (_state ) {
+		if (!_error) {
 
-		else if (_buttonRect[11].containsPoint(pt)) {
-			_buttonState[11] = true;
+			if (_typedNum.size() < MAX_LOCK_LETTERS) {
+				if (_buttonRect[0].containsPoint(pt)) {
+					_buttonState[0] = true;
+				}
+				else if (_buttonRect[1].containsPoint(pt)) {
+					_buttonState[1] = true;
+				}
+				else if (_buttonRect[2].containsPoint(pt)) {
+					_buttonState[2] = true;
+				}
+				else if (_buttonRect[3].containsPoint(pt)) {
+					_buttonState[3] = true;
+				}
+				else if (_buttonRect[4].containsPoint(pt)) {
+					_buttonState[4] = true;
+				}
+				else if (_buttonRect[5].containsPoint(pt)) {
+					_buttonState[5] = true;
+				}
+				else if (_buttonRect[6].containsPoint(pt)) {
+					_buttonState[6] = true;
+				}
+				else if (_buttonRect[7].containsPoint(pt)) {
+					_buttonState[7] = true;
+				}
+				else if (_buttonRect[8].containsPoint(pt)) {
+					_buttonState[8] = true;
+				}
+				else if (_buttonRect[9].containsPoint(pt)) {
+					_buttonState[9] = true;
+				}
+			}
+
+			if (_buttonRect[10].containsPoint(pt)) {
+				if (_typedNum.size() > 0) {
+					_buttonState[10] = true;
+				}
+			}
+
+
+			else if (_buttonRect[11].containsPoint(pt)) {
+				_buttonState[11] = true;
+			}
+
+			else if (_exitRect.containsPoint(pt)) {
+				_btouch = true;
+			}
 		}
 
-		else if (_exitRect.containsPoint(pt)) {
-			_btouch = true;
-		}
 
 	}
 	else {
@@ -277,98 +330,101 @@ bool CeLock::TouchBegan(const cocos2d::Point pt) {
 
 bool CeLock::TouchMoved(const cocos2d::Point pt) {
 	if (_state) {
-		if (_buttonState[0]) {// 只有被按住的時候才處理
-			if (!_buttonRect[0].containsPoint(pt)) {// 手指頭位置離開按鈕
-				_buttonState[0] = false;
-				return(false);
+		if (!_error) {
+			if (_buttonState[0]) {// 只有被按住的時候才處理
+				if (!_buttonRect[0].containsPoint(pt)) {// 手指頭位置離開按鈕
+					_buttonState[0] = false;
+					return(false);
+				}
+				else return(false);
 			}
-			else return(false);
-		}
 
-		else if (_buttonState[1]) {// 只有被按住的時候才處理
-			if (!_buttonRect[1].containsPoint(pt)) {// 手指頭位置離開按鈕
-				_buttonState[1] = false;
-				return(false);
+			else if (_buttonState[1]) {// 只有被按住的時候才處理
+				if (!_buttonRect[1].containsPoint(pt)) {// 手指頭位置離開按鈕
+					_buttonState[1] = false;
+					return(false);
+				}
+				else return(false);
 			}
-			else return(false);
-		}
-		else if (_buttonState[2]) {// 只有被按住的時候才處理
-			if (!_buttonRect[2].containsPoint(pt)) {// 手指頭位置離開按鈕
-				_buttonState[2] = false;
-				return(false);
+			else if (_buttonState[2]) {// 只有被按住的時候才處理
+				if (!_buttonRect[2].containsPoint(pt)) {// 手指頭位置離開按鈕
+					_buttonState[2] = false;
+					return(false);
+				}
+				else return(false);
 			}
-			else return(false);
-		}
-		else if (_buttonState[3]) {// 只有被按住的時候才處理
-			if (!_buttonRect[3].containsPoint(pt)) {// 手指頭位置離開按鈕
-				_buttonState[3] = false;
-				return(false);
+			else if (_buttonState[3]) {// 只有被按住的時候才處理
+				if (!_buttonRect[3].containsPoint(pt)) {// 手指頭位置離開按鈕
+					_buttonState[3] = false;
+					return(false);
+				}
+				else return(false);
 			}
-			else return(false);
-		}
-		else if (_buttonState[4]) {// 只有被按住的時候才處理
-			if (!_buttonRect[4].containsPoint(pt)) {// 手指頭位置離開按鈕
-				_buttonState[4] = false;
-				return(false);
+			else if (_buttonState[4]) {// 只有被按住的時候才處理
+				if (!_buttonRect[4].containsPoint(pt)) {// 手指頭位置離開按鈕
+					_buttonState[4] = false;
+					return(false);
+				}
+				else return(false);
 			}
-			else return(false);
-		}
-		else if (_buttonState[5]) {// 只有被按住的時候才處理
-			if (!_buttonRect[5].containsPoint(pt)) {// 手指頭位置離開按鈕
-				_buttonState[5] = false;
-				return(false);
+			else if (_buttonState[5]) {// 只有被按住的時候才處理
+				if (!_buttonRect[5].containsPoint(pt)) {// 手指頭位置離開按鈕
+					_buttonState[5] = false;
+					return(false);
+				}
+				else return(false);
 			}
-			else return(false);
-		}
-		else if (_buttonState[6]) {// 只有被按住的時候才處理
-			if (!_buttonRect[6].containsPoint(pt)) {// 手指頭位置離開按鈕
-				_buttonState[6] = false;
-				return(false);
+			else if (_buttonState[6]) {// 只有被按住的時候才處理
+				if (!_buttonRect[6].containsPoint(pt)) {// 手指頭位置離開按鈕
+					_buttonState[6] = false;
+					return(false);
+				}
+				else return(false);
 			}
-			else return(false);
-		}
-		else if (_buttonState[7]) {// 只有被按住的時候才處理
-			if (!_buttonRect[7].containsPoint(pt)) {// 手指頭位置離開按鈕
-				_buttonState[7] = false;
-				return(false);
+			else if (_buttonState[7]) {// 只有被按住的時候才處理
+				if (!_buttonRect[7].containsPoint(pt)) {// 手指頭位置離開按鈕
+					_buttonState[7] = false;
+					return(false);
+				}
+				else return(false);
 			}
-			else return(false);
-		}
-		else if (_buttonState[8]) {// 只有被按住的時候才處理
-			if (!_buttonRect[8].containsPoint(pt)) {// 手指頭位置離開按鈕
-				_buttonState[8] = false;
-				return(false);
+			else if (_buttonState[8]) {// 只有被按住的時候才處理
+				if (!_buttonRect[8].containsPoint(pt)) {// 手指頭位置離開按鈕
+					_buttonState[8] = false;
+					return(false);
+				}
+				else return(false);
 			}
-			else return(false);
-		}
-		else if (_buttonState[9]) {// 只有被按住的時候才處理
-			if (!_buttonRect[9].containsPoint(pt)) {// 手指頭位置離開按鈕
-				_buttonState[9] = false;
-				return(false);
+			else if (_buttonState[9]) {// 只有被按住的時候才處理
+				if (!_buttonRect[9].containsPoint(pt)) {// 手指頭位置離開按鈕
+					_buttonState[9] = false;
+					return(false);
+				}
+				else return(false);
 			}
-			else return(false);
-		}
-		else if (_buttonState[10]) {// 只有被按住的時候才處理
-			if (!_buttonRect[10].containsPoint(pt)) {// 手指頭位置離開按鈕
-				_buttonState[10] = false;
-				return(false);
+			else if (_buttonState[10]) {// 只有被按住的時候才處理
+				if (!_buttonRect[10].containsPoint(pt)) {// 手指頭位置離開按鈕
+					_buttonState[10] = false;
+					return(false);
+				}
+				else return(false);
 			}
-			else return(false);
-		}
-		else if (_buttonState[11]) {// 只有被按住的時候才處理
-			if (!_buttonRect[11].containsPoint(pt)) {// 手指頭位置離開按鈕
-				_buttonState[11] = false;
-				return(false);
+			else if (_buttonState[11]) {// 只有被按住的時候才處理
+				if (!_buttonRect[11].containsPoint(pt)) {// 手指頭位置離開按鈕
+					_buttonState[11] = false;
+					return(false);
+				}
+				else return(false);
 			}
-			else return(false);
+			//else if (_btouch) {// 只有被按住的時候才處理
+			//	if (!_exitRect.containsPoint(pt)) {// 手指頭位置離開按鈕
+			//		_btouch = false;
+			//		return(false);
+			//	}
+			//	else return(false);
+			//}
 		}
-		//else if (_btouch) {// 只有被按住的時候才處理
-		//	if (!_exitRect.containsPoint(pt)) {// 手指頭位置離開按鈕
-		//		_btouch = false;
-		//		return(false);
-		//	}
-		//	else return(false);
-		//}
+		
 	}
 	else {
 		if (_btouch) {
@@ -386,21 +442,21 @@ bool CeLock::TouchMoved(const cocos2d::Point pt) {
 }
 bool CeLock::TouchEnded(const cocos2d::Point pt) {
 	if (_state) {
+		if (!_error) {
+			//close lock
+			if (_exitRect.containsPoint(pt) && _btouch) {
 
-		//close lock
-		if (_exitRect.containsPoint(pt) && _btouch) {
+				this->setVisible(false);
+				_btouch = false;
+				_state = false;
+				close();
+				return false;
 
-			this->setVisible(false);
-			_btouch = false;
-			_state = false;
-			close();
-			return false;
+			}
 
-		}
+			//touch [number key]
 
-		//touch [number key]
-
-		if (_buttonState[0]) {
+			if (_buttonState[0]) {
 				//_number[_typedNum.size()]->stopAllActions();
 				_number[_typedNum.size()]->setSpriteFrame("elock00.png");
 				//_number[_typedNum.size()]->setTexture("1.png");
@@ -409,63 +465,63 @@ bool CeLock::TouchEnded(const cocos2d::Point pt) {
 				_itypedNum.push_back(0); //add int to list
 				_buttonState[0] = false;
 			}
-		else if (_buttonState[1]) {
+			else if (_buttonState[1]) {
 				_number[_typedNum.size()]->setSpriteFrame("elock01.png");
 				GetNum(_number[_typedNum.size()]);
 				ArrangeNum();
 				_itypedNum.push_back(1); //add int to list
 				_buttonState[1] = false;
 			}
-		else if (_buttonState[2]) {
+			else if (_buttonState[2]) {
 				_number[_typedNum.size()]->setSpriteFrame("elock02.png");
 				GetNum(_number[_typedNum.size()]);
 				ArrangeNum();
 				_itypedNum.push_back(2); //add int to list
 				_buttonState[2] = false;
 			}
-		else if (_buttonState[3]) {
+			else if (_buttonState[3]) {
 				_number[_typedNum.size()]->setSpriteFrame("elock03.png");
 				GetNum(_number[_typedNum.size()]);
 				ArrangeNum();
 				_itypedNum.push_back(3); //add int to list
 				_buttonState[3] = false;
 			}
-		else if (_buttonState[4]) {
+			else if (_buttonState[4]) {
 				_number[_typedNum.size()]->setSpriteFrame("elock04.png");
 				GetNum(_number[_typedNum.size()]);
 				ArrangeNum();
 				_itypedNum.push_back(4); //add int to list
 				_buttonState[4] = false;
 			}
-		else if (_buttonState[5]) {
+			else if (_buttonState[5]) {
 				_number[_typedNum.size()]->setSpriteFrame("elock05.png");
 				GetNum(_number[_typedNum.size()]);
 				ArrangeNum();
 				_itypedNum.push_back(5); //add int to list
 				_buttonState[5] = false;
 			}
-		else if (_buttonState[6]) {
+			else if (_buttonState[6]) {
 				_number[_typedNum.size()]->setSpriteFrame("elock06.png");
 				GetNum(_number[_typedNum.size()]);
 				ArrangeNum();
 				_itypedNum.push_back(6); //add int to list
 				_buttonState[6] = false;
 			}
-		else if (_buttonState[7]) {
+			else if (_buttonState[7]) {
 				_number[_typedNum.size()]->setSpriteFrame("elock07.png");
 				GetNum(_number[_typedNum.size()]);
 				ArrangeNum();
 				_itypedNum.push_back(7); //add int to list
 				_buttonState[7] = false;
 			}
-		else if (_buttonState[8]) {
+			else if (_buttonState[8]) {
 				_number[_typedNum.size()]->setSpriteFrame("elock08.png");
 				GetNum(_number[_typedNum.size()]);
 				ArrangeNum();
 				_itypedNum.push_back(8); //add int to list
 				_buttonState[8] = false;
 			}
-		else if (_buttonState[9]) {
+			else if (_buttonState[9]) {
 				_number[_typedNum.size()]->setSpriteFrame("elock09.png");
 				GetNum(_number[_typedNum.size()]);
 				ArrangeNum();
@@ -475,32 +531,38 @@ bool CeLock::TouchEnded(const cocos2d::Point pt) {
 
 
 
-		//touch [delete]
-		else if (_buttonState[10]) {
-			DeleteNum();
-			ArrangeNum();
-			_buttonState[10] = false;
-		}
-
-		//touch [ok]
-		else if (_buttonState[11]) {
-			if (CheckAns()) {
-				log("lock open");
-				//switch scene
-				return true;
+			//touch [delete]
+			else if (_buttonState[10]) {
+				DeleteNum();
+				ArrangeNum();
+				_buttonState[10] = false;
 			}
-			else log("wrong answer");
-			_buttonState[11] = false;
-		}
 
+			//touch [ok]
+			else if (_buttonState[11]) {
+				if (CheckAns()) {
+					log("lock open");
+					//switch scene
+					return true;
+				}
+				else {
+					log("wrong answer");
+					_buttonState[11] = false;
+					_error = true;
+					_Error->setVisible(true);
+					return false;
+				}
+			}
+
+		}
+		
 	}
 	else {
 		if (_lockAreaRect.containsPoint(pt)) { //open lock scene
-			this->setVisible(true);
 			_btouch = false;
-			_state = true;
 			return false;
 		}
+		return false;
 	}
 
 
@@ -509,7 +571,7 @@ bool CeLock::TouchEnded(const cocos2d::Point pt) {
 
 
 
-
+	return false;
 
 
 	

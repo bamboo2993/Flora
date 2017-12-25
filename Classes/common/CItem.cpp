@@ -50,6 +50,7 @@ void CItem::Clear() {
 }
 
 void CItem::ChangePic(const char* pic) {
+	if (_propSprite == nullptr) { _propSprite = Sprite::createWithSpriteFrameName(pic); }
 	_propSprite->setSpriteFrame(pic);
 	_itemName = pic;
 	SetRect();

@@ -153,6 +153,27 @@
             <FileData Type="Normal" Path="GameScene/BR_Scene/setRect_21.png" Plist="" />
             <BlendFunc Src="770" Dst="771" />
           </AbstractNodeData>
+          <AbstractNodeData Name="Node_BR_Z01" ActionTag="-2061313795" VisibleForFrame="False" Tag="51" IconVisible="True" RightMargin="2048.0000" TopMargin="1536.0000" StretchWidthEnable="False" StretchHeightEnable="False" InnerActionSpeed="1.0000" CustomSizeEnabled="False" ctype="ProjectNodeObjectData">
+            <Size X="0.0000" Y="0.0000" />
+            <AnchorPoint />
+            <Position />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition />
+            <PreSize X="0.0000" Y="0.0000" />
+            <FileData Type="Normal" Path="Node_BR_Z01.csd" Plist="" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="reset" ActionTag="1880678908" VisibleForFrame="False" Tag="55" IconVisible="False" LeftMargin="41.6258" RightMargin="1925.3743" TopMargin="38.9938" BottomMargin="1411.0062" ctype="SpriteObjectData">
+            <Size X="81.0000" Y="86.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="82.1258" Y="1454.0062" />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.0401" Y="0.9466" />
+            <PreSize X="0.0396" Y="0.0560" />
+            <FileData Type="PlistSubImage" Path="GR_S01_01.png" Plist="GameScene/GRScene/GRScene.plist" />
+            <BlendFunc Src="1" Dst="771" />
+          </AbstractNodeData>
         </Children>
       </ObjectData>
     </Content>

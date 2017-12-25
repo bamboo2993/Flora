@@ -42,7 +42,6 @@ private:
 
 	cocos2d::Node *_zNode[4]; // zoomin node
 
-	cocos2d::Sprite *_win; //stage clear sprite
 	bool _clear; //stage clear
 
 	cocos2d::Sprite *_reset;
@@ -59,12 +58,6 @@ private:
 	cocos2d::Point _prePos;
 	cocos2d::Point _itempos;
 	float _startX, _startY;
-
-	int _iObjUsed;
-
-	bool bb[2] = { false };
-
-
 	//player===================================
 	CPlayer *_player;
 	cocos2d::Point _TargetLoc; // for walk pos
@@ -75,10 +68,8 @@ private:
 	bool _bWalk = false; //detect if player is walking
 
 	//§PÂ_ ª««~----------------
-	bool _bpickObj; //detect if player arrive near object being picked
 	bool _btouchNode[4] = { false };//for E_node
 	bool _bopenNode[4] = { false };//for E_node
-	bool _btouch[5]; // for item in scene
 
 	// set lightbox==============================
 	CLightbox *_procedure[3];
@@ -108,7 +99,7 @@ private:
 
 	int _talkContent = 0;
 
-	// go out=================
+	// exit=================
 	cocos2d::Rect	_outRect;
 	bool _touchOut;
 	bool _openOut;

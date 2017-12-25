@@ -17,7 +17,7 @@ private:
 	cocos2d::Point _runnerpt;
 	cocos2d::Sprite *_runner;
 	cocos2d::Rect    runnerRect;
-
+	cocos2d::Rect    baseRect;
 	//set animation======================
 	cocos2d::Action *_runaction;
 	cocos2d::Action *_jumpaction;
@@ -45,6 +45,8 @@ public:
 	void setPosition(const float x, const float y);
 	void setAnimation(const char *plistFile);
 
+	cocos2d::Point getPosition();
+
 	void setRect();
 
 	//jump==================================
@@ -70,6 +72,7 @@ public:
 
 	void doStep(float dt);
 	cocos2d::Rect getRect();
+	cocos2d::Rect getbaseRect();
 	bool getstate();
 };
 

@@ -211,7 +211,7 @@
             <FileData Type="PlistSubImage" Path="GR_S01_01.png" Plist="GameScene/GRScene/GRScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="go_out" ActionTag="602022254" VisibleForFrame="False" Tag="80" IconVisible="False" LeftMargin="1340.0052" RightMargin="453.9948" TopMargin="1323.5868" BottomMargin="-75.5868" ctype="SpriteObjectData">
+          <AbstractNodeData Name="exit" ActionTag="602022254" VisibleForFrame="False" Tag="80" IconVisible="False" LeftMargin="1340.0052" RightMargin="453.9948" TopMargin="1323.5868" BottomMargin="-75.5868" ctype="SpriteObjectData">
             <Size X="254.0000" Y="288.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="1467.0052" Y="68.4132" />

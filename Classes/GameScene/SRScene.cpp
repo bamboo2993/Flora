@@ -47,15 +47,10 @@ SRScene::SRScene() {
 	_bWalk = false; //detect if player is walking
 
 	//判斷 walk
-
-	_bpickObj = false;
 	
 	_bsolve[0] =false;
 	_bsolve[1] = false;
 	_clear = false;
-	for (size_t i = 0; i < 5; i++){
-		_btouch[i] = false;
-	}
 	_ibagState = 0;
 
 	_btogger[0] = false;
@@ -79,7 +74,7 @@ SRScene::~SRScene()
 	xmlTrigger::getInstance()->updateTriggerXML(CURRENT_SCENE, _pTrigger);
 	xmlBag::getInstance()->sortItems();
 
-	CBag::getInstance()->destroyInstance();
+	//CBag::getInstance()->destroyInstance();
 	xmlItem::getInstance()->destroyInstance();
 	xmlTrigger::getInstance()->destroyInstance();
 	xmlBag::getInstance()->destroyInstance();
@@ -198,7 +193,7 @@ bool SRScene::init()
 	//set bag =================================================================
 
 
-	CBag::getInstance()->Init(Point(172, -115), _pTrigger);
+	//CBag::getInstance()->Init(Point(172, -115), _pTrigger);
 	this->addChild(CBag::getInstance(), 1000);
 
 
@@ -319,7 +314,7 @@ void SRScene::SetObject() {
 
 
 	//set talk area===============================
-	a = (cocos2d::Sprite*)_rootNode->getChildByName("go_out");
+	a = (cocos2d::Sprite*)_rootNode->getChildByName("exit");
 	size = a->getContentSize();
 	pos = a->getPosition();
 	size.width = size.width*1.71f;
@@ -474,11 +469,13 @@ void SRScene::doStep(float dt){
 void SRScene::PickObject(float dt) {	
 	if (_bopenNode[0]) {
 		_player->SetFront(true);
+		_player->Mirror(false);
 		_procedure[0]->doStep(dt);
 	}
 
 	else if (_bopenNode[1]) {
 		_player->Mirror(true);
+		_player->SetFront(false);
 		_procedure[1]->doStep(dt);	
 
 	}
@@ -490,6 +487,7 @@ void SRScene::PickObject(float dt) {
 
 	else if (_openTalk[0] || _openTalk[1]) {
 		_player->Mirror(true);
+		_player->SetFront(false);
 		const char* x;
 		if (_talkContent==0) x = "dialoge/SR/SR_corner01.png";
 		else if(_talkContent == 1)x = "dialoge/SR/SR_corner02.png";
@@ -503,6 +501,8 @@ void SRScene::PickObject(float dt) {
 	}
 
 	else if (_openTalk[2]) {
+		_player->Mirror(true);
+		_player->SetFront(true);	
 		const char* x;
 		if (_talkContent) x = "dialoge/SR/SR_sofa01.png";
 		else x = "dialoge/SR/SR_sofa02.png";
@@ -511,6 +511,8 @@ void SRScene::PickObject(float dt) {
 		_openTalk[2] = false;
 	}
 	else if (_openTalk[3]) {
+		_player->Mirror(false);
+		_player->SetFront(false);
 		const char* x;
 		if (_talkContent == 0) x = "dialoge/SR/SR_shelf01.png";
 		else if (_talkContent == 1) x = "dialoge/SR/SR_shelf02.png";
@@ -537,8 +539,6 @@ void SRScene::reset() {
 
 	// reset scene===============================
 	_bWalk = false; //detect if player is walking
-
-	_bpickObj = false;
 	
 	_zNode[0]->setVisible(false);
 	_zNode[1]->setVisible(false);
@@ -771,6 +771,7 @@ void  SRScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸
 						/*_pTrigger[1].touchesBegan(_touchLoc);*/
 						//_procedure[1]->TouchBegan(_touchLoc);
 
+
 						if (!_procedure[2]->GetOpen()) {
 							if (_toggerRect[1].containsPoint(_touchLoc)) {
 								if (!_btogger[1]) {
@@ -781,6 +782,8 @@ void  SRScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸
 							}
 
 							else if (_closeRect.containsPoint(_touchLoc)) {
+								_player->Mirror(true);
+								_player->SetFront(false);
 								_bopenNode[3] = !_bopenNode[3];
 								_zNode[3]->setVisible(false);
 
@@ -860,30 +863,30 @@ void  SRScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸
 				else {
 					if (!_ibagState) {
 
-						if (_talkRect[3].containsPoint(_touchLoc)) {
-							_touchTalk[3] = true;
-							_bWalk = 1;
-							_player->setPreviousPosition();
-							_talkContent = rand() % 3;
-						}
-						else {
-							_openTalk[3] = false;
-							_touchTalk[3] = false;
-						}
+						//放大鏡沒開 --------------
+						if (!_bopenNode[0] && !_bopenNode[1] && !_bopenNode[2]) {
+							if (_talkRect[3].containsPoint(_touchLoc)) {
+								_touchTalk[3] = true;
+								_bWalk = 1;
+								_player->setPreviousPosition();
+								_talkContent = rand() % 3;
+							}
+							else {
+								_openTalk[3] = false;
+								_touchTalk[3] = false;
+							}
 
-						if (_outRect.containsPoint(_touchLoc)) {
-							_touchOut = true;
-							_bWalk = 1;
-							_player->setPreviousPosition();
+							if (_outRect.containsPoint(_touchLoc)) {
+								_touchOut = true;
+								_bWalk = 1;
+								_player->setPreviousPosition();
+							}
+							else {
+								_openOut = false;
+								_touchOut = false;
+							}
 						}
-						else {
-							_openTalk[3] = false;
-							_touchTalk[3] = false;
-						}
-
-						////player walk =====================================================
-
-
+						
 						//znode[0]開---------------------
 						if (_bopenNode[0]) {
 							//_pTrigger[0].touchesBegan(_touchLoc);

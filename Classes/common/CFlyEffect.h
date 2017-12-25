@@ -1,7 +1,7 @@
 #pragma once
 #include "cocos2d.h"
 
-#define GRAVITY -0.09
+#define GRAVITY -10
 
 USING_NS_CC;
 
@@ -19,7 +19,7 @@ public:
 	void setPic(const std::string& picImage);
 
 	void setFly(Point pos);
-	bool doStep();
+	bool doStep(float dt);
 	
 };
 

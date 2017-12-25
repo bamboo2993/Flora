@@ -1,13 +1,15 @@
 #include "CPlayer.h"
 #include <cmath>
 
-#define PIXEL_SEC 100
+#define PIXEL_SEC 400
 
 USING_NS_CC;
 
 
 CPlayer::CPlayer(const char*  front, const char*  back, cocos2d::Layer &parent)
 {
+	type = 1;
+	_bfront = true;
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Animation/ater.plist");
@@ -42,6 +44,7 @@ CPlayer::CPlayer(const char*  front, const char*  back, cocos2d::Layer &parent)
 
 CPlayer::CPlayer(bool isBack, cocos2d::Layer &parent, Point pos, bool isFacingR)
 {
+	type = 0;
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Animation/ater_1.plist");
@@ -178,15 +181,27 @@ void CPlayer::Stop() {
 	_player->stopAction(_action[1]);
 	bStop = true;
 
-	//if (_bfront) {
-	//	_player->setSpriteFrame(_cstand[0]);
-	//}
-	//else {
-	//	_player->setSpriteFrame(_cstand[1]);
-	//}
+	if (type) {
+
+		if (_bfront) {
+			_player->setSpriteFrame(_cstand[0]);
+		}
+		else {
+			_player->setSpriteFrame(_cstand[1]);
+		}
+	}
+
 }
 
-
+void CPlayer::SetFront(bool b) {
+	_bfront = b;
+	if (_bfront) {
+		_player->setSpriteFrame(_cstand[0]);
+	}
+	else {
+		_player->setSpriteFrame(_cstand[1]);
+	}
+}
 
 void CPlayer::Stop(bool isBack) {
 	_player->stopAction(_action[0]);
@@ -222,7 +237,7 @@ bool CPlayer::Walk(Point i) {
 	float fx = i.x - _rpos.x;
 	float fy = i.y - _rpos.y;
 	float t = sqrt(fx*fx + fy*fy);
-	if (t >= 1.0f) {
+	if (t >= 5.0f) {
 		_player->setPosition(_rpos.x + fx*0.016666f * PIXEL_SEC / t, _rpos.y + fy*0.016666f * PIXEL_SEC / t);
 		return true;
 	}
@@ -278,12 +293,4 @@ void CPlayer::setZOrder(int n) {
 	_player->setZOrder(n);
 }
 
-void CPlayer::SetFront(bool b) {
-	_bfront = b;
-	if (_bfront) {
-		_player->setSpriteFrame(_cstand[0]);
-	}
-	else {
-		_player->setSpriteFrame(_cstand[1]);
-	}
-}
+

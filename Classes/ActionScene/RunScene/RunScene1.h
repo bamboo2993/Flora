@@ -24,7 +24,7 @@ private:
 
 
 	cocos2d::Sprite *_blur[3];
-	cocos2d::Sprite *_win;
+
 
 
 	cocos2d::Point _fg1Loc[2];	// _fgnode1 的前景物件產生的位置
@@ -57,6 +57,7 @@ private:
 
 	//runner===========================================
 	CRunner *_runner;
+	Point _runPt;
 
 	// button===============================
 	CButton *_pause;
@@ -98,6 +99,8 @@ public:
 	bool onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent); //觸碰開始事件
 	void onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent); //觸碰移動事件
 	void onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent); //觸碰結束事件 
+
+	void keyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event);
 
 																	   // implement the "static create()" method manually
 	CREATE_FUNC(RunScene1);
