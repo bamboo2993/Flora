@@ -87,6 +87,12 @@ SRScene::~SRScene()
 //	this->removeAllChildren();
 	SpriteFrameCache::getInstance()->removeUnusedSpriteFrames();
 	Director::getInstance()->getTextureCache()->removeUnusedTextures();
+
+	if(_lock!=NULL)	delete _lock;
+	if (_player != NULL)delete _player;
+	if (_procedure != NULL)delete[] _procedure;
+//	if (_pTrigger != NULL)delete _pTrigger;
+
 }
 
 // on "init" you need to initialize your instance

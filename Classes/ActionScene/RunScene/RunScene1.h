@@ -73,6 +73,7 @@ private:
 	Sprite *_pic105;
 	float _picTimeCount;
 
+	bool once = false;
 
 public:
 	~RunScene1();

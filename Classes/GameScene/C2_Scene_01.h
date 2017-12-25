@@ -37,6 +37,8 @@ public:
 	static int _from;
 
 	C2_Scene_01();
+	~C2_Scene_01();
+
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
     virtual bool init();
 	void doStep(float dt);

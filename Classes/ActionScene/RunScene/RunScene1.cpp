@@ -281,7 +281,10 @@ void RunScene1::Setbg() {
 void RunScene1::doStep(float dt)
 {
 	if (!_aniStop) {
-
+		/*if (!once) {
+			SimpleAudioEngine::getInstance()->playBackgroundMusic("../music/opendoor.mp3", true);
+			once = true;
+		}*/
 		if (_skip) {
 			_pic105->setVisible(false);
 			if (_opendoorAnimation_2->skip(dt)&&_opendoorAnimation_1->skip(dt)) {
@@ -319,6 +322,7 @@ void RunScene1::doStep(float dt)
 	}
 	else
 	{
+
 	// 每秒前景往左移動 MOVESPEED 個PIXEL
 		if (_bStart && !_bpause && !_bwin) {
 

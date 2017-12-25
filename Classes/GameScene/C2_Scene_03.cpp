@@ -30,6 +30,13 @@ C2_Scene_03::C2_Scene_03() {
 	}
 	_isWalking = false;
 }
+
+C2_Scene_03::~C2_Scene_03() {
+	AnimationCache::destroyInstance();  // 釋放 AnimationCache 取得的資源
+	SpriteFrameCache::getInstance()->removeUnusedSpriteFrames();
+	Director::getInstance()->getTextureCache()->removeUnusedTextures();
+	delete _boy;
+}
 // on "init" you need to initialize your instance
 bool C2_Scene_03::init()
 {
