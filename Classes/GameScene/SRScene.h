@@ -108,7 +108,7 @@ private:
 
 	int _talkContent = 0;
 
-	// go out=================
+	// exit=================
 	cocos2d::Rect	_outRect;
 	bool _touchOut;
 	bool _openOut;

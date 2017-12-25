@@ -97,6 +97,7 @@ public:
 	bool touchesBegan(cocos2d::Point inPos);
 	bool touchesMoved(cocos2d::Point inPos);
 	int touchesEnded(cocos2d::Point inPos, int bagstate, const char* scene, CTrigger *trigger);
+	int touchesEnded(cocos2d::Point inPos, int bagstate, const char * scene);
 	bool LightboxState();
 };
 

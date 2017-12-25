@@ -99,6 +99,7 @@ void CBag::Init(Point pos, CTrigger* trigger) {
 
 }
 
+
 void CBag::doStep(float dt) {
 	_flyState =_flyNode->doStep();
 
@@ -498,6 +499,115 @@ int CBag::touchesEnded(cocos2d::Point inPos, int bagstate, const char* scene, CT
 		
 	}
 	if (_itemDetail->GetOpen() && inPos.y> 230.0f) _itemDetail->TouchBegan(inPos, bagstate,"a"); //check itemdetail close
+
+	return(-1);
+}
+
+
+int CBag::touchesEnded(cocos2d::Point inPos, int bagstate, const char* scene) {
+	_bagState = bagstate;
+	//use items in bag===========================================
+	for (size_t i = 0; i < ItemNum; i++) {
+
+		if (_obj[i]->GetCanUse() == true) {
+			auto type = _obj[i]->touchesEnded(inPos, _bagState, scene, i, _pageNum, _itemDetail->GetOpen());
+			//[USE OBJECT IN SCENE]==================
+			if (type == 1) {
+				log("used obj");
+				if (!_obj[i]->GetStagnant()) { // if object is not stagnant
+											   // when item is being used
+					xmlBag::getInstance()->setBagState(i, false); // save item data
+
+					if (_obj[i]->GetRetake()) { //if the item can be retake when it is used
+						auto name = xmlBag::getInstance()->getItemName(i);
+						int code = xmlBag::getInstance()->getTriggerCode(i); //read data from xml (get item's trigger code)
+						auto triggerScene = xmlItem::getInstance()->getTriggerSceneXML(name);
+
+						auto ret = strcmp(triggerScene, scene);
+
+						if (ret) {
+							//when trigger scene is not current scene, save changes in xml
+							xmlTrigger::getInstance()->setTriggerStateXML(triggerScene, code, true);
+						}
+					}
+
+					_obj[i]->SetCanUse(false); //item cannot be used again
+					DeleteItem(_obj[i]); // delete from bag
+				}
+
+
+
+				return i; // i is used for mixing/ doing things
+			}
+			//xmlBag::getInstance()->getNameFromArrangement
+			//[ITEM DETAIL + MIX ITEM]
+			else if (type >1) {
+				//see item detail --------------------
+				if (type == 1000) {
+
+					// observe item
+					auto detail = xmlItem::getInstance()->getItemDescriptionXML(_obj[i]->GetName());
+					_itemDetail->TouchBegan(inPos, bagstate, detail);
+
+					if (bagstate == 2) {
+
+						_itemDetail->setLocalZOrder(3);
+					}
+					else if (bagstate == 1) {
+						_itemDetail->setLocalZOrder(1);
+					}
+
+					return(-1);
+				}
+				//mix item in bag-----------------------------
+				auto ToBe = type - 5;
+				int Border;
+				if (_bagState == 1) {
+					Border = _obj[i]->detectUse(inPos);
+					Border = Border + 7 * (_pageNum - 1);
+				}
+				else if (_bagState == 2) Border = _obj[i]->detectUse(inPos, true);
+
+				auto Bnum = xmlBag::getInstance()->getNumFromArrangement(Border);
+
+				auto newObj = xmlItem::getInstance()->getItemNameXML(ToBe);
+				if (!_obj[i]->GetStagnant()) {
+					DeleteItem(_obj[i]); // delete the used item from bag
+				}
+
+				auto oldObj = _obj[Bnum]->GetName();
+
+				//set new item ...........
+				_obj[Bnum]->Clear(); //clear origin pic
+				_obj[Bnum]->Init(newObj); //set new item
+				_obj[Bnum]->SetVisible(true); // shows in bag
+
+											  //get data from xml..........
+				auto targetNum = xmlItem::getInstance()->getTargetNumXML(newObj);
+				cocos2d::Rect target[2];
+				target[0] = xmlItem::getInstance()->getTargetRectXML(newObj);
+				if (targetNum>1) target[1] = xmlItem::getInstance()->getTargetRectXML(newObj, 2);
+				bool isStagnant = xmlItem::getInstance()->getStagnantXML(newObj);
+				auto canRetake = xmlItem::getInstance()->getRetakeXML(newObj);
+
+				//set values for obj........
+				for (int i = 0; i < targetNum; i++) {
+					_obj[Bnum]->SetTarget(target[i]); //set target rect
+				}
+
+				_obj[Bnum]->SetStagnant(isStagnant); // set it to be always in bag
+				if (canRetake) _obj[Bnum]->SetRetake();
+
+
+				xmlBag::getInstance()->setBagState(oldObj, newObj); // save item data
+
+				return(-1);
+			}
+
+		}
+
+	}
+	if (_itemDetail->GetOpen() && inPos.y> 230.0f) _itemDetail->TouchBegan(inPos, bagstate, "a"); //check itemdetail close
 
 	return(-1);
 }

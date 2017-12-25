@@ -14,8 +14,8 @@
         <trigger code="9">true</trigger>
     </scene>
     <scene scene="GRScene.cpp">
-        <trigger code="0">true</trigger>
-        <trigger code="1">true</trigger>
+        <trigger code="0">false</trigger>
+        <trigger code="1">false</trigger>
     </scene>
     <scene scene="labScene.cpp">
         <trigger code="0">true</trigger>

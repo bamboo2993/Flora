@@ -4,6 +4,8 @@
 //#include <unordered_map>
 //#include "ActionScene\RunScene\CObject.h"
 
+#include "GameScene\BR_Scene.h"
+
 USING_NS_CC;
 
 #define MOVESPEED 250
@@ -173,6 +175,12 @@ bool RunScene1::init()
 
 
 	//-------------------------------------------------------------------------------------------------
+
+
+	//key
+	auto keyboardListener = EventListenerKeyboard::create();
+	keyboardListener->onKeyPressed = CC_CALLBACK_2(RunScene1::keyPressed, this);
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(keyboardListener, this);
 
 	_listener1 = EventListenerTouchOneByOne::create();	//創建一個一對一的事件聆聽器
 	_listener1->onTouchBegan = CC_CALLBACK_2(RunScene1::onTouchBegan, this);		//加入觸碰開始事件
@@ -680,4 +688,14 @@ void  RunScene1::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //
 	_pause->touchesEnded(touchLoc);
 
 	
+}
+
+
+
+void RunScene1::keyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event) {
+	if (keyCode == EventKeyboard::KeyCode::KEY_A) {
+		this->unschedule(schedule_selector(RunScene1::doStep));
+		SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+		Director::getInstance()->replaceScene(BR_Scene::createScene());
+	}
 }

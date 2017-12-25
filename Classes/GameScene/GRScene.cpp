@@ -1,5 +1,6 @@
 #include "GRScene.h"
 #include "cocostudio/CocoStudio.h"
+#include "GameScene/C2_Scene_03.h"
 
 #define ROOT_NODE   "GRScene.csb"
 #define CURRENT_SCENE   "GRScene.cpp"
@@ -18,7 +19,7 @@
 
 #define BACKGROUND_FRONT "GR_S02"
 
-#define SPEED 2
+#define SPEED 6
 
 USING_NS_CC;
 
@@ -72,7 +73,7 @@ GRScene::~GRScene()
 	xmlTrigger::getInstance()->updateTriggerXML(CURRENT_SCENE, _pTrigger);
 	xmlBag::getInstance()->sortItems();
 
-	CBag::getInstance()->destroyInstance();
+	//CBag::getInstance()->destroyInstance();
 	xmlItem::getInstance()->destroyInstance();
 	xmlTrigger::getInstance()->destroyInstance();
 	xmlBag::getInstance()->destroyInstance();
@@ -123,9 +124,6 @@ bool GRScene::init()
 	_zNode[2] = (cocos2d::Node*)_rootNode->getChildByName("Node_GR_Z03");
 	addChild(_zNode[2], 300);
 
-
-
-
 	// 音效與音樂 --------------------------------------------------------------------------------
 
 	//SimpleAudioEngine::getInstance()->playBackgroundMusic("../music/GR_bgm.mp3", true);
@@ -159,7 +157,27 @@ bool GRScene::init()
 		_spotRect[i] = Rect(pos.x - size.width*1.5f / 2, pos.y - size.height*1.5f / 2, size.width*1.5f, size.height*1.5f);
 	}
 
+	//talkAreas
+	auto talkArea = (cocos2d::Sprite*)_rootNode->getChildByName("talkArea_0");
+	Size size = talkArea->getContentSize();
+	Point pos = talkArea->getPosition();
+	_talkAreaRect[0] = Rect(pos.x - size.width*1.4f / 2, pos.y - size.height*1.3f / 2, size.width*1.4f, size.height*1.3f);
+	
+	talkArea = (cocos2d::Sprite*)_rootNode->getChildByName("talkArea_1");
+	size = talkArea->getContentSize();
+	pos = talkArea->getPosition();
+	_talkAreaRect[1] = Rect(pos.x - size.width*0.5 / 2, pos.y - size.height / 2, size.width*0.5, size.height);
 
+	talkArea = (cocos2d::Sprite*)_rootNode->getChildByName("talkArea_2");
+	size = talkArea->getContentSize();
+	pos = talkArea->getPosition();
+	_talkAreaRect[2] = Rect(pos.x - size.width*4 / 2, pos.y - size.height*1.7f / 2, size.width*4, size.height*1.7f);
+
+
+	talkArea = (cocos2d::Sprite*)_rootNode->getChildByName("exit");
+	size = talkArea->getContentSize();
+	pos = talkArea->getPosition();
+	_exitRect = Rect(pos.x - size.width*1.5f / 2, pos.y - size.height*0.5f / 2, size.width*1.5f, size.height*0.5f);
 
 	//set lightbox (experimental procedure) =================================================================
 	_procedure[0] = CLightbox::create();
@@ -286,251 +304,54 @@ void GRScene::SetObject() {
 void GRScene::doStep(float dt){
 	
 	//walk===================================
-	//////只能在設定範圍走=============================
-	/*if (_bWalk && _bwithinArea) { //when player walk within walkable region
-		
-		if (_player->getPosition().x >= LINE_X-3) {
-			if (_TargetLoc.x >= LINE_X) {
-				_player->Walk(_TargetLoc);
-				_player->go(_TargetLoc);
-				if (_player->Walk(_TargetLoc) == false) {
-					_bWalk = 0;
-					//if (_bonObj) _bpickObj = true; //pick up obj
-					_bpickObj = true; //pick up obj
-				}
-			}
-			else {
-				_player->Walk(Vec2(_TargetLoc.x, _player->getPreviousPosition().y));
-				_player->go(Vec2(_TargetLoc.x, _player->getPreviousPosition().y));
-				if (_player->Walk(_TargetLoc) == false) {
-					_bWalk = 0;
-					//if (_bonObj) _bpickObj = true; //pick up obj
-					_bpickObj = true; //pick up obj
-				}
-			}
-		}
-		else {
-			if (_TargetLoc.x <= LINE_X) {
-				_player->Walk(_TargetLoc);
-				_player->go(_TargetLoc);
-				if (_player->Walk(_TargetLoc) == false) {
-					_bWalk = 0;
-					//if (_bonObj) _bpickObj = true; //pick up obj
-					_bpickObj = true; //pick up obj
-				}
-			}
-			else {
-				_player->Walk(Vec2(LINE_X,_TargetLoc.y));
-				_player->go(Vec2(LINE_X, _TargetLoc.y));
-				if (_player->Walk(_TargetLoc) == false) {
-					_bWalk = 0;
-					//if (_bonObj) _bpickObj = true; //pick up obj
-					_bpickObj = true; //pick up obj
-				}
-			}
-		}
-
-
-
-	}
 	
-	else if (_bWalk) { // when touched obj in scene that can be picked up
-		
-		// A
-		if (_touchLoc.y >  WALK_AREA_1.getMaxY() && _touchLoc.x > WALK_AREA_1.getMinX() && _touchLoc.x < WALK_AREA_2.getMidX()) {
-			log("walk A");
-			if (_player->getPreviousPosition().x < WALK_AREA_1.getMaxX()) {
-				_player->Walk(Vec2(_touchLoc.x, WALK_AREA_1.getMaxY()));
-				_player->go(Vec2(_touchLoc.x, WALK_AREA_1.getMaxY()));
-				if (_player->Walk(Vec2(_touchLoc.x, WALK_AREA_1.getMaxY())) == false) {
-					_bWalk = 0;
-					//if (_bonObj) _bpickObj = true; //pick up obj
-					_bpickObj = true; //pick up obj
-				}
-			}
-			else {
-				_player->Walk(Vec2(WALK_AREA_3.getMinX(), WALK_AREA_3.getMaxY()));
-				_player->go(Vec2(WALK_AREA_3.getMinX(), WALK_AREA_3.getMaxY()));
-				if (_player->Walk(Vec2(WALK_AREA_3.getMinX(), WALK_AREA_3.getMaxY())) == false) {
-					_bWalk = 0;
-					//if (_bonObj) _bpickObj = true; //pick up obj
-					_bpickObj = true; //pick up obj
-				}
-			}
-		}
-
-		// A-1
-		else if (_touchLoc.y >  WALK_AREA_1.getMaxY() && _touchLoc.x < WALK_AREA_1.getMinX()) {
-			log("walk A-1");
-
-			if (_player->getPreviousPosition().y < WALK_AREA_3.getMidY()) {
-				_player->Walk(Vec2(WALK_AREA_1.getMinX(), WALK_AREA_1.getMaxY()));
-				_player->go(Vec2(WALK_AREA_1.getMinX(), WALK_AREA_1.getMaxY()));
-				if (_player->Walk(Vec2(WALK_AREA_1.getMinX(), WALK_AREA_1.getMaxY())) == false) {
-					_bWalk = 0;
-					//if (_bonObj) _bpickObj = true; //pick up obj
-					_bpickObj = true; //pick up obj
-				}
-			}
-			else  {
-				if (_player->getPosition().y-200 >= WALK_AREA_1.getMaxY()+3) {
-					
-					_player->Walk(Vec2(875.57f, WALK_AREA_1.getMaxY()));
-					_player->go(Vec2(875.57f, WALK_AREA_1.getMaxY()));
-				}
-				else {
-					_player->Walk(Vec2(WALK_AREA_1.getMinX(), WALK_AREA_1.getMaxY()));
-					_player->go(Vec2(WALK_AREA_1.getMinX(), WALK_AREA_1.getMaxY()));
-					if (_player->Walk(Vec2(WALK_AREA_1.getMinX(), WALK_AREA_1.getMaxY())) == false) {
-						_bWalk = 0;
-						//if (_bonObj) _bpickObj = true; //pick up obj
-						_bpickObj = true; //pick up obj
-					}
-				}
-			}	
-		}
-
-		// A-2
-		else if (_touchLoc.y <  WALK_AREA_1.getMaxY() && _touchLoc.x < WALK_AREA_1.getMinX()) {
-			log("walk A-2");
-
-			if (_player->getPreviousPosition().x < WALK_AREA_3.getMinX()) {
-				_player->Walk(Vec2(WALK_AREA_1.getMinX(), _touchLoc.y));
-				_player->go(Vec2(WALK_AREA_1.getMinX(), _touchLoc.y));
-				if (_player->Walk(Vec2(WALK_AREA_1.getMinX(), _touchLoc.y)) == false) {
-					_bWalk = 0;
-					//if (_bonObj) _bpickObj = true; //pick up obj
-					_bpickObj = true; //pick up obj
-				}
-			}
-			else {
-				if (_player->getPosition().x > WALK_AREA_3.getMinX()+3 && _player->getPosition().y-200 > WALK_AREA_2.getMidY() + 3) {
-					_player->Walk(Vec2(WALK_AREA_3.getMinX(), WALK_AREA_2.getMidY()));
-					_player->go(Vec2(WALK_AREA_3.getMinX(), WALK_AREA_2.getMidY()));
-
-				}
-				else {
-					_player->Walk(Vec2(WALK_AREA_1.getMinX(), _touchLoc.y));
-					_player->go(Vec2(WALK_AREA_1.getMinX(), _touchLoc.y));
-					if (_player->Walk(Vec2(WALK_AREA_1.getMinX(), _touchLoc.y)) == false) {
-						_bWalk = 0;
-						//if (_bonObj) _bpickObj = true; //pick up obj
-						_bpickObj = true; //pick up obj
-					}
-				}
-			}
-		}
-
-		//B
-		else if (_touchLoc.y >  WALK_AREA_3.getMaxY() && _touchLoc.x > WALK_AREA_3.getMinX() && _touchLoc.x < WALK_AREA_3.getMaxX()) {
-			log("walk B");
-			_player->Walk(Vec2(WALK_AREA_3.getMidX(), WALK_AREA_3.getMidY()));
-			_player->go(Vec2(WALK_AREA_3.getMidX(), WALK_AREA_3.getMidY()));
-			if (_player->Walk(Vec2(WALK_AREA_3.getMidX(), WALK_AREA_3.getMidY())) == false) {
-				_bWalk = 0;
-				//if (_bonObj) _bpickObj = true; //pick up obj
-				_bpickObj = true; //pick up obj
-			}
-
-		}
-
-		//C
-		else if (_touchLoc.y >  WALK_AREA_4.getMaxY() && _touchLoc.x > WALK_AREA_4.getMinX() && _touchLoc.x < WALK_AREA_4.getMaxX()) {
-			log("walk C");
-			if (_player->getPreviousPosition().x < WALK_AREA_1.getMaxX()) {
-				
-				if (_player->getPosition().x < WALK_AREA_3.getMinX() - 3) {
-					_player->Walk(Vec2(WALK_AREA_3.getMinX(), WALK_AREA_3.getMinY()));
-					_player->go(Vec2(WALK_AREA_3.getMinX(), WALK_AREA_3.getMinY()));
-				}
-
-				else {
-					_player->Walk(Vec2(WALK_AREA_4.getMidX(), WALK_AREA_4.getMaxY()));
-					_player->go(Vec2(WALK_AREA_4.getMidX(), WALK_AREA_4.getMaxY()));
-					if (_player->Walk(Vec2(WALK_AREA_4.getMidX(), WALK_AREA_4.getMaxY())) == false) {
-						_bWalk = 0;
-						//if (_bonObj) _bpickObj = true; //pick up obj
-						_bpickObj = true; //pick up obj
-					}
-				}
-
-				
-
-			}
-			else {
-				_player->Walk(Vec2(WALK_AREA_4.getMidX(), WALK_AREA_4.getMaxY()));
-				_player->go(Vec2(WALK_AREA_4.getMidX(), WALK_AREA_4.getMaxY()));
-				if (_player->Walk(Vec2(WALK_AREA_4.getMidX(), WALK_AREA_4.getMaxY())) == false) {
-					_bWalk = 0;
-					//if (_bonObj) _bpickObj = true; //pick up obj
-					_bpickObj = true; //pick up obj
-				}
-			}
-
-		}
-
-		//D
-		else if (_touchLoc.y >  WALK_AREA_5.getMaxY() && _touchLoc.x > WALK_AREA_4.getMaxX()) {
-			log("walk D");
-
-			if (_player->getPreviousPosition().x > WALK_AREA_5.getMinX()) {
-
-				_player->Walk(Vec2(_touchLoc.x, WALK_AREA_5.getMaxY()));
-				_player->go(Vec2(_touchLoc.x, WALK_AREA_5.getMaxY()));
-				if (_player->Walk(Vec2(_touchLoc.x, WALK_AREA_5.getMaxY())) == false) {
-					_bWalk = 0;
-					//if (_bonObj) _bpickObj = true; //pick up obj
-					_bpickObj = true; //pick up obj
-				}
-
-			}
-			else {
-
-
-				if (_player->getPosition().y-200 > WALK_AREA_5.getMinY() - 3) {
-					_player->Walk(Vec2(_touchLoc.x, WALK_AREA_5.getMaxY()));
-					_player->go(Vec2(_touchLoc.x, WALK_AREA_5.getMaxY()));
-					if (_player->Walk(Vec2(_touchLoc.x, WALK_AREA_5.getMaxY())) == false) {
-						_bWalk = 0;
-						//if (_bonObj) _bpickObj = true; //pick up obj
-						_bpickObj = true; //pick up obj
-					}
-				}
-
-				else {
-					_player->Walk(Vec2(WALK_AREA_3.getMidX(), WALK_AREA_5.getMinY()));
-					_player->go(Vec2(WALK_AREA_3.getMidX(), WALK_AREA_5.getMinY()));
-					
-				}
-			}
-		}
-	}
-
-	else {
-		_player->Stop();
-	}*/
 
 	if (_toSpot[0]) {
-		if (!_player->GetReachSpot(0)) {
-			if (ToSpot0(dt)) {
-				_isWalking = false;
-				_toSpot[0] = false;
-			}
+		if (ToSpot0(dt)) {
+			_isWalking = false;
+			_toSpot[0] = false;
+			this->unschedule(schedule_selector(GRScene::doStep));
+			C2_Scene_03::_from = 8;
+			Director::getInstance()->replaceScene(C2_Scene_03::createScene());
 		}
+
 	}
 	if (_toSpot[1]) {
-		if (!_player->GetReachSpot(1)) {
-			if (ToSpot1(dt)) {
-				_isWalking = false;
-				_toSpot[1] = false;
+		if (ToSpot1(dt)) {
+			_isWalking = false;
+			_toSpot[1] = false;
+			if (_btouchNode[0]) {
+				_bopenNode[0] = true;	// openNode0
+				_btouchNode[0] = !_btouchNode[0];
+			}
+			else //talk
+			{
+				_player->Mirror(false);
+				_player->Stop(false);
+				_player->Talk("dialoge/GR/GR_bed02.PNG", true);
+				_player->SetIsTalking(true);
 			}
 		}
 	}
 	if (_toSpot[2]) {
-		if (!_player->GetReachSpot(0)) {
-			if (ToSpot2(dt)) {
-				_isWalking = false;
-				_toSpot[2] = false;
+		if (ToSpot2(dt)) {
+			_isWalking = false;
+			_toSpot[2] = false;
+			if (_btouchNode[1]) {
+				_bopenNode[1] = true;	// openNode1
+				_btouchNode[1] = !_btouchNode[1];
+			}
+			else if (_btouchNode[2])
+			{
+				_bopenNode[2] = true; // openNode2
+				_btouchNode[2] = false;					
+			}
+			else //talk sofa
+			{
+				_player->Mirror(false);
+				_player->Stop(false);
+				_player->Talk("dialoge/GR/GR_sofa01.PNG",false);
+				_player->SetIsTalking(true);
 			}
 		}
 	}
@@ -545,45 +366,9 @@ void GRScene::doStep(float dt){
 void GRScene::PickObject(float dt) {
 
 	// pick up obj ==========================
-	if (_bpickObj) { // when item in scene is being touched
-		// check which trigger is being touched
-		//log("_bpickObj = true");
-	
-		 //create the corresponding item in bag
-
-
-		//open node=========
-		if (_btouchNode[0]) {
-			_zNode[0]->setVisible(true);
-
-			_bopenNode[0] = !_bopenNode[0];
-			_btouchNode[0] = !_btouchNode[0];
-			//log("show detect");
-
-		}
-		else if (_btouchNode[1]) {
-			_zNode[1]->setVisible(true);
-
-			_bopenNode[1] = !_bopenNode[1];
-			_btouchNode[1] = !_btouchNode[1];
-			//log("show detect node2");
-
-		}
-
-		else if (_btouchNode[2]) {
-			_zNode[2]->setVisible(true);
-
-			_bopenNode[2] = !_bopenNode[2];
-			_btouchNode[2] = !_btouchNode[2];
-			//log("show detect node3");
-
-		}
-
-		_bpickObj = false;
-
-	}
 
 	if (_bopenNode[0]) {
+		_zNode[0]->setVisible(true);
 
 		_pTrigger[0].doStep(dt);
 
@@ -608,6 +393,7 @@ void GRScene::PickObject(float dt) {
 
 
 	else if (_bopenNode[1]) {
+		_zNode[1]->setVisible(true);
 		_pTrigger[1].doStep(dt);
 
 		if (_bsolve[0]) {
@@ -636,6 +422,7 @@ void GRScene::PickObject(float dt) {
 
 	}
 	else if (_bopenNode[2]) {
+		_zNode[2]->setVisible(true);
 		if (_bsolve[1]) _procedure[2]->doStep(dt);
 	}
 
@@ -690,8 +477,6 @@ bool GRScene::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)//觸碰
 		xmlBag::getInstance()->sortItems();
 	}
 
-
-
 	//swipe gesture
 	_startX = _touchLoc.x;
 	_startY = _touchLoc.y;
@@ -702,9 +487,6 @@ bool GRScene::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)//觸碰
 		CBag::getInstance()->touchesBegan(_touchLoc);
 
 	}
-
-	
-
 	return true;
 }
 
@@ -731,235 +513,256 @@ void  GRScene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) //觸
 	float offsetX = _touchLoc.x - _startX;
 	float offsetY = _touchLoc.y - _startY;
 
-	if (_ibagState != 2) {
-
-		// [WALK + PICK OBJECT]===================
-		if (offsetX == 0 && offsetY == 0 && !CBag::getInstance()->LightboxState()) { // when screen tapped
-			if (_touchLoc.y > 227) {
-				//walk area ====================================
-			
-
-				////player walk =====================================================
-
-				//放大鏡沒開 --------------
-				if (!_bopenNode[0] && !_bopenNode[1] && !_bopenNode[2]) {
-					//沒按重置-------------
-					if (!_resetRect.containsPoint(_touchLoc)) {
-						_bWalk = 1;
-						_player->setPreviousPosition();
-						//-------------------------------
-						_TargetLoc = _touchLoc;
-
-						//====================================
-
-					}
-					else {
-						// reset button=========================
-						reset();
-						//talk
-					}
-
-				}
+	if (_player->GetIsTalking()) {
+		_player->StopTalking();
+		_player->SetIsTalking(false);
+	}
+	else
+	{
 
 
 
+		if (_ibagState != 2) {
 
-				//znode[0]開---------------------
-				if (_bopenNode[0]) {
-					_bwithinArea = false;
-					_pTrigger[0].touchesBegan(_touchLoc);
+			// [WALK + PICK OBJECT]===================
+			if (offsetX == 0 && offsetY == 0 && !CBag::getInstance()->LightboxState()) { // when screen tapped
+				if (_touchLoc.y > 227) {
+					//walk area ====================================
 
-					if (_closeRect.containsPoint(_touchLoc)) {
-						_bopenNode[0] = !_bopenNode[0];
-						_zNode[0]->setVisible(false);
-						log("close detect");
-					}
-
-				}
-				//znode[1]開---------------------
-				else if (_bopenNode[1]) {
-					_bwithinArea = false;
-					_pTrigger[1].touchesBegan(_touchLoc);
-
-					if (!_procedure[0]->GetOpen() && !_procedure[1]->GetOpen() && !_procedure[3]->GetOpen()) {
-						if (_closeRect.containsPoint(_touchLoc)) {
-							_bopenNode[1] = !_bopenNode[1];
-							_zNode[1]->setVisible(false);
-							log("close detect");
-						}
-					}
-					if (_bsolve[0]) {
-						_procedure[0]->TouchBegan(_touchLoc);
-						_procedure[3]->TouchBegan(_touchLoc);
-					}
-					_procedure[1]->TouchBegan(_touchLoc);
-
-					
-				}
-				//znode[2]開---------------------
-				else if (_bopenNode[2]) {
-					_bwithinArea = false;
-					if (!_procedure[2]->GetOpen()) {
-						if (_closeRect.containsPoint(_touchLoc)) {
-							_bopenNode[2] = !_bopenNode[2];
-							_zNode[2]->setVisible(false);
-							log("close detect");
-						}
-					}
-
-					if (_bsolve[1])_procedure[2]->TouchBegan(_touchLoc);
-
-					
-				}
-
-
-				//0
-				if (!_bopenNode[0] && _detectRect[0].containsPoint(_touchLoc)) {
-					_btouchNode[0] = true;
-
-					log("touched detect");
-				}
-				else if (!_bopenNode[0] && !_detectRect[0].containsPoint(_touchLoc)) {
-					_btouchNode[0] = false;
-				}
-				//1
-				if (!_bopenNode[1] && _detectRect[1].containsPoint(_touchLoc)) {
-					_btouchNode[1] = true;
-					log("touched detect node2");
-				}
-				else if (!_bopenNode[1] && !_detectRect[1].containsPoint(_touchLoc)) {
-					_btouchNode[1] = false;
-				}
-				//2
-				if (!_bopenNode[2] && _detectRect[2].containsPoint(_touchLoc)) {
-					_btouchNode[2] = true;
-					log("touched detect node2");
-				}
-				else if (!_bopenNode[2] && !_detectRect[2].containsPoint(_touchLoc)) {
-					_btouchNode[2] = false;
-				}
-			}
-			else {
-				if (_ibagState == 0) {
-
-					
 
 					////player walk =====================================================
 
 					//放大鏡沒開 --------------
 					if (!_bopenNode[0] && !_bopenNode[1] && !_bopenNode[2]) {
+						//沒按重置-------------
+						if (!_resetRect.containsPoint(_touchLoc)) {
+							if (_talkAreaRect[0].containsPoint(_touchLoc) || _talkAreaRect[1].containsPoint(_touchLoc))
+							{
+								_toSpot[1] = true;
+								log("bed");
+							}
+							//====================================
 
-						_bWalk = 1;
-						_player->setPreviousPosition();
+						}
+						else {
+							// reset button=========================
+							reset();
+							//talk
+						}
 
-						//-------------------------------
-						_TargetLoc = _touchLoc;
+					}
 
-						//====================================
+
+
+
+					//znode[0]開---------------------
+					if (_bopenNode[0]) {
+						_bwithinArea = false;
+						_pTrigger[0].touchesBegan(_touchLoc);
+
+						if (_closeRect.containsPoint(_touchLoc)) {
+							_bopenNode[0] = !_bopenNode[0];
+							_zNode[0]->setVisible(false);
+							log("close detect");
+						}
+
+					}
+					//znode[1]開---------------------
+					else if (_bopenNode[1]) {
+						_bwithinArea = false;
+						_pTrigger[1].touchesBegan(_touchLoc);
+
+						if (!_procedure[0]->GetOpen() && !_procedure[1]->GetOpen() && !_procedure[3]->GetOpen()) {
+							if (_closeRect.containsPoint(_touchLoc)) {
+								_bopenNode[1] = !_bopenNode[1];
+								_zNode[1]->setVisible(false);
+								log("close detect");
+							}
+						}
+						if (_bsolve[0]) {
+							_procedure[0]->TouchBegan(_touchLoc);
+							_procedure[3]->TouchBegan(_touchLoc);
+						}
+						_procedure[1]->TouchBegan(_touchLoc);
+
+
+					}
+					//znode[2]開---------------------
+					else if (_bopenNode[2]) {
+						_bwithinArea = false;
+						if (!_procedure[2]->GetOpen()) {
+							if (_closeRect.containsPoint(_touchLoc)) {
+								_bopenNode[2] = !_bopenNode[2];
+								_zNode[2]->setVisible(false);
+								log("close detect");
+							}
+						}
+
+						if (_bsolve[1])_procedure[2]->TouchBegan(_touchLoc);
+
+
+					}
+
+
+					//0
+					if (!_bopenNode[0] && _detectRect[0].containsPoint(_touchLoc)) {
+						_btouchNode[0] = true;
+						_toSpot[1] = true;
+						log("touched detect");
+					}
+					else if (!_bopenNode[0] && !_detectRect[0].containsPoint(_touchLoc)) {
+						_btouchNode[0] = false;
+					}
+					//1
+					if (!_bopenNode[1] && _detectRect[1].containsPoint(_touchLoc)) {
+						_btouchNode[1] = true;
+						_toSpot[2] = true;
+						log("touched detect node2");
+					}
+					else if (!_bopenNode[1] && !_detectRect[1].containsPoint(_touchLoc)) {
+						_btouchNode[1] = false;
+					}
+					//2
+					if (!_bopenNode[2] && _detectRect[2].containsPoint(_touchLoc)) {
+						_btouchNode[2] = true;
+						_toSpot[2] = true;
+						log("touched detect node2");
+					}
+					else if (!_bopenNode[2] && !_detectRect[2].containsPoint(_touchLoc)) {
+						_btouchNode[2] = false;
+					}
+				}
+				else {
+					if (_ibagState == 0) {
+
+
+
+						////player walk =====================================================
+
+						//放大鏡沒開 --------------
+						if (!_bopenNode[0] && !_bopenNode[1] && !_bopenNode[2]) {
+
+							if (_spotRect[0].containsPoint(_touchLoc)) {
+								_toSpot[0] = true;
+							}
+							else if (_talkAreaRect[2].containsPoint(_touchLoc))
+							{
+								_toSpot[2] = true;
+								log("sofa");
+							}
+
+							else if (_exitRect.containsPoint(_touchLoc))
+							{
+								_toSpot[0] = true;
+								log("exit");
+							}
+
+
+							//====================================
+
+						}
+
 
 					}
 
 
 				}
-				
-					
+
+
 			}
 
 
 		}
 
 
-	}
+		//=====================================================================
+		// open/close/swipe bag-------
+		if (!CBag::getInstance()->itemdrag() && !CBag::getInstance()->LightboxState()) {
+			if (!_ibagState && _startY < BAG_OPEN_HEIGHT) { // when touched y< set height
 
-	
-	//=====================================================================
-	// open/close/swipe bag-------
-	if (!CBag::getInstance()->itemdrag() && !CBag::getInstance()->LightboxState()) {
-		if (!_ibagState && _startY < BAG_OPEN_HEIGHT) { // when touched y< set height
-
-														// bag oppened set bag and item position----------------------
-			if (fabs(offsetX) < fabs(offsetY) && offsetY > 0) {
-				CBag::getInstance()->setPosition(172, 115);
-				_ibagState = 1;
-				log("bag open state:1");
-
-			}
-		}
-
-		else if (_ibagState == 2) {
-
-			if (fabs(offsetX) < fabs(offsetY)) { // close bag
-				if (offsetY < 0) { //down
-					CBag::getInstance()->ToStateOne();
+															// bag oppened set bag and item position----------------------
+				if (fabs(offsetX) < fabs(offsetY) && offsetY > 0) {
+					CBag::getInstance()->setPosition(172, 115);
 					_ibagState = 1;
 					log("bag open state:1");
 
 				}
 			}
-		}
 
+			else if (_ibagState == 2) {
 
-		else if (_ibagState == 1 && _startY <= BAG_CLOSE_HEIGHT) {
-			//if (_bbagOn && _startY <= BAG_CLOSE_HEIGHT) {
+				if (fabs(offsetX) < fabs(offsetY)) { // close bag
+					if (offsetY < 0) { //down
+						CBag::getInstance()->ToStateOne();
+						_ibagState = 1;
+						log("bag open state:1");
 
-			// bag oppened set bag and item position----------------------
-			if (fabs(offsetX) < fabs(offsetY) && offsetY > 0) {
-				CBag::getInstance()->ToStateTwo();
-				_ibagState = 2;
-				log("bag open state:2");
-
-			}
-
-			else if (fabs(offsetX) < fabs(offsetY)) { // close bag
-				if (offsetY < 0) { //down
-					CBag::getInstance()->setPosition(172, -115);
-					_ibagState = 0;
-					log("bag close");
-
-
+					}
 				}
 			}
 
 
+			else if (_ibagState == 1 && _startY <= BAG_CLOSE_HEIGHT) {
+				//if (_bbagOn && _startY <= BAG_CLOSE_HEIGHT) {
 
-		}
-	}
+				// bag oppened set bag and item position----------------------
+				if (fabs(offsetX) < fabs(offsetY) && offsetY > 0) {
+					CBag::getInstance()->ToStateTwo();
+					_ibagState = 2;
+					log("bag open state:2");
+
+				}
+
+				else if (fabs(offsetX) < fabs(offsetY)) { // close bag
+					if (offsetY < 0) { //down
+						CBag::getInstance()->setPosition(172, -115);
+						_ibagState = 0;
+						log("bag close");
 
 
+					}
+				}
 
-	//use items in bag===========================================
-	if (_ibagState) { //when bag is open
-		int i;
-		i = CBag::getInstance()->touchesEnded(_touchLoc, _ibagState, CURRENT_SCENE, _pTrigger);
 
-		//to detect item used and its effect-------
-		if (i >= 0) {
-			// mix mix
-
-			// add sound
-
-			if (!strcmp(xmlBag::getInstance()->getItemName(i), "B_sudoku.png")) {
-				// add debranch
-				//_grinding->playEffect();
-				_xmlscene->editItemState("GR_Z03_01", true, _zNode[2], 0, 4);
-				_xmlscene->editItemState("GR_S01_01", true, _rootNode, 0, 4);
-				_bsolve[1] = true;
 
 			}
+		}
 
-			else if (!strcmp(xmlBag::getInstance()->getItemName(i), "B_akey.png")) {
-				// add debranch
-				//_grinding->playEffect();
-				_xmlscene->editItemState("GR_Z02_01", true, _zNode[1], 2, 3);
-				_bsolve[0] = true;
+
+
+		//use items in bag===========================================
+		if (_ibagState) { //when bag is open
+			int i;
+			i = CBag::getInstance()->touchesEnded(_touchLoc, _ibagState, CURRENT_SCENE, _pTrigger);
+
+			//to detect item used and its effect-------
+			if (i >= 0) {
+				// mix mix
+
+				// add sound
+
+				if (!strcmp(xmlBag::getInstance()->getItemName(i), "B_sudoku.png")) {
+					// add debranch
+					//_grinding->playEffect();
+					_xmlscene->editItemState("GR_Z03_01", true, _zNode[2], 0, 4);
+					_xmlscene->editItemState("GR_S01_01", true, _rootNode, 0, 4);
+					_bsolve[1] = true;
+
+				}
+
+				else if (!strcmp(xmlBag::getInstance()->getItemName(i), "B_akey.png")) {
+					// add debranch
+					//_grinding->playEffect();
+					_xmlscene->editItemState("GR_Z02_01", true, _zNode[1], 2, 3);
+					_bsolve[0] = true;
+
+				}
+
+
 
 			}
-
-
-
 		}
 	}
-
 }
 void GRScene::ClearToSpot() {
 	for (int i = 0; i < 6; i++) {

@@ -72,7 +72,7 @@
             <FileData Type="PlistSubImage" Path="GR_Z03_01.png" Plist="GameScene/GRScene/GRScene.plist" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="close" ActionTag="826016699" Tag="50" IconVisible="False" LeftMargin="1.8614" RightMargin="-144.8615" TopMargin="-1535.2035" BottomMargin="1391.2035" ctype="SpriteObjectData">
+          <AbstractNodeData Name="close" ActionTag="826016699" Tag="50" IconVisible="False" LeftMargin="1.8614" RightMargin="-144.8614" TopMargin="-1535.2035" BottomMargin="1391.2035" ctype="SpriteObjectData">
             <Size X="143.0000" Y="144.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="73.3614" Y="1463.2035" />
@@ -80,7 +80,7 @@
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />
             <PreSize X="0.0000" Y="0.0000" />
-            <FileData Type="Normal" Path="common/go back.png" Plist="" />
+            <FileData Type="Normal" Path="go back2.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
           <AbstractNodeData Name="cola_1" ActionTag="-518259923" VisibleForFrame="False" Tag="96" IconVisible="False" LeftMargin="909.4200" RightMargin="-982.4200" TopMargin="-399.7800" BottomMargin="328.7800" ctype="SpriteObjectData">

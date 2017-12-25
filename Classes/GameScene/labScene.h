@@ -11,7 +11,6 @@
 #include "common\CPlayer.h"
 
 #include "common\CTrigger.h"
-#include "common\CItem.h"
 #include "common\CLightbox.h"
 
 #include "common\xmlTrigger.h"
@@ -109,7 +108,10 @@ private:
 	bool _openTalk[TALK_AREA];
 
 	int _talkContent = 0;
-
+	// exit=================
+	cocos2d::Rect	_outRect;
+	bool _touchOut;
+	bool _openOut;
 public:
 	labScene();
 	~labScene();

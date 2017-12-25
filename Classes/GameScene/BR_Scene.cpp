@@ -4,9 +4,14 @@
 
 #include "GameScene\C2_Scene_03.h"
 
-USING_NS_CC;
-#define SPEED 3
 using namespace cocostudio::timeline;
+USING_NS_CC;
+
+#define SPEED 3
+#define BAG_OPEN_HEIGHT 150.0f
+#define BAG_CLOSE_HEIGHT 250.0f
+
+#define CURRENT_SCENE   "BR_Scene.cpp"
 
 Scene* BR_Scene::createScene()
 {
@@ -70,12 +75,16 @@ bool BR_Scene::init()
 		_spot[i] = (cocos2d::Sprite*)rootNode->getChildByName(tmp);
 		Size size = _spot[i]->getContentSize();
 		Point pos = _spot[i]->getPosition();
-		_spotRect[i] = Rect(pos.x-size.width*1.5/2, pos.y-size.height*1.5/2, size.width*1.5f, size.height*1.5f);
+		_spotRect[i] = Rect(pos.x-size.width*2.5/2, pos.y-size.height*2.5/2, size.width*2.5f, size.height*2.5f);
 	}
+	Size size = _spot[3]->getContentSize();
+	Point pos = _spot[3]->getPosition();
+	_spotRect[3] = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.width*2.5f, size.height*1.5f);
+
 
 	_spot[5] = (cocos2d::Sprite*)rootNode->getChildByName("spot_5");
-	Size size = _spot[5]->getContentSize();
-	Point pos = _spot[5]->getPosition();
+	size = _spot[5]->getContentSize();
+	pos = _spot[5]->getPosition();
 	_spotRect[5] = Rect(pos.x - size.width*22 / 2, pos.y - size.height*3.8 / 2, size.width*22, size.height*3.8f);
 
 
@@ -94,6 +103,13 @@ bool BR_Scene::init()
 	_newspaper->setVisible(false);
 	this->addChild(_newspaper, 25);
 
+	//set bag =================================================================
+
+
+	CBag::getInstance()->Init(Point(172, -115), _pTrigger);
+	this->addChild(CBag::getInstance(), 1000);
+
+
 	//touch
 	_listener1 = EventListenerTouchOneByOne::create();	
 	_listener1->onTouchBegan = CC_CALLBACK_2(BR_Scene::onTouchBegan, this);
@@ -106,14 +122,16 @@ bool BR_Scene::init()
 }
 
 void BR_Scene::doStep(float dt) {
+	if (_boy->getPosition().x < 550)
+		log("%f,%f", _boy->getPosition().x, _boy->getPosition().y);
 	if (_toSpot[0]) {
-		if (!_boy->GetReachSpot(0)) {
+	//	if (!_boy->GetReachSpot(0)) {
 			if (ToSpot0(dt)) {
 				_isWalking = false;
 				_toSpot[0] = false;
 				//talk		
 			}
-		}
+	//	}
 		else
 		{
 		//talk
@@ -180,49 +198,281 @@ void BR_Scene::doStep(float dt) {
 }
 
 bool BR_Scene::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) {
-	Point touchLoc = pTouch->getLocation();
+	_touchLoc = pTouch->getLocation();
 	//testing
 	if (!_newspaper->GetOpen()) {
 		if (!_isWalking) {
 			ClearToSpot();
-			if (_talkAreaRect[0].containsPoint(touchLoc)) {
+			if (_talkAreaRect[0].containsPoint(_touchLoc)) {
 				_toSpot[2] = true;
 				log("2");
 			}
-			else if (_talkAreaRect[2].containsPoint(touchLoc) || _talkAreaRect[1].containsPoint(touchLoc)) {
+			else if (_talkAreaRect[2].containsPoint(_touchLoc) || _talkAreaRect[1].containsPoint(_touchLoc)) {
 				_toSpot[0] = true;
 				log("0");
 			}
-			else if (_talkAreaRect[4].containsPoint(touchLoc)) {
+			else if (_talkAreaRect[4].containsPoint(_touchLoc)) {
 				_toSpot[4] = true;
 				log("4");
 			}
-			else if (_talkAreaRect[3].containsPoint(touchLoc)) {
+			else if (_talkAreaRect[3].containsPoint(_touchLoc)) {
 				_toSpot[1] = true;
 				log("1");
 			}
-			else if (_spotRect[5].containsPoint(touchLoc)) {
+			else if (_spotRect[5].containsPoint(_touchLoc)) {
 				_toSpot[5] = true;
 				log("5");
 			}
-			else if (_newspaper->TouchBegan(touchLoc)) {
+			else if (_newspaper->TouchBegan(_touchLoc)) {
 				_toSpot[2] = true;
 			}
 		}	
 	}
-	else
-	{
-		_newspaper->TouchBegan(touchLoc);
+	else{
+		_newspaper->TouchBegan(_touchLoc);
 	}
-	return false;
+
+
+
+	//swipe gesture
+	_startX = _touchLoc.x;
+	_startY = _touchLoc.y;
+
+	if (!_boy->GetIsTalking()) {
+		if (_ibagState) { //when bag is open
+			//use items in bag===========================================
+			CBag::getInstance()->touchesBegan(_touchLoc);
+
+		}
+	}
+	return true;
 }
 
 void BR_Scene::onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) {
-
+	_touchLoc = pTouch->getLocation();
+	if (!_boy->GetIsTalking()) {
+		//use items in bag===========================================
+		if (_ibagState) { //when bag is open
+			CBag::getInstance()->touchesMoved(_touchLoc);
+		}
+	}
+	log("moved");
 }
 
 void BR_Scene::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) {
+	Point touchLoc = pTouch->getLocation();
 
+	_touchLoc = pTouch->getLocation();
+
+
+	//swipe gesture
+	float offsetX = _touchLoc.x - _startX;
+	float offsetY = _touchLoc.y - _startY;
+
+	if (!_boy->GetIsTalking()) {
+		if (_ibagState != 2) {
+
+			// [WALK + PICK OBJECT]===================
+			if (offsetX == 0 && offsetY == 0 && !CBag::getInstance()->LightboxState()) { // when screen tapped
+				if (_touchLoc.y > 227) {
+
+					////player walk =====================================================
+
+					//放大鏡沒開 --------------
+					if (!_bopenNode) {
+						//沒按重置-------------
+						if (!_resetRect.containsPoint(_touchLoc)) {
+
+							if (!_isWalking) {
+								ClearToSpot();
+								if (_talkAreaRect[0].containsPoint(_touchLoc)) {
+									_toSpot[2] = true;
+									log("2");
+								}
+								else if (_talkAreaRect[2].containsPoint(_touchLoc) || _talkAreaRect[1].containsPoint(_touchLoc)) {
+									_toSpot[0] = true;
+									log("0");
+								}
+								else if (_talkAreaRect[4].containsPoint(_touchLoc)) {
+									_toSpot[4] = true;
+									log("4");
+								}
+								else if (_talkAreaRect[3].containsPoint(_touchLoc)) {
+									_toSpot[1] = true;
+									log("1");
+								}
+								else if (_spotRect[5].containsPoint(_touchLoc)) {
+									_toSpot[5] = true;
+									log("5");
+								}
+								else if (_newspaper->TouchBegan(_touchLoc)) {
+									_toSpot[2] = true;
+								}
+							}
+
+						}
+						else {
+							// reset button=========================
+							//reset();
+						}
+
+
+
+					}
+
+
+
+
+					//znode[0]開---------------------
+					if (_bopenNode) {
+						_pTrigger[1].touchesBegan(_touchLoc);
+						_pTrigger[2].touchesBegan(_touchLoc);
+						_pTrigger[3].touchesBegan(_touchLoc);
+						_pTrigger[4].touchesBegan(_touchLoc);
+						_pTrigger[5].touchesBegan(_touchLoc);
+
+						if (_closeRect.containsPoint(_touchLoc)) {
+							_bopenNode[0] = !_bopenNode[0];
+							_zNode[0]->setVisible(false);
+							log("close detect");
+						}
+
+					}
+					
+
+					if (!_isWalking) {
+						//0
+						if (!_bopenNode[0] && _detectRect[0].containsPoint(_touchLoc)) {
+							_btouchNode[0] = true;
+
+							_bWalk = 1;
+							_player->setPreviousPosition();
+
+							if (_touchLoc.x > _player->_rpos.x) {
+								_player->_isFacingRight = 1;
+								_player->Mirror();
+							}
+							else {
+								_player->_isFacingRight = 0;
+								_player->Mirror();
+							}
+
+							//-------------------------------
+							_TargetLoc = _touchLoc;
+
+							log("touched detect");
+						}
+						else if (!_bopenNode[0] && !_detectRect[0].containsPoint(_touchLoc)) {
+							_btouchNode[0] = false;
+						}
+						
+					}
+
+
+
+
+				}
+				else {
+					if (!_ibagState) {
+
+						//放大鏡沒開 --------------
+						if (!_bopenNode[0] && !_bopenNode[1] && !_bopenNode[2]) {
+							//沒按重置-------------
+
+							//====================================
+
+							if (_outRect.containsPoint(_touchLoc)) {
+								_touchOut = true;
+								_bWalk = 1;
+								_player->setPreviousPosition();
+							}
+							else {
+								_openOut = false;
+								_touchOut = false;
+							}
+						}
+
+					}
+				}
+
+			}
+
+
+		}
+		//=====================================================================
+		// open/close/swipe bag-------
+		if (!CBag::getInstance()->itemdrag() && !CBag::getInstance()->LightboxState()) {
+			if (!_ibagState && _startY < BAG_OPEN_HEIGHT) { // when touched y< set height
+
+															// bag oppened set bag and item position----------------------
+				if (fabs(offsetX) < fabs(offsetY) && offsetY > 0) {
+					CBag::getInstance()->setPosition(172, 115);
+					_ibagState = 1;
+					log("bag open state:1");
+
+				}
+			}
+
+			else if (_ibagState == 2) {
+
+				if (fabs(offsetX) < fabs(offsetY)) { // close bag
+					if (offsetY < 0) { //down
+						CBag::getInstance()->ToStateOne();
+						_ibagState = 1;
+						log("bag open state:1");
+
+					}
+				}
+			}
+
+
+			else if (_ibagState == 1 && _startY <= BAG_CLOSE_HEIGHT) {
+				//if (_bbagOn && _startY <= BAG_CLOSE_HEIGHT) {
+
+				// bag oppened set bag and item position----------------------
+				if (fabs(offsetX) < fabs(offsetY) && offsetY > 0) {
+					CBag::getInstance()->ToStateTwo();
+					_ibagState = 2;
+					log("bag open state:2");
+
+				}
+
+				else if (fabs(offsetX) < fabs(offsetY)) { // close bag
+					if (offsetY < 0) { //down
+						CBag::getInstance()->setPosition(172, -115);
+						_ibagState = 0;
+						log("bag close");
+
+
+					}
+				}
+
+
+
+			}
+		}
+
+
+
+		//use items in bag===========================================
+		if (_ibagState) { //when bag is open
+			int i;
+			i = CBag::getInstance()->touchesEnded(_touchLoc, _ibagState, CURRENT_SCENE);
+
+			//to detect item used and its effect-------
+			if (i >= 0) {
+				// mix mix
+
+				// add sound
+
+
+
+
+
+			}
+		}
+	}
+	log("end");
 }
 
 bool BR_Scene::ToSpot4(float dt) {
@@ -272,7 +522,7 @@ bool BR_Scene::ToSpot1(float dt) {
 		}
 		else if (_boy->GetReachSpot(0)) {
 			_isWalking = true;
-			_boy->Mirror(true);
+			_boy->Mirror(false);
 			_boy->go(false);
 			_boy->setPosition(Vec2(pos.x - 240.0f*SPEED*dt, pos.y - 100.0f*SPEED*dt));
 		}

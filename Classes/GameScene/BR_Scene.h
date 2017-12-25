@@ -1,9 +1,12 @@
-#ifndef __HELLOWORLD_SCENE_H__
-#define __HELLOWORLD_SCENE_H__
+#ifndef __BR_SCENE_H__
+#define __BR_SCENE_H__
 
 #include "cocos2d.h"
 #include "common\CPlayer.h"
 #include "common\CLightbox.h"
+
+#include "common\CTrigger.h"
+#include "common\CBag.h"
 
 using namespace cocos2d;
 
@@ -27,6 +30,18 @@ private:
 	Sprite *_talkArea[5];
 	Rect _talkAreaRect[5];
 	Sprite *_dialog[50];
+
+
+	CTrigger *_pTrigger; // items that can be taken: ÃÄ¤ô¥H red, green, blue, yellow ±Æ¦C¡B»]ÃH¤ô¡B¬Á¼þ´Î¡B¯óÃÄ
+	//bag=============================================
+	int _ibagState;
+
+	//Ä²±±-----------
+	cocos2d::Point _touchLoc;
+	cocos2d::Point _itempos;
+	float _startX, _startY;
+
+	int _iObjUsed;
 
 	//bag
 	CLightbox *_newspaper;

@@ -74,13 +74,13 @@ BMScene::BMScene() {
 }
 BMScene::~BMScene()
 {
-	xmlTrigger::getInstance()->updateTriggerXML(CURRENT_SCENE, _pTrigger);
+	//xmlTrigger::getInstance()->updateTriggerXML(CURRENT_SCENE, _pTrigger);
 	xmlBag::getInstance()->sortItems();
 
-	CBag::getInstance()->destroyInstance();
+	//CBag::getInstance()->destroyInstance();
 	xmlItem::getInstance()->destroyInstance();
 	xmlTrigger::getInstance()->destroyInstance();
-	xmlBag::getInstance()->destroyInstance();
+	//xmlBag::getInstance()->destroyInstance();
 
 //	this->removeAllChildren();
 	SpriteFrameCache::getInstance()->removeUnusedSpriteFrames();
@@ -670,11 +670,12 @@ void BMScene::doStep(float dt)
 		//// pick up obj ==========================
 		PickObject(dt);
 
-		/*if (_clear) {
+		if (_clear) {
+			CBag::getInstance()->reset();
 			this->unschedule(schedule_selector(BMScene::doStep));
 			SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 			Director::getInstance()->replaceScene(RunScene1::createScene());
-		}*/
+		}
 	}
 }
 

@@ -321,8 +321,8 @@ void CMix::doStep(float dt) {
 
 					if (_count == 1) {
 						if (! (!strcmp(_mixItem[0], "B_water.png") || !strcmp(_mixItem[0], "B_glassrod.png"))) {
-							//_xmlscene->editItemState(_ioriginalItem, false, _Node);
-							//_xmlscene->editItemState(_mixItem[0], true, _Node, _ioriginalItem, _ifailureItem);
+							_xmlscene->editItemState(_ioriginalItem, false, _Node);
+							_xmlscene->editItemState(_mixItem[0], true, _Node, _ioriginalItem, _ifailureItem);
 
 							//_itemSprite->setSpriteFrame(pic);
 							_currentSteps = 1;

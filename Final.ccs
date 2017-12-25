@@ -104,14 +104,8 @@
             <PlistImageFile Name="B_yellow.png" Key="B_yellow.png" />
             <PlistImageFile Name="bag.png" Key="bag.png" />
           </PlistImageFolder>
-          <Image Name="BB_akey.png" />
-          <Image Name="BB_sudoku.png" />
-          <Image Name="go back.png" />
           <PlistImageFolder Image="lock.png" PListFile="lock.plist" Name=".lock_PList.Dir">
-            <PlistImageFile Name="SR_L_01.png" Key="SR_L_01.png" />
-            <PlistImageFile Name="SR_L_02.png" Key="SR_L_02.png" />
-            <PlistImageFile Name="SR_L_03.png" Key="SR_L_03.png" />
-            <PlistImageFile Name="SR_L_04.png" Key="SR_L_04.png" />
+            <PlistImageFile Name="elock_ERROR.png" Key="elock_ERROR.png" />
             <PlistImageFile Name="elock00.png" Key="elock00.png" />
             <PlistImageFile Name="elock01.png" Key="elock01.png" />
             <PlistImageFile Name="elock02.png" Key="elock02.png" />
@@ -122,7 +116,6 @@
             <PlistImageFile Name="elock07.png" Key="elock07.png" />
             <PlistImageFile Name="elock08.png" Key="elock08.png" />
             <PlistImageFile Name="elock09.png" Key="elock09.png" />
-            <PlistImageFile Name="elock_ERROR.png" Key="elock_ERROR.png" />
             <PlistImageFile Name="lab_L_00.png" Key="lab_L_00.png" />
             <PlistImageFile Name="lab_L_01.png" Key="lab_L_01.png" />
             <PlistImageFile Name="lab_L_02.png" Key="lab_L_02.png" />
@@ -133,7 +126,14 @@
             <PlistImageFile Name="lab_L_07.png" Key="lab_L_07.png" />
             <PlistImageFile Name="lab_L_08.png" Key="lab_L_08.png" />
             <PlistImageFile Name="lab_L_09.png" Key="lab_L_09.png" />
+            <PlistImageFile Name="SR_L_01.png" Key="SR_L_01.png" />
+            <PlistImageFile Name="SR_L_02.png" Key="SR_L_02.png" />
+            <PlistImageFile Name="SR_L_03.png" Key="SR_L_03.png" />
+            <PlistImageFile Name="SR_L_04.png" Key="SR_L_04.png" />
           </PlistImageFolder>
+          <Image Name="BB_akey.png" />
+          <Image Name="BB_sudoku.png" />
+          <Image Name="go back.png" />
         </Folder>
         <Folder Name="fonts">
           <TTF Name="arial.ttf" />
@@ -371,6 +371,7 @@
         <Project Name="E_labScene_Node1.csd" Type="Node" />
         <Project Name="E_labScene_Node2.csd" Type="Node" />
         <Project Name="fgnode.csd" Type="Node" />
+        <Image Name="go back2.png" />
         <Image Name="GR_Z02_P01.png" />
         <Image Name="GR_Z02_P02.png" />
         <Image Name="GR_Z02_P03.png" />
@@ -398,6 +399,7 @@
         <Image Name="shell.png" />
         <Image Name="skip_normal.png" />
         <Project Name="SRScene.csd" Type="Scene" />
+        <Project Name="Node_BR_Z01.csd" Type="Node" />
       </RootFolder>
     </Group>
   </SolutionFolder>

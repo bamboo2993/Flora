@@ -3,6 +3,12 @@
 #include "C2_Scene_01.h"
 #include "GameScene\GRScene.h"
 
+
+#define BAG_OPEN_HEIGHT 150.0f
+#define BAG_CLOSE_HEIGHT 250.0f
+
+#define CURRENT_SCENE   "C2_Scene_03.cpp"
+
 USING_NS_CC;
 #define SPEED 2
 using namespace cocostudio::timeline;
@@ -75,7 +81,7 @@ bool C2_Scene_03::init()
 		_boy->setAnimation("Animation/boyanim.plist");
 		_boy->SetReachSpot(4, true);
 	}
-	else
+	else // from GR
 	{
 		_boy = new CPlayer(false, *this, Point(1170, 143.5), false);
 		_boy->setAnimation("Animation/boyanim.plist");
@@ -109,6 +115,14 @@ bool C2_Scene_03::init()
 	pos = _doorArea[1]->getPosition();
 	_doorRect[1] = Rect(pos.x - size.width / 2, pos.y - size.height / 2, size.width, size.height);
 
+
+	//set bag =================================================================
+
+
+	//CBag::getInstance()->Init(Point(172, -115), _pTrigger);
+	this->addChild(CBag::getInstance(), 1000);
+
+
 	//touch
 	_listener1 = EventListenerTouchOneByOne::create();	
 	_listener1->onTouchBegan = CC_CALLBACK_2(C2_Scene_03::onTouchBegan, this);
@@ -137,50 +151,35 @@ void C2_Scene_03::doStep(float dt) {
 	}
 	
 	if (_toSpot[2]) {
-		if (!_boy->GetReachSpot(2)) {
+	//	if (!_boy->GetReachSpot(2)) {
 			if (ToSpot2(dt)) {
 				_toSpot[2] = false;
 				_isWalking = false;
+				this->unschedule(schedule_selector(C2_Scene_03::doStep));
+				Director::getInstance()->replaceScene(GRScene::createScene());
 			}
-		}
+	//	}
 	}
 	if (_toSpot[3]) {
-		if (!_boy->GetReachSpot(3)) {
-			if (ToSpot3(dt)) {
-				_toSpot[3] = false;
-				_isWalking = false;
-				this->unschedule(schedule_selector(C2_Scene_03::doStep));
-				C2_Scene_02::_from = 1;
-				Director::getInstance()->replaceScene(C2_Scene_02::createScene());	
-			}
-		}
-		else
-		{
+		if (ToSpot3(dt)) {
+			_toSpot[3] = false;
+			_isWalking = false;
 			this->unschedule(schedule_selector(C2_Scene_03::doStep));
 			C2_Scene_02::_from = 1;
-			Director::getInstance()->replaceScene(C2_Scene_02::createScene());
+			Director::getInstance()->replaceScene(C2_Scene_02::createScene());	
 		}
+	
 	}
 	if (_toSpot[4]) {
-		if (!_boy->GetReachSpot(4)) {
-			if (ToSpot4(dt)) {
-				_toSpot[4] = false;
-				_isWalking = false;
-			}
+		if (ToSpot4(dt)) {
+			_toSpot[4] = false;
+			_isWalking = false;
 		}
 	}
 	if (_toSpot[5]) {
-		if (!_boy->GetReachSpot(5)) {
-			if (ToSpot5(dt)) {
-				_toSpot[5] = false;
-				_isWalking = false;
-				this->unschedule(schedule_selector(C2_Scene_03::doStep));
-				C2_Scene_01::_from = 3;
-				Director::getInstance()->replaceScene(C2_Scene_01::createScene());
-			}
-		}
-		else
-		{
+		if (ToSpot5(dt)) {
+			_toSpot[5] = false;
+			_isWalking = false;
 			this->unschedule(schedule_selector(C2_Scene_03::doStep));
 			C2_Scene_01::_from = 3;
 			Director::getInstance()->replaceScene(C2_Scene_01::createScene());
@@ -189,36 +188,137 @@ void C2_Scene_03::doStep(float dt) {
 }
 
 bool C2_Scene_03::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) {
-	Point touchLoc = pTouch->getLocation();
+	
+	_touchLoc = pTouch->getLocation();
+
 	//testing
 	if (!_isWalking) {
 		ClearToSpot();
-		if (_spotRect[0].containsPoint(touchLoc)) {
+		if (_spotRect[0].containsPoint(_touchLoc)) {
 			_toSpot[0] = true;
 		}
-		else if (_spotRect[3].containsPoint(touchLoc)) {
+		else if (_spotRect[3].containsPoint(_touchLoc)) {
 			_toSpot[3] = true;
 		}
-		else if (_spotRect[5].containsPoint(touchLoc)) {
+		else if (_spotRect[5].containsPoint(_touchLoc)) {
 			_toSpot[5] = true;
 		}
-		else if (_doorRect[0].containsPoint(touchLoc)) {
+		else if (_doorRect[0].containsPoint(_touchLoc)) {
 			_toSpot[2] = true;
 		}
-		else if (_doorRect[1].containsPoint(touchLoc)) {
+		else if (_doorRect[1].containsPoint(_touchLoc)) {
 			_toSpot[4] = true;
 		}
 	}
 
-	return false;
+
+	//swipe gesture
+	_startX = _touchLoc.x;
+	_startY = _touchLoc.y;
+
+	if (!_boy->GetIsTalking()) {
+		if (_ibagState) { //when bag is open
+			//use items in bag===========================================
+			CBag::getInstance()->touchesBegan(_touchLoc);
+
+		}
+	}
+	return true;
 }
 
 void C2_Scene_03::onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) {
 
+	_touchLoc = pTouch->getLocation();
+	if (!_boy->GetIsTalking()) {
+		//use items in bag===========================================
+		if (_ibagState) { //when bag is open
+			CBag::getInstance()->touchesMoved(_touchLoc);
+		}
+	}
 }
 
 void C2_Scene_03::onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent) {
+	_touchLoc = pTouch->getLocation();
 
+
+	//swipe gesture
+	float offsetX = _touchLoc.x - _startX;
+	float offsetY = _touchLoc.y - _startY;
+
+	if (!_boy->GetIsTalking()) {
+		//=====================================================================
+		// open/close/swipe bag-------
+		if (!CBag::getInstance()->itemdrag() && !CBag::getInstance()->LightboxState()) {
+			if (!_ibagState && _startY < BAG_OPEN_HEIGHT) { // when touched y< set height
+
+															// bag oppened set bag and item position----------------------
+				if (fabs(offsetX) < fabs(offsetY) && offsetY > 0) {
+					CBag::getInstance()->setPosition(172, 115);
+					_ibagState = 1;
+					log("bag open state:1");
+
+				}
+			}
+
+			else if (_ibagState == 2) {
+
+				if (fabs(offsetX) < fabs(offsetY)) { // close bag
+					if (offsetY < 0) { //down
+						CBag::getInstance()->ToStateOne();
+						_ibagState = 1;
+						log("bag open state:1");
+
+					}
+				}
+			}
+
+
+			else if (_ibagState == 1 && _startY <= BAG_CLOSE_HEIGHT) {
+				//if (_bbagOn && _startY <= BAG_CLOSE_HEIGHT) {
+
+				// bag oppened set bag and item position----------------------
+				if (fabs(offsetX) < fabs(offsetY) && offsetY > 0) {
+					CBag::getInstance()->ToStateTwo();
+					_ibagState = 2;
+					log("bag open state:2");
+
+				}
+
+				else if (fabs(offsetX) < fabs(offsetY)) { // close bag
+					if (offsetY < 0) { //down
+						CBag::getInstance()->setPosition(172, -115);
+						_ibagState = 0;
+						log("bag close");
+
+
+					}
+				}
+
+
+
+			}
+		}
+
+
+
+		//use items in bag===========================================
+		if (_ibagState) { //when bag is open
+			int i;
+			i = CBag::getInstance()->touchesEnded(_touchLoc, _ibagState, CURRENT_SCENE);
+
+			//to detect item used and its effect-------
+			if (i >= 0) {
+				// mix mix
+
+				// add sound
+
+
+
+
+
+			}
+		}
+	}
 }
 
 
